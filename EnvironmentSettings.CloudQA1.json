@@ -1,0 +1,31 @@
+{
+  "Environment": "CloudQA4",
+  "Browser": "Chrome",
+  "URL": "https://cloudqa4.ewqims.com/common/EwIMSNew/Index/Index",
+  "AppVersion": "5",
+  "Email": "Thani",
+  "Password": "test123",
+  "LogSwitch": "enabled",
+  "LogLanguage": "Json",
+  "FailLogLanguage": "Json"
+}
+
+/*
+
+*Browser Applicable values
+==========================
+==> 1.Chrome | 2.Firefox | 3.Edge | 4.Opera
+
+*LogSwitch Applicable values
+============================
+==> 1.enabled | 2.disabled
+  
+*LogLanguage Applicable values
+==============================
+==> 1.Xml | 2.Json
+
+*FailLogLanguage Applicable values
+==================================
+==> 1.Xml | 2.Json
+
+*/
