@@ -422,6 +422,7 @@ namespace OMNEX.AUTOMATION.Helpers
         {
             return _driver.FindElement(by).Displayed;
         }
+
         /// <summary>
         /// Verify if the element is clickable
         /// </summary>

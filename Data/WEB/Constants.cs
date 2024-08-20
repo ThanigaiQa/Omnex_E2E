@@ -10,5 +10,6 @@ namespace OMNEX.AUTOMATION.Data.WEB
     {
         public const string SAMPLE_PATH = "\\Data\\API\\Images\\ABC.jpeg";
         public const string Level = "AAABBBCCC";
+        public const string TagName = "Automation - ";
     }
 }

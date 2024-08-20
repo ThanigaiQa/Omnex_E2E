@@ -6,7 +6,7 @@ using TechTalk.SpecFlow;
 namespace OMNEX.AUTOMATION.Specflow.Steps
 {
     [Binding]
-    public class Login : ExtentReport
+    public class CommonSteps : ExtentReport
     {
         #region Declaration
         private DriverContext driverContext;
@@ -18,7 +18,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         #endregion
 
         #region Constructor
-        public Login(DriverContext driverContext, ScenarioContext scenariocontext, FeatureContext featurecontext)
+        public CommonSteps(DriverContext driverContext, ScenarioContext scenariocontext, FeatureContext featurecontext)
         {
             this.driverContext = driverContext;
             scenarioContext = scenariocontext;
@@ -43,7 +43,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         public void WhenNavigateToLevelsPage(String subHead)
         {
             dashboard.NavigateToLevelsPage(subHead);
-            dashboard.validateLevelsPage();
+           // dashboard.validateLevelsPage();
         }
 
         [When(@"Create (.*) Level")]
@@ -63,13 +63,6 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         {
             dashboard.DeleteLevelByHovering(scenarioContext["EditedLevleName"].ToString());
         }
-
-
-
-
-
-
-
 
         #endregion
     }

@@ -38,6 +38,17 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By inp_Levelname => By.XPath("//input[@id='txtLevelName']");
         By btn_save => By.XPath("//button[@id='btnSave']");
         By btn_refreshLevel => By.XPath("//*[local-name()='svg' and @id='btnreferesh']");
+        By btnAdd_MasterFolderTags => By.XPath("//button[@id='btn_add_hold']");
+        By tblAddPopup => By.XPath("//div[@id='AddRow']");
+        By phd_TagName => By.XPath("//input[@name='TagName']");
+        By btnSave_TagPopup => By.XPath("//button[contains(@class,'btn-success')]");
+        By lblTag => By.XPath("(//td[@class='sorting_1'])[1]");
+        By btnPencilIcon => By.XPath("(//span[@class='clsbtnedit'])[1]");
+        By chkTagname_Inactive => By.XPath("(//input[@name='FldrTagsGrid_selectCheck'])[1]");
+        By btn_DeleteTag => By.XPath("(//span[@alt='Delete'])[1]");
+        By btnYes_Popup => By.XPath("//button[@id='popup_ok']");
+
+
         #endregion
 
         #region Iframe
@@ -68,7 +79,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
                 seleniumActions.Click(lblSetup);
                 seleniumActions.Click(lblSuiteSetup);
                 seleniumActions.ScrollToElement(By.XPath("(//a[@class='submenu_list_link has-arrow']//following-sibling::ul[@class='inner_submenu']//span[contains(text(),'" + SubHead + "')])[2]"));
-                seleniumActions.Click(lblLevelsPage);
+                seleniumActions.Click(By.XPath("(//a[@class='submenu_list_link has-arrow']//following-sibling::ul[@class='inner_submenu']//span[contains(text(),'" + SubHead + "')])[2]"));
+                //seleniumActions.Click(lblLevelsPage);
 
             }
         }
@@ -137,6 +149,55 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(By.XPath("(//table[@class='Tbltitle']//ul[@id='TOCDoclvl']//a[contains(@title,'" + LevelName + "')]//following::*[local-name()='svg' and contains(@class,'trash')])[1]"));
             seleniumActions.Click(popUp_Yes);
         }
+
+        // ***************** Start of TC 02 ************ //
+
+        /// <summary>
+        /// Clicks add button and creates a new tag
+        /// </summary>
+        public void ClickAddButtonAndCreateNewTag()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.IsElementPresent(btnAdd_MasterFolderTags);
+            seleniumActions.Click(btnAdd_MasterFolderTags);
+            seleniumActions.IsElementPresent(tblAddPopup);
+            seleniumActions.SendKeys(phd_TagName, Constants.TagName + DateTime.Now.ToString());
+            seleniumActions.Click(btnSave_TagPopup);
+        }
+
+        /// <summary>
+        /// Click pencil icon and rename the existing tagname
+        /// </summary>
+        public void RenameTagName()
+        {
+            seleniumActions.Wait(2);
+            seleniumActions.IsElementPresent(lblTag);
+            seleniumActions.Click(chkTagname_Inactive);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(btnPencilIcon);
+            seleniumActions.SendKeys(phd_TagName, Keys.Clear);
+            seleniumActions.SendKeys(phd_TagName, "Updated " + Constants.TagName + DateTime.Now.ToString());
+            seleniumActions.Click(btnSave_TagPopup);
+            seleniumActions.Wait(4);
+            String tagName = seleniumActions.GetText(lblTag);
+            seleniumActions.Wait(3);
+            Assert.IsTrue(tagName.Contains("Updated"));
+        }
+
+        /// <summary>
+        /// Delete the newly created Tag 
+        /// </summary>
+        public void DeleteTag()
+        {
+            seleniumActions.Wait(3);
+            seleniumActions.Click(chkTagname_Inactive);
+            seleniumActions.Click(btn_DeleteTag);
+            seleniumActions.Click(btnYes_Popup);
+            Assert.IsFalse(seleniumActions.VerifyElementIsDisplayed(lblTag));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // ***************** End of TC 02 ************ //
 
         #endregion
     }
