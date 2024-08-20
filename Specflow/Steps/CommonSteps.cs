@@ -64,6 +64,12 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             dashboard.DeleteLevelByHovering(scenarioContext["EditedLevleName"].ToString());
         }
 
+        [When(@"I Navigate to (.*) Page")]
+        public void WhenINavigateToTeamsPage(String subHead)
+        {
+            dashboard.NavigateToSystemPage(subHead);
+        }
+
         #endregion
     }
 }

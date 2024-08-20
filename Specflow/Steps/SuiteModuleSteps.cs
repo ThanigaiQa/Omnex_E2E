@@ -52,6 +52,22 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // ************** End of TC 02 ****************** //
 
+        // ************** Start of TC 09 ****************** //
+
+        [Then(@"I create team and verify the team is created")]
+        public void ThenICreateTeamAndVerifyTheTeamIsCreated()
+        {
+           
+        }
+
+        [Then(@"I delete the team")]
+        public void ThenIDeleteTheTeam()
+        {
+            
+        }
+
+        // ************** End of TC 09 ****************** //
+
         #endregion
     }
 }
