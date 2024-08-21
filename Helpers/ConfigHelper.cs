@@ -50,9 +50,9 @@ namespace OMNEX.AUTOMATION.Helpers
         {
             return GetConfig()["FailLogLanguage"];
         }
-        public static string GetEmail()
+        public static string GetThaniUser()
         {
-            return GetConfig()["Email"];
+            return GetConfig()["ThaniUser"];
         }
         public static string GetPassword()
         {
@@ -61,6 +61,18 @@ namespace OMNEX.AUTOMATION.Helpers
         public static string GetAppVersion()
         {
             return GetConfig()["AppVersion"];
+        }
+        public static string GetRightsUser()
+        {
+            return GetConfig()["RightsUser"];
+        }
+        public static string GetDocProUser()
+        {
+            return GetConfig()["DocProUser"];
+        }
+        public static string GetAdminUser()
+        {
+            return GetConfig()["AdminUser"];
         }
     }
 }

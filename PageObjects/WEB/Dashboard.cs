@@ -47,8 +47,28 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By chkTagname_Inactive => By.XPath("(//input[@name='FldrTagsGrid_selectCheck'])[1]");
         By btn_DeleteTag => By.XPath("(//span[@alt='Delete'])[1]");
         By btnYes_Popup => By.XPath("//button[@id='popup_ok']");
-
         By lblSystem => By.XPath("//div[@class='sub-menu']//span[contains(text(),'System')]");
+        By btnNew_TeamsPage => By.XPath("(//div[@id='TeamsListGrid']//button[@Title='New'])[1]");
+        By btnSelectTeamLeader => By.XPath("(//input[@id='leaderName']//following::span[@class='input-group-text'])[1]");
+        By rdoUserBasedSearchChecked => By.XPath("//input[@id='rdUserBaseSearch' and @checked='checked']");
+        By phd_Name => By.XPath("//div[@id='userListingGridControl_wrapper']//input[@type='search']");
+        By lblTeamLeader_SearchResult => By.XPath("//table[@id='userListingGridControl']//td[@class='sorting_1']");
+        By chkTeamLeaderInactive => By.XPath("//table[@id='userListingGridControl']//tr[@class='odd']//input[@type='checkbox']");
+        By chkTeamLeaderActive => By.XPath("//table[@id='userListingGridControl']//tr[@class='odd selected']//input[@type='checkbox']");
+        By btn_Done => By.XPath("//button[@title='Done']");
+        By txtTeamName => By.XPath("//input[@id='team']");
+        By lblTeamLeader => By.XPath("//label[text()='Team Leader']");
+        By btnAdd_TeamsPage => By.XPath("(//button[@id='AddExtMem'])[1]");
+        By txtExternalMemberName => By.XPath("(//input[@class='ClsExtMemberName'])[1]");
+        By txtExternalMemberMail => By.XPath("(//input[@class='ClsExtMemberMail'])[1]");
+        By btnAddMembers_TeamsPage => By.XPath("//button[@title='Add Members']");
+        By lblAddedTeam => By.XPath("(//tr[@role='row']//td[@class='sorting_1']//a)[1]");
+        By chkTeamInactive => By.XPath("(//table[@id='Grid_TeamListing']//tr[@class='odd']//input[@type='checkbox'])[1]");
+        By chkTeamActive => By.XPath("(//table[@id='Grid_TeamListing']//tr[@class='odd selected']//input[@type='checkbox'])[1]");
+        By btnDelete_TeamsPage => By.XPath("(//button[@id='btnDelete'])[1]");
+        By lblDeletedSuccessMessage => By.XPath("//div[contains(@class,'alert-dismissible')]");
+        By btnClose_TeamsPage => By.XPath("//button[@title='Close']");
+        By tblRow => By.XPath("//tbody/tr[@role='row']");
 
 
         #endregion
@@ -56,6 +76,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         #region Iframe
         static By iframe_DetailView => By.XPath("//iframe[@name='Detailview']");
         static By iframe_Tree => By.XPath("//iframe[@id='iframeTree']");
+        static By iframe_ifrUsers => By.XPath("//iframe[@id='ifrUsers']");
         //static By[] iframes = { iframe_DetailView, iframe_Tree };
 
 
@@ -68,7 +89,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public void VerifyLicensedCandidatesPage()
         {
-            seleniumActions.IsElementPresent(lblHeader);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblHeader));
         }
 
         /// <summary>
@@ -103,19 +124,19 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         /// <param name="levelName"></param>
         public String CreateLevel(String levelName)
-        { 
-            if(string.Equals(levelName, "random", StringComparison.OrdinalIgnoreCase))
+        {
+            if (string.Equals(levelName, "random", StringComparison.OrdinalIgnoreCase))
             {
-                levelName = "Automation-"+utility.CurrentTime();
+                levelName = "Automation-" + utility.CurrentTime();
             }
-            
+
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
             seleniumActions.Click(inpLevelNumber);
             seleniumActions.Click(popUp_Yes);
             seleniumActions.SendKeys(inpLevelNumber, utility.CurrentTime());
             seleniumActions.SendKeys(inp_Levelname, levelName);
             seleniumActions.Click(btn_save);
-            seleniumActions.VerifyElementIsDisplayed(By.XPath("//h5[contains(text(),'Level - "+ levelName + "')]"));
+            seleniumActions.VerifyElementIsDisplayed(By.XPath("//h5[contains(text(),'Level - " + levelName + "')]"));
             //seleniumActions.Click("txt");
             seleniumActions.SwitchToDefaultContent();
             return levelName;
@@ -131,8 +152,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         {
             seleniumActions.SwitchToIframes(iframe_DetailView);
             seleniumActions.Click(btn_refreshLevel);
-            seleniumActions.MoveToElement(By.XPath("//table[@class='Tbltitle']//ul[@id='TOCDoclvl']//a[contains(@title,'"+ LevelName + "')]"));
-            seleniumActions.Click(By.XPath("(//table[@class='Tbltitle']//ul[@id='TOCDoclvl']//a[contains(@title,'"+ LevelName +"')]//following::*[local-name()='svg' and contains(@class,'pencil')])[1]"));
+            seleniumActions.MoveToElement(By.XPath("//table[@class='Tbltitle']//ul[@id='TOCDoclvl']//a[contains(@title,'" + LevelName + "')]"));
+            seleniumActions.Click(By.XPath("(//table[@class='Tbltitle']//ul[@id='TOCDoclvl']//a[contains(@title,'" + LevelName + "')]//following::*[local-name()='svg' and contains(@class,'pencil')])[1]"));
             seleniumActions.SwitchToIframes(iframe_Tree);
             seleniumActions.SendKeys(inp_Levelname, Constants.Level); ;
             seleniumActions.Click(btn_save);
@@ -174,9 +195,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void ClickAddButtonAndCreateNewTag()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView);
-            seleniumActions.IsElementPresent(btnAdd_MasterFolderTags);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btnAdd_MasterFolderTags));
             seleniumActions.Click(btnAdd_MasterFolderTags);
-            seleniumActions.IsElementPresent(tblAddPopup);
+            Assert.IsTrue(seleniumActions.IsElementPresent(tblAddPopup));
             seleniumActions.SendKeys(phd_TagName, Constants.TagName + utility.CurrentTime());
             seleniumActions.Click(btnSave_TagPopup);
         }
@@ -187,7 +208,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void RenameTagName()
         {
             seleniumActions.Wait(2);
-            seleniumActions.IsElementPresent(lblTag);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblTag));
             seleniumActions.Click(chkTagname_Inactive);
             seleniumActions.Wait(3);
             seleniumActions.Click(btnPencilIcon);
@@ -214,6 +235,84 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // ***************** End of TC 02 ************ //
+
+        // ***************** Start of TC 09 ************ //
+
+        /// <summary>
+        /// Create team in teams page under System page
+        /// </summary>
+        public void CreateTeam()
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Wait(4);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btnNew_TeamsPage));
+            seleniumActions.Click(btnNew_TeamsPage);
+            seleniumActions.WaitForElementToExists(btnSelectTeamLeader);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btnSelectTeamLeader));
+            seleniumActions.Click(btnSelectTeamLeader);
+
+            seleniumActions.SwitchToIframes(iframe_ifrUsers);
+            Assert.IsTrue(seleniumActions.IsElementPresent(rdoUserBasedSearchChecked));
+            seleniumActions.Click(phd_Name);
+            seleniumActions.SendKeys(phd_Name, "Right");
+            seleniumActions.Wait(3);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblTeamLeader_SearchResult));
+            Assert.IsTrue(seleniumActions.GetText(lblTeamLeader_SearchResult).Equals(Constants.RightUsername));
+            seleniumActions.Click(chkTeamLeaderInactive);
+
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(btn_Done);
+            seleniumActions.Click(txtTeamName);
+            seleniumActions.SendKeys(txtTeamName, Constants.Name);
+            seleniumActions.Click(lblTeamLeader);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btnAdd_TeamsPage));
+            seleniumActions.Click(btnAdd_TeamsPage);
+            seleniumActions.Click(txtExternalMemberName);
+            seleniumActions.SendKeys(txtExternalMemberName, Constants.Name);
+            seleniumActions.Click(txtExternalMemberMail);
+            seleniumActions.SendKeys(txtExternalMemberMail, Constants.TagName + utility.CurrentTime() + "@gmail.com");
+            seleniumActions.Click(btnAddMembers_TeamsPage);
+
+            seleniumActions.SwitchToIframes(iframe_ifrUsers);
+            Assert.IsTrue(seleniumActions.IsElementPresent(rdoUserBasedSearchChecked));
+            seleniumActions.Click(phd_Name);
+            seleniumActions.SendKeys(phd_Name, "Administrator");
+            seleniumActions.Wait(3);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblTeamLeader_SearchResult));
+            Assert.IsTrue(seleniumActions.GetText(lblTeamLeader_SearchResult).Contains(Constants.AdminUsername));
+            seleniumActions.Click(chkTeamLeaderInactive);
+            seleniumActions.Click(chkTeamLeaderActive);
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(btn_Done);
+        }
+
+        /// <summary>
+        /// Verify the newly created team is showing in the teams list
+        /// </summary>
+        public void VerifyTeamIsCreated()
+        {
+            seleniumActions.ScrollToElement(btnClose_TeamsPage);
+            seleniumActions.Click(btnClose_TeamsPage);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblAddedTeam));
+            Assert.IsTrue(seleniumActions.GetText(lblAddedTeam).Equals(Constants.Name));
+        }
+
+        /// <summary>
+        /// Delete the newly created team and verify the alert message
+        /// </summary>
+        public void VerifyTeamIsDeleted()
+        {
+            seleniumActions.Click(chkTeamInactive);
+            seleniumActions.Click(btnDelete_TeamsPage);
+            seleniumActions.Click(btnYes_Popup);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+
+        // ***************** End of TC 09 ************ //
 
         #endregion
     }

@@ -30,13 +30,28 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         #region stepDefinitions
 
-
-        [Given(@"Login to the application")]
-        public void GivenLoginToTheApplication()
+        [Given(@"Login to the application with '([^']*)' user")]
+        public void GivenLoginToTheApplicationWithUser(string user)
         {
-            loginPage.NavigateToURL(ConfigHelper.GetURL());
-            loginPage.LoginToApp(ConfigHelper.GetEmail(), ConfigHelper.GetPassword());
-            
+            switch (user.ToLower())
+            {
+                case "right":
+                    loginPage.NavigateToURL(ConfigHelper.GetURL());
+                    loginPage.LoginToApp(ConfigHelper.GetRightsUser(), ConfigHelper.GetPassword());
+                    break;
+                case "docpro":
+                    loginPage.NavigateToURL(ConfigHelper.GetURL());
+                    loginPage.LoginToApp(ConfigHelper.GetDocProUser(), ConfigHelper.GetPassword());
+                    break;
+                case "thani":
+                    loginPage.NavigateToURL(ConfigHelper.GetURL());
+                    loginPage.LoginToApp(ConfigHelper.GetThaniUser(), ConfigHelper.GetPassword());
+                    break;
+                case "admin":
+                    loginPage.NavigateToURL(ConfigHelper.GetURL());
+                    loginPage.LoginToApp(ConfigHelper.GetAdminUser(), ConfigHelper.GetPassword());
+                    break;
+            }
         }
 
         [When(@"Navigate to (.*) Page")]
