@@ -107,6 +107,28 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // ************** End of TC 03 ****************** //
 
+        // ************** Start Of TC 04 ***************** //
+
+        [When(@"I Navigate to (.*) page")]
+        public void WhenINavigateToShiftPage(String subHead)
+        {
+            dashboard.NavigateToSystemPage(subHead);
+        }
+
+        [Then(@"I Create shift and I verify the shift is created")]
+        public void ThenICreateShiftAndIVerifyTheShiftIsCreated()
+        {
+            dashboard.CreateNewShift();  
+        }
+
+        [Then(@"I Delete the shift")]
+        public void ThenIDeleteTheShift()
+        {
+            dashboard.DeleteShift();
+        }
+
+        // ************** End of TC 04 ****************** //
+
         #endregion
     }
 }

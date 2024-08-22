@@ -14,5 +14,6 @@ namespace OMNEX.AUTOMATION.Data.WEB
         public const string RightUsername = "Right-Scenario";
         public const string AdminUsername = "Administrator-Administrator";
         public const string Name = "Test Automation";
+        public const string shiftName = "test12345 - ";
     }
 }
