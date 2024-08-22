@@ -39,7 +39,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By inp_Levelname => By.XPath("//input[@id='txtLevelName']");
         By btn_save => By.XPath("//button[@id='btnSave']");
         By btn_refreshLevel => By.XPath("//*[local-name()='svg' and @id='btnreferesh']");
-        By btnAdd_MasterFolderTags => By.XPath("//button[@id='btn_add_hold']");
+        By btnAdd_MasterFolderTags => By.XPath("(//button[@id='btn_add_hold'])[1]");
         By tblAddPopup => By.XPath("//div[@id='AddRow']");
         By phd_TagName => By.XPath("//input[@name='TagName']");
         By btnSave_TagPopup => By.XPath("//button[contains(@class,'btn-success')]");
@@ -70,46 +70,55 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By lblDeletedSuccessMessage => By.XPath("//div[contains(@class,'alert-dismissible')]");
         By btnClose_TeamsPage => By.XPath("//button[@title='Close']");
         By tblRow => By.XPath("//tbody/tr[@role='row']");
-
         By btnNew_shiftPage => By.XPath("//li[@id='dbtnadd']//button[@title='New']");
 
         /***************TC03 Xpaths**********************/
-
         By drpCountry => By.XPath("//span[contains(@id,'Country') or @id='select2-ddl_Site-container']");
         By txtSearchCountry => By.XPath("//*[@class='select2-search__field']");
         By btnAddState => By.XPath("//li[@id='dbtnadd']");
         By txtState => By.Id("txtNewState");
         By btnSave => By.Id("btnStateSave");
-        By msgSavaSuccessfully => By.XPath("//div[contains(text(),'Saved successfully')]");
+        By msgSaveSuccessfully => By.XPath("//div[contains(text(),'Saved successfully')]");
         By lblStateName => By.XPath("(//td[@class='sorting_1']//a)[1]");
         By chkState => By.XPath("//input[@name='Grid_StateListing_selectCheck']");
         By btnYes => By.Id("popup_ok");
         By btnDelete => By.Id("dbtndelete");
         By inp_ShiftName => By.XPath("//input[@id='txtShiftName']");
-
         By dtp_FromTime => By.XPath("//div[@class='input-group-append']//span[contains(@onClick,'txtFromTime')]");
-
         By dtp_ToTime => By.XPath("//div[@class='input-group-append']//span[contains(@onClick,'txtToTime')]");
-
         By tbl_FromTime => By.XPath("(//table[@class='ClsTable']//tbody//tr//td)[7]");
-
         By tbl_ToTime => By.XPath("(//table[@class='ClsTable']//tbody//tr//td)[10]");
-
         By btnSave_ShiftPage => By.XPath("//button[@id='btnSaveShift']");
-
         By lblSuccess_Message => By.XPath("//div[contains(@class,'alert-success')]//strong");
-
         By btnClose_SuccessMessage => By.XPath("//a[@aria-label='close']");
-
         By hintSearch_ShiftPage => By.XPath("//input[@type='search']");
-    
         By lblShift_ElementPresent => By.XPath("//tr[@role='row']//td/a[@href]");
-
         By chk_ShiftNameInActive => By.XPath("//tbody//tr[@role='row' and @class='odd']//input[@type='checkbox']");
         By chk_ShiftNameActive => By.XPath("//tbody//tr[@role='row' and @class='odd selected']//input[@type='checkbox']");
-
         By btnDelete_shift => By.XPath("//li[@id='dbtndelete']//button[@title='Delete']");
-
+        By btnNew_CustomersPage => By.XPath("//button[@id='btnadd']");
+        By txtCustName => By.XPath("//input[@id='txtName']");
+        By txtCodeName => By.XPath("//input[@id='txtCode']");
+        By tblAddAddress => By.XPath("//div[@id='AddRow']");
+        By txtStreet => By.XPath("//textarea[@name='Street']");
+        By drpCountry_AddAddress => By.XPath("//select[@name='Country']");
+        By ddlIndia_AddAddress => By.XPath("//select[@name='Country']//option[contains(text(),'India') and @value=99]");
+        By drpState_AddAddress => By.XPath("//select[@name='State']");
+        By ddlTamilnadu_AddAddress => By.XPath("//select[@name='State']//option[contains(text(),'TamilNadu') and @value=4]");
+        By drpCity_AddAddress => By.XPath("//select[@name='City']");
+        By ddlChennai_AddAddress => By.XPath("//select[@name='City']//option[contains(text(),'CHennai') and @value=4]");
+        By txtZipCode_AddAddress => By.XPath("//input[@name='Zipcode']");
+        By btnSave_AddAddress => By.XPath("//button[contains(@class,'btn-success')]");
+        By lblIndia_SavedAddress => By.XPath("//tbody//tr[@role='row']//td[contains(text(),'India')]");
+        By svgContactIcon => By.XPath("//*[local-name()='svg' and @title='Contact']");
+        By btnAdd_AddContact => By.XPath("//button[@onclick='AddDatatable(SUContactGridControl);']");
+        By lblContact => By.XPath("//h5[contains(text(),'Contact')]");
+        By txtFirstName_AddContact => By.XPath("//input[@name='FName']");
+        By txtLastName_AddContact => By.XPath("//input[@name='LName']");
+        By txtEmail_AddContact => By.XPath("//input[@name='ContEmail']");
+        By btnSave_AddContact => By.XPath("//button[contains(@id,'btnSaveDetails_SUContactGridControl')]");
+        By drpPageSize => By.XPath("//div[@class='dataTables_length']//select");
+        By ddlValue_Hundred => By.XPath("//div[@class='dataTables_length']//select//option[@value=100]");
 
         #endregion
 
@@ -117,8 +126,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         static By iframe_DetailView => By.XPath("//iframe[@name='Detailview']");
         static By iframe_Tree => By.XPath("//iframe[@id='iframeTree']");
         static By iframe_ifrUsers => By.XPath("//iframe[@id='ifrUsers']");
-        //static By[] iframes = { iframe_DetailView, iframe_Tree };
 
+        //static By[] iframes = { iframe_DetailView, iframe_Tree };
 
         #endregion
 
@@ -354,7 +363,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToDefaultContent();
         }
 
-
         // ***************** End of TC 09 ************ //
 
         // ***************** Start of TC 03 ************ //
@@ -372,12 +380,10 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(btnAddState);
             seleniumActions.SendKeys(txtState, State);
             seleniumActions.Click(btnSave);
-            seleniumActions.VerifyElementIsDisplayed(msgSavaSuccessfully);
+            seleniumActions.VerifyElementIsDisplayed(msgSaveSuccessfully);
             seleniumActions.Wait(3);
             seleniumActions.NavigateBack();
             seleniumActions.Refresh();
-            
-
         }
 
         /// <summary>
@@ -392,8 +398,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Wait(3);
             string Statename = seleniumActions.GetText(lblStateName);
             Assert.IsTrue(Statename.Equals("Kerala"));
-            
-
         }
 
         public void DeleteState()
@@ -406,7 +410,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // ***************** End of TC 03 ************ //
-
 
         // ***************** Start of TC 04 ************ //
 
@@ -441,7 +444,112 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(btnDelete_shift);
             seleniumActions.Click(btnYes_Popup);
         }
+
         // ***************** End of TC 04 ************ //
+
+        // ***************** Start of TC 08 ************ //
+
+        /// <summary>
+        /// Creates customer by giving cust name and cust code
+        /// </summary>
+        public string CreateCustomer()
+        {
+            string custName = Constants.Name + utility.CurrentTime();
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Click(btnNew_CustomersPage);
+            Assert.IsTrue(seleniumActions.IsElementPresent(txtCustName));
+            seleniumActions.Click(txtCustName);
+            seleniumActions.SendKeys(txtCustName, custName);
+            Assert.IsTrue(seleniumActions.IsElementPresent(txtCodeName));
+            seleniumActions.Click(txtCodeName);
+            seleniumActions.SendKeys(txtCodeName, "T - " + utility.CurrentTime());
+            seleniumActions.Click(txtCustName);
+            seleniumActions.WaitForElementToExists(btnAdd_MasterFolderTags);
+            return custName;
+        }
+
+        /// <summary>
+        /// Adds address of the newly created user / customer / supplier / vendor
+        /// </summary>
+        public void AddAddress()
+        {
+            seleniumActions.Click(btnAdd_MasterFolderTags);
+            Assert.IsTrue(seleniumActions.IsElementPresent(tblAddAddress));
+            seleniumActions.Click(txtStreet);
+            seleniumActions.SendKeys(txtStreet,"Street");
+            seleniumActions.Click(drpCountry_AddAddress);
+            seleniumActions.ScrollToElement(ddlIndia_AddAddress);
+            seleniumActions.Click(ddlIndia_AddAddress);
+            seleniumActions.Click(drpState_AddAddress);
+            seleniumActions.Click(ddlTamilnadu_AddAddress);
+            seleniumActions.Click(drpCity_AddAddress);
+            seleniumActions.Click(ddlChennai_AddAddress);
+            seleniumActions.Click(txtZipCode_AddAddress);
+            seleniumActions.SendKeys(txtZipCode_AddAddress,"600012");
+            seleniumActions.Click(btnSave_AddAddress);
+            Assert.IsTrue(seleniumActions.IsElementPresent(msgSaveSuccessfully));
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblIndia_SavedAddress));
+        }
+
+        /// <summary>
+        /// Adds contact of the newly created user / customer / supplier / vendor
+        /// </summary>
+        public void AddContact()
+        {
+            Assert.IsTrue(seleniumActions.IsElementPresent(svgContactIcon));
+            seleniumActions.Click(svgContactIcon);
+            seleniumActions.WaitForElementToExists(lblContact);
+            seleniumActions.Click(btnAdd_AddContact);
+            seleniumActions.Click(txtFirstName_AddContact);
+            seleniumActions.SendKeys(txtFirstName_AddContact, Constants.Name);
+            seleniumActions.Click(txtLastName_AddContact);
+            seleniumActions.SendKeys(txtLastName_AddContact, Constants.Name);
+            seleniumActions.Click(txtEmail_AddContact);
+            seleniumActions.SendKeys(txtEmail_AddContact, "Test" + utility.CurrentTime() + "@gmail.com");
+            seleniumActions.Click(btnSave_AddContact);
+            Assert.IsTrue(seleniumActions.IsElementPresent(msgSaveSuccessfully));
+        }
+
+        /// <summary>
+        /// Refresh the page
+        /// </summary>
+        public void Refresh()
+        {
+            seleniumActions.Refresh();
+        }
+
+        /// <summary>
+        /// Changes the record size to '100'
+        /// </summary>
+        public void ChangePageRecordSize()
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.WaitForElementToExists(drpPageSize);
+            seleniumActions.Click(drpPageSize);
+            seleniumActions.WaitForElementToExists(ddlValue_Hundred);
+            seleniumActions.Click(ddlValue_Hundred);
+        }
+
+        /// <summary>
+        /// Deletes the customer form the records
+        /// </summary>
+        public void DeleteCustomerFromTheRecords(string custName)
+        {
+            seleniumActions.Click(hintSearch_ShiftPage);
+            seleniumActions.SendKeys(hintSearch_ShiftPage , custName);
+            seleniumActions.WaitForElementToExists(lblShift_ElementPresent);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblShift_ElementPresent));
+            seleniumActions.Click(chk_ShiftNameInActive);
+            seleniumActions.Click(btnDelete_shift);
+            seleniumActions.Click(btnYes_Popup);
+            seleniumActions.Wait(5);
+            seleniumActions.Click(btnYes_Popup);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+
+        // ***************** End of TC 08 ************ //
 
         #endregion
     }

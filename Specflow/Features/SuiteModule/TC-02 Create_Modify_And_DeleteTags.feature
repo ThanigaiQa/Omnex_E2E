@@ -1,4 +1,4 @@
-﻿Feature: Suite Module 02
+﻿Feature: TC - 02 : Create, Modify & Delete Tags
 
 
 #@10674

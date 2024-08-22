@@ -129,6 +129,35 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // ************** End of TC 04 ****************** //
 
+        // ************** Start of TC 08 ****************** //
+
+        [Then(@"I create a customer")]
+        public void ThenICreateACustomer()
+        {
+            scenarioContext["CustomerName"] = dashboard.CreateCustomer();
+        }
+
+        [Then(@"I add address,contact and verify the address and contact is added")]
+        public void ThenIAddAddressContactAndVerifyTheAddressAndContactIsAdded()
+        {
+            dashboard.AddAddress();
+            dashboard.AddContact();
+        }
+
+        [Then(@"I change the page record size")]
+        public void ThenIChangeThePageRecordSize()
+        {
+            dashboard.ChangePageRecordSize();
+        }
+
+        [Then(@"I delete the customer")]
+        public void ThenIDeleteTheCustomer()
+        {
+            dashboard.DeleteCustomerFromTheRecords(scenarioContext["CustomerName"].ToString());
+        }
+
+        // ************** End of TC 08 ****************** //
+
         #endregion
     }
 }

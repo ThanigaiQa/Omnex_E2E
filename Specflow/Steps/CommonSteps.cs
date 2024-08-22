@@ -85,6 +85,13 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             dashboard.NavigateToSystemPage(subHead);
         }
 
+        [Then(@"I refresh the page")]
+        public void ThenIRefreshThePage()
+        {
+            dashboard.Refresh();
+        }
+
+
         #endregion
     }
 }

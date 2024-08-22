@@ -1,4 +1,4 @@
-﻿Feature: Suite Module 09
+﻿Feature: TC - 09 : Verify the User is able to create, delete Team
 
 @TC-09
 Scenario: 09 Verify the User is able to create, delete Team
