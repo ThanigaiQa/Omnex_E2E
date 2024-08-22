@@ -2,6 +2,7 @@
 using OMNEX.AUTOMATION.PageObjects.WEB;
 using AventStack.ExtentReports.Gherkin.Model;
 using TechTalk.SpecFlow;
+using System.Diagnostics.Metrics;
 
 namespace OMNEX.AUTOMATION.Specflow.Steps
 {
@@ -73,6 +74,38 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         // ************** End of TC 09 ****************** //
+
+        // ************** Start of TC 03 **************** //
+
+        [Then(@"I create state and verify the state is created")]
+        public void ThenICreateStateAndVerifyTheStateIsCreated(string Country, string State)
+        {
+            dashboard.ClickAddButtonAndCreateNewState(Country, State);
+        }
+
+        [Then(@"I Select ""([^""]*)"" and add the ""([^""]*)""")]
+        public void ThenISelectAndAddThe(string country, string state)
+        {
+            dashboard.ClickAddButtonAndCreateNewState(country, state);
+        }
+
+        
+
+        [Then(@"I Validate the newely created ""([^""]*)"" and ""([^""]*)""")]
+        public void ThenIValidateTheNewelyCreatedAnd(string country, string state)
+        {
+            dashboard.ValidateStateCreation(country, state);
+        }
+
+
+
+        [Then(@"I delete the state")]
+        public void ThenIDeleteTheState()
+        {
+            dashboard.DeleteState();
+        }
+
+        // ************** End of TC 03 ****************** //
 
         #endregion
     }

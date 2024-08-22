@@ -4,6 +4,7 @@ using OMNEX.AUTOMATION.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using System.Reflection.Metadata;
+using System.Diagnostics;
 
 namespace OMNEX.AUTOMATION.PageObjects.WEB
 {
@@ -71,6 +72,18 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By tblRow => By.XPath("//tbody/tr[@role='row']");
 
 
+        /***************TC03 Xpaths**********************/
+
+        By drpCountry => By.XPath("//span[contains(@id,'Country') or @id='select2-ddl_Site-container']");
+        By txtSearchCountry => By.XPath("//*[@class='select2-search__field']");
+        By btnAddState => By.XPath("//li[@id='dbtnadd']");
+        By txtState => By.Id("txtNewState");
+        By btnSave => By.Id("btnStateSave");
+        By msgSavaSuccessfully => By.XPath("//div[contains(text(),'Saved successfully')]");
+        By lblStateName => By.XPath("(//td[@class='sorting_1']//a)[1]");
+        By chkState => By.XPath("//input[@name='Grid_StateListing_selectCheck']");
+        By btnYes => By.Id("popup_ok");
+        By btnDelete => By.Id("dbtndelete");
         #endregion
 
         #region Iframe
@@ -180,8 +193,11 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         {
             if (seleniumActions.IsElementPresent(sideMenuContainer))
             {
+
+                seleniumActions.Wait(5);
                 seleniumActions.Click(lblSetup);
                 seleniumActions.Click(lblSystem);
+                seleniumActions.Wait(2);
                 seleniumActions.ScrollToElement(By.XPath("(//a[@class='submenu_list_link has-arrow']//following-sibling::ul[@class='inner_submenu']//span[contains(text(),'" + SubHead + "')])[2]"));
                 seleniumActions.Click(By.XPath("(//a[@class='submenu_list_link has-arrow']//following-sibling::ul[@class='inner_submenu']//span[contains(text(),'" + SubHead + "')])[2]"));
             }
@@ -313,6 +329,56 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
 
         // ***************** End of TC 09 ************ //
+
+        // ***************** Start of TC 03 ************ //
+        /// <summary>
+        /// Clicks add button and creates a new State
+        /// </summary>
+        public void ClickAddButtonAndCreateNewState(String Country, String State)
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.IsElementPresent(drpCountry);
+            seleniumActions.Click(drpCountry);
+            seleniumActions.Wait(3);
+            seleniumActions.SendKeys(txtSearchCountry, Country + Keys.Enter);
+            seleniumActions.WaitForElementToExists(btnAddState);
+            seleniumActions.Click(btnAddState);
+            seleniumActions.SendKeys(txtState, State);
+            seleniumActions.Click(btnSave);
+            seleniumActions.VerifyElementIsDisplayed(msgSavaSuccessfully);
+            seleniumActions.Wait(3);
+            seleniumActions.NavigateBack();
+            seleniumActions.Refresh();
+            
+
+        }
+
+        /// <summary>
+        /// Validate the recently created State from State page
+        /// </summary>
+        public void ValidateStateCreation(String Country, String State)
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.IsElementPresent(drpCountry);
+            seleniumActions.Click(drpCountry);
+            seleniumActions.SendKeys(txtSearchCountry, Country + Keys.Enter);
+            seleniumActions.Wait(3);
+            string Statename = seleniumActions.GetText(lblStateName);
+            Assert.IsTrue(Statename.Equals("Kerala"));
+            
+
+        }
+
+        public void DeleteState()
+        {
+            seleniumActions.Wait(3);
+            seleniumActions.Click(chkState);
+            seleniumActions.Click(btnDelete);
+            seleniumActions.Click(btnYes_Popup);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // ***************** End of TC 03 ************ //
 
         #endregion
     }
