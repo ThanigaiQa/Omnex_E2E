@@ -129,6 +129,22 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // ************** End of TC 04 ****************** //
 
+        // ************** Start Of TC 13 ***************** //
+
+        [Then(@"I Create country and I verify the country is created")]
+        public void ThenICreateCountryAndIVerifyTheCountryIsCreated()
+        {
+            dashboard.CreateNewCountry();
+        }
+
+        [Then(@"I Delete the country")]
+        public void ThenIDeleteTheCountry()
+        {
+            dashboard.DeleteCountry();   
+        }
+
+        // ************** End of TC 13 ****************** //
+
         #endregion
     }
 }

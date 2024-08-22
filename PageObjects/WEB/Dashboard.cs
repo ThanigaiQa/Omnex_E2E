@@ -71,8 +71,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btnClose_TeamsPage => By.XPath("//button[@title='Close']");
         By tblRow => By.XPath("//tbody/tr[@role='row']");
 
-        By btnNew_shiftPage => By.XPath("//li[@id='dbtnadd']//button[@title='New']");
-
         /***************TC03 Xpaths**********************/
 
         By drpCountry => By.XPath("//span[contains(@id,'Country') or @id='select2-ddl_Site-container']");
@@ -85,6 +83,10 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By chkState => By.XPath("//input[@name='Grid_StateListing_selectCheck']");
         By btnYes => By.Id("popup_ok");
         By btnDelete => By.Id("dbtndelete");
+
+        /***************TC04 Xpaths**********************/
+
+        By btnNew_shiftPage => By.XPath("//li[@id='dbtnadd']//button[@title='New']");
         By inp_ShiftName => By.XPath("//input[@id='txtShiftName']");
 
         By dtp_FromTime => By.XPath("//div[@class='input-group-append']//span[contains(@onClick,'txtFromTime')]");
@@ -95,7 +97,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         By tbl_ToTime => By.XPath("(//table[@class='ClsTable']//tbody//tr//td)[10]");
 
-        By btnSave_ShiftPage => By.XPath("//button[@id='btnSaveShift']");
+        By btn_Save => By.XPath("//button[@title='Save']");
 
         By lblSuccess_Message => By.XPath("//div[contains(@class,'alert-success')]//strong");
 
@@ -109,6 +111,14 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By chk_ShiftNameActive => By.XPath("//tbody//tr[@role='row' and @class='odd selected']//input[@type='checkbox']");
 
         By btnDelete_shift => By.XPath("//li[@id='dbtndelete']//button[@title='Delete']");
+
+        /***************TC04 Xpaths**********************/
+
+        /***************TC13 Xpaths**********************/
+
+        By inp_CountryName => By.XPath("//input[@id='txtCountryName']");
+
+        /***************TC13 Xpaths**********************/
 
 
         #endregion
@@ -424,7 +434,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(tbl_FromTime);
             seleniumActions.Click(dtp_ToTime);
             seleniumActions.Click(tbl_ToTime);
-            seleniumActions.Click(btnSave_ShiftPage);
+            seleniumActions.Click(btn_Save);
             Assert.IsTrue(seleniumActions.IsElementPresent(lblSuccess_Message));
             seleniumActions.Click(btnClose_SuccessMessage);
             seleniumActions.Click(hintSearch_ShiftPage);
@@ -440,8 +450,43 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(chk_ShiftNameInActive);
             seleniumActions.Click(btnDelete_shift);
             seleniumActions.Click(btnYes_Popup);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
         }
         // ***************** End of TC 04 ************ //
+
+        // ***************** Start of TC 13 ************ //
+
+
+        /// <summary>
+        /// Clicks new button and creates a new country
+        /// </summary>
+        public void CreateNewCountry()
+        {
+            string countryName = Constants.countryName + utility.CurrentTime();
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(btnNew_shiftPage);
+            seleniumActions.Click(inp_CountryName);
+            seleniumActions.SendKeys(inp_CountryName, countryName);
+            seleniumActions.Click(btn_Save);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblSuccess_Message));
+            seleniumActions.Click(btnClose_SuccessMessage);
+            seleniumActions.Click(hintSearch_ShiftPage);
+            seleniumActions.SendKeys(hintSearch_ShiftPage, countryName);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblShift_ElementPresent));
+        }
+
+        /// <summary>
+        ///  Delete the newly created country 
+        /// </summary>
+        public void DeleteCountry()
+        {
+            seleniumActions.Click(chk_ShiftNameInActive);
+            seleniumActions.Click(btnDelete_shift);
+            seleniumActions.Click(btnYes_Popup);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
+        }
+        // ***************** End of TC 13 ************ //
 
         #endregion
     }
