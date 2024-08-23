@@ -119,6 +119,14 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btnSave_AddContact => By.XPath("//button[contains(@id,'btnSaveDetails_SUContactGridControl')]");
         By drpPageSize => By.XPath("//div[@class='dataTables_length']//select");
         By ddlValue_Hundred => By.XPath("//div[@class='dataTables_length']//select//option[@value=100]");
+        By btnMultiSearch => By.XPath("//a[@title='Multi Search']");
+        By lblSearch_MultiSearch => By.XPath("//div[@class='dtsb-title']");
+        By drpColumn_MultiSearch => By.XPath("(//div[@class='dtsb-criteria']//select)[1]");
+        By ddlCustomerName_MultiSearch => By.XPath("(//div[@class='dtsb-criteria']//select//option[contains(text(),'Customer Name')])[1]");
+        By drpCondition_MultiSearch => By.XPath("(//div[@class='dtsb-criteria']//select)[2]");
+        By ddlContains_MultiSearch => By.XPath("//div[@class='dtsb-criteria']//select//option[@value='contains']");
+        By inp_MultiSearch => By.XPath("//input[@class='dtsb-value dtsb-input']");
+        By btnAdvancedSearch_MultiSearch => By.XPath("//button[@title='Advanced Search']");
 
         #endregion
 
@@ -454,7 +462,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public string CreateCustomer()
         {
-            string custName = Constants.Name + utility.CurrentTime();
+            string custName = Constants.TagName+ utility.CurrentTime();
             seleniumActions.SwitchToIframes(iframe_DetailView);
             seleniumActions.Click(btnNew_CustomersPage);
             Assert.IsTrue(seleniumActions.IsElementPresent(txtCustName));
@@ -535,8 +543,18 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public void DeleteCustomerFromTheRecords(string custName)
         {
-            seleniumActions.Click(hintSearch_ShiftPage);
-            seleniumActions.SendKeys(hintSearch_ShiftPage , custName);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
+            seleniumActions.Click(btnMultiSearch);
+            Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch));
+            seleniumActions.Click(drpColumn_MultiSearch);
+            seleniumActions.Click(ddlCustomerName_MultiSearch);
+            seleniumActions.Click(drpCondition_MultiSearch);
+            seleniumActions.Click(ddlContains_MultiSearch);
+            seleniumActions.Click(inp_MultiSearch);
+            seleniumActions.SendKeys(inp_MultiSearch,custName);
+            seleniumActions.Click(btnAdvancedSearch_MultiSearch);
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.SwitchToFrame(iframe_DetailView);
             seleniumActions.WaitForElementToExists(lblShift_ElementPresent);
             Assert.IsTrue(seleniumActions.IsElementPresent(lblShift_ElementPresent));
             seleniumActions.Click(chk_ShiftNameInActive);
