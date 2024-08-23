@@ -138,7 +138,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btnUserIconProfile => By.XPath("//li[@id='profiledrop']/a/img");
         By btnLogout => By.XPath("//*[@id='logout']");
         By lblRememberme => By.XPath("//label[@for='chkremup']");
-\
+
         By inp_CountryName => By.XPath("//input[@id='txtCountryName']");
 
         /***************TC13 Xpaths**********************/
