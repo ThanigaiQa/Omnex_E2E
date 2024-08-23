@@ -174,6 +174,23 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // ************** End of TC 13 ****************** //
 
+        // ************** Start of TC 07 ****************** //
+
+        [Then(@"I create a manufacturer")]
+        public void ThenICreateAManufacturer()
+        {
+            scenarioContext["ManufacturerName"] = dashboard.CreateManufacturer();
+        }
+
+        [Then(@"I delete the manufacturer")]
+        public void ThenIDeleteTheManufacturer()
+        {
+            dashboard.DeleteManufacturerFromTheRecords(scenarioContext["ManufacturerName"].ToString());
+        }
+
+        // ************** End of TC 07 ****************** //
+
+
         #endregion
     }
 }

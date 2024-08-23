@@ -137,6 +137,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By inp_CountryName => By.XPath("//input[@id='txtCountryName']");
 
         /***************TC13 Xpaths**********************/
+        By chk_PreferredManufacturer => By.XPath("//label[@for='chkPreManuf']");
+        By ddlManufacturerName_MultiSearch => By.XPath("(//div[@class='dtsb-criteria']//select//option[contains(text(),'Manufacturer Name')])[1]");
 
 
         #endregion
@@ -614,6 +616,58 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
         }
         // ***************** End of TC 13 ************ //
+
+        // ***************** Start of TC 07 ************ //
+
+        /// <summary>
+        /// Creates manufacturer by giving manufacturer name and manufacturer code
+        /// </summary>
+        public string CreateManufacturer()
+        {
+            string custName = Constants.TagName + utility.CurrentTime();
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Click(btnNew_CustomersPage);
+            Assert.IsTrue(seleniumActions.IsElementPresent(txtCustName));
+            seleniumActions.Click(txtCustName);
+            seleniumActions.SendKeys(txtCustName, custName);
+            Assert.IsTrue(seleniumActions.IsElementPresent(txtCodeName));
+            seleniumActions.Click(txtCodeName);
+            seleniumActions.SendKeys(txtCodeName, "T - " + utility.CurrentTime());
+            seleniumActions.Click(chk_PreferredManufacturer);
+            seleniumActions.Click(txtCustName);
+            seleniumActions.WaitForElementToExists(btnAdd_MasterFolderTags);
+            return custName;
+        }
+
+        /// <summary>
+        /// Deletes the manufacturer form the records
+        /// </summary>
+        public void DeleteManufacturerFromTheRecords(string custName)
+        {
+            Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
+            seleniumActions.Click(btnMultiSearch);
+            Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch));
+            seleniumActions.Click(drpColumn_MultiSearch);
+            seleniumActions.Click(ddlManufacturerName_MultiSearch);
+            seleniumActions.Click(drpCondition_MultiSearch);
+            seleniumActions.Click(ddlContains_MultiSearch);
+            seleniumActions.Click(inp_MultiSearch);
+            seleniumActions.SendKeys(inp_MultiSearch, custName);
+            seleniumActions.Click(btnAdvancedSearch_MultiSearch);
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.WaitForElementToExists(lblShift_ElementPresent);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblShift_ElementPresent));
+            seleniumActions.Click(chk_ShiftNameInActive);
+            seleniumActions.Click(btnDelete_shift);
+            seleniumActions.Click(btnYes_Popup);
+            seleniumActions.Wait(5);
+            seleniumActions.Click(btnYes_Popup);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // ***************** End of TC 07 ************ //
 
         #endregion
     }
