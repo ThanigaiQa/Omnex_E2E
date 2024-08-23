@@ -85,8 +85,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btnDelete => By.Id("dbtndelete");
 
         /***************TC04 Xpaths**********************/
-
-        By btnNew_shiftPage => By.XPath("//li[@id='dbtnadd']//button[@title='New']");
         By inp_ShiftName => By.XPath("//input[@id='txtShiftName']");
         By dtp_FromTime => By.XPath("//div[@class='input-group-append']//span[contains(@onClick,'txtFromTime')]");
         By dtp_ToTime => By.XPath("//div[@class='input-group-append']//span[contains(@onClick,'txtToTime')]");
