@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using System.Reflection.Metadata;
 using System.Diagnostics;
+using System.Security.Cryptography.X509Certificates;
 
 namespace OMNEX.AUTOMATION.PageObjects.WEB
 {
@@ -133,7 +134,11 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btnAdvancedSearch_MultiSearch => By.XPath("//button[@title='Advanced Search']");
 
         /***************TC13 Xpaths**********************/
-
+        /*************** TC01 Xpaths**********************/
+        By btnUserIconProfile => By.XPath("//li[@id='profiledrop']/a/img");
+        By btnLogout => By.XPath("//*[@id='logout']");
+        By lblRememberme => By.XPath("//label[@for='chkremup']");
+\
         By inp_CountryName => By.XPath("//input[@id='txtCountryName']");
 
         /***************TC13 Xpaths**********************/
@@ -668,6 +673,30 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // ***************** End of TC 07 ************ //
+
+        //  ***************** Start of TC 01 ********* //
+        /// <summary>
+        ///  Logout the appliaction
+        /// </summary>
+        public void LogoutApplication()
+        {
+            seleniumActions.Click(btnUserIconProfile);
+            //seleniumActions.Wait(5);
+            seleniumActions.Click(btnLogout);
+            seleniumActions.Click(btnYes_Popup);
+        }
+
+        /// <summary>
+        /// Validate the remember me functionality
+        /// </summary>
+
+        public void ValidateTheRememberme()
+        {
+            seleniumActions.IsElementPresent(lblRememberme);
+            Assert.IsTrue(seleniumActions.GetText(lblRememberme).Equals("Remember me"));
+        }
+
+        //  ***************** End of TC 01 ********* //
 
         #endregion
     }

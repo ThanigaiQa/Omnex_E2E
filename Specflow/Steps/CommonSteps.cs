@@ -92,6 +92,12 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
 
+        [When(@"Logout from the application")]
+        public void WhenLogoutFromTheApplication()
+        {
+            dashboard.LogoutApplication();
+        }
+
         #endregion
     }
 }

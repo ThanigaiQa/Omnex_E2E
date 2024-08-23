@@ -128,6 +128,14 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         // ************** End of TC 04 ****************** //
+        // *************** Starts of TC 01 ***************//
+
+        [Then(@"Validate the remember me option")]
+        public void ThenValidateTheRememberMeOption()
+        {
+            dashboard.ValidateTheRememberme();
+        }
+
 
         // ************** Start of TC 08 ****************** //
 
