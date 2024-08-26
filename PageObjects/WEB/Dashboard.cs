@@ -6,6 +6,7 @@ using OpenQA.Selenium;
 using System.Reflection.Metadata;
 using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
+using System.Reflection;
 
 namespace OMNEX.AUTOMATION.PageObjects.WEB
 {
@@ -151,8 +152,16 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By chk_PreferredVendor => By.XPath("//label[contains(text(), 'Preferred Vendor')]");
         By ddlVendorName_MultiSearch => By.XPath("(//div[@class='dtsb-criteria']//select//option[contains(text(),'Vendor Name')])[1]");
 
+        /***************TC21Xpaths**********************/
+        By btn_CompanyLogoLarge => By.XPath("(//label[contains(text(),'Recommended Dimensions: 380 x 133 pixels')]//parent::div)[1]//following::button[@id='btnAttachCompanylogolarge']");
+        By btn_CompanyLogomedium => By.XPath("//*[contains(@id,\"btnAttachCompanylogomedium\")]"); 
+        By btn_ChooseFile => By.XPath("//input[@id='LocalImg']");
+        By btn_DoneFile => By.XPath("//button[@id='butSave']");
+        By btn_ProductLogo => By.XPath("//*[@id = 'btnAttachProductlogo'][1]");
+        
 
-        /***************TC05 Xpaths**********************/
+
+
 
 
         #endregion
@@ -161,6 +170,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         static By iframe_DetailView => By.XPath("//iframe[@name='Detailview']");
         static By iframe_Tree => By.XPath("//iframe[@id='iframeTree']");
         static By iframe_ifrUsers => By.XPath("//iframe[@id='ifrUsers']");
+        static By iframe_ifrAlbum => By.XPath("(//iframe[@id='ifrAlbum'])[1]");
+        
 
         //static By[] iframes = { iframe_DetailView, iframe_Tree };
 
@@ -757,6 +768,47 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         }
         // ***************** End of TC 05 ************ //
+
+
+        // ***************** Starts of TC 21 ************ //
+        /// <summary>
+        ///  Update Organization details update
+        /// </summary>
+        public void OrganizationDetailsUpdate()
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(btn_CompanyLogoLarge);
+            seleniumActions.SwitchToFrame(iframe_ifrAlbum);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btn_ChooseFile), "Choose file button is not available");
+            var path = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
+            var actualPath = path.Substring(0, path.LastIndexOf("bin"));
+            var projectPath = new Uri(actualPath).LocalPath;
+            seleniumActions.SendKeys(btn_ChooseFile, projectPath.ToString() + "\\Data\\Big_ClientLogo_Omnex.png");
+            seleniumActions.Click(btn_DoneFile);
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(btn_CompanyLogomedium);
+            seleniumActions.SwitchToFrame(iframe_ifrAlbum);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btn_ChooseFile), "Choose file button is not available");
+            seleniumActions.SendKeys(btn_ChooseFile, projectPath.ToString() + "\\Data\\small_ClientLogo_Omnex.png");
+            seleniumActions.Click(btn_DoneFile);
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(btn_ProductLogo);
+            seleniumActions.SwitchToFrame(iframe_ifrAlbum);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btn_ChooseFile), "Choose file button is not available");
+            seleniumActions.SendKeys(btn_ChooseFile, projectPath.ToString() + "\\Data\\EWQIMS-Logo.png");
+            seleniumActions.Click(btn_DoneFile);
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(btn_Save);
+            Assert.IsTrue(seleniumActions.IsElementPresent(msgSaveSuccessfully));
+            seleniumActions.SwitchToDefaultContent();
+
+        }
+        // ***************** End of TC 21 ************ //
+
+
         #endregion
     }
 }

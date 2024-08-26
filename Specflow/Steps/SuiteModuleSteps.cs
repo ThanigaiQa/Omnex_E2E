@@ -214,6 +214,14 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         // ************** End of TC 05 ****************** //
+
+        // ************** Starts of TC 21 ****************** //
+        [Then(@"Update the Organization profile details")]
+        public void ThenUpdateTheOrganizationProfileDetails()
+        {
+            dashboard.OrganizationDetailsUpdate();
+        }
+        // ************** End of TC 21 ****************** //
         #endregion
     }
 }

@@ -134,7 +134,7 @@ namespace OMNEX.AUTOMATION.Helpers
             var path = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
             var actualPath = path.Substring(0, path.LastIndexOf("bin"));
             var projectPath = new Uri(actualPath).LocalPath;
-            return projectPath;
+            return projectPath.ToString();
         }
 
         /// <summary>
@@ -300,6 +300,18 @@ namespace OMNEX.AUTOMATION.Helpers
             // Combine: ddMMyyyyHHmmss and ddMMyyyy
             string combinedString = DateTime.Now.ToString("ddMMyyyyHHmmss", CultureInfo.InvariantCulture);
             return combinedString;
+        }
+
+        /// <summary>
+        /// Returning project path can be used to add address in the files
+        /// </summary>
+        /// <returns></returns>
+        public static String projectpath()
+        {
+            var path = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
+            var actualPath = path.Substring(0, path.LastIndexOf("bin"));
+            var projectPath = new Uri(actualPath).LocalPath;
+            return projectPath;
         }
 
     }
