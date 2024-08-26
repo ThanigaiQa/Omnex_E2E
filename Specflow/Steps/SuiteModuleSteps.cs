@@ -199,6 +199,21 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         // ************** End of TC 07 ****************** //
 
 
+        // ************** Start Of TC 05 ***************** //
+
+        [Then(@"I create a vendor")]
+        public void ThenICreateAVendor()
+        {
+            scenarioContext["VendorName"] = dashboard.createVendor();   
+        }
+
+        [Then(@"I delete the vendor")]
+        public void ThenIDeleteTheVendor()
+        {
+            dashboard.deleteVendor(scenarioContext["VendorName"].ToString());
+        }
+
+        // ************** End of TC 05 ****************** //
         #endregion
     }
 }

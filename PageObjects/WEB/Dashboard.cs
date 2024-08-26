@@ -71,7 +71,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By lblDeletedSuccessMessage => By.XPath("//div[contains(@class,'alert-dismissible')]");
         By btnClose_TeamsPage => By.XPath("//button[@title='Close']");
         By tblRow => By.XPath("//tbody/tr[@role='row']");
-        By btnNew_shiftPage => By.XPath("//li[@id='dbtnadd']//button[@title='New']");
+        By btnNew => By.XPath("//li[@id='dbtnadd']//button[@title='New']");
 
         /***************TC03 Xpaths**********************/
         By drpCountry => By.XPath("//span[contains(@id,'Country') or @id='select2-ddl_Site-container']");
@@ -96,11 +96,10 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         By lblSuccess_Message => By.XPath("//div[contains(@class,'alert-success')]//strong");
         By btnClose_SuccessMessage => By.XPath("//a[@aria-label='close']");
-        By hintSearch_ShiftPage => By.XPath("//input[@type='search']");
-        By lblShift_ElementPresent => By.XPath("//tr[@role='row']//td/a[@href]");
-        By chk_ShiftNameInActive => By.XPath("//tbody//tr[@role='row' and @class='odd']//input[@type='checkbox']");
-        By chk_ShiftNameActive => By.XPath("//tbody//tr[@role='row' and @class='odd selected']//input[@type='checkbox']");
-        By btnDelete_shift => By.XPath("//li[@id='dbtndelete']//button[@title='Delete']");
+        By hintSearch => By.XPath("//input[@type='search']");
+        By lblFirstRow_ElementPresent => By.XPath("//tr[@role='row']//td/a[@href]");
+        By chk_FirstRowInActive => By.XPath("//tbody//tr[@role='row' and @class='odd']//input[@type='checkbox']");
+        By chk_FirstRowActive => By.XPath("//tbody//tr[@role='row' and @class='odd selected']//input[@type='checkbox']");
         By btnNew_CustomersPage => By.XPath("//button[@id='btnadd']");
         By txtCustName => By.XPath("//input[@id='txtName']");
         By txtCodeName => By.XPath("//input[@id='txtCode']");
@@ -144,6 +143,16 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /***************TC13 Xpaths**********************/
         By chk_PreferredManufacturer => By.XPath("//label[@for='chkPreManuf']");
         By ddlManufacturerName_MultiSearch => By.XPath("(//div[@class='dtsb-criteria']//select//option[contains(text(),'Manufacturer Name')])[1]");
+
+        /***************TC05 Xpaths**********************/
+
+        By inp_VendorName => By.XPath("//input[@id='txtName']");
+        By inp_VendorCode => By.XPath("//input[@id='txtCode']");
+        By chk_PreferredVendor => By.XPath("//label[contains(text(), 'Preferred Vendor')]");
+        By ddlVendorName_MultiSearch => By.XPath("(//div[@class='dtsb-criteria']//select//option[contains(text(),'Vendor Name')])[1]");
+
+
+        /***************TC05 Xpaths**********************/
 
 
         #endregion
@@ -447,7 +456,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             string shiftName = Constants.shiftName + utility.CurrentTime();
             seleniumActions.SwitchToIframes(iframe_DetailView);
             seleniumActions.Wait(3);
-            seleniumActions.Click(btnNew_shiftPage);
+            seleniumActions.Click(btnNew);
             seleniumActions.SendKeys(inp_ShiftName, shiftName);
             seleniumActions.Click(dtp_FromTime);
             seleniumActions.Click(tbl_FromTime);
@@ -456,9 +465,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(btn_Save);
             Assert.IsTrue(seleniumActions.IsElementPresent(lblSuccess_Message));
             seleniumActions.Click(btnClose_SuccessMessage);
-            seleniumActions.Click(hintSearch_ShiftPage);
-            seleniumActions.SendKeys(hintSearch_ShiftPage, shiftName);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lblShift_ElementPresent));
+            seleniumActions.Click(hintSearch);
+            seleniumActions.SendKeys(hintSearch, shiftName);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent));
         }
 
         /// <summary>
@@ -466,8 +475,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public void DeleteShift()
         {
-            seleniumActions.Click(chk_ShiftNameInActive);
-            seleniumActions.Click(btnDelete_shift);
+            seleniumActions.Click(chk_FirstRowInActive);
+            seleniumActions.Click(btnDelete);
             seleniumActions.Click(btnYes_Popup);
             Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
         }
@@ -543,6 +552,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void Refresh()
         {
             seleniumActions.Refresh();
+            seleniumActions.Wait(3);
         }
 
         /// <summary>
@@ -574,10 +584,10 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(btnAdvancedSearch_MultiSearch);
             seleniumActions.SwitchToDefaultContent();
             seleniumActions.SwitchToFrame(iframe_DetailView);
-            seleniumActions.WaitForElementToExists(lblShift_ElementPresent);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lblShift_ElementPresent));
-            seleniumActions.Click(chk_ShiftNameInActive);
-            seleniumActions.Click(btnDelete_shift);
+            seleniumActions.WaitForElementToExists(lblFirstRow_ElementPresent);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent));
+            seleniumActions.Click(chk_FirstRowInActive);
+            seleniumActions.Click(btnDelete);
             seleniumActions.Click(btnYes_Popup);
             seleniumActions.Wait(5);
             seleniumActions.Click(btnYes_Popup);
@@ -599,15 +609,15 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             string countryName = Constants.countryName + utility.CurrentTime();
             seleniumActions.SwitchToIframes(iframe_DetailView);
             seleniumActions.Wait(3);
-            seleniumActions.Click(btnNew_shiftPage);
+            seleniumActions.Click(btnNew);
             seleniumActions.Click(inp_CountryName);
             seleniumActions.SendKeys(inp_CountryName, countryName);
             seleniumActions.Click(btn_Save);
             Assert.IsTrue(seleniumActions.IsElementPresent(lblSuccess_Message));
             seleniumActions.Click(btnClose_SuccessMessage);
-            seleniumActions.Click(hintSearch_ShiftPage);
-            seleniumActions.SendKeys(hintSearch_ShiftPage, countryName);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lblShift_ElementPresent));
+            seleniumActions.Click(hintSearch);
+            seleniumActions.SendKeys(hintSearch, countryName);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent));
         }
 
         /// <summary>
@@ -615,8 +625,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public void DeleteCountry()
         {
-            seleniumActions.Click(chk_ShiftNameInActive);
-            seleniumActions.Click(btnDelete_shift);
+            seleniumActions.Click(chk_FirstRowInActive);
+            seleniumActions.Click(btnDelete);
             seleniumActions.Click(btnYes_Popup);
             Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
         }
@@ -661,10 +671,10 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(btnAdvancedSearch_MultiSearch);
             seleniumActions.SwitchToDefaultContent();
             seleniumActions.SwitchToFrame(iframe_DetailView);
-            seleniumActions.WaitForElementToExists(lblShift_ElementPresent);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lblShift_ElementPresent));
-            seleniumActions.Click(chk_ShiftNameInActive);
-            seleniumActions.Click(btnDelete_shift);
+            seleniumActions.WaitForElementToExists(lblFirstRow_ElementPresent);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent));
+            seleniumActions.Click(chk_FirstRowInActive);
+            seleniumActions.Click(btnDelete);
             seleniumActions.Click(btnYes_Popup);
             seleniumActions.Wait(5);
             seleniumActions.Click(btnYes_Popup);
@@ -698,6 +708,55 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         //  ***************** End of TC 01 ********* //
 
+        // ***************** Start of TC 05 ************ //
+
+        /// <summary>
+        /// Creates vendor by giving vendor name and vendor code
+        /// </summary>
+        public string createVendor()
+        {
+            string vendorName = Constants.vendorName + utility.CurrentTime();
+            string vendorCode = Constants.vendorCode + utility.CurrentTime();
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(btnNew);
+            seleniumActions.Click(inp_VendorName);
+            seleniumActions.SendKeys(inp_VendorName,vendorName);
+            seleniumActions.Click(inp_VendorCode);
+            seleniumActions.SendKeys(inp_VendorCode, vendorCode);
+            seleniumActions.Click(chk_PreferredVendor);
+            return vendorName;
+        }
+        /// <summary>
+        ///  Delete the newly created vendor 
+        /// </summary>
+       
+        public void deleteVendor(string vendorName)
+        {
+            Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
+            seleniumActions.Click(btnMultiSearch);
+            Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch), "Multi Search field is not available");
+            seleniumActions.Click(drpColumn_MultiSearch);
+            seleniumActions.Click(ddlVendorName_MultiSearch);
+            seleniumActions.Click(drpCondition_MultiSearch);
+            seleniumActions.Click(ddlContains_MultiSearch);
+            seleniumActions.Click(inp_MultiSearch);
+            seleniumActions.SendKeys(inp_MultiSearch, vendorName);
+            seleniumActions.Click(btnAdvancedSearch_MultiSearch);
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.WaitForElementToExists(lblFirstRow_ElementPresent);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent));
+            seleniumActions.Click(chk_FirstRowInActive);
+            seleniumActions.Click(btnDelete);
+            seleniumActions.Click(btnYes_Popup);
+            seleniumActions.Wait(5);
+            seleniumActions.Click(btnYes_Popup);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
+            seleniumActions.SwitchToDefaultContent();
+
+        }
+        // ***************** End of TC 05 ************ //
         #endregion
     }
 }

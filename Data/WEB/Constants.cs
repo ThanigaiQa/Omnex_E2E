@@ -16,5 +16,7 @@ namespace OMNEX.AUTOMATION.Data.WEB
         public const string Name = "Test Automation";
         public const string shiftName = "test12345 - ";
         public const string countryName = "srilanka -";
+        public const string vendorName = "test _";
+        public const string vendorCode = "test12345";
     }
 }
