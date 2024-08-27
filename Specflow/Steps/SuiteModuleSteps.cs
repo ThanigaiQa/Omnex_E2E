@@ -222,6 +222,28 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             dashboard.OrganizationDetailsUpdate();
         }
         // ************** End of TC 21 ****************** //
+
+        // ************** Start Of TC 11 ***************** //
+        private string createdPosition;
+        [When(@"I create a position for site '([^']*)'")]
+        public void WhenICreateAPositionForSite(string site)
+        {
+            createdPosition = dashboard.createPosition(site);
+        }
+
+        [Then(@"verify the position is created")]
+        public void ThenVerifyThePositionIsCreated()
+        {
+           dashboard.verifyPosition(createdPosition);
+        }
+
+
+        [Then(@"I Delete the position")]
+        public void ThenIDeleteThePosition()
+        {
+            dashboard.deletePosition();
+        }
+        // ************** End of TC 11 ****************** //
         #endregion
     }
 }

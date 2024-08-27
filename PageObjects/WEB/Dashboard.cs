@@ -160,8 +160,18 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btn_ProductLogo => By.XPath("//*[@id = 'btnAttachProductlogo'][1]");
         
 
+        /***************TC11 Xpaths**********************/
+        By btn_Add => By.XPath("//button[@id='btnSave']");
+        By drp_Site => By.XPath("//select[@id='selectSiteId']");
+        By inp_RightSite => By.XPath("//select[@id='selectSiteId']//option[3]");
 
+        By inp_Position => By.XPath("//input[@id='txtPosition']");
 
+        By inp_Description => By.XPath("//div//textarea[@id='txtDescription']");
+
+        By btn_SaveForPosition => By.XPath("(//button[@id='btnSave'])[2]");
+
+        /***************TC11 Xpaths**********************/
 
 
         #endregion
@@ -809,6 +819,62 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         // ***************** End of TC 21 ************ //
 
 
+
+        // ***************** Start of TC 11 ************ //
+        /// <summary>
+        /// Creates position by giving position name and description
+        /// </summary>
+        public string createPosition(string site)
+        {
+            string position = Constants.position + utility.CurrentTime();
+            string description = Constants.description + utility.CurrentTime();
+            if (site != "Corporate")
+            {
+                seleniumActions.SwitchToIframes(iframe_DetailView);
+                seleniumActions.Click(drp_Site);
+                seleniumActions.Click(inp_RightSite);
+                seleniumActions.Wait(3);
+                seleniumActions.SwitchToDefaultContent();
+            }
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(btn_Add);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(inp_Position);
+            seleniumActions.SendKeys(inp_Position, position);
+            seleniumActions.Click(inp_Description);
+            seleniumActions.SendKeys(inp_Description, description);
+            seleniumActions.Click(btn_SaveForPosition);
+            seleniumActions.SwitchToDefaultContent();
+            return position;
+        }
+        /// <summary>
+        /// Verify the position is created or not
+        /// </summary>
+        public void verifyPosition(string position)
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblSuccess_Message));
+            seleniumActions.Click(btnClose_SuccessMessage);
+            seleniumActions.Click(hintSearch);
+            seleniumActions.SendKeys(hintSearch, position);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent));
+            seleniumActions.SwitchToDefaultContent();
+        }
+        /// <summary>
+        /// Delete the created position
+        /// </summary>
+        public void deletePosition()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Wait(5);
+            seleniumActions.Click(chk_FirstRowInActive);
+            seleniumActions.Click(btnDelete);
+            seleniumActions.Click(btnYes_Popup);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
+            seleniumActions.SwitchToDefaultContent();
+        }
+        // ***************** End of TC 11 ************ //
         #endregion
     }
 }
