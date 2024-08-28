@@ -198,24 +198,24 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // ************** End of TC 07 ****************** //
 
-
         // ************** Start Of TC 05 ***************** //
 
         [Then(@"I create a vendor")]
         public void ThenICreateAVendor()
         {
-            scenarioContext["VendorName"] = dashboard.createVendor();   
+            scenarioContext["VendorName"] = dashboard.CreateVendor();   
         }
 
         [Then(@"I delete the vendor")]
         public void ThenIDeleteTheVendor()
         {
-            dashboard.deleteVendor(scenarioContext["VendorName"].ToString());
+            dashboard.DeleteVendor(scenarioContext["VendorName"].ToString());
         }
 
         // ************** End of TC 05 ****************** //
 
         // ************** Starts of TC 21 ****************** //
+
         [Then(@"Update the Organization profile details")]
         public void ThenUpdateTheOrganizationProfileDetails()
         {
@@ -224,24 +224,24 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         // ************** End of TC 21 ****************** //
 
         // ************** Start Of TC 11 ***************** //
+
         private string createdPosition;
         [When(@"I create a position for site '([^']*)'")]
         public void WhenICreateAPositionForSite(string site)
         {
-            createdPosition = dashboard.createPosition(site);
+            createdPosition = dashboard.CreatePosition(site);
         }
 
         [Then(@"verify the position is created")]
         public void ThenVerifyThePositionIsCreated()
         {
-           dashboard.verifyPosition(createdPosition);
+           dashboard.VerifyPosition(createdPosition);
         }
-
 
         [Then(@"I Delete the position")]
         public void ThenIDeleteThePosition()
         {
-            dashboard.deletePosition();
+            dashboard.DeletePosition();
         }
         // ************** End of TC 11 ****************** //
 
@@ -255,6 +255,28 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
 
+
+        // ************** Start Of TC 20 ***************** //
+
+        [Then(@"I Select country ""([^""]*)"" and add the city ""([^""]*)""")]
+        public void ThenISelectCountryAndAddTheCity(string country, string city)
+        {
+            dashboard.CreateCity(country,city);
+        }
+
+        [Then(@"I Validate the newely created ""([^""]*)"" and the city ""([^""]*)""")]
+        public void ThenIValidateTheNewelyCreatedAndTheCity(string country, string city)
+        {
+            dashboard.VerifyCity(country,city);
+        }
+
+        [Then(@"I delete the city")]
+        public void ThenIDeleteTheCity()
+        {
+           dashboard.DeleteCity();
+        }
+
+        // ************** End of TC 20 ****************** //
         #endregion
     }
 }

@@ -7,6 +7,7 @@ using System.Reflection.Metadata;
 using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
 using System.Reflection;
+using System.Diagnostics.Metrics;
 using System.Collections.Generic;
 using System.Xml.Linq;
 
@@ -134,24 +135,21 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By inp_MultiSearch => By.XPath("//input[@class='dtsb-value dtsb-input']");
         By btnAdvancedSearch_MultiSearch => By.XPath("//button[@title='Advanced Search']");
 
-        /***************TC13 Xpaths**********************/
         /*************** TC01 Xpaths**********************/
         By btnUserIconProfile => By.XPath("//li[@id='profiledrop']/a/img");
         By btnLogout => By.XPath("//*[@id='logout']");
         By lblRememberme => By.XPath("//label[@for='chkremup']");
-
-        By inp_CountryName => By.XPath("//input[@id='txtCountryName']");
-
-        /***************TC13 Xpaths**********************/
         By chk_PreferredManufacturer => By.XPath("//label[@for='chkPreManuf']");
         By ddlManufacturerName_MultiSearch => By.XPath("(//div[@class='dtsb-criteria']//select//option[contains(text(),'Manufacturer Name')])[1]");
+        
+        /***************TC13 Xpaths**********************/
+        By inp_CountryName => By.XPath("//input[@id='txtCountryName']");
 
         /***************TC05 Xpaths**********************/
-
         By inp_VendorName => By.XPath("//input[@id='txtName']");
         By inp_VendorCode => By.XPath("//input[@id='txtCode']");
         By chk_PreferredVendor => By.XPath("//label[contains(text(), 'Preferred Vendor')]");
-        By ddlVendorName_MultiSearch => By.XPath("(//div[@class='dtsb-criteria']//select//option[contains(text(),'Vendor Name')])[1]");
+        By ddl_VendorNameMultiSearch => By.XPath("(//div[@class='dtsb-criteria']//select//option[contains(text(),'Vendor Name')])[1]");
 
         /***************TC21Xpaths**********************/
         By btn_CompanyLogoLarge => By.XPath("(//label[contains(text(),'Recommended Dimensions: 380 x 133 pixels')]//parent::div)[1]//following::button[@id='btnAttachCompanylogolarge']");
@@ -160,7 +158,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btn_DoneFile => By.XPath("//button[@id='butSave']");
         By btn_ProductLogo => By.XPath("//*[@id = 'btnAttachProductlogo'][1]");
         
-
         /***************TC11 Xpaths**********************/
         By btn_Add => By.XPath("//button[@id='btnSave']");
         By drp_Site => By.XPath("//select[@id='selectSiteId']");
@@ -173,6 +170,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btn_SaveForPosition => By.XPath("(//button[@id='btnSave'])[2]");
 
         /***************TC22 Xpaths**********************/
+        /***************TC20 Xpaths**********************/
+        By txt_City => By.Id("City");
+        By inp_CountrySearch => By.XPath("//input[contains(@class, 'search')]");
 
         By drp_PaswordFormat => By.XPath("//*[contains(@id,'ddlListPwdFormat-container')]");
         By ddl_PaswordOption => By.XPath("//*[@type='search']");
@@ -750,7 +750,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// <summary>
         /// Creates vendor by giving vendor name and vendor code
         /// </summary>
-        public string createVendor()
+        public string CreateVendor()
         {
             string vendorName = Constants.vendorName + utility.CurrentTime();
             string vendorCode = Constants.vendorCode + utility.CurrentTime();
@@ -768,13 +768,13 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         ///  Delete the newly created vendor 
         /// </summary>
        
-        public void deleteVendor(string vendorName)
+        public void DeleteVendor(string vendorName)
         {
             Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
             seleniumActions.Click(btnMultiSearch);
             Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch), "Multi Search field is not available");
             seleniumActions.Click(drpColumn_MultiSearch);
-            seleniumActions.Click(ddlVendorName_MultiSearch);
+            seleniumActions.Click(ddl_VendorNameMultiSearch);
             seleniumActions.Click(drpCondition_MultiSearch);
             seleniumActions.Click(ddlContains_MultiSearch);
             seleniumActions.Click(inp_MultiSearch);
@@ -834,13 +834,11 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
         // ***************** End of TC 21 ************ //
 
-
-
         // ***************** Start of TC 11 ************ //
         /// <summary>
         /// Creates position by giving position name and description
         /// </summary>
-        public string createPosition(string site)
+        public string CreatePosition(string site)
         {
             string position = Constants.position + utility.CurrentTime();
             string description = Constants.description + utility.CurrentTime();
@@ -867,7 +865,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// <summary>
         /// Verify the position is created or not
         /// </summary>
-        public void verifyPosition(string position)
+        public void VerifyPosition(string position)
         {
             seleniumActions.SwitchToIframes(iframe_DetailView);
             Assert.IsTrue(seleniumActions.IsElementPresent(lblSuccess_Message));
@@ -880,7 +878,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// <summary>
         /// Delete the created position
         /// </summary>
-        public void deletePosition()
+        public void DeletePosition()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView);
             seleniumActions.Wait(5);
@@ -950,6 +948,57 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
         // ****************** End of TC 22 ********* //
 
+
+        // ************** Start Of TC 20 ***************** //
+        /// <summary>
+        /// Creates city by giving country, state and city name
+        /// </summary>
+        public void CreateCity(string country, string city)
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.IsElementPresent(drpCountry);
+            seleniumActions.Click(drpCountry);
+            seleniumActions.Wait(3);
+            seleniumActions.SendKeys(inp_CountrySearch, country + Keys.Enter);
+            seleniumActions.Click(btnNew);
+            seleniumActions.Click(txt_City);
+            seleniumActions.SendKeys(txt_City, city);
+            seleniumActions.Click(btnSave);
+            seleniumActions.VerifyElementIsDisplayed(msgSaveSuccessfully);
+            seleniumActions.Wait(3);
+            seleniumActions.NavigateBack();
+            seleniumActions.Refresh();
+
+        }
+        /// <summary>
+        /// Verify the city is created or not
+        /// </summary>
+        public void VerifyCity(string country, string city)
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.IsElementPresent(drpCountry);
+            seleniumActions.Click(drpCountry);
+            seleniumActions.SendKeys(inp_CountrySearch, country + Keys.Enter);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(hintSearch);
+            seleniumActions.SendKeys(hintSearch, city);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent));
+            seleniumActions.SwitchToDefaultContent();
+        }
+        /// <summary>
+        /// Delete the created city
+        /// </summary>
+        public void DeleteCity()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Wait(5);
+            seleniumActions.Click(chk_FirstRowInActive);
+            seleniumActions.Click(btnDelete);
+            seleniumActions.Click(btnYes_Popup);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
+            seleniumActions.SwitchToDefaultContent();
+        }
+        // ***************** End of TC 20 ************ //
         #endregion
     }
 }
