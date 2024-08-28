@@ -31,6 +31,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         #region stepDefinitions
 
         [Given(@"Login to the application with '([^']*)' user")]
+        [Then(@"Login to the application with '([^']*)' user")]
         public void GivenLoginToTheApplicationWithUser(string user)
         {
             switch (user.ToLower())
@@ -93,6 +94,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
 
         [When(@"Logout from the application")]
+        [Then(@"Logout from the application")]
         public void WhenLogoutFromTheApplication()
         {
             dashboard.LogoutApplication();

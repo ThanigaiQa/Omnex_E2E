@@ -244,6 +244,17 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             dashboard.deletePosition();
         }
         // ************** End of TC 11 ****************** //
+
+        // **************Starts of TC 22 **************** //
+
+
+        [Then(@"Update the Admin Setting details")]
+        public void ThenUpdateTheAdminSettingDetails()
+        {
+            dashboard.updateAndValidateAdminSetting();
+        }
+
+
         #endregion
     }
 }

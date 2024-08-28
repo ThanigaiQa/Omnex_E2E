@@ -7,6 +7,8 @@ using System.Reflection.Metadata;
 using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
 using System.Reflection;
+using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace OMNEX.AUTOMATION.PageObjects.WEB
 {
@@ -94,7 +96,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By tbl_ToTime => By.XPath("(//table[@class='ClsTable']//tbody//tr//td)[10]");
 
         By btn_Save => By.XPath("//button[@title='Save']");
-
         By lblSuccess_Message => By.XPath("//div[contains(@class,'alert-success')]//strong");
         By btnClose_SuccessMessage => By.XPath("//a[@aria-label='close']");
         By hintSearch => By.XPath("//input[@type='search']");
@@ -171,7 +172,21 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         By btn_SaveForPosition => By.XPath("(//button[@id='btnSave'])[2]");
 
-        /***************TC11 Xpaths**********************/
+        /***************TC22 Xpaths**********************/
+
+        By drp_PaswordFormat => By.XPath("//*[contains(@id,'ddlListPwdFormat-container')]");
+        By ddl_PaswordOption => By.XPath("//*[@type='search']");
+        By txt_PasswordLength => By.XPath("//*[@id = 'PWDLen']");
+        By drp_FirstCombobox => By.XPath("//*[@id = 'select2-drpNameFormat1-container']");
+        By ddl_FCFirstName => By.XPath("//ul[@id='select2-drpNameFormat1-results']//li[contains(text(),'First Name')]");
+        By ddl_FCLasttName => By.XPath("//ul[@id='select2-drpNameFormat1-results']//li[contains(text(),'Last Name')]");
+        By drp_SecondCombobox => By.XPath("//*[contains(@id,'drpNameFormat1-container')]");
+        By drp_ThirdCombobox => By.XPath("//*[contains(@id,'drpNameFormat2-container')]");
+        By drp_FoutrhCombobox => By.XPath("//*[contains(@id,'drpNameFormatDelimit2-container')]");
+        By drp_LastCombobox => By.XPath("//*[contains(@id,'drpNameFormat3-container')]");
+        By ddl_LCFirstName => By.XPath("//ul[contains(@id,\"drpNameFormat3\")]//li[contains(text(),'First Name')]");
+        By ddl_LCLastName => By.XPath("//ul[contains(@id,\"drpNameFormat3\")]//li[contains(text(),'Last Name')]");
+
 
 
         #endregion
@@ -182,6 +197,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         static By iframe_ifrUsers => By.XPath("//iframe[@id='ifrUsers']");
         static By iframe_ifrAlbum => By.XPath("(//iframe[@id='ifrAlbum'])[1]");
         
+
 
         //static By[] iframes = { iframe_DetailView, iframe_Tree };
 
@@ -875,6 +891,65 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToDefaultContent();
         }
         // ***************** End of TC 11 ************ //
+
+        // ****************** Starts of TC 22 ********* //
+        
+        /// <summary>
+        /// Update and Validate Datas from Admin Setting
+        /// </summary>
+        public void updateAndValidateAdminSetting()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Click(drp_PaswordFormat);
+            seleniumActions.SendKeys(ddl_PaswordOption,Keys.Clear);
+            seleniumActions.SendKeys(ddl_PaswordOption,"Alphanumeric");
+            seleniumActions.SendKeys(txt_PasswordLength, Keys.Clear);
+            seleniumActions.SendKeys(txt_PasswordLength, "2");
+            string fcDefaultValue=seleniumActions.GetText(drp_FirstCombobox);
+            string lcDefaultValue = seleniumActions.GetText(drp_LastCombobox);
+
+            if (fcDefaultValue == "First Name")
+            {
+
+                seleniumActions.Click(drp_FirstCombobox);
+                seleniumActions.Click(ddl_FCLasttName);
+                seleniumActions.Click(drp_SecondCombobox);
+                seleniumActions.Click(drp_ThirdCombobox);
+                seleniumActions.Click(drp_FoutrhCombobox);
+
+
+                if (lcDefaultValue == "Last Name")
+                {
+                    seleniumActions.Click(drp_LastCombobox);
+                    seleniumActions.Click(ddl_LCFirstName);
+                    seleniumActions.Click(btn_Save);
+                    Assert.IsTrue(seleniumActions.IsElementPresent(lblSuccess_Message), "Success smessage not display");
+
+                }
+            }
+            else if (fcDefaultValue == "Last Name")
+            {
+                seleniumActions.Click(drp_FirstCombobox);
+                seleniumActions.Click(ddl_FCFirstName);
+                seleniumActions.Click(drp_SecondCombobox);
+                seleniumActions.Click(drp_ThirdCombobox);
+                seleniumActions.Click(drp_FoutrhCombobox);
+
+
+                if (lcDefaultValue == "First Name")
+                {
+                    seleniumActions.Click(drp_LastCombobox);
+                    seleniumActions.Click(ddl_LCLastName);
+                    seleniumActions.Click(btn_Save);
+                    Assert.IsTrue(seleniumActions.IsElementPresent(lblSuccess_Message), "Success smessage not display");
+                }
+
+            }
+                seleniumActions.SwitchToDefaultContent();
+
+        }
+        // ****************** End of TC 22 ********* //
+
         #endregion
     }
 }
