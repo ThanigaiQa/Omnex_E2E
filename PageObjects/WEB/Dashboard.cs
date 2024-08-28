@@ -58,9 +58,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btnSelectTeamLeader => By.XPath("(//input[@id='leaderName']//following::span[@class='input-group-text'])[1]");
         By rdoUserBasedSearchChecked => By.XPath("//input[@id='rdUserBaseSearch' and @checked='checked']");
         By phd_Name => By.XPath("//div[@id='userListingGridControl_wrapper']//input[@type='search']");
-        By lblTeamLeader_SearchResult => By.XPath("//table[@id='userListingGridControl']//td[@class='sorting_1']");
-        By chkTeamLeaderInactive => By.XPath("//table[@id='userListingGridControl']//tr[@class='odd']//input[@type='checkbox']");
-        By chkTeamLeaderActive => By.XPath("//table[@id='userListingGridControl']//tr[@class='odd selected']//input[@type='checkbox']");
+        By lblTeamLeader_SearchResult => By.XPath("(//table[@id='userListingGridControl']//td[@class='sorting_1'])[1]");
+        By chkTeamLeaderInactive => By.XPath("(//table[@id='userListingGridControl']//tr[@class='odd']//input[@type='checkbox'])[1]");
+        By chkTeamLeaderActive => By.XPath("(//table[@id='userListingGridControl']//tr[@class='odd selected']//input[@type='checkbox'])[1]");
         By btn_Done => By.XPath("//button[@title='Done']");
         By txtTeamName => By.XPath("//input[@id='team']");
         By lblTeamLeader => By.XPath("//label[text()='Team Leader']");
@@ -95,7 +95,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By dtp_ToTime => By.XPath("//div[@class='input-group-append']//span[contains(@onClick,'txtToTime')]");
         By tbl_FromTime => By.XPath("(//table[@class='ClsTable']//tbody//tr//td)[7]");
         By tbl_ToTime => By.XPath("(//table[@class='ClsTable']//tbody//tr//td)[10]");
-
         By btn_Save => By.XPath("//button[@title='Save']");
         By lblSuccess_Message => By.XPath("//div[contains(@class,'alert-success')]//strong");
         By btnClose_SuccessMessage => By.XPath("//a[@aria-label='close']");
@@ -162,11 +161,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btn_Add => By.XPath("//button[@id='btnSave']");
         By drp_Site => By.XPath("//select[@id='selectSiteId']");
         By inp_RightSite => By.XPath("//select[@id='selectSiteId']//option[3]");
-
         By inp_Position => By.XPath("//input[@id='txtPosition']");
-
         By inp_Description => By.XPath("//div//textarea[@id='txtDescription']");
-
         By btn_SaveForPosition => By.XPath("(//button[@id='btnSave'])[2]");
 
         /***************TC22 Xpaths**********************/
@@ -189,6 +185,13 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
 
 
+        // ***************TC11 Xpaths********************** //
+        By txtEntityName => By.XPath("//input[@id='tblEntityName']");
+        By svgAddContactPersonIcon => By.XPath("//*[local-name()='svg' and @data-icon='user-plus']");
+        By tbl_GeoLocationOwers => By.XPath("(//div[@id='divMultiSelectTree'])[1]");
+        By imgPlusIcon_EntityPage => By.XPath("//img[@id='plusimg3']");
+        By lblDeleteRightClick_EntityPage => By.XPath("//ul[@id='contextmenu']//li[@id='liDelete']");
+        
         #endregion
 
         #region Iframe
@@ -220,12 +223,13 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         {
             if (seleniumActions.IsElementPresent(sideMenuContainer))
             {
+                seleniumActions.Wait(5);
                 seleniumActions.Click(lblSetup);
                 seleniumActions.Click(lblSuiteSetup);
+                seleniumActions.Wait(2);
                 seleniumActions.ScrollToElement(By.XPath("(//a[@class='submenu_list_link has-arrow']//following-sibling::ul[@class='inner_submenu']//span[contains(text(),'" + SubHead + "')])[2]"));
                 seleniumActions.Click(By.XPath("(//a[@class='submenu_list_link has-arrow']//following-sibling::ul[@class='inner_submenu']//span[contains(text(),'" + SubHead + "')])[2]"));
                 //seleniumActions.Click(lblLevelsPage);
-
             }
         }
 
@@ -238,7 +242,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.VerifyElementIsDisplayed(txtSuiteLevelHeader));
             seleniumActions.SwitchToParentFrame();
         }
-
 
         /// <summary>
         /// Use this method to create a New Level based on the velue we pass
@@ -862,6 +865,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToDefaultContent();
             return position;
         }
+
         /// <summary>
         /// Verify the position is created or not
         /// </summary>
@@ -875,6 +879,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent));
             seleniumActions.SwitchToDefaultContent();
         }
+
         /// <summary>
         /// Delete the created position
         /// </summary>
@@ -888,6 +893,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
             seleniumActions.SwitchToDefaultContent();
         }
+
         // ***************** End of TC 11 ************ //
 
         // ****************** Starts of TC 22 ********* //
@@ -999,6 +1005,106 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToDefaultContent();
         }
         // ***************** End of TC 20 ************ //
+
+        // ***************** Start of TC 24 ************ //
+
+        /// <summary>
+        /// This method help us to navigate into Entity and entity owner page inside the suite setup
+        /// </summary>
+        public void NavigateToEntityAndOwnerPage(String SubHead)
+        {
+            if (seleniumActions.IsElementPresent(sideMenuContainer))
+            {
+                seleniumActions.Wait(5);
+                seleniumActions.Click(lblSetup);
+                seleniumActions.Click(lblSuiteSetup);
+                seleniumActions.Wait(2);
+                seleniumActions.ScrollToElement(By.XPath("(//a[@class='submenu_list_link has-arrow']//following-sibling::ul[@class='inner_submenu']//span[contains(text(),'Master Folder Tags')])[2]"));
+                if (SubHead.Equals("Entity"))
+                {
+                    seleniumActions.Wait(2);
+                    seleniumActions.Click(By.XPath("//div[@class='sub-menu']//li[contains(@onclick,'MenuCustomCLick')]//span[text()='" + SubHead + "']"));
+                }
+                else if (SubHead.Equals("Entity Owners"))
+                {
+                    seleniumActions.Wait(2);
+                    seleniumActions.Click(By.XPath("//div[@class='sub-menu']//li[contains(@onclick,'MenuCustomCLick')]//span[text()='" + SubHead + "']"));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Creates a new entity in entity page
+        /// </summary>
+        public string CreateEntity()
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            string entityName = Constants.TagName + utility.CurrentTime();
+            seleniumActions.Click(txtEntityName);
+            seleniumActions.SendKeys(txtEntityName, entityName);
+            seleniumActions.ScrollToElement(svgAddContactPersonIcon);
+            seleniumActions.Click(svgAddContactPersonIcon);
+            seleniumActions.Wait(5);
+            seleniumActions.SwitchToFrame(iframe_ifrUsers);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(phd_Name);
+            seleniumActions.SendKeys(phd_Name, "donot-Delete");
+            seleniumActions.Wait(3);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblTeamLeader_SearchResult));
+            seleniumActions.Click(chkTeamLeaderInactive);
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(btn_Done);
+            seleniumActions.Click(btn_Save);
+            Assert.IsTrue(seleniumActions.IsElementPresent(msgSaveSuccessfully));
+            return entityName;
+        }
+
+        /// <summary>
+        /// Assign owner to the entity
+        /// </summary>
+        public void AssignOwnerToEntity(string entityName)
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(tbl_GeoLocationOwers);
+            seleniumActions.Wait(2);
+            seleniumActions.Click("(//ul[contains(@id,'Tree_Benchmark')]//span[contains(text(),'" + entityName +"')])[1]");
+            seleniumActions.Click("(//ul[contains(@id,'Tree_Benchmark')]//span[contains(text(),'" + entityName + "')]//img)[1]");
+
+            seleniumActions.SwitchToIframes(iframe_ifrUsers);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(phd_Name);
+            seleniumActions.SendKeys(phd_Name, "donot-Delete");
+            seleniumActions.Wait(2);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblTeamLeader_SearchResult));
+            seleniumActions.Click(chkTeamLeaderInactive);
+
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(btn_Done);
+            seleniumActions.Click(btn_Save);
+        }
+
+        /// <summary>
+        /// Deletes the new entity from the entity page
+        /// </summary>
+        public void DeleteEntity(string entityName)
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            Assert.IsTrue(seleniumActions.IsElementPresent(imgPlusIcon_EntityPage));
+            seleniumActions.Click(imgPlusIcon_EntityPage);
+            seleniumActions.Click("//ul[@id='Folder3']//a[contains(text(),'" + entityName + "')]");
+            seleniumActions.ContextClick(By.XPath("//ul[@id='Folder3']//a[contains(text(),'" + entityName + "')]"));
+            seleniumActions.Click(lblDeleteRightClick_EntityPage);
+            seleniumActions.Click(btnYes_Popup);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(btnYes_Popup);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // ***************** End of TC 24 ************ //
+
         #endregion
     }
 }

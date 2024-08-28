@@ -92,13 +92,19 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             dashboard.Refresh();
         }
 
-
         [When(@"Logout from the application")]
         [Then(@"Logout from the application")]
         public void WhenLogoutFromTheApplication()
         {
             dashboard.LogoutApplication();
         }
+
+        [When(@"Navigate to (.*) page")]
+        public void WhenNavigateToEntityPage(string subHead)
+        {
+            dashboard.NavigateToEntityAndOwnerPage(subHead);
+        }
+
 
         #endregion
     }

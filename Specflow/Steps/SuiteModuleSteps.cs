@@ -221,6 +221,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         {
             dashboard.OrganizationDetailsUpdate();
         }
+
         // ************** End of TC 21 ****************** //
 
         // ************** Start Of TC 11 ***************** //
@@ -243,6 +244,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         {
             dashboard.DeletePosition();
         }
+
         // ************** End of TC 11 ****************** //
 
         // **************Starts of TC 22 **************** //
@@ -277,6 +279,29 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         // ************** End of TC 20 ****************** //
+
+        // ************** Start of TC 24 ****************** //
+
+        [Then(@"I create a Entity")]
+        public void ThenICreateAEntity()
+        {
+           scenarioContext["EntityName"] = dashboard.CreateEntity();
+        }
+
+        [Then(@"I assign owner to the entity")]
+        public void ThenIAssignOwnerToTheEntity()
+        {
+            dashboard.AssignOwnerToEntity(scenarioContext["EntityName"].ToString());
+        }
+
+        [Then(@"I delete the Entity")]
+        public void ThenIDeleteTheEntity()
+        {
+            dashboard.DeleteEntity(scenarioContext["EntityName"].ToString());
+        }
+
+        // ************** End of TC 24 ****************** //
+
         #endregion
     }
 }
