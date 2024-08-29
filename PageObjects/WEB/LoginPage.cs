@@ -54,17 +54,17 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// <param name="Password">Password store as String</param>
         public void LoginToApp(String Email, String Password)
         {
-            if(seleniumActions.IsElementPresent(btnAdvance))
+            if (seleniumActions.IsElementPresent(btnAdvance,3))
             {
                 seleniumActions.Click(btnAdvance);
                 seleniumActions.Click(lnkUnsafeURL);
             }
-            seleniumActions.SendKeys(txtEmail, Email);
-            seleniumActions.SendKeys(txtPassword, Password);
-            seleniumActions.Click(btnLogin);
-            seleniumActions.Wait(3);
+                seleniumActions.SendKeys(txtEmail, Email);
+                seleniumActions.SendKeys(txtPassword, Password);
+                seleniumActions.Click(btnLogin);
+                seleniumActions.Wait(3);
 
-            if (seleniumActions.IsElementPresent(lblWarning))
+                if (seleniumActions.IsElementPresent(lblWarning))
                 {
                     seleniumActions.Click(btnYes);
                 }

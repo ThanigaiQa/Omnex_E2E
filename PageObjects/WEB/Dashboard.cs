@@ -193,6 +193,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By lblDeleteRightClick_EntityPage => By.XPath("//ul[@id='contextmenu']//li[@id='liDelete']");
         By ddlHighlightedCountry => By.XPath("//li[contains(@class,'option--highlighted')]");
         By btnDelete_Country => By.XPath("//button[@id='btnDeleteCountry']");
+        By lblTeamSortAscending => By.XPath("(//th[@aria-sort='ascending'])[1]"); 
 
         #endregion
 
@@ -370,7 +371,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// <summary>
         /// Create team in teams page under System page
         /// </summary>
-        public void CreateTeam()
+        public string CreateTeam()
         {
             seleniumActions.SwitchToFrame(iframe_DetailView);
             seleniumActions.Wait(4);
@@ -392,8 +393,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToDefaultContent();
             seleniumActions.SwitchToFrame(iframe_DetailView);
             seleniumActions.Click(btn_Done);
+            string teamName = Constants.Name + utility.CurrentTime();
             seleniumActions.Click(txtTeamName);
-            seleniumActions.SendKeys(txtTeamName, Constants.Name);
+            seleniumActions.SendKeys(txtTeamName, teamName);
             seleniumActions.Click(lblTeamLeader);
             Assert.IsTrue(seleniumActions.IsElementPresent(btnAdd_TeamsPage));
             seleniumActions.Click(btnAdd_TeamsPage);
@@ -415,17 +417,21 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToDefaultContent();
             seleniumActions.SwitchToFrame(iframe_DetailView);
             seleniumActions.Click(btn_Done);
+            return teamName;
         }
 
         /// <summary>
         /// Verify the newly created team is showing in the teams list
         /// </summary>
-        public void VerifyTeamIsCreated()
+        public void VerifyTeamIsCreated(string teamName)
         {
             seleniumActions.ScrollToElement(btnClose_TeamsPage);
             seleniumActions.Click(btnClose_TeamsPage);
             Assert.IsTrue(seleniumActions.IsElementPresent(lblAddedTeam));
-            Assert.IsTrue(seleniumActions.GetText(lblAddedTeam).Equals(Constants.Name));
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblTeamSortAscending));
+            seleniumActions.Click(lblTeamSortAscending);
+            seleniumActions.Wait(3);
+            Assert.IsTrue(seleniumActions.GetText(lblAddedTeam).Equals(teamName));
         }
 
         /// <summary>

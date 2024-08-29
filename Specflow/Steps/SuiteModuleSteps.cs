@@ -58,13 +58,13 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         [Then(@"I create the team")]
         public void ThenICreateTheTeam()
         {
-           dashboard.CreateTeam();
+              scenarioContext["TeamName"] = dashboard.CreateTeam();
         }
 
         [Then(@"I verify the team is created")]
         public void ThenIVerifyTheTeamIsCreated()
         {
-            dashboard.VerifyTeamIsCreated();
+            dashboard.VerifyTeamIsCreated(scenarioContext["TeamName"].ToString());
         }
 
         [Then(@"I delete the team and verify the alert message")]
