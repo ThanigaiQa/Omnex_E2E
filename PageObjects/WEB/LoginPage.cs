@@ -32,6 +32,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btnLogin => By.XPath("(//button[@type='button'])[2]");
         By lblWarning => By.XPath("//div[contains(text(),'Do you wish to continue')]");
         By btnYes => By.XPath("//*[text()='Yes']");
+        By btnAdvance => By.XPath("//button[@id='details-button']");
+        By lnkUnsafeURL => By.XPath("//a[@id='proceed-link']");
 
         #endregion
 
@@ -52,6 +54,11 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// <param name="Password">Password store as String</param>
         public void LoginToApp(String Email, String Password)
         {
+            if(seleniumActions.IsElementPresent(btnAdvance))
+            {
+                seleniumActions.Click(btnAdvance);
+                seleniumActions.Click(lnkUnsafeURL);
+            }
             seleniumActions.SendKeys(txtEmail, Email);
             seleniumActions.SendKeys(txtPassword, Password);
             seleniumActions.Click(btnLogin);

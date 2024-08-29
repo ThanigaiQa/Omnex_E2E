@@ -302,6 +302,46 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // ************** End of TC 24 ****************** //
 
+        // ************** Start of TC 23 ****************** //
+
+        [Then(@"I create country")]
+        public void ThenICreateCountry()
+        {
+            scenarioContext["CountryName"] = dashboard.CreateCountry();
+        }
+
+        [Then(@"I create state")]
+        public void ThenICreateState()
+        {
+            dashboard.CreateState(scenarioContext["CountryName"].ToString());
+        }
+
+        [Then(@"I create city")]
+        public void ThenICreateCity()
+        {
+            dashboard.CreateCity(scenarioContext["CountryName"].ToString());
+        }
+
+        [Then(@"I delete city")]
+        public void ThenIDeleteCity()
+        {
+            dashboard.DeleteCity(scenarioContext["CountryName"].ToString());
+        }
+
+        [Then(@"I delete state")]
+        public void ThenIDeleteState()
+        {
+            dashboard.DeleteState(scenarioContext["CountryName"].ToString());
+        }
+
+        [Then(@"I delete country")]
+        public void ThenIDeleteCountry()
+        {
+            dashboard.DeleteCountry(scenarioContext["CountryName"].ToString());
+        }
+
+        // ************** End of TC 23 ****************** //
+
         #endregion
     }
 }

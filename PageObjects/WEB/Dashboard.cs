@@ -191,7 +191,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By tbl_GeoLocationOwers => By.XPath("(//div[@id='divMultiSelectTree'])[1]");
         By imgPlusIcon_EntityPage => By.XPath("//img[@id='plusimg3']");
         By lblDeleteRightClick_EntityPage => By.XPath("//ul[@id='contextmenu']//li[@id='liDelete']");
-        
+        By ddlHighlightedCountry => By.XPath("//li[contains(@class,'option--highlighted')]");
+        By btnDelete_Country => By.XPath("//button[@id='btnDeleteCountry']");
+
         #endregion
 
         #region Iframe
@@ -670,6 +672,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(btnYes_Popup);
             Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
         }
+
         // ***************** End of TC 13 ************ //
 
         // ***************** Start of TC 07 ************ //
@@ -991,6 +994,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent));
             seleniumActions.SwitchToDefaultContent();
         }
+
         /// <summary>
         /// Delete the created city
         /// </summary>
@@ -1004,6 +1008,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
             seleniumActions.SwitchToDefaultContent();
         }
+
         // ***************** End of TC 20 ************ //
 
         // ***************** Start of TC 24 ************ //
@@ -1104,6 +1109,127 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // ***************** End of TC 24 ************ //
+
+        // ***************** Start of TC 23 ************ //
+
+        /// <summary>
+        /// Creates a country in country / region page
+        /// </summary>
+        /// <returns> country name </returns>
+        public string CreateCountry()
+        {
+            string countryName = Constants.countryName + utility.CurrentTime();
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(btnNew);
+            seleniumActions.Click(inp_CountryName);
+            seleniumActions.SendKeys(inp_CountryName, countryName);
+            seleniumActions.Click(btn_Save);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblSuccess_Message));
+            seleniumActions.Click(btnClose_SuccessMessage);
+            seleniumActions.Click(hintSearch);
+            seleniumActions.SendKeys(hintSearch, countryName);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent));
+            return countryName;
+        }
+
+        /// <summary>
+        /// Creates a state in state / province page
+        /// </summary>
+        /// <param name="countryName"></param>
+        public void CreateState(string countryName)
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.IsElementPresent(drpCountry);
+            seleniumActions.Click(drpCountry);
+            seleniumActions.Wait(3);
+            seleniumActions.SendKeys(txtSearchCountry, countryName);
+            seleniumActions.Click(ddlHighlightedCountry);
+            seleniumActions.WaitForElementToExists(btnAddState);
+            seleniumActions.Click(btnAddState);
+            seleniumActions.SendKeys(txtState, "Lawspet");
+            seleniumActions.Click(btnSave);
+            seleniumActions.VerifyElementIsDisplayed(msgSaveSuccessfully);
+        }
+
+        /// <summary>
+        /// Creates a city in city page 
+        /// </summary>
+        /// <param name="countryName"></param>
+        public void CreateCity(string countryName)
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.IsElementPresent(drpCountry);
+            seleniumActions.Click(drpCountry);
+            seleniumActions.Wait(3);
+            seleniumActions.SendKeys(inp_CountrySearch, countryName + Keys.Enter);
+            seleniumActions.Click(btnNew);
+            seleniumActions.Click(txt_City);
+            seleniumActions.SendKeys(txt_City, "ssv");
+            seleniumActions.Click(btnSave);
+            seleniumActions.VerifyElementIsDisplayed(msgSaveSuccessfully);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(btnClose_SuccessMessage);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent));
+        }
+
+        /// <summary>
+        /// Deletes the city in city page
+        /// </summary>
+        /// /// <param name="countryName"></param>
+        public void DeleteCity(string countryName)
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Wait(3);
+            seleniumActions.IsElementPresent(drpCountry);
+            seleniumActions.Click(drpCountry);
+            seleniumActions.Wait(3);
+            seleniumActions.SendKeys(inp_CountrySearch, countryName + Keys.Enter);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent));
+            seleniumActions.Click(chk_FirstRowInActive);
+            seleniumActions.Click(btnDelete);
+            seleniumActions.Click(btnYes_Popup);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
+        }
+
+        /// <summary>
+        /// Deleted the state in state / province page
+        /// </summary>
+        /// <param name="countryName"></param>
+        public void DeleteState(string countryName)
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Wait(3);
+            seleniumActions.IsElementPresent(drpCountry);
+            seleniumActions.Click(drpCountry);
+            seleniumActions.Wait(2);
+            seleniumActions.SendKeys(inp_CountrySearch, countryName + Keys.Enter);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent));
+            seleniumActions.Wait(2);
+            seleniumActions.Click(chkState);
+            seleniumActions.Click(btnDelete);
+            seleniumActions.Click(btnYes_Popup);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
+        }
+
+        /// <summary>
+        /// Deleted the country in country / region page
+        /// </summary>
+        /// <param name="countryName"></param>
+        public void DeleteCountry(string countryName)
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Click(hintSearch);
+            seleniumActions.SendKeys(hintSearch, countryName);
+            seleniumActions.Wait(5);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent));
+            seleniumActions.Click(lblFirstRow_ElementPresent);
+            seleniumActions.Click(btnDelete_Country);
+            seleniumActions.Click(btnYes_Popup);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
+        }
+
+        // ***************** End of TC 23 ************ //
 
         #endregion
     }
