@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Diagnostics.Metrics;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using System.Reactive.Subjects;
 
 namespace OMNEX.AUTOMATION.PageObjects.WEB
 {
@@ -99,6 +100,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By lblSuccess_Message => By.XPath("//div[contains(@class,'alert-success')]//strong");
         By btnClose_SuccessMessage => By.XPath("//a[@aria-label='close']");
         By hintSearch => By.XPath("//input[@type='search']");
+        By hintSearch2 => By.XPath("(//input[@type='search'])[2]");
         By lblFirstRow_ElementPresent => By.XPath("//tr[@role='row']//td/a[@href]");
         By chk_FirstRowInActive => By.XPath("//tbody//tr[@role='row' and @class='odd']//input[@type='checkbox']");
         By chk_FirstRowActive => By.XPath("//tbody//tr[@role='row' and @class='odd selected']//input[@type='checkbox']");
@@ -182,7 +184,39 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By drp_LastCombobox => By.XPath("//*[contains(@id,'drpNameFormat3-container')]");
         By ddl_LCFirstName => By.XPath("//ul[contains(@id,\"drpNameFormat3\")]//li[contains(text(),'First Name')]");
         By ddl_LCLastName => By.XPath("//ul[contains(@id,\"drpNameFormat3\")]//li[contains(text(),'Last Name')]");
-
+        By btn_NewMeetings => By.XPath("//button[@id='btnDel']");
+        By inp_MeetingDate => By.XPath("//input[@id='txtdate']");
+        By tbl_DatePicker => By.XPath("//td[@class='today day']");
+        By inp_Location => By.XPath("//input[@id='txtvenue']");
+        By inp_MeetingSub => By.XPath("//textarea[@id='txtsubject']");
+        By ddp_Category => By.XPath("//select[@id='ddlMeetingCategories']");
+        By ddl_Categoryddl => By.XPath("//select[@id='ddlMeetingCategories']//option[contains(text(),'Business')]");
+        By ddp_FromTime => By.XPath("//input[@id='txtFromTime']");
+        By ddp_ToTime => By.XPath("//input[@id='txtToTime']");
+        By tbl_FromTimeMeet => By.XPath("//span[@id='timePickerContent']//td[text()='12:15am']");
+        By tbl_FromToMeet => By.XPath("//span[@id='timePickerContent']//td[text()='03:15am']");
+        By btn_MeetingMinutes => By.XPath("//*[local-name()='svg' and @id='selMeeting']");
+        By txt_MeetingMinutesBox => By.XPath("//*[@class = 'cke_editable cke_editable_themed cke_contents_ltr']");
+        By btn_Title => By.XPath("//div[@id='MeetingMinutes']//*[@title='Close']");
+        By btn_TeamIcon => By.XPath("//*[@id = 'selTeam']");
+        By chk_ExisitingTeam => By.XPath("(//*[@name = 'ExistingTeam_selectCheck'])[1]");
+        By chk_EmployeeSelect1 => By.XPath("(//tr[not(contains(@class,'selected'))]/td/input[@name='TeamLeader_selectCheck'])[1]");
+        By chk_EmployeeSelect10 => By.XPath("(//tr[not(contains(@class,'selected'))]/td/input[@name='TeamLeader_selectCheck'])[2]");
+        By btn_TeamSave => By.XPath("//*[@id = 'btnTeamSave']");
+        By btn_CloseMinuteBox => By.XPath("//span[@class='close_button_popup']");
+        By txt_AgendaTopic => By.XPath("//input[@name='sTopic']");
+        By txt_AgendaDescription => By.XPath("//input[@name='sDesc']"); 
+        By txt_AgendaFrmTime => By.XPath("//input[@name='FromTime']");
+        By txt_AgendaToTime => By.XPath("//input[@name='ToTime']");
+        By tbl_AgendaFromTime => By.XPath("//span[@id='timePickerContent']//td[text()='01:15am']");
+        By tbl_AgendaToTime => By.XPath("//span[@id='timePickerContent']//td[text()='02:15am']");
+        By tbl_AgendaUsericon => By.XPath("//span[@id='imgrep']");
+        By chk_AgendaUser => By.XPath("(//input[@name='userListingGridControl_selectCheck'])[1]");
+        By btn_UserDone => By.XPath("//button[contains(text(), 'Done')]");
+        By txt_AgendaDate => By.XPath("//input[@name='sDate']");
+        By lbl_TitleAgenda => By.XPath("//div[@id='headingMeetingagenda']");
+        By chk_Meeting1 => By.XPath("(//input[@name='meetinitial_selectCheck'])[1]");
+        
 
 
         // ***************TC11 Xpaths********************** //
@@ -202,10 +236,12 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         static By iframe_Tree => By.XPath("//iframe[@id='iframeTree']");
         static By iframe_ifrUsers => By.XPath("//iframe[@id='ifrUsers']");
         static By iframe_ifrAlbum => By.XPath("(//iframe[@id='ifrAlbum'])[1]");
+        static By iframe => By.XPath("//iframe[contains(@class,'cke_reset')]");
         
 
 
-        //static By[] iframes = { iframe_DetailView, iframe_Tree };
+
+        
 
         #endregion
 
@@ -1236,6 +1272,101 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // ***************** End of TC 23 ************ //
+
+
+        // ***************** Start of TC 10 ************ //
+
+        /// <summary>
+        /// Create the Meeting
+        /// </summary>
+        public void CreateMeetings()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(btn_NewMeetings);
+            Assert.IsTrue(seleniumActions.IsElementPresent(inp_MeetingDate));
+            seleniumActions.Click(inp_MeetingDate);
+            seleniumActions.Click(tbl_DatePicker);
+            seleniumActions.SendKeys(inp_Location,Constants.Location);
+            seleniumActions.SendKeys(inp_MeetingSub, Constants.Name);
+            seleniumActions.Click(ddp_Category);
+            seleniumActions.Click(ddl_Categoryddl);
+            seleniumActions.Click(ddp_FromTime);
+            seleniumActions.Click(tbl_FromTimeMeet);
+            seleniumActions.Click(ddp_ToTime);
+            seleniumActions.Click(tbl_ToTime);
+            seleniumActions.Click(btn_MeetingMinutes);
+            seleniumActions.SwitchToIframes(iframe);
+            Assert.IsTrue(seleniumActions.IsElementPresent(txt_MeetingMinutesBox));
+            seleniumActions.Click(txt_MeetingMinutesBox);
+            seleniumActions.SendKeys(txt_MeetingMinutesBox, Constants.Name);
+            seleniumActions.SwitchToParentFrame();
+            seleniumActions.Click(btn_CloseMinuteBox);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btn_TeamIcon));
+            seleniumActions.Click(btn_TeamIcon);
+            seleniumActions.Wait(2);
+            seleniumActions.SwitchToDefaultContent();
+            // Store the current window handle
+            string originalWindow = _driver.CurrentWindowHandle;
+            // Get all window handles
+            IReadOnlyCollection<string> allWindows = _driver.WindowHandles;
+
+            // Switch to the new window
+            foreach (string windowHandle in allWindows)
+            {
+                if (windowHandle != originalWindow)
+                {
+                    _driver.SwitchTo().Window(windowHandle);
+                    break;
+                }
+            }
+            seleniumActions.Wait(3);
+            seleniumActions.Click(chk_ExisitingTeam);
+            seleniumActions.Wait(2);
+            seleniumActions.SendKeys(hintSearch2, "Administrator-Administrator");
+            seleniumActions.Wait(2);
+            seleniumActions.Click(chk_EmployeeSelect1);
+            seleniumActions.SendKeys(hintSearch2, "dummy-User");
+            seleniumActions.Wait(2);
+            seleniumActions.Click(chk_EmployeeSelect1);
+            seleniumActions.SendKeys(hintSearch2, "kaalaa-kaalaa");
+            seleniumActions.Wait(2);
+            seleniumActions.Click(chk_EmployeeSelect1); 
+            seleniumActions.Click(btn_TeamSave);
+            _driver.SwitchTo().Window(originalWindow);
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Click(lbl_TitleAgenda);
+            seleniumActions.SendKeys(txt_AgendaTopic, Constants.Name);
+            seleniumActions.SendKeys(txt_AgendaDescription, Constants.Name);
+            seleniumActions.Click(txt_AgendaFrmTime);
+            seleniumActions.Click(tbl_AgendaFromTime);
+            seleniumActions.Click(txt_AgendaToTime);
+            seleniumActions.Click(tbl_AgendaToTime);
+            seleniumActions.Click(tbl_AgendaUsericon);
+            seleniumActions.Wait(3);
+            seleniumActions.SwitchToFrame(iframe_ifrUsers);
+            seleniumActions.Click(chk_AgendaUser);
+            seleniumActions.SwitchToParentFrame();
+            seleniumActions.Click(btn_UserDone);
+            seleniumActions.Click(txt_AgendaDate);
+            seleniumActions.Click(tbl_DatePicker);
+            seleniumActions.Click(btn_Save);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Delete the Meeting
+        /// </summary>
+        public void DeleteMeeting()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Click(chk_Meeting1);
+            seleniumActions.Click(btnDelete);
+            seleniumActions.Click(btnYes_Popup);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // ***************** End of TC 10 ************ //
 
         #endregion
     }

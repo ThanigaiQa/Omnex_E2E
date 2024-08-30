@@ -328,6 +328,7 @@ namespace OMNEX.AUTOMATION.Helpers
         public void SwitchToDefaultContent()
         {
             _driver.SwitchTo().DefaultContent();
+           
         }
         /// <summary>
         /// Waits for an element to exist and scroll to the element using JavaScriptExecutor 

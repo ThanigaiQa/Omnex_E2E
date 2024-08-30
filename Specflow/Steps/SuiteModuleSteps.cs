@@ -256,6 +256,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             dashboard.updateAndValidateAdminSetting();
         }
 
+        // ************** End of TC 22 ****************** //
 
 
         // ************** Start Of TC 20 ***************** //
@@ -341,6 +342,23 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         // ************** End of TC 23 ****************** //
+
+
+        // ************** Starts of TC 10 ****************** //
+        
+        [Then(@"Create Meetings")]
+        public void ThenCreateMeetings()
+        {
+            dashboard.CreateMeetings();
+        }
+
+        [Then(@"Delete the meetings")]
+        public void ThenDeleteTheMeetings()
+        {
+            dashboard.DeleteMeeting();
+        }
+
+        // ************** End of TC 10 ****************** //
 
         #endregion
     }

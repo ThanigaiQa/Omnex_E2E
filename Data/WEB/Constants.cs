@@ -20,5 +20,6 @@ namespace OMNEX.AUTOMATION.Data.WEB
         public const string vendorCode = "test12345";
         public const string position = "test _";
         public const string description = "test123";
+        public const string Location = "Chennai";
     }
 }

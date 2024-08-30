@@ -81,6 +81,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         [When(@"I Navigate to (.*) Page")]
+        [Then(@"I Navigate to (.*) Page")]
         public void WhenINavigateToTeamsPage(String subHead)
         {
             dashboard.NavigateToSystemPage(subHead);
