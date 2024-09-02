@@ -3,6 +3,7 @@ using OMNEX.AUTOMATION.PageObjects.WEB;
 using AventStack.ExtentReports.Gherkin.Model;
 using TechTalk.SpecFlow;
 using System.Diagnostics.Metrics;
+using System.Reflection.Emit;
 
 namespace OMNEX.AUTOMATION.Specflow.Steps
 {
@@ -359,6 +360,28 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         // ************** End of TC 10 ****************** //
+
+        // ************** Start of TC 14 ****************** //
+
+        [Then(@"I create an user")]
+        public void ThenICreateAnUser()
+        {
+            scenarioContext["EmpCode"] = dashboard.CreateNewUser();
+        }
+
+        [Then(@"I search and validate user")]
+        public void ThenISearchAndValidateUser()
+        {
+            dashboard.SearchAndValidateUser(scenarioContext["EmpCode"].ToString());
+        }
+
+        [Then(@"I delete the user")]
+        public void ThenIDeleteTheUser()
+        {
+            dashboard.DeleteUserFromGrid(scenarioContext["EmpCode"].ToString());
+        }
+
+        // ************** End of TC 14 ****************** //
 
         #endregion
     }

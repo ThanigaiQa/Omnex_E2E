@@ -227,7 +227,19 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By lblDeleteRightClick_EntityPage => By.XPath("//ul[@id='contextmenu']//li[@id='liDelete']");
         By ddlHighlightedCountry => By.XPath("//li[contains(@class,'option--highlighted')]");
         By btnDelete_Country => By.XPath("//button[@id='btnDeleteCountry']");
-        By lblTeamSortAscending => By.XPath("(//th[@aria-sort='ascending'])[1]"); 
+        By lblTeamSortAscending => By.XPath("(//th[@aria-sort='ascending'])[1]");
+        By lblUsers => By.XPath("(//div[@class='sub-menu']//span[contains(text(),'Users')])[1]");
+        By txtEmpCode => By.XPath("(//input[@id='txtcode'])[1]");
+        By txtFirstName => By.XPath("(//input[@id='txtfirstname'])[1]");
+        By txtLastName => By.XPath("(//input[@id='txtlastname'])[1]");
+        By txtEmail => By.XPath("(//input[@id='txtbusinessmail'])[1]");
+        By txtUsername => By.XPath("(//input[@id='txtusername'])[1]");
+        By lblCountryRegion => By.XPath("(//label[@for='Country_Region'])[1]");
+        By txtPassword => By.XPath("(//input[@id='txtpassword'])[1]");
+        By txtConfirmPassword => By.XPath("(//input[@id='txtconfirmpassword'])[1]");
+        By chkChangePasswordNextLogOn => By.XPath("(//label[@for='Changelogin'])[1]");
+        By ddlCode_MultiSearch => By.XPath("(//div[@class='dtsb-criteria']//select//option[contains(text(),'Code')])[1]");
+        By lblSite => By.XPath("(//label[@for='Site'])[1]");
 
         #endregion
 
@@ -1368,6 +1380,103 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         // ***************** End of TC 10 ************ //
 
-        #endregion
+        // ***************** Start of TC 14 ************ //
+
+        /// <summary>
+        /// Navigates to the users page within users page
+        /// </summary>
+        /// <param name="SubHead"></param>
+        public void NavigateToUsersPage(String SubHead)
+        {
+            if (seleniumActions.IsElementPresent(sideMenuContainer))
+            {
+                seleniumActions.Wait(5);
+                seleniumActions.Click(lblSetup);
+                seleniumActions.Click(lblUsers);
+                seleniumActions.Wait(2);
+                seleniumActions.ScrollToElement(By.XPath("(//ul[@class='inner_submenu']//a[@title='Users']//span[contains(text(),'" + SubHead + "')])[2]"));
+                seleniumActions.Click(By.XPath("(//ul[@class='inner_submenu']//a[@title='Users']//span[contains(text(),'" + SubHead + "')])[2]"));
+            }
+        }
+
+        /// <summary>
+        /// Creates an user in Users page
+        /// </summary>
+        /// <returns> employee code </returns>
+        public string CreateNewUser()
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            string empCode = utility.CurrentTime();
+            seleniumActions.Wait(3);
+            seleniumActions.Click(btnAddState);
+            Assert.IsTrue(seleniumActions.IsElementPresent(txtEmpCode));
+            seleniumActions.Click(txtEmpCode);
+            seleniumActions.Wait(4);
+            seleniumActions.SendKeys(txtEmpCode, empCode);
+            seleniumActions.Click(txtFirstName);
+            seleniumActions.SendKeys(txtFirstName,Constants.TagName);
+            seleniumActions.Click(txtLastName);
+            seleniumActions.SendKeys(txtLastName, utility.CurrentTime());
+            seleniumActions.Click(txtEmail);
+            seleniumActions.SendKeys(txtEmail, "Test" + empCode + "@gmail.com");
+            seleniumActions.Wait(2);
+            seleniumActions.ScrollToElement(lblCountryRegion);
+            seleniumActions.Click(txtUsername);
+            seleniumActions.SendKeys(txtUsername, "WrongScenario" + utility.GenerateRandomText(2));
+            seleniumActions.Click(txtPassword);
+            seleniumActions.SendKeys(txtPassword, "d1");
+            seleniumActions.Wait(2);
+            seleniumActions.ScrollToElement(lblSite);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(txtConfirmPassword);
+            seleniumActions.SendKeys(txtConfirmPassword, "d1");
+            seleniumActions.ScrollToPosition(0,1000);
+            seleniumActions.Click(chkChangePasswordNextLogOn);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(btn_Save);
+            Assert.IsTrue(seleniumActions.IsElementPresent(msgSaveSuccessfully));
+            return empCode;
+        }
+
+        /// <summary>
+        /// Validate the created new user in present in the user grid
+        /// </summary>
+        /// <param name="empCode"></param>
+        public void SearchAndValidateUser(string empCode)
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
+            seleniumActions.Click(btnMultiSearch);
+            Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch));
+            seleniumActions.Click(drpColumn_MultiSearch);
+            seleniumActions.Click(ddlCode_MultiSearch);
+            seleniumActions.Click(drpCondition_MultiSearch);
+            seleniumActions.Click(ddlContains_MultiSearch);
+            seleniumActions.Click(inp_MultiSearch);
+            seleniumActions.SendKeys(inp_MultiSearch, empCode);
+            seleniumActions.Click(btnAdvancedSearch_MultiSearch);
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent));
+        }
+
+        /// <summary>
+        /// Deletes the user from the grid
+        /// </summary>
+        /// <param name="empCode"></param>
+        public void DeleteUserFromGrid(string empCode)
+        {
+            seleniumActions.Click(chk_FirstRowInActive);
+            seleniumActions.Click(btnDelete);
+            IAlert alert = _driver.SwitchTo().Alert();
+            alert.Accept();
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
+            seleniumActions.SwitchToDefaultContent();
+        }
     }
+
+        // ***************** End of TC 14 ************ //
+
+        #endregion
 }
+

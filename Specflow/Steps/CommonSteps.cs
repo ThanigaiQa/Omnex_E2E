@@ -106,6 +106,11 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             dashboard.NavigateToEntityAndOwnerPage(subHead);
         }
 
+        [When(@"I navigate to (.*) Page")]
+        public void WhenINavigateToUsersPage(string subHead)
+        {
+            dashboard.NavigateToUsersPage(subHead);
+        }
 
         #endregion
     }

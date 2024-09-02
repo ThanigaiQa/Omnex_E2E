@@ -411,6 +411,15 @@ namespace OMNEX.AUTOMATION.Helpers
             hndOpen.fileOpenDialog(path, fileName);
         }
 
+        /// <summary>
+        /// scrolls to the specific position using JavaScriptExecutor 
+        /// </summary>
+        public void ScrollToPosition(int xAxis, int yAxis)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)_driver;
+            js.ExecuteScript("window.scrollTo("+ xAxis + ","+ yAxis + ");");
+        }
+
         #endregion        
 
         #region WaitActions
