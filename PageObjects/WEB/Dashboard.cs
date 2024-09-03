@@ -303,7 +303,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By ddl_ModuleDocpro => By.XPath(" //li[@role='treeitem']//span[contains(text(),'Document Pro')]");
         By ddp_ModuleSearch => By.XPath("(//select[@id='filtercolumn_SuAdminGridViewControl'])[1]");
         By ddl_ModuleSearchUserName => By.XPath("(//select[@id='filtercolumn_SuAdminGridViewControl'])[1]//option[@value='Fullname'][1]");
-
         By txtSessionTimeOut => By.XPath("//input[@id='txtSessionTimeOut']");
         By txtPageSize => By.XPath("//input[@id='txtPageSize']");
         By imgDateArrowDown => By.XPath("(//select[contains(@id,'CmbDateFormat')])[1]");
@@ -311,9 +310,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By imgMonthArrowDown => By.XPath("(//select[contains(@id,'CmbDateFormat')])[2]");
         By ddl_MM_DateFormat => By.XPath("(//select[contains(@id,'CmbDateFormat')])[2]//option[@value='MM']");
         By lblSavedSuccessfully => By.XPath("//div[contains(@class,'alert-success')]");
-
-
-
 
         #endregion
 
@@ -325,11 +321,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         static By iframe => By.XPath("//iframe[contains(@class,'cke_reset')]");
         static By iframe_MenuData => By.XPath("//iframe[@id='MenuData']");
         
-
-
-
-
-
         #endregion
 
         #region pageActions
@@ -1850,15 +1841,14 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // ***************** End of TC 17 ************ //
+
         // ***************** Start of TC 18 ************ //
 
         /// <summary>
         /// Add the User For Module
         /// </summary>
-
         public void AddUserForModule()
         {
-
             seleniumActions.SwitchToIframes(iframe_DetailView);
             seleniumActions.Wait(3);
             seleniumActions.Click(ddp_Module);
@@ -1871,14 +1861,11 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToParentFrame();
             seleniumActions.Click(btn_UserDone);
             seleniumActions.SwitchToDefaultContent();
-
-
-
         }
+
         /// <summary>
         /// Validate The Newely Added User
         /// </summary>
-
         public void ValidateTheNewelyAddedUser()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView);
@@ -1886,6 +1873,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(ddl_ModuleSearchUserName);
             seleniumActions.SendKeys(hintSearch, "Thani");
         }
+
         /// <summary>
         /// Remove The Added user
         /// </summary>
@@ -1897,7 +1885,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
             seleniumActions.SwitchToDefaultContent();
         }
+
         // ***************** End of TC 18 ************ //
+
         // ***************** Start of TC 16 ************ //
 
         /// <summary>
