@@ -430,34 +430,41 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// <summary>
         /// Clicks add button and creates a new tag
         /// </summary>
-        public void ClickAddButtonAndCreateNewTag()
+        /// <returns> Tag name </returns>
+        public string ClickAddButtonAndCreateNewTag()
         {
+            string tagName = Constants.TagName + utility.CurrentTime();
             seleniumActions.SwitchToIframes(iframe_DetailView);
             Assert.IsTrue(seleniumActions.IsElementPresent(btnAdd_MasterFolderTags));
             seleniumActions.Click(btnAdd_MasterFolderTags);
             Assert.IsTrue(seleniumActions.IsElementPresent(tblAddPopup));
-            seleniumActions.SendKeys(phd_TagName, Constants.TagName + utility.CurrentTime());
+            seleniumActions.SendKeys(phd_TagName, tagName);
             seleniumActions.Click(btnSave_TagPopup);
+            return tagName;
         }
 
         /// <summary>
         /// Click pencil icon and rename the existing tagname
         /// </summary>
-        public void RenameTagName()
+        public void RenameTagName(string tagName)
         {
             seleniumActions.Wait(2);
+            string updatedTag = "Updated " + tagName;
             Assert.IsTrue(seleniumActions.IsElementPresent(lblTag));
+            seleniumActions.Click(hintSearch);
+            seleniumActions.SendKeys(hintSearch, tagName);
+            seleniumActions.Wait(2);
             seleniumActions.Click(chkTagname_Inactive);
-            seleniumActions.Wait(3);
+            seleniumActions.Wait(2);
             seleniumActions.Click(btnPencilIcon);
             seleniumActions.SendKeys(phd_TagName, Keys.Clear);
-            seleniumActions.SendKeys(phd_TagName, "Updated " + Constants.TagName + utility.CurrentTime());
+            seleniumActions.SendKeys(phd_TagName, updatedTag);
             seleniumActions.Click(btnSave_TagPopup);
             seleniumActions.Wait(4);            
             
-            String tagName = seleniumActions.GetText(lblTag);
+            string newTag = seleniumActions.GetText(By.XPath("//tbody//tr[@role='row']//td[contains(text(),'" + updatedTag + "')]"));
             seleniumActions.Wait(3);
-            Assert.IsTrue(tagName.Contains("Updated"));
+            Assert.IsTrue(newTag.Contains("Updated"));
         }
 
         /// <summary>
@@ -469,7 +476,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(chkTagname_Inactive);
             seleniumActions.Click(btn_DeleteTag);
             seleniumActions.Click(btnYes_Popup);
-            //Assert.IsFalse(seleniumActions.VerifyElementIsDisplayed(lblTag));
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
             seleniumActions.SwitchToDefaultContent();
         }
 

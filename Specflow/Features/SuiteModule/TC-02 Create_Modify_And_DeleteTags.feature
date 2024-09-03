@@ -12,7 +12,7 @@
 
 @TC-02
 Scenario: 02 Create, Modify & Delete Tags
-Given Login to the application with 'Right' user
+Given Login to the application with 'docpro' user
 When Navigate to Master Folder Tags Page
 Then I click on the add button and Create new tag
 Then I click the newly created tag and rename the tagname

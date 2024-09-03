@@ -37,13 +37,13 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         [Then(@"I click on the add button and Create new tag")]
         public void ThenIClickOnTheAddButtonAndCreateNewTag()
         {
-            dashboard.ClickAddButtonAndCreateNewTag();
+           scenarioContext["TagName"] = dashboard.ClickAddButtonAndCreateNewTag();
         }
 
         [Then(@"I click the newly created tag and rename the tagname")]
         public void ThenIClickTheNewlyCreatedTagAndRenameTheTagname()
         {
-            dashboard.RenameTagName();
+            dashboard.RenameTagName(scenarioContext["TagName"].ToString());
         }
 
         [Then(@"I click on the newly created tag and delete the tag")]
