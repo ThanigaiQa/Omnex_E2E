@@ -11,6 +11,8 @@ using System.Diagnostics.Metrics;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Reactive.Subjects;
+using Amazon.DynamoDBv2.DocumentModel;
+using OpenQA.Selenium.Interactions;
 
 namespace OMNEX.AUTOMATION.PageObjects.WEB
 {
@@ -240,6 +242,29 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By chkChangePasswordNextLogOn => By.XPath("(//label[@for='Changelogin'])[1]");
         By ddlCode_MultiSearch => By.XPath("(//div[@class='dtsb-criteria']//select//option[contains(text(),'Code')])[1]");
         By lblSite => By.XPath("(//label[@for='Site'])[1]");
+        By txt_Date => By.Id("datepicker_dtpDate");
+        By txt_ManufacturerName => By.Id("txtSupplierName");
+        By txt_ManufacturerCode => By.Id("txtSupplierCode");
+        By txt_ContactPersonMail => By.Id("txtCPMaId");
+        By txt_ManufactureAddress => By.Id("txtAddress");
+        By ddp_Supplier => By.XPath("//span[@id='select2-cmbCategory-container']");
+        By ddl_Supplier => By.XPath("(//span[contains(text(), 'Trader')])[2]");
+        By txt_ContactPersonName => By.Id("txtContactPersonname");
+        By txt_ContactPersonNo => By.Id("txtCPMNo");
+        By ddp_Route => By.XPath("//span[@id='select2-cmbRoute-container']");
+        By ddl_Route => By.XPath("(//span[contains(text(), 'Module Auto approval')])[2]");
+        By txt_Material => By.Id("txtMaterial");
+        By txt_NaturofPropsed => By.Id("txtNaturofPropsed");
+        By txt_AssessmentDate => By.Id("datepicker_dtpAssessmentDate");
+        By txt_ActualDate => By.XPath("//input[@id='datepicker_dtpActualDate']");
+        By txt_BuyerName => By.Id("txtBuyerNames");
+        By txt_BuyerMailId => By.Id("txtBuyerMailid");
+        By ddp_tdPreparedBy => By.XPath("(//div[@id='tdPreparedBy']//following::span[@title='Select User'])[1]");
+        By ddp_tdPreparedBy2 => By.XPath("(//div[@id='tdPreparedBy']//following::span[@title='Select User'])[2]");
+        By ddp_tdPreparedBy3 => By.XPath("(//div[@id='tdPreparedBy']//following::span[@title='Select User'])[3]");
+        By ddp_tdPreparedBy4 => By.XPath("(//div[@id='tdPreparedBy']//following::span[@title='Select User'])[4]");
+        By ddp_SupplierSearchDropdown => By.Id("filtercolumn_SuSupplierGridViewControl");
+        By ddl_SupplierSearchDropdown => By.XPath("//select[@id='filtercolumn_SuSupplierGridViewControl']//following::option[@value='Name']");
 
         #endregion
 
@@ -1379,6 +1404,75 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // ***************** End of TC 10 ************ //
+        // ***************** Starts of TC 06 ************ //
+        /// <summary>
+        /// Create the Supplier
+        /// </summary>
+        public void CreateSupplier()
+        {
+            seleniumActions.Wait(3);
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Click(btnNew_CustomersPage);
+            seleniumActions.Click(txt_Date);
+            seleniumActions.Click(tbl_DatePicker);
+            seleniumActions.SendKeys(txt_ManufacturerName, Constants.Name);
+            seleniumActions.SendKeys(txt_ManufacturerCode, "AT"+ utility.RandomNumberGenerator(5));
+            seleniumActions.Click(ddp_Supplier);
+            seleniumActions.Click(ddl_Supplier);
+            seleniumActions.SendKeys(txt_ManufactureAddress, Constants.Location);
+            seleniumActions.SendKeys(txt_ContactPersonName, Constants.Name);
+            seleniumActions.SendKeys(txt_ContactPersonNo, utility.RandomPhoneNumber());
+            seleniumActions.SendKeys(txt_ContactPersonMail, Constants.Name + "@email.com");
+            seleniumActions.Click(ddp_Route);
+            seleniumActions.Click(ddl_Route);
+            seleniumActions.SendKeys(txt_NaturofPropsed, Constants.Name);
+            seleniumActions.SendKeys(txt_Material, Constants.Name);
+            seleniumActions.ScrollToElement(txt_BuyerMailId);
+            seleniumActions.Click(txt_AssessmentDate);
+            seleniumActions.Click(tbl_DatePicker);
+            seleniumActions.SendKeys(txt_BuyerName, Constants.Name + "ss");
+            seleniumActions.SendKeys(txt_BuyerMailId, Constants.Name + "@email.com");
+            seleniumActions.Wait(3);
+            seleniumActions.ScrollToElement(ddp_tdPreparedBy4);
+            seleniumActions.IsElementPresent(txt_ActualDate);
+            seleniumActions.Click(txt_ActualDate);
+            seleniumActions.Click(tbl_DatePicker);
+            seleniumActions.Click(ddp_tdPreparedBy);
+            seleniumActions.Wait(3);
+            seleniumActions.SwitchToFrame(iframe_ifrUsers);
+            seleniumActions.SendKeys(hintSearch, "Thani-k");
+            seleniumActions.Click(chk_AgendaUser);
+            seleniumActions.SwitchToParentFrame();
+            seleniumActions.Click(btn_UserDone);
+            seleniumActions.Click(ddp_tdPreparedBy2);
+            seleniumActions.Wait(3);
+            seleniumActions.SwitchToFrame(iframe_ifrUsers);
+            seleniumActions.SendKeys(hintSearch, "Thani-k");
+            seleniumActions.Click(chk_AgendaUser);
+            seleniumActions.SwitchToParentFrame();
+            seleniumActions.Click(btn_UserDone);
+            seleniumActions.Wait(3);
+            Actions actions = new Actions(_driver);
+            actions.SendKeys(Keys.PageDown).Perform();
+            seleniumActions.Wait(3);
+            seleniumActions.Click(ddp_tdPreparedBy3);
+            seleniumActions.Wait(3);
+            seleniumActions.SwitchToFrame(iframe_ifrUsers);
+            seleniumActions.SendKeys(hintSearch, "Thani-k");
+            seleniumActions.Click(chk_AgendaUser);
+            seleniumActions.SwitchToParentFrame();
+            seleniumActions.Click(btn_UserDone);
+            seleniumActions.Click(ddp_tdPreparedBy4);
+            seleniumActions.Wait(3);
+            seleniumActions.SwitchToFrame(iframe_ifrUsers);
+            seleniumActions.SendKeys(hintSearch, "Thani-k");
+            seleniumActions.Click(chk_AgendaUser);
+            seleniumActions.SwitchToParentFrame();
+            seleniumActions.Click(btn_UserDone);
+            seleniumActions.Click(btn_Save);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
 
         // ***************** Start of TC 14 ************ //
 
@@ -1473,10 +1567,27 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
             seleniumActions.SwitchToDefaultContent();
         }
-    }
 
         // ***************** End of TC 14 ************ //
 
-        #endregion
+
+        /// <summary>
+        /// Delete the Supplier
+        /// </summary>
+        public void DeleteSupplier()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Click(ddp_SupplierSearchDropdown);
+            seleniumActions.Click(ddl_SupplierSearchDropdown);
+            seleniumActions.SendKeys(hintSearch, Constants.Name);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(chk_FirstRowInActive);
+            seleniumActions.Click(btnDelete_TeamsPage);
+            seleniumActions.Click(btnYes_Popup);
+            seleniumActions.SwitchToDefaultContent();
+        }
+        // ***************** End of TC 06 ************ //
+    }
+    #endregion
 }
 

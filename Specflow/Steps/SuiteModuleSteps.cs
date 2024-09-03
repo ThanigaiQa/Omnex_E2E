@@ -360,6 +360,21 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         // ************** End of TC 10 ****************** //
+       // ************** Starts of TC 06 ****************** //
+
+        [Then(@"Create Supplier")]
+        public void ThenCreateSupplier()
+        {
+            dashboard.CreateSupplier();
+        }
+
+        [Then(@"Delete the Supplier")]
+        public void ThenDeleteTheSupplier()
+        {
+            dashboard.DeleteSupplier();
+        }
+        
+        // ************** End of TC 06 ****************** //
 
         // ************** Start of TC 14 ****************** //
 
