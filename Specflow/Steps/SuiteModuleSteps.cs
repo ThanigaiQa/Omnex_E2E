@@ -463,6 +463,16 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         // ************** End of TC 18 ****************** //
+        // ************** Start of TC 16 ****************** //
+
+        [Then(@"I create an user and update user preferences")]
+        public void ThenICreateAnUserAndUpdateUserPreferences()
+        {
+            scenarioContext["EmpCode"] = dashboard.CreateNewUserAndUpdateUserPreferences();
+        }
+
+        // ************** End of TC 16 ****************** //
+
         #endregion
     }
 }

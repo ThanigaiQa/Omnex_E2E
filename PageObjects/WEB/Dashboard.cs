@@ -304,7 +304,13 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By ddp_ModuleSearch => By.XPath("(//select[@id='filtercolumn_SuAdminGridViewControl'])[1]");
         By ddl_ModuleSearchUserName => By.XPath("(//select[@id='filtercolumn_SuAdminGridViewControl'])[1]//option[@value='Fullname'][1]");
 
-        
+        By txtSessionTimeOut => By.XPath("//input[@id='txtSessionTimeOut']");
+        By txtPageSize => By.XPath("//input[@id='txtPageSize']");
+        By imgDateArrowDown => By.XPath("(//select[contains(@id,'CmbDateFormat')])[1]");
+        By ddl_DD_DateFormat => By.XPath("(//select[contains(@id,'CmbDateFormat')])[1]//option[@value='DD']");
+        By imgMonthArrowDown => By.XPath("(//select[contains(@id,'CmbDateFormat')])[2]");
+        By ddl_MM_DateFormat => By.XPath("(//select[contains(@id,'CmbDateFormat')])[2]//option[@value='MM']");
+        By lblSavedSuccessfully => By.XPath("//div[contains(@class,'alert-success')]");
 
 
 
@@ -1558,8 +1564,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
                 seleniumActions.Click(lblSetup);
                 seleniumActions.Click(lblUsers);
                 seleniumActions.Wait(2);
-                seleniumActions.ScrollToElement(By.XPath("(//ul[@class='inner_submenu']//a[@title='Users']//span[contains(text(),'" + SubHead + "')])[2]"));
-                seleniumActions.Click(By.XPath("(//ul[@class='inner_submenu']//a[@title='Users']//span[contains(text(),'" + SubHead + "')])[2]"));
+                seleniumActions.ScrollToElement(By.XPath("(//ul[@class='inner_submenu']//a[@title='" + SubHead + "']//span[contains(text(),'" + SubHead + "')])[2]"));
+                seleniumActions.Click(By.XPath("(//ul[@class='inner_submenu']//a[@title='" + SubHead + "']//span[contains(text(),'" + SubHead + "')])[2]"));
             }
         }
 
@@ -1892,6 +1898,101 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToDefaultContent();
         }
         // ***************** End of TC 18 ************ //
+        // ***************** Start of TC 16 ************ //
+
+        /// <summary>
+        /// Creates an user in Users page and updates the prefrences in user page
+        /// </summary>
+        /// <returns> employee code </returns>
+        public string CreateNewUserAndUpdateUserPreferences()
+        {
+            // ** Creating user ** //
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            string empCode = utility.CurrentTime();
+            string email = "Test" + empCode + "@gmail.com";
+            var userLogin = "TestScenario" + utility.GenerateRandomText(2);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(btnAddState);
+            Assert.IsTrue(seleniumActions.IsElementPresent(txtEmpCode));
+            seleniumActions.Click(txtEmpCode);
+            seleniumActions.Wait(4);
+            seleniumActions.SendKeys(txtEmpCode, empCode);
+            seleniumActions.Click(txtFirstName);
+            seleniumActions.SendKeys(txtFirstName, Constants.TagName);
+            seleniumActions.Click(txtLastName);
+            seleniumActions.SendKeys(txtLastName, utility.CurrentTime());
+            seleniumActions.Click(txtEmail);
+            seleniumActions.SendKeys(txtEmail, email);
+            seleniumActions.Wait(2);
+            seleniumActions.ScrollToElement(lblCountryRegion);
+            seleniumActions.Click(txtUsername);
+            seleniumActions.SendKeys(txtUsername, userLogin);
+            seleniumActions.Click(txtPassword);
+            seleniumActions.SendKeys(txtPassword, "d1");
+            seleniumActions.Wait(2);
+            seleniumActions.ScrollToElement(lblSite);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(txtConfirmPassword);
+            seleniumActions.SendKeys(txtConfirmPassword, "d1");
+            seleniumActions.ScrollToPosition(0, 1000);
+            seleniumActions.Click(chkChangePasswordNextLogOn);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(btn_Save);
+            Assert.IsTrue(seleniumActions.IsElementPresent(msgSaveSuccessfully));
+
+            // ** Logging out of application ** //
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.Click(btnUserIconProfile);
+            seleniumActions.Wait(5);
+            seleniumActions.Click(btnLogout);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(btnYes_Popup);
+
+            // ** Log in with newly created user ** //
+            seleniumActions.Refresh();
+            seleniumActions.Wait(4);
+            seleniumActions.Click(txtEmailLogin);
+            seleniumActions.SendKeys(txtEmailLogin, userLogin);
+            seleniumActions.Click(txtPasswordLogin);
+            seleniumActions.SendKeys(txtPasswordLogin, "d1");
+            seleniumActions.Click(btnLogin);
+            seleniumActions.Wait(3);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblSetup));
+            seleniumActions.Wait(5);
+            seleniumActions.Click(lblSetup);
+            seleniumActions.Click(lblUsers);
+            seleniumActions.Wait(2);
+            seleniumActions.ScrollToElement(By.XPath("(//ul[@class='inner_submenu']//a[@title='Preferences']//span[contains(text(),'Preferences')])[2]"));
+            seleniumActions.Click(By.XPath("(//ul[@class='inner_submenu']//a[@title='Preferences']//span[contains(text(),'Preferences')])[2]"));
+
+            // ** Updating preferences ** //
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            Assert.IsTrue(seleniumActions.IsElementPresent(txtSessionTimeOut));
+            seleniumActions.Click(txtSessionTimeOut);
+            seleniumActions.SendKeys(txtSessionTimeOut, Keys.Clear);
+            seleniumActions.SendKeys(txtSessionTimeOut, "30");
+            seleniumActions.Click(txtPageSize);
+            seleniumActions.SendKeys(txtPageSize, Keys.Clear);
+            seleniumActions.SendKeys(txtPageSize, "20");
+            seleniumActions.Wait(2);
+            seleniumActions.Click(imgDateArrowDown);
+            seleniumActions.Click(ddl_DD_DateFormat);
+            seleniumActions.Click(imgMonthArrowDown);
+            seleniumActions.Click(ddl_MM_DateFormat);
+            seleniumActions.Click(btn_Save);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblSavedSuccessfully));
+
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.Click(btnUserIconProfile);
+            seleniumActions.Wait(5);
+            seleniumActions.Click(btnLogout);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(btnYes_Popup);
+            return empCode;
+        }
+
+        // ***************** End of TC 16 ************ //
+
         #endregion
     }
 }
