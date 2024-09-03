@@ -431,6 +431,16 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
         // ************** End of TC 17 ****************** //
 
+        // ************** Start of TC 12 ****************** //
+
+        [Then(@"I create an user and change password")]
+        public void ThenICreateAnUserAndChangePassword()
+        {
+            scenarioContext["EmpCode"] = dashboard.CreateNewUserAndChangePassword();
+        }
+
+        // ************** End of TC 12 ****************** //
+
         #endregion
     }
 }

@@ -150,7 +150,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By lblRememberme => By.XPath("//label[@for='chkremup']");
         By chk_PreferredManufacturer => By.XPath("//label[@for='chkPreManuf']");
         By ddlManufacturerName_MultiSearch => By.XPath("(//div[@class='dtsb-criteria']//select//option[contains(text(),'Manufacturer Name')])[1]");
-        
+
         /***************TC13 Xpaths**********************/
         By inp_CountryName => By.XPath("//input[@id='txtCountryName']");
 
@@ -162,11 +162,11 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         /***************TC21Xpaths**********************/
         By btn_CompanyLogoLarge => By.XPath("(//label[contains(text(),'Recommended Dimensions: 380 x 133 pixels')]//parent::div)[1]//following::button[@id='btnAttachCompanylogolarge']");
-        By btn_CompanyLogomedium => By.XPath("//*[contains(@id,\"btnAttachCompanylogomedium\")]"); 
+        By btn_CompanyLogomedium => By.XPath("//*[contains(@id,\"btnAttachCompanylogomedium\")]");
         By btn_ChooseFile => By.XPath("//input[@id='LocalImg']");
         By btn_DoneFile => By.XPath("//button[@id='butSave']");
         By btn_ProductLogo => By.XPath("//*[@id = 'btnAttachProductlogo'][1]");
-        
+
         /***************TC11 Xpaths**********************/
         By btn_Add => By.XPath("//button[@id='btnSave']");
         By drp_Site => By.XPath("//select[@id='selectSiteId']");
@@ -213,7 +213,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btn_TeamSave => By.XPath("//*[@id = 'btnTeamSave']");
         By btn_CloseMinuteBox => By.XPath("//span[@class='close_button_popup']");
         By txt_AgendaTopic => By.XPath("//input[@name='sTopic']");
-        By txt_AgendaDescription => By.XPath("//input[@name='sDesc']"); 
+        By txt_AgendaDescription => By.XPath("//input[@name='sDesc']");
         By txt_AgendaFrmTime => By.XPath("//input[@name='FromTime']");
         By txt_AgendaToTime => By.XPath("//input[@name='ToTime']");
         By tbl_AgendaFromTime => By.XPath("//span[@id='timePickerContent']//td[text()='01:15am']");
@@ -224,7 +224,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By txt_AgendaDate => By.XPath("//input[@name='sDate']");
         By lbl_TitleAgenda => By.XPath("//div[@id='headingMeetingagenda']");
         By chk_Meeting1 => By.XPath("(//input[@name='meetinitial_selectCheck'])[1]");
-        
+
 
 
         // ***************TC11 Xpaths********************** //
@@ -271,6 +271,18 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By ddp_tdPreparedBy4 => By.XPath("(//div[@id='tdPreparedBy']//following::span[@title='Select User'])[4]");
         By ddp_SupplierSearchDropdown => By.Id("filtercolumn_SuSupplierGridViewControl");
         By ddl_SupplierSearchDropdown => By.XPath("//select[@id='filtercolumn_SuSupplierGridViewControl']//following::option[@value='Name']");
+        By lnkForgotPassword => By.XPath("//a[@onclick='ValidatePasswordDialog()']");
+        By txtUsername_ForgotPwd => By.XPath("//input[@id='fgtUsername']");
+        By txtEmpCode_ForgotPwd => By.XPath("//input[@id='fgtEmpcode']");
+        By txtEmail_ForgotPwd => By.XPath("//input[@id='fgEmail']");
+        By btnValidateUser_ForgotPwd => By.XPath("//button[@onclick='ValidateUser()']");
+        By txtNewPwd_ForgotPwd => By.XPath("//input[@id='fgtNewPswd']");
+        By txtCnfrmNewPwd_ForgotPwd => By.XPath("//input[@id='fgtCnfmNewPswd']");
+        By btnSubmit_ForgotPwd => By.XPath("//button[@onclick='ResetPassword()']");
+        By msgPwdSavedSuccess => By.XPath("//div[contains(@Class,'alert-success')]");
+        By btnLogin => By.XPath("(//button[@type='button'])[2]");
+        By txtEmailLogin => By.XPath("//input[@id='txtUsername']");
+        By txtPasswordLogin => By.XPath("//input[@id='txtPassword']");
 
         // ***************TC17 Xpaths********************** //
         By btn_AddGroup => By.XPath("//button[@id='btn_add_hold']");
@@ -302,7 +314,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
 
 
-        
+
 
         #endregion
 
@@ -635,7 +647,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public string CreateCustomer()
         {
-            string custName = Constants.TagName+ utility.CurrentTime();
+            string custName = Constants.TagName + utility.CurrentTime();
             seleniumActions.SwitchToIframes(iframe_DetailView);
             seleniumActions.Click(btnNew_CustomersPage);
             Assert.IsTrue(seleniumActions.IsElementPresent(txtCustName));
@@ -657,7 +669,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(btnAdd_MasterFolderTags);
             Assert.IsTrue(seleniumActions.IsElementPresent(tblAddAddress));
             seleniumActions.Click(txtStreet);
-            seleniumActions.SendKeys(txtStreet,"Street");
+            seleniumActions.SendKeys(txtStreet, "Street");
             seleniumActions.Click(drpCountry_AddAddress);
             seleniumActions.ScrollToElement(ddlIndia_AddAddress);
             seleniumActions.Click(ddlIndia_AddAddress);
@@ -666,7 +678,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(drpCity_AddAddress);
             seleniumActions.Click(ddlChennai_AddAddress);
             seleniumActions.Click(txtZipCode_AddAddress);
-            seleniumActions.SendKeys(txtZipCode_AddAddress,"600012");
+            seleniumActions.SendKeys(txtZipCode_AddAddress, "600012");
             seleniumActions.Click(btnSave_AddAddress);
             Assert.IsTrue(seleniumActions.IsElementPresent(msgSaveSuccessfully));
             Assert.IsTrue(seleniumActions.IsElementPresent(lblIndia_SavedAddress));
@@ -725,7 +737,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(drpCondition_MultiSearch);
             seleniumActions.Click(ddlContains_MultiSearch);
             seleniumActions.Click(inp_MultiSearch);
-            seleniumActions.SendKeys(inp_MultiSearch,custName);
+            seleniumActions.SendKeys(inp_MultiSearch, custName);
             seleniumActions.Click(btnAdvancedSearch_MultiSearch);
             seleniumActions.SwitchToDefaultContent();
             seleniumActions.SwitchToFrame(iframe_DetailView);
@@ -867,7 +879,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Wait(3);
             seleniumActions.Click(btnNew);
             seleniumActions.Click(inp_VendorName);
-            seleniumActions.SendKeys(inp_VendorName,vendorName);
+            seleniumActions.SendKeys(inp_VendorName, vendorName);
             seleniumActions.Click(inp_VendorCode);
             seleniumActions.SendKeys(inp_VendorCode, vendorCode);
             seleniumActions.Click(chk_PreferredVendor);
@@ -876,7 +888,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// <summary>
         ///  Delete the newly created vendor 
         /// </summary>
-       
+
         public void DeleteVendor(string vendorName)
         {
             Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
@@ -1003,7 +1015,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         // ***************** End of TC 11 ************ //
 
         // ****************** Starts of TC 22 ********* //
-        
+
         /// <summary>
         /// Update and Validate Datas from Admin Setting
         /// </summary>
@@ -1011,11 +1023,11 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         {
             seleniumActions.SwitchToIframes(iframe_DetailView);
             seleniumActions.Click(drp_PaswordFormat);
-            seleniumActions.SendKeys(ddl_PaswordOption,Keys.Clear);
-            seleniumActions.SendKeys(ddl_PaswordOption,"Alphanumeric");
+            seleniumActions.SendKeys(ddl_PaswordOption, Keys.Clear);
+            seleniumActions.SendKeys(ddl_PaswordOption, "Alphanumeric");
             seleniumActions.SendKeys(txt_PasswordLength, Keys.Clear);
             seleniumActions.SendKeys(txt_PasswordLength, "2");
-            string fcDefaultValue=seleniumActions.GetText(drp_FirstCombobox);
+            string fcDefaultValue = seleniumActions.GetText(drp_FirstCombobox);
             string lcDefaultValue = seleniumActions.GetText(drp_LastCombobox);
 
             if (fcDefaultValue == "First Name")
@@ -1055,7 +1067,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
                 }
 
             }
-                seleniumActions.SwitchToDefaultContent();
+            seleniumActions.SwitchToDefaultContent();
 
         }
         // ****************** End of TC 22 ********* //
@@ -1176,7 +1188,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToFrame(iframe_DetailView);
             seleniumActions.Click(tbl_GeoLocationOwers);
             seleniumActions.Wait(2);
-            seleniumActions.Click("(//ul[contains(@id,'Tree_Benchmark')]//span[contains(text(),'" + entityName +"')])[1]");
+            seleniumActions.Click("(//ul[contains(@id,'Tree_Benchmark')]//span[contains(text(),'" + entityName + "')])[1]");
             seleniumActions.Click("(//ul[contains(@id,'Tree_Benchmark')]//span[contains(text(),'" + entityName + "')]//img)[1]");
 
             seleniumActions.SwitchToIframes(iframe_ifrUsers);
@@ -1348,7 +1360,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.IsElementPresent(inp_MeetingDate));
             seleniumActions.Click(inp_MeetingDate);
             seleniumActions.Click(tbl_DatePicker);
-            seleniumActions.SendKeys(inp_Location,Constants.Location);
+            seleniumActions.SendKeys(inp_Location, Constants.Location);
             seleniumActions.SendKeys(inp_MeetingSub, Constants.Name);
             seleniumActions.Click(ddp_Category);
             seleniumActions.Click(ddl_Categoryddl);
@@ -1392,7 +1404,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(chk_EmployeeSelect1);
             seleniumActions.SendKeys(hintSearch2, "kaalaa-kaalaa");
             seleniumActions.Wait(2);
-            seleniumActions.Click(chk_EmployeeSelect1); 
+            seleniumActions.Click(chk_EmployeeSelect1);
             seleniumActions.Click(btn_TeamSave);
             _driver.SwitchTo().Window(originalWindow);
             seleniumActions.SwitchToIframes(iframe_DetailView);
@@ -1532,7 +1544,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Wait(4);
             seleniumActions.SendKeys(txtEmpCode, empCode);
             seleniumActions.Click(txtFirstName);
-            seleniumActions.SendKeys(txtFirstName,Constants.TagName);
+            seleniumActions.SendKeys(txtFirstName, Constants.TagName);
             seleniumActions.Click(txtLastName);
             seleniumActions.SendKeys(txtLastName, utility.CurrentTime());
             seleniumActions.Click(txtEmail);
@@ -1540,7 +1552,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Wait(2);
             seleniumActions.ScrollToElement(lblCountryRegion);
             seleniumActions.Click(txtUsername);
-            seleniumActions.SendKeys(txtUsername, "WrongScenario" + utility.GenerateRandomText(2));
+            seleniumActions.SendKeys(txtUsername, "TestScenario" + utility.GenerateRandomText(2));
             seleniumActions.Click(txtPassword);
             seleniumActions.SendKeys(txtPassword, "d1");
             seleniumActions.Wait(2);
@@ -1548,7 +1560,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Wait(3);
             seleniumActions.Click(txtConfirmPassword);
             seleniumActions.SendKeys(txtConfirmPassword, "d1");
-            seleniumActions.ScrollToPosition(0,1000);
+            seleniumActions.ScrollToPosition(0, 1000);
             seleniumActions.Click(chkChangePasswordNextLogOn);
             seleniumActions.Wait(3);
             seleniumActions.Click(btn_Save);
@@ -1612,6 +1624,97 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
         // ***************** End of TC 06 ************ //
     
+
+
+        // ***************** Start of TC 12 ************ //
+
+        /// <summary>
+        /// Creates an user in Users page and changes the password
+        /// </summary>
+        /// <returns> employee code </returns>
+        public string CreateNewUserAndChangePassword()
+        {
+            // ** Creating user ** //
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            string empCode = utility.CurrentTime();
+            string email = "Test" + empCode + "@gmail.com";
+            var  userLogin = "TestScenario" + utility.GenerateRandomText(2);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(btnAddState);
+            Assert.IsTrue(seleniumActions.IsElementPresent(txtEmpCode));
+            seleniumActions.Click(txtEmpCode);
+            seleniumActions.Wait(4);
+            seleniumActions.SendKeys(txtEmpCode, empCode);
+            seleniumActions.Click(txtFirstName);
+            seleniumActions.SendKeys(txtFirstName, Constants.TagName);
+            seleniumActions.Click(txtLastName);
+            seleniumActions.SendKeys(txtLastName, utility.CurrentTime());
+            seleniumActions.Click(txtEmail);
+            seleniumActions.SendKeys(txtEmail, email);
+            seleniumActions.Wait(2);
+            seleniumActions.ScrollToElement(lblCountryRegion);
+            seleniumActions.Click(txtUsername);
+            seleniumActions.SendKeys(txtUsername, userLogin);
+            seleniumActions.Click(txtPassword);
+            seleniumActions.SendKeys(txtPassword, "d1");
+            seleniumActions.Wait(2);
+            seleniumActions.ScrollToElement(lblSite);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(txtConfirmPassword);
+            seleniumActions.SendKeys(txtConfirmPassword, "d1");
+            seleniumActions.ScrollToPosition(0, 1000);
+            seleniumActions.Click(chkChangePasswordNextLogOn);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(btn_Save);
+            Assert.IsTrue(seleniumActions.IsElementPresent(msgSaveSuccessfully));
+
+            // ** Logging out of application ** //
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.Click(btnUserIconProfile);
+            seleniumActions.Wait(5);
+            seleniumActions.Click(btnLogout);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(btnYes_Popup);
+
+            // ** Validating forgot pwd functionality ** //
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.Wait(3);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lnkForgotPassword));
+            seleniumActions.Click(lnkForgotPassword);
+            Assert.IsTrue(seleniumActions.IsElementPresent(txtUsername_ForgotPwd));
+            seleniumActions.Click(txtUsername_ForgotPwd);
+            seleniumActions.SendKeys(txtUsername_ForgotPwd, userLogin);
+            seleniumActions.Click(txtEmpCode_ForgotPwd);
+            seleniumActions.SendKeys(txtEmpCode_ForgotPwd, empCode);
+            seleniumActions.Click(txtEmail_ForgotPwd);
+            seleniumActions.SendKeys(txtEmail_ForgotPwd, email);
+            seleniumActions.Click(btnValidateUser_ForgotPwd);
+            Assert.IsTrue(seleniumActions.IsElementPresent(txtNewPwd_ForgotPwd));
+            seleniumActions.Click(txtNewPwd_ForgotPwd);
+            seleniumActions.SendKeys(txtNewPwd_ForgotPwd, "d2");
+            seleniumActions.Click(txtCnfrmNewPwd_ForgotPwd);
+            seleniumActions.SendKeys(txtCnfrmNewPwd_ForgotPwd, "d2");
+            seleniumActions.Click(btnSubmit_ForgotPwd);
+            Assert.IsTrue(seleniumActions.IsElementPresent(msgPwdSavedSuccess));
+
+            // ** Log in with newly created user ** //
+            seleniumActions.Refresh();
+            seleniumActions.Wait(4);
+            seleniumActions.Click(txtEmailLogin);
+            seleniumActions.SendKeys(txtEmailLogin, userLogin);
+            seleniumActions.Click(txtPasswordLogin);
+            seleniumActions.SendKeys(txtPasswordLogin, "d2");
+            seleniumActions.Click(btnLogin);
+            seleniumActions.Wait(3);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblSetup));
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.Click(btnUserIconProfile);
+            seleniumActions.Wait(5);
+            seleniumActions.Click(btnLogout);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(btnYes_Popup);
+            return empCode;
+        }
 
         // ***************** Start of TC 17 ************ //
 
