@@ -1,4 +1,4 @@
-﻿Feature: TC - 06: Create and Delete Suplier
+﻿Feature: TC - 06: Create and Delete Supplier
 
 @TC-06
 Scenario:06_Verify Create and Delete Suplier

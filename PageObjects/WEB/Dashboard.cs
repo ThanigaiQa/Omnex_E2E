@@ -107,7 +107,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btn_Save => By.XPath("//button[@title='Save']");
         By lblSuccess_Message => By.XPath("//div[contains(@class,'alert-success')]//strong");
         By btnClose_SuccessMessage => By.XPath("//a[@aria-label='close']");
-        By hintSearch => By.XPath("//input[@type='search']");
+        By hintSearch => By.XPath("(//input[@type='search'])[1]");
         By hintSearch2 => By.XPath("(//input[@type='search'])[2]");
         By lblFirstRow_ElementPresent => By.XPath("//tr[@role='row']//td/a[@href]");
         By chk_FirstRowInActive => By.XPath("//tbody//tr[@role='row' and @class='odd']//input[@type='checkbox']");
@@ -299,6 +299,14 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By chk_firstGroupDelete => By.XPath("//table[@id='SuGrpsUserGridViewControl']//input[contains(@id,'Chk')]");
         By phd_GroupName => By.XPath("//input[@name='groupname']");
         By lbl_UpdatedSuccessMessage => By.XPath("//div[contains(text(),' : Updated Successfully')]");
+        By ddp_Module => By.XPath("//span[@id='select2-ddl_Module-container'][1]");
+        By ddl_ModuleDocpro => By.XPath(" //li[@role='treeitem']//span[contains(text(),'Document Pro')]");
+        By ddp_ModuleSearch => By.XPath("(//select[@id='filtercolumn_SuAdminGridViewControl'])[1]");
+        By ddl_ModuleSearchUserName => By.XPath("(//select[@id='filtercolumn_SuAdminGridViewControl'])[1]//option[@value='Fullname'][1]");
+
+        
+
+
 
 
         #endregion
@@ -1836,7 +1844,54 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // ***************** End of TC 17 ************ //
+        // ***************** Start of TC 18 ************ //
 
+        /// <summary>
+        /// Add the User For Module
+        /// </summary>
+
+        public void AddUserForModule()
+        {
+
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(ddp_Module);
+            seleniumActions.Click(ddl_ModuleDocpro);
+            seleniumActions.Click(btnAddState);
+            seleniumActions.Wait(3);
+            seleniumActions.SwitchToFrame(iframe_ifrUsers);
+            seleniumActions.SendKeys(hintSearch, "Thani-k");
+            seleniumActions.Click(chk_AgendaUser);
+            seleniumActions.SwitchToParentFrame();
+            seleniumActions.Click(btn_UserDone);
+            seleniumActions.SwitchToDefaultContent();
+
+
+
+        }
+        /// <summary>
+        /// Validate The Newely Added User
+        /// </summary>
+
+        public void ValidateTheNewelyAddedUser()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Click(ddp_Module);
+            seleniumActions.Click(ddl_ModuleSearchUserName);
+            seleniumActions.SendKeys(hintSearch, "Thani");
+        }
+        /// <summary>
+        /// Remove The Added user
+        /// </summary>
+        public void RemoveTheAddeduser()
+        {
+            seleniumActions.Click(chk_FirstRowInActive);
+            seleniumActions.Click(btnDelete);
+            seleniumActions.Click(btnYes_Popup);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
+            seleniumActions.SwitchToDefaultContent();
+        }
+        // ***************** End of TC 18 ************ //
         #endregion
     }
 }

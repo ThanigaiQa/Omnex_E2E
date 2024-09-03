@@ -442,6 +442,27 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // ************** End of TC 12 ****************** //
 
+        // ************** Start of TC 18 ***************** //
+
+        [Then(@"Add User for Module Page")]
+        public void ThenAddUserForModulePage()
+        {
+            dashboard.AddUserForModule();
+        }
+
+        [Then(@"Validate the newely added user")]
+        public void ThenValidateTheNewelyAddedUser()
+        {
+            dashboard.ValidateTheNewelyAddedUser();
+        }
+
+        [Then(@"Remove the Added user")]
+        public void ThenRemoveTheAddedUser()
+        {
+            dashboard.RemoveTheAddeduser();
+        }
+
+        // ************** End of TC 18 ****************** //
         #endregion
     }
 }
