@@ -1440,7 +1440,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // ***************** End of TC 10 ************ //
+
         // ***************** Starts of TC 06 ************ //
+
         /// <summary>
         /// Create the Supplier
         /// </summary>
@@ -1509,6 +1511,23 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToDefaultContent();
         }
 
+        /// <summary>
+        /// Delete the Supplier
+        /// </summary>
+        public void DeleteSupplier()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Click(ddp_SupplierSearchDropdown);
+            seleniumActions.Click(ddl_SupplierSearchDropdown);
+            seleniumActions.SendKeys(hintSearch, Constants.Name);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(chk_FirstRowInActive);
+            seleniumActions.Click(btnDelete_TeamsPage);
+            seleniumActions.Click(btnYes_Popup);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // ***************** End of TC 06 ************ //
 
         // ***************** Start of TC 14 ************ //
 
@@ -1606,26 +1625,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         // ***************** End of TC 14 ************ //
 
-
-        /// <summary>
-        /// Delete the Supplier
-        /// </summary>
-        public void DeleteSupplier()
-        {
-            seleniumActions.SwitchToIframes(iframe_DetailView);
-            seleniumActions.Click(ddp_SupplierSearchDropdown);
-            seleniumActions.Click(ddl_SupplierSearchDropdown);
-            seleniumActions.SendKeys(hintSearch, Constants.Name);
-            seleniumActions.Wait(3);
-            seleniumActions.Click(chk_FirstRowInActive);
-            seleniumActions.Click(btnDelete_TeamsPage);
-            seleniumActions.Click(btnYes_Popup);
-            seleniumActions.SwitchToDefaultContent();
-        }
-        // ***************** End of TC 06 ************ //
-    
-
-
         // ***************** Start of TC 12 ************ //
 
         /// <summary>
@@ -1715,6 +1714,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(btnYes_Popup);
             return empCode;
         }
+
+        // ***************** End of TC 12 ************ //
 
         // ***************** Start of TC 17 ************ //
 
@@ -1826,7 +1827,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(btn_closeMessage);
             seleniumActions.SwitchToParentFrame();
         }
+
         // ***************** End of TC 17 ************ //
+
         #endregion
     }
 }
