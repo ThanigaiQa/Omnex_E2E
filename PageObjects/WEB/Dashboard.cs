@@ -1765,7 +1765,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public void DeleteUserForGroup(string groupName)
         {
-            seleniumActions.Wait(3);
+            seleniumActions.Wait(6);
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData);
             seleniumActions.Wait(3);
             seleniumActions.Click(hintSearch);
