@@ -13,6 +13,10 @@ using System.Xml.Linq;
 using System.Reactive.Subjects;
 using Amazon.DynamoDBv2.DocumentModel;
 using OpenQA.Selenium.Interactions;
+using Amazon.DynamoDBv2.Model;
+using AventStack.ExtentReports.Gherkin.Model;
+using TechTalk.SpecFlow.CommonModels;
+using Amazon.SecretsManager.Model.Internal.MarshallTransformations;
 
 namespace OMNEX.AUTOMATION.PageObjects.WEB
 {
@@ -78,7 +82,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By lblDeletedSuccessMessage => By.XPath("//div[contains(@class,'alert-dismissible')]");
         By btnClose_TeamsPage => By.XPath("//button[@title='Close']");
         By tblRow => By.XPath("//tbody/tr[@role='row']");
-        By btnNew => By.XPath("//li[@id='dbtnadd']//button[@title='New']");
+        By btnNew => By.XPath("");
+
+        By lblSuitSetUp => By.XPath("//div[@class='sub-menu']//span[contains(text(),'Suit Setup')]");
 
         /***************TC03 Xpaths**********************/
         By drpCountry => By.XPath("//span[contains(@id,'Country') or @id='select2-ddl_Site-container']");
@@ -266,6 +272,23 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By ddp_SupplierSearchDropdown => By.Id("filtercolumn_SuSupplierGridViewControl");
         By ddl_SupplierSearchDropdown => By.XPath("//select[@id='filtercolumn_SuSupplierGridViewControl']//following::option[@value='Name']");
 
+        // ***************TC17 Xpaths********************** //
+        By btn_AddGroup => By.XPath("//button[@id='btn_add_hold']");
+        By inp_GroupName => By.XPath("//input[@id='0_groupname']");
+        By btn_SaveGroup => By.XPath("//button[@id='btnSaveDetails_SuGroupsGridViewControl']");
+        By lbl_FirstGroupElement => By.XPath("//tbody/tr[@role='row']");
+        By svg_AddUserIcon => By.XPath("//*[local-name()='svg' and contains(@onclick,'LoadUserDetailPopup')]");
+        By chk_firstUser => By.XPath("(//table[@id='userListingGridControl']//th[@class]//following::input[@name='userListingGridControl_selectCheck'])[1]");
+        By btn_SaveUser => By.XPath("//button[@title='Save']");
+        By lbl_UserAddedSuccessMessage => By.XPath("//div[contains(text(),'Saved successfully')]");
+        By btn_closeMessage => By.XPath("//a[@id='alert_ok']");
+        By svg_AddedUserIcon => By.XPath("//*[local-name()='svg'and contains(@data-icon,'eye')]");
+        By chk_firstGroup => By.XPath("//input[contains(@id,'Chk')]");
+        By chk_firstGroupDelete => By.XPath("//table[@id='SuGrpsUserGridViewControl']//input[contains(@id,'Chk')]");
+        By phd_GroupName => By.XPath("//input[@name='groupname']");
+        By lbl_UpdatedSuccessMessage => By.XPath("//div[contains(text(),' : Updated Successfully')]");
+
+
         #endregion
 
         #region Iframe
@@ -274,6 +297,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         static By iframe_ifrUsers => By.XPath("//iframe[@id='ifrUsers']");
         static By iframe_ifrAlbum => By.XPath("(//iframe[@id='ifrAlbum'])[1]");
         static By iframe => By.XPath("//iframe[contains(@class,'cke_reset')]");
+        static By iframe_MenuData => By.XPath("//iframe[@id='MenuData']");
         
 
 
@@ -389,7 +413,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
                 seleniumActions.Click(By.XPath("(//a[@class='submenu_list_link has-arrow']//following-sibling::ul[@class='inner_submenu']//span[contains(text(),'" + SubHead + "')])[2]"));
             }
         }
-
         // ***************** Start of TC 02 ************ //
 
         /// <summary>
@@ -418,7 +441,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SendKeys(phd_TagName, Keys.Clear);
             seleniumActions.SendKeys(phd_TagName, "Updated " + Constants.TagName + utility.CurrentTime());
             seleniumActions.Click(btnSave_TagPopup);
-            seleniumActions.Wait(4);
+            seleniumActions.Wait(4);            
+            
             String tagName = seleniumActions.GetText(lblTag);
             seleniumActions.Wait(3);
             Assert.IsTrue(tagName.Contains("Updated"));
@@ -1587,7 +1611,119 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToDefaultContent();
         }
         // ***************** End of TC 06 ************ //
-    }
-    #endregion
-}
+    
 
+        // ***************** Start of TC 17 ************ //
+
+        /// <summary>
+        /// Create the group
+        /// </summary>
+        public string CreateGroup()
+        {
+            string groupName = Constants.TagName + utility.CurrentTime();
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.SwitchToIframes(iframe_MenuData);
+            seleniumActions.IsElementPresent(btn_AddGroup);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(btn_AddGroup);
+            seleniumActions.Click(inp_GroupName);
+            seleniumActions.SendKeys(inp_GroupName, groupName);
+            seleniumActions.Click(btn_SaveGroup);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblSuccess_Message));
+            seleniumActions.Click(btnClose_SuccessMessage);
+            seleniumActions.Click(hintSearch);
+            seleniumActions.SendKeys(hintSearch, groupName);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_FirstGroupElement));
+            seleniumActions.SwitchToParentFrame();
+            return groupName;
+        }
+        /// <summary>
+        /// Create the new user for group
+        /// </summary>
+        public void CreateUserForGroup()
+        {
+            seleniumActions.Wait(3);
+            seleniumActions.SwitchToIframes(iframe_MenuData);
+            seleniumActions.Click(svg_AddUserIcon);
+            seleniumActions.Wait(3);
+            seleniumActions.SwitchToIframes(iframe_ifrUsers);
+            seleniumActions.Wait(5);
+            seleniumActions.Click(chk_firstUser);
+            seleniumActions.SwitchToParentFrame();
+            seleniumActions.Click(btn_SaveUser);
+            seleniumActions.SwitchToIframes(iframe_ifrUsers);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_UserAddedSuccessMessage));
+            seleniumActions.Click(btn_closeMessage);
+            seleniumActions.SwitchToParentFrame();
+        }
+        /// <summary>
+        /// Delete the added user for the group
+        /// </summary>
+        public void DeleteUserForGroup(string groupName)
+        {
+            seleniumActions.Wait(3);
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(hintSearch);
+            seleniumActions.SendKeys(hintSearch, groupName);
+            seleniumActions.Wait(5);
+            seleniumActions.Click(svg_AddedUserIcon);
+            seleniumActions.Wait(6);
+            seleniumActions.Click(chk_firstGroupDelete);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(btnDelete);
+            seleniumActions.Click(popUp_Yes);
+            seleniumActions.IsElementPresent(lblDeletedSuccessMessage);
+            seleniumActions.Click(btn_closeMessage);
+            seleniumActions.SwitchToParentFrame();
+        }
+        /// <summary>
+        /// Update the groupName
+        /// </summary>
+        public string UpdateGroup(string groupName)
+        {
+            seleniumActions.Wait(3);
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData);
+            seleniumActions.Wait(5);
+            seleniumActions.Click(hintSearch);
+            seleniumActions.SendKeys(hintSearch, groupName);
+            seleniumActions.Wait(5);
+            seleniumActions.Click(chk_firstGroup);
+            seleniumActions.Click(btnPencilIcon);
+            seleniumActions.Wait(3);
+            seleniumActions.SendKeys(phd_GroupName, Keys.Clear);
+            seleniumActions.SendKeys(phd_GroupName, "Updated " + groupName);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(btnSave_TagPopup);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_UpdatedSuccessMessage));
+            seleniumActions.Click(btn_closeMessage);
+            String existingGroupName = seleniumActions.GetText(By.XPath("//tbody//tr[@role='row']//td[contains(text(),'" + groupName + "')]"));
+            seleniumActions.Wait(3);
+            Assert.IsTrue(existingGroupName.Contains("Updated"));
+            seleniumActions.SwitchToParentFrame();
+            return existingGroupName;
+        }
+        /// <summary>
+        /// Delete the created group
+        /// </summary>
+        public void deleteGroup(string existingGroupName)
+        {
+            seleniumActions.Wait(3);
+            seleniumActions.SwitchToIframes(iframe_MenuData);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(hintSearch);
+            seleniumActions.SendKeys(hintSearch, Keys.Clear);
+            seleniumActions.Wait(3);
+            seleniumActions.SendKeys(hintSearch, existingGroupName);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(chk_firstGroup);
+            seleniumActions.Click(btn_DeleteTag);
+            seleniumActions.Click(btnYes_Popup);
+            seleniumActions.IsElementPresent(lblDeletedSuccessMessage);
+            seleniumActions.Click(btn_closeMessage);
+            seleniumActions.SwitchToParentFrame();
+        }
+        // ***************** End of TC 17 ************ //
+        #endregion
+    }
+}

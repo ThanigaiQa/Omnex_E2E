@@ -398,6 +398,39 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // ************** End of TC 14 ****************** //
 
+        // ************** Starts of TC 17 ****************** //
+
+        [Then(@"I click on the add button and Create new group")]
+        public void ThenIClickOnTheAddButtonAndCreateNewGroup()
+        {
+            scenarioContext["GroupName"] = dashboard.CreateGroup();
+        }
+
+        [Then(@"I add user for the created group")]
+        public void ThenIAddUserForTheCreatedGroup()
+        {
+            dashboard.CreateUserForGroup();
+        }
+
+        [Then(@"I remove the added user for the group")]
+        public void ThenIRemoveTheAddedUserForTheGroup()
+        {
+            dashboard.DeleteUserForGroup(scenarioContext["GroupName"].ToString());
+        }
+
+        [Then(@"I click the newly created group and rename the groupName")]
+        public void ThenIClickTheNewlyCreatedGroupAndRenameTheGroupName()
+        {
+            scenarioContext["UpdatedGroupName"] = dashboard.UpdateGroup(scenarioContext["GroupName"].ToString());
+        }
+
+        [Then(@"I click on the newly created group and delete the group")]
+        public void ThenIClickOnTheNewlyCreatedGroupAndDeleteTheGroup()
+        {
+            dashboard.deleteGroup(scenarioContext["UpdatedGroupName"].ToString());
+        }
+        // ************** End of TC 17 ****************** //
+
         #endregion
     }
 }
