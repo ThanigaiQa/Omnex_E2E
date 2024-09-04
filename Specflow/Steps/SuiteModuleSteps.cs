@@ -474,6 +474,22 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // ************** End of TC 16 ****************** //
 
+        // ***************** Start of TC 19 ************ //
+
+        [When(@"I unlock the '([^']*)' user")]
+        public void WhenIUnlockTheUser(string user)
+        {
+            scenarioContext["UserName"] = dashboard.UnlockUser(user);
+        }
+
+        [Then(@"I verify the user is unlocked")]
+        public void ThenIVerifyTheUserIsUnlocked()
+        {
+            dashboard.ValidateUserUnlock(scenarioContext["UserName"].ToString());
+        }
+
+        // ************** End of TC 19 ****************** //
+
         #endregion
     }
 }

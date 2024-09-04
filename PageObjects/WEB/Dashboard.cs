@@ -1,6 +1,7 @@
 ﻿
 using OMNEX.AUTOMATION.Data.WEB;
 using OMNEX.AUTOMATION.Helpers;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using System.Reflection.Metadata;
@@ -87,6 +88,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By lblSuitSetUp => By.XPath("//div[@class='sub-menu']//span[contains(text(),'Suit Setup')]");
 
         /***************TC03 Xpaths**********************/
+
         By drpCountry => By.XPath("//span[contains(@id,'Country') or @id='select2-ddl_Site-container']");
         By txtSearchCountry => By.XPath("//*[@class='select2-search__field']");
         By btnAddState => By.XPath("//li[@id='dbtnadd']");
@@ -99,6 +101,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btnDelete => By.Id("dbtndelete");
 
         /***************TC04 Xpaths**********************/
+
         By inp_ShiftName => By.XPath("//input[@id='txtShiftName']");
         By dtp_FromTime => By.XPath("//div[@class='input-group-append']//span[contains(@onClick,'txtFromTime')]");
         By dtp_ToTime => By.XPath("//div[@class='input-group-append']//span[contains(@onClick,'txtToTime')]");
@@ -145,6 +148,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btnAdvancedSearch_MultiSearch => By.XPath("//button[@title='Advanced Search']");
 
         /*************** TC01 Xpaths**********************/
+
         By btnUserIconProfile => By.XPath("//li[@id='profiledrop']/a/img");
         By btnLogout => By.XPath("//*[@id='logout']");
         By lblRememberme => By.XPath("//label[@for='chkremup']");
@@ -152,15 +156,18 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By ddlManufacturerName_MultiSearch => By.XPath("(//div[@class='dtsb-criteria']//select//option[contains(text(),'Manufacturer Name')])[1]");
 
         /***************TC13 Xpaths**********************/
+
         By inp_CountryName => By.XPath("//input[@id='txtCountryName']");
 
         /***************TC05 Xpaths**********************/
+
         By inp_VendorName => By.XPath("//input[@id='txtName']");
         By inp_VendorCode => By.XPath("//input[@id='txtCode']");
         By chk_PreferredVendor => By.XPath("//label[contains(text(), 'Preferred Vendor')]");
         By ddl_VendorNameMultiSearch => By.XPath("(//div[@class='dtsb-criteria']//select//option[contains(text(),'Vendor Name')])[1]");
 
         /***************TC21Xpaths**********************/
+
         By btn_CompanyLogoLarge => By.XPath("(//label[contains(text(),'Recommended Dimensions: 380 x 133 pixels')]//parent::div)[1]//following::button[@id='btnAttachCompanylogolarge']");
         By btn_CompanyLogomedium => By.XPath("//*[contains(@id,\"btnAttachCompanylogomedium\")]");
         By btn_ChooseFile => By.XPath("//input[@id='LocalImg']");
@@ -168,6 +175,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btn_ProductLogo => By.XPath("//*[@id = 'btnAttachProductlogo'][1]");
 
         /***************TC11 Xpaths**********************/
+
         By btn_Add => By.XPath("//button[@id='btnSave']");
         By drp_Site => By.XPath("//select[@id='selectSiteId']");
         By inp_RightSite => By.XPath("//select[@id='selectSiteId']//option[3]");
@@ -176,10 +184,11 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btn_SaveForPosition => By.XPath("(//button[@id='btnSave'])[2]");
 
         /***************TC22 Xpaths**********************/
+
         /***************TC20 Xpaths**********************/
+
         By txt_City => By.Id("City");
         By inp_CountrySearch => By.XPath("//input[contains(@class, 'search')]");
-
         By drp_PaswordFormat => By.XPath("//*[contains(@id,'ddlListPwdFormat-container')]");
         By ddl_PaswordOption => By.XPath("//*[@type='search']");
         By txt_PasswordLength => By.XPath("//*[@id = 'PWDLen']");
@@ -224,8 +233,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By txt_AgendaDate => By.XPath("//input[@name='sDate']");
         By lbl_TitleAgenda => By.XPath("//div[@id='headingMeetingagenda']");
         By chk_Meeting1 => By.XPath("(//input[@name='meetinitial_selectCheck'])[1]");
-
-
 
         // ***************TC11 Xpaths********************** //
         By txtEntityName => By.XPath("//input[@id='tblEntityName']");
@@ -310,6 +317,12 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By imgMonthArrowDown => By.XPath("(//select[contains(@id,'CmbDateFormat')])[2]");
         By ddl_MM_DateFormat => By.XPath("(//select[contains(@id,'CmbDateFormat')])[2]//option[@value='MM']");
         By lblSavedSuccessfully => By.XPath("//div[contains(@class,'alert-success')]");
+
+        // ***************TC19 Xpaths********************** //
+        By drp_UnlockUserSearch => By.XPath("//select[contains(@id,'UnlockUsersListing')]");
+        By ddlUsername_UnlockUser => By.XPath("//select[contains(@id,'UnlockUsersListing')]//option[@value='username']");
+        By btn_UnlockUsers => By.XPath("//button[@title='Unlock Users']");
+        By lbl_NoRecords => By.XPath("//tr//td[contains(text(),'no records')]");
 
         #endregion
 
@@ -402,7 +415,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToDefaultContent();
             return Constants.Level;
             //(//table[@class='Tbltitle']//ul[@id='TOCDoclvl']//a[contains(@title,'AAA')]//following::*[local-name()='svg' and contains(@class,'pencil')])[1]
-
         }
 
         public void DeleteLevelByHovering(String LevelName)
@@ -421,7 +433,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         {
             if (seleniumActions.IsElementPresent(sideMenuContainer))
             {
-
                 seleniumActions.Wait(5);
                 seleniumActions.Click(lblSetup);
                 seleniumActions.Click(lblSystem);
@@ -430,6 +441,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
                 seleniumActions.Click(By.XPath("(//a[@class='submenu_list_link has-arrow']//following-sibling::ul[@class='inner_submenu']//span[contains(text(),'" + SubHead + "')])[2]"));
             }
         }
+
         // ***************** Start of TC 02 ************ //
 
         /// <summary>
@@ -570,6 +582,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         // ***************** End of TC 09 ************ //
 
         // ***************** Start of TC 03 ************ //
+
         /// <summary>
         /// Clicks add button and creates a new State
         /// </summary>
@@ -604,6 +617,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(Statename.Equals("Kerala"));
         }
 
+        /// <summary>
+        /// Delete the recently created state
+        /// </summary>
         public void DeleteState()
         {
             seleniumActions.Wait(3);
@@ -764,11 +780,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToDefaultContent();
         }
 
-
         // ***************** End of TC 08 ************ //
 
         // ***************** Start of TC 13 ************ //
-
 
         /// <summary>
         /// Clicks new button and creates a new country
@@ -855,6 +869,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         // ***************** End of TC 07 ************ //
 
         //  ***************** Start of TC 01 ********* //
+
         /// <summary>
         ///  Logout the appliaction
         /// </summary>
@@ -869,7 +884,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// <summary>
         /// Validate the remember me functionality
         /// </summary>
-
         public void ValidateTheRememberme()
         {
             seleniumActions.IsElementPresent(lblRememberme);
@@ -897,10 +911,10 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(chk_PreferredVendor);
             return vendorName;
         }
+
         /// <summary>
         ///  Delete the newly created vendor 
         /// </summary>
-
         public void DeleteVendor(string vendorName)
         {
             Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
@@ -926,10 +940,11 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToDefaultContent();
 
         }
+
         // ***************** End of TC 05 ************ //
 
-
         // ***************** Starts of TC 21 ************ //
+
         /// <summary>
         ///  Update Organization details update
         /// </summary>
@@ -965,9 +980,11 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToDefaultContent();
 
         }
+
         // ***************** End of TC 21 ************ //
 
         // ***************** Start of TC 11 ************ //
+
         /// <summary>
         /// Creates position by giving position name and description
         /// </summary>
@@ -1082,8 +1099,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToDefaultContent();
 
         }
-        // ****************** End of TC 22 ********* //
 
+        // ****************** End of TC 22 ********* //
 
         // ************** Start Of TC 20 ***************** //
         /// <summary>
@@ -1106,6 +1123,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Refresh();
 
         }
+
         /// <summary>
         /// Verify the city is created or not
         /// </summary>
@@ -1303,7 +1321,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// <summary>
         /// Deletes the city in city page
         /// </summary>
-        /// /// <param name="countryName"></param>
+        /// <param name="countryName"></param>
         public void DeleteCity(string countryName)
         {
             seleniumActions.SwitchToIframes(iframe_DetailView);
@@ -1357,7 +1375,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // ***************** End of TC 23 ************ //
-
 
         // ***************** Start of TC 10 ************ //
 
@@ -1753,6 +1770,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToParentFrame();
             return groupName;
         }
+
         /// <summary>
         /// Create the new user for group
         /// </summary>
@@ -1772,6 +1790,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(btn_closeMessage);
             seleniumActions.SwitchToParentFrame();
         }
+
         /// <summary>
         /// Delete the added user for the group
         /// </summary>
@@ -1793,6 +1812,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(btn_closeMessage);
             seleniumActions.SwitchToParentFrame();
         }
+
         /// <summary>
         /// Update the groupName
         /// </summary>
@@ -1819,6 +1839,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToParentFrame();
             return existingGroupName;
         }
+
         /// <summary>
         /// Delete the created group
         /// </summary>
@@ -1982,6 +2003,40 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // ***************** End of TC 16 ************ //
+
+        // ***************** Start of TC 19 ************ //
+
+        /// <summary>
+        /// Unlock the user in user page
+        /// </summary>
+        public string UnlockUser(string user)
+        {
+            seleniumActions.Wait(5);
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Click(drp_UnlockUserSearch);
+            seleniumActions.Click(ddlUsername_UnlockUser);
+            seleniumActions.Click(hintSearch);
+            seleniumActions.SendKeys(hintSearch, user);
+            seleniumActions.Click(chk_FirstRowInActive);
+            seleniumActions.Click(btn_UnlockUsers);
+            seleniumActions.Click(popUp_Yes);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblSuccess_Message));
+            seleniumActions.Click(btnClose_SuccessMessage);
+            return user;
+        }
+
+        /// <summary>
+        /// Validate the user is unlocked or not
+        /// </summary>
+        public void ValidateUserUnlock(string user)
+        {
+            seleniumActions.Click(hintSearch);
+            seleniumActions.SendKeys(hintSearch, Keys.Clear);
+            seleniumActions.SendKeys(hintSearch, user);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_NoRecords), "user is present");
+        }
+
+        // ***************** End of TC 19 ************ //
 
         #endregion
     }
