@@ -1115,7 +1115,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToIframes(iframe_DetailView);
             seleniumActions.IsElementPresent(drpCountry);
             seleniumActions.Click(drpCountry);
-            seleniumActions.Wait(3);
+            seleniumActions.Wait(5);
             seleniumActions.SendKeys(inp_CountrySearch, country + Keys.Enter);
             seleniumActions.Click(btnNew);
             seleniumActions.Click(txt_City);
@@ -1141,6 +1141,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Wait(3);
             seleniumActions.Click(hintSearch);
             seleniumActions.SendKeys(hintSearch, city);
+            seleniumActions.Wait(3);
             Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent));
             seleniumActions.SwitchToDefaultContent();
         }
@@ -1155,6 +1156,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(chk_FirstRowInActive);
             seleniumActions.Click(btnDelete);
             seleniumActions.Click(btnYes_Popup);
+            seleniumActions.Wait(3);
             Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
             seleniumActions.SwitchToDefaultContent();
         }
@@ -1793,6 +1795,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Wait(3);
             seleniumActions.Click(btnDelete);
             seleniumActions.Click(popUp_Yes);
+            seleniumActions.Wait(3);
             seleniumActions.IsElementPresent(lblDeletedSuccessMessage);
             seleniumActions.Click(btn_closeMessage);
             seleniumActions.SwitchToParentFrame();
@@ -1842,6 +1845,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(chk_firstGroup);
             seleniumActions.Click(btn_DeleteTag);
             seleniumActions.Click(btnYes_Popup);
+            seleniumActions.Wait(3);
             seleniumActions.IsElementPresent(lblDeletedSuccessMessage);
             seleniumActions.Click(btn_closeMessage);
             seleniumActions.SwitchToParentFrame();
