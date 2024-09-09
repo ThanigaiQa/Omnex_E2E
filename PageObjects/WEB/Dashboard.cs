@@ -926,6 +926,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void DeleteVendor(string vendorName)
         {
             Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
+            seleniumActions.ScrollToPosition(1000,0);
             seleniumActions.Click(btnMultiSearch);
             Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch), "Multi Search field is not available");
             seleniumActions.Click(drpColumn_MultiSearch);
@@ -1884,6 +1885,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void ValidateTheNewelyAddedUser()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Wait(4);
             seleniumActions.Click(ddp_Module);
             seleniumActions.Click(ddl_ModuleSearchUserName);
             seleniumActions.SendKeys(hintSearch, "Thani");
