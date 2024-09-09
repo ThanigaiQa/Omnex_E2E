@@ -775,6 +775,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToFrame(iframe_DetailView);
             seleniumActions.WaitForElementToExists(lblFirstRow_ElementPresent);
             Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent));
+            seleniumActions.Wait(4);
             seleniumActions.Click(chk_FirstRowInActive);
             seleniumActions.Click(btnDelete);
             seleniumActions.Click(btnYes_Popup);
@@ -857,11 +858,13 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(ddlContains_MultiSearch);
             seleniumActions.Click(inp_MultiSearch);
             seleniumActions.SendKeys(inp_MultiSearch, custName);
+            seleniumActions.Wait(4);
             seleniumActions.Click(btnAdvancedSearch_MultiSearch);
             seleniumActions.SwitchToDefaultContent();
             seleniumActions.SwitchToFrame(iframe_DetailView);
             seleniumActions.WaitForElementToExists(lblFirstRow_ElementPresent);
             Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent));
+            seleniumActions.Wait(4);
             seleniumActions.Click(chk_FirstRowInActive);
             seleniumActions.Click(btnDelete);
             seleniumActions.Click(btnYes_Popup);
@@ -971,6 +974,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(btn_DoneFile);
             seleniumActions.SwitchToDefaultContent();
             seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.ScrollToPosition(0,1000);
             seleniumActions.Click(btn_ProductLogo);
             seleniumActions.SwitchToFrame(iframe_ifrAlbum);
             Assert.IsTrue(seleniumActions.IsElementPresent(btn_ChooseFile), "Choose file button is not available");

@@ -35,7 +35,7 @@ namespace OMNEX.AUTOMATION.Helpers
             ITakesScreenshot ts = (ITakesScreenshot)driver;
             Screenshot screenshot = ts.GetScreenshot();
             string pth = System.Reflection.Assembly.GetCallingAssembly().CodeBase;
-            string finalpth = pth.Substring(0, pth.LastIndexOf("bin")) + "\\Reports\\Screenshots\\" + scenarioContext.ScenarioInfo.Title + ".png";
+            string finalpth = pth.Substring(0, pth.LastIndexOf("bin")) + "Reports/Screenshots/" + scenarioContext.ScenarioInfo.Title + ".png";
             string localpath = new Uri(finalpth).LocalPath;
             screenshot.SaveAsFile(localpath);
             return localpath;

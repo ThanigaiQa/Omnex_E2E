@@ -10,16 +10,18 @@ namespace OMNEX.AUTOMATION.Helpers
     {
         public static ExtentReports _extentReports;
         public static ExtentTest _feature;
-        public static ExtentTest _scenario;        
+        public static ExtentTest _scenario;
+        public static Utilities utility;
 
         public static void ExtentReportInit()
         {
+            utility = new Utilities();
             var path = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
             var actualPath = path.Substring(0, path.LastIndexOf("bin"));
             var projectPath = new Uri(actualPath).LocalPath;
             Directory.CreateDirectory(projectPath.ToString() + "Reports");
             var Timestamp = new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds();
-            var reportPath = projectPath + "Reports\\OMNEXReports.html";
+            var reportPath = projectPath + "Reports\\OMNEXReports"+utility.CurrentTime()+ ".html";
 
             var htmlReporter = new ExtentSparkReporter(reportPath);
             htmlReporter.Config.ReportName = "OMNEX Automation Report";

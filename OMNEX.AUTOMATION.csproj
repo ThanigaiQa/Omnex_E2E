@@ -11,14 +11,19 @@
   <ItemGroup>
     <Compile Remove="Data\MOBILE\**" />
     <Compile Remove="PageObjects\MOBILE\**" />
+    <Compile Remove="Reports\NewFolder\**" />
     <EmbeddedResource Remove="Data\MOBILE\**" />
     <EmbeddedResource Remove="PageObjects\MOBILE\**" />
+    <EmbeddedResource Remove="Reports\NewFolder\**" />
     <None Remove="Data\MOBILE\**" />
     <None Remove="PageObjects\MOBILE\**" />
+    <None Remove="Reports\NewFolder\**" />
     <SpecFlowFeatureFiles Remove="Data\MOBILE\**" />
     <SpecFlowFeatureFiles Remove="PageObjects\MOBILE\**" />
+    <SpecFlowFeatureFiles Remove="Reports\NewFolder\**" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Data\MOBILE\**" />
     <SpecFlowObsoleteCodeBehindFiles Remove="PageObjects\MOBILE\**" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Reports\NewFolder\**" />
   </ItemGroup>
 
   <ItemGroup>
