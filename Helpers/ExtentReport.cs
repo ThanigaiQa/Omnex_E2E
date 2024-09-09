@@ -35,7 +35,6 @@ namespace OMNEX.AUTOMATION.Helpers
             _extentReports.AddSystemInfo("OS", "Windows - " + Environment.OSVersion.Version.ToString());            
             _extentReports.AddSystemInfo("Environment", ConfigHelper.GetEnvironment());            
         }
-
         public static void ExtentReportTearDown()
         {
             _extentReports.Flush();

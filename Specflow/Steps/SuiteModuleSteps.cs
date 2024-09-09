@@ -90,15 +90,11 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             dashboard.ClickAddButtonAndCreateNewState(country, state);
         }
 
-        
-
         [Then(@"I Validate the newely created ""([^""]*)"" and ""([^""]*)""")]
         public void ThenIValidateTheNewelyCreatedAnd(string country, string state)
         {
             dashboard.ValidateStateCreation(country, state);
         }
-
-
 
         [Then(@"I delete the state")]
         public void ThenIDeleteTheState()
@@ -129,7 +125,8 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         // ************** End of TC 04 ****************** //
-        // *************** Starts of TC 01 ***************//
+
+        // *************** Start of TC 01 ***************//
 
         [Then(@"Validate the remember me option")]
         public void ThenValidateTheRememberMeOption()
@@ -137,6 +134,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             dashboard.ValidateTheRememberme();
         }
 
+        // *************** End of TC 01 ***************//
 
         // ************** Start of TC 08 ****************** //
 
@@ -215,7 +213,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // ************** End of TC 05 ****************** //
 
-        // ************** Starts of TC 21 ****************** //
+        // ************** Start of TC 21 ****************** //
 
         [Then(@"Update the Organization profile details")]
         public void ThenUpdateTheOrganizationProfileDetails()
@@ -248,8 +246,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // ************** End of TC 11 ****************** //
 
-        // **************Starts of TC 22 **************** //
-
+        // ************** Start of TC 22 **************** //
 
         [Then(@"Update the Admin Setting details")]
         public void ThenUpdateTheAdminSettingDetails()
@@ -258,7 +255,6 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         // ************** End of TC 22 ****************** //
-
 
         // ************** Start Of TC 20 ***************** //
 
@@ -344,8 +340,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // ************** End of TC 23 ****************** //
 
-
-        // ************** Starts of TC 10 ****************** //
+        // ************** Start of TC 10 ****************** //
         
         [Then(@"Create Meetings")]
         public void ThenCreateMeetings()
@@ -361,7 +356,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // ************** End of TC 10 ****************** //
 
-       // ************** Starts of TC 06 ****************** //
+       // ************** Start of TC 06 ****************** //
 
         [Then(@"Create Supplier")]
         public void ThenCreateSupplier()
@@ -399,7 +394,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // ************** End of TC 14 ****************** //
 
-        // ************** Starts of TC 17 ****************** //
+        // ************** Start of TC 17 ****************** //
 
         [Then(@"I click on the add button and Create new group")]
         public void ThenIClickOnTheAddButtonAndCreateNewGroup()
@@ -430,6 +425,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         {
             dashboard.deleteGroup(scenarioContext["UpdatedGroupName"].ToString());
         }
+
         // ************** End of TC 17 ****************** //
 
         // ************** Start of TC 12 ****************** //

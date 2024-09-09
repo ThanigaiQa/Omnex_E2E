@@ -257,7 +257,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By lblSite => By.XPath("(//label[@for='Site'])[1]");
         By txt_SupplierName => By.XPath("//input[@id='txtName']");
         By txt_SupplierCode => By.XPath("//input[@id='txtCode']");
-        By txt_SupplierContact =>  By.XPath("//input[@id='txtUserCount']");
+        By txt_SupplierContact => By.XPath("//input[@id='txtUserCount']");
         By txt_PrimaryContactEmail => By.XPath("//input[@id='txtEmail']");
         By txt_SecondryContactEmail => By.XPath("//input[@id='txtSecEmail']");
         By txt_ManufactureAddress => By.Id("txtAddress");
@@ -271,7 +271,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By ddp_SupplierQm => By.XPath("//div[@id='tdSQM']//following::span[@id='imgSelectTeamSQM']");
         By ddl_SupplierSearch => By.XPath("//select[@id='filtercolumn_SuSupplierGridViewControl']//following::option[@value='Name']");
         By ddp_SupplierSearch => By.Id("filtercolumn_SuSupplierGridViewControl");
-        
+
         By lnkForgotPassword => By.XPath("//a[@onclick='ValidatePasswordDialog()']");
         By txtUsername_ForgotPwd => By.XPath("//input[@id='fgtUsername']");
         By txtEmpCode_ForgotPwd => By.XPath("//input[@id='fgtEmpcode']");
@@ -761,7 +761,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void DeleteCustomerFromTheRecords(string custName)
         {
             Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
-            seleniumActions.ScrollToPosition(1000,0);
+            seleniumActions.ScrollToPosition(1000, 0);
             seleniumActions.Click(btnMultiSearch);
             Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch));
             seleniumActions.Click(drpColumn_MultiSearch);
@@ -926,7 +926,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void DeleteVendor(string vendorName)
         {
             Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
-            seleniumActions.ScrollToPosition(1000,0);
+            seleniumActions.ScrollToPosition(1000, 0);
             seleniumActions.Click(btnMultiSearch);
             Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch), "Multi Search field is not available");
             seleniumActions.Click(drpColumn_MultiSearch);
@@ -975,7 +975,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(btn_DoneFile);
             seleniumActions.SwitchToDefaultContent();
             seleniumActions.SwitchToFrame(iframe_DetailView);
-            seleniumActions.ScrollToPosition(0,1000);
+            seleniumActions.ScrollToPosition(0, 1000);
             seleniumActions.Click(btn_ProductLogo);
             seleniumActions.SwitchToFrame(iframe_ifrAlbum);
             Assert.IsTrue(seleniumActions.IsElementPresent(btn_ChooseFile), "Choose file button is not available");
@@ -1070,13 +1070,11 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
             if (fcDefaultValue == "First Name")
             {
-
                 seleniumActions.Click(drp_FirstCombobox);
                 seleniumActions.Click(ddl_FCLasttName);
                 seleniumActions.Click(drp_SecondCombobox);
                 seleniumActions.Click(drp_ThirdCombobox);
                 seleniumActions.Click(drp_FoutrhCombobox);
-
 
                 if (lcDefaultValue == "Last Name")
                 {
@@ -1084,9 +1082,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
                     seleniumActions.Click(ddl_LCFirstName);
                     seleniumActions.Click(btn_Save);
                     Assert.IsTrue(seleniumActions.IsElementPresent(lblSuccess_Message), "Success smessage not display");
-
                 }
             }
+
             else if (fcDefaultValue == "Last Name")
             {
                 seleniumActions.Click(drp_FirstCombobox);
@@ -1095,7 +1093,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
                 seleniumActions.Click(drp_ThirdCombobox);
                 seleniumActions.Click(drp_FoutrhCombobox);
 
-
                 if (lcDefaultValue == "First Name")
                 {
                     seleniumActions.Click(drp_LastCombobox);
@@ -1103,10 +1100,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
                     seleniumActions.Click(btn_Save);
                     Assert.IsTrue(seleniumActions.IsElementPresent(lblSuccess_Message), "Success smessage not display");
                 }
-
             }
-            seleniumActions.SwitchToDefaultContent();
 
+            seleniumActions.SwitchToDefaultContent();
         }
 
         // ****************** End of TC 22 ********* //
@@ -1131,7 +1127,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Wait(3);
             seleniumActions.NavigateBack();
             seleniumActions.Refresh();
-
         }
 
         /// <summary>
@@ -1495,9 +1490,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(btnNew_CustomersPage);
             seleniumActions.SendKeys(txt_SupplierName, Constants.Name);
             seleniumActions.SendKeys(txt_SupplierCode, "AT" + utility.RandomNumberGenerator(5));
-            seleniumActions.SendKeys(txt_SupplierContact,utility.RandomNumberGenerator(3));
+            seleniumActions.SendKeys(txt_SupplierContact, utility.RandomNumberGenerator(3));
             seleniumActions.SendKeys(txt_PrimaryContactEmail, Constants.Name + "@email.com");
-            seleniumActions.SendKeys(txt_SecondryContactEmail, "2"+ Constants.Name + "@email.com");
+            seleniumActions.SendKeys(txt_SecondryContactEmail, "2" + Constants.Name + "@email.com");
             seleniumActions.Click(ddp_SupplierQe);
             seleniumActions.Wait(3);
             seleniumActions.SwitchToFrame(iframe_ifrUsers);

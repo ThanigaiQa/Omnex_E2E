@@ -53,7 +53,6 @@ namespace OMNEX.AUTOMATION.Helpers
             ExtentReportTearDown();
         }
 
-
         [BeforeFeature]
         public static void BeforeFeature(FeatureContext featureContext)
         {
@@ -83,6 +82,7 @@ namespace OMNEX.AUTOMATION.Helpers
             driverContext.WebDriver.Quit();
             driverContext.WebDriver.Dispose();
         }
+
         [AfterStep]
         public void AfterStep(ScenarioContext scenarioContext)
         {

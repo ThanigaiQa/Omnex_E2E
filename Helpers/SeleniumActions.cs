@@ -330,6 +330,7 @@ namespace OMNEX.AUTOMATION.Helpers
             _driver.SwitchTo().DefaultContent();
            
         }
+
         /// <summary>
         /// Waits for an element to exist and scroll to the element using JavaScriptExecutor 
         /// </summary>
@@ -355,6 +356,7 @@ namespace OMNEX.AUTOMATION.Helpers
             actions.MoveToElement(elements[cnt]);
             actions.Perform();
         }
+
         /// <summary>
         /// Clears the cache of the browser
         /// </summary>
@@ -489,7 +491,6 @@ namespace OMNEX.AUTOMATION.Helpers
         /// <param name="iframes"></param>
         public void SwitchToIframes(params By[] iframeLocators)
         {
-
             // Iterate through each iframe WebElement and switch to it
             // Iterate through each iframe WebElement and switch to it
             foreach (var iframe in iframeLocators)
@@ -498,7 +499,6 @@ namespace OMNEX.AUTOMATION.Helpers
                 _driver.SwitchTo().Frame(iframeElement);
             }
         }
-
 
         /// <summary>
         /// Below is the example on how to use the method
@@ -579,7 +579,6 @@ namespace OMNEX.AUTOMATION.Helpers
             return count;
         }
 
-
         /// <summary>
         /// To return ManageCensusPage Column Header count || Pass header value as input and it returns its column index value
         /// </summary>
@@ -596,9 +595,6 @@ namespace OMNEX.AUTOMATION.Helpers
             return i;
         }
 
-       
-
-        
         #endregion
     }
 }
