@@ -76,4 +76,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Specflow\Features\DocProModule\FolderManagement\" />
+  </ItemGroup>
+
 </Project>

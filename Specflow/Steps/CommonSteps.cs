@@ -14,6 +14,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         public ScenarioContext scenarioContext;
         public FeatureContext featureContext;
         private Dashboard dashboard;
+        private DocProModule docProModule;
 
         #endregion
 
@@ -25,6 +26,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             featureContext = featurecontext;
             loginPage = new LoginPage(driverContext.WebDriver);
             dashboard = new Dashboard(driverContext.WebDriver);
+            docProModule = new DocProModule(driverContext.WebDriver);
         }
         #endregion
 
@@ -52,34 +54,40 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             }
         }
 
-        [When(@"Navigate to (.*) Page")]
-        public void WhenNavigateToLevelsPage(String subHead)
+        [When(@"Navigate to (.*) in suite setup Page")]
+        public void WhenNavigateToInSuiteSetupPage(string subHead)
         {
-            dashboard.NavigateToLevelsPage(subHead);
-           // dashboard.validateLevelsPage();
+            docProModule.NavigateToLevelsPage(subHead);
+        }
+
+        [Then(@"I validate the Levels page")]
+        public void ThenIValidateTheLevelsPage()
+        {
+            docProModule.validateLevelsPage();
         }
 
         [When(@"Create (.*) Level")]
+        [Then(@"Create (.*) Level")]
         public void ThenCreateNewLevel(String levelname)
         {
-            scenarioContext["LevleName"]=dashboard.CreateLevel(levelname);
+            scenarioContext["LevelName"] = docProModule.CreateLevel(levelname);
         }
 
         [When(@"Edit the Level")]
         public void WhenEditTheLevel()
         {
-            scenarioContext["EditedLevleName"] = dashboard.EditLevel(scenarioContext["LevleName"].ToString());
+            scenarioContext["EditedLevelName"] = docProModule.EditLevel(scenarioContext["LevelName"].ToString());
         }
 
         [Then(@"Delete the Level")]
         public void ThenDeleteTheLevel()
         {
-            dashboard.DeleteLevelByHovering(scenarioContext["EditedLevleName"].ToString());
+            docProModule.DeleteLevelByHovering(scenarioContext["LevelName"].ToString());
         }
 
-        [When(@"I Navigate to (.*) Page")]
-        [Then(@"I Navigate to (.*) Page")]
-        public void WhenINavigateToTeamsPage(String subHead)
+        [When(@"I Navigate to (.*) in system Page")]
+        [Then(@"I Navigate to (.*) in system Page")]
+        public void WhenINavigateToInSystemPage(String subHead)
         {
             dashboard.NavigateToSystemPage(subHead);
         }
@@ -103,11 +111,18 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             dashboard.NavigateToEntityAndOwnerPage(subHead);
         }
 
-        [When(@"I navigate to (.*) Page")]
-        public void WhenINavigateToUsersPage(string subHead)
+        [When(@"I navigate to (.*) in users Page")]
+        public void WhenINavigateToInUsersPage(string subHead)
         {
             dashboard.NavigateToUsersPage(subHead);
         }
+
+        [Then(@"I make the (.*) level in use")]
+        public void ThenIMakeTheLevelInUse(string levelName)
+        {
+            docProModule.MakeLevelInUse(scenarioContext["LevelName"].ToString());
+        }
+
 
         #endregion
     }
