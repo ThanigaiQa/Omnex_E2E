@@ -267,8 +267,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By ddl_SupplierType => By.XPath("(//span[contains(text(), 'Legacy Vendor')])[2]");
         By txt_QMSCertificationExpirydate => By.XPath(" //input[@id='2321']");
         By txt_NaturofPropsed => By.Id("txtNaturofPropsed");
-        By ddp_SupplierQe => By.XPath("//div[@id='tdSQA']//following::span[@id='imgSelectTeamLead']");
-        By ddp_SupplierQm => By.XPath("//div[@id='tdSQM']//following::span[@id='imgSelectTeamSQM']");
+        By svg_SupplierQeIcon => By.XPath("//div[@id='tdSQA']//following::span[@id='imgSelectTeamLead']");
+        By svg_SupplierQmIcon => By.XPath("//div[@id='tdSQM']//following::span[@id='imgSelectTeamSQM']");
         By ddl_SupplierSearch => By.XPath("//select[@id='filtercolumn_SuSupplierGridViewControl']//following::option[@value='Name']");
         By ddp_SupplierSearch => By.Id("filtercolumn_SuSupplierGridViewControl");
 
@@ -451,7 +451,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// <returns> Tag name </returns>
         public string ClickAddButtonAndCreateNewTag()
         {
-            string tagName = Constants.TagName + utility.CurrentTime();
+            string tagName = Constants.TestName + utility.CurrentTime();
             seleniumActions.SwitchToIframes(iframe_DetailView);
             Assert.IsTrue(seleniumActions.IsElementPresent(btnAdd_MasterFolderTags));
             seleniumActions.Click(btnAdd_MasterFolderTags);
@@ -507,6 +507,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public string CreateTeam()
         {
+            // ** Clicks New button and Clicks the team leader button ** //
             seleniumActions.SwitchToFrame(iframe_DetailView);
             seleniumActions.Wait(4);
             Assert.IsTrue(seleniumActions.IsElementPresent(btnNew_TeamsPage));
@@ -515,6 +516,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.IsElementPresent(btnSelectTeamLeader));
             seleniumActions.Click(btnSelectTeamLeader);
 
+            // ** Chosen Right Scenario as the team leader ** //
             seleniumActions.SwitchToIframes(iframe_ifrUsers);
             Assert.IsTrue(seleniumActions.IsElementPresent(rdoUserBasedSearchChecked));
             seleniumActions.Click(phd_Name);
@@ -524,6 +526,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.GetText(lblTeamLeader_SearchResult).Equals(Constants.RightUsername));
             seleniumActions.Click(chkTeamLeaderInactive);
 
+            // ** Adds external member and mail ** //
             seleniumActions.SwitchToDefaultContent();
             seleniumActions.SwitchToFrame(iframe_DetailView);
             seleniumActions.Click(btn_Done);
@@ -536,9 +539,10 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(txtExternalMemberName);
             seleniumActions.SendKeys(txtExternalMemberName, Constants.Name);
             seleniumActions.Click(txtExternalMemberMail);
-            seleniumActions.SendKeys(txtExternalMemberMail, Constants.TagName + utility.CurrentTime() + "@gmail.com");
+            seleniumActions.SendKeys(txtExternalMemberMail, Constants.TestName + utility.CurrentTime() + "@gmail.com");
             seleniumActions.Click(btnAddMembers_TeamsPage);
 
+            // ** Adds another user as team leader and unselected it ** //
             seleniumActions.SwitchToIframes(iframe_ifrUsers);
             Assert.IsTrue(seleniumActions.IsElementPresent(rdoUserBasedSearchChecked));
             seleniumActions.Click(phd_Name);
@@ -640,7 +644,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public void CreateNewShift()
         {
-            string shiftName = Constants.shiftName + utility.CurrentTime();
+            string shiftName = Constants.Name + utility.CurrentTime();
             seleniumActions.SwitchToIframes(iframe_DetailView);
             seleniumActions.Wait(3);
             seleniumActions.Click(btnNew);
@@ -678,7 +682,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public string CreateCustomer()
         {
-            string custName = Constants.TagName + utility.CurrentTime();
+            string custName = Constants.TestName + utility.CurrentTime();
             seleniumActions.SwitchToIframes(iframe_DetailView);
             seleniumActions.Click(btnNew_CustomersPage);
             Assert.IsTrue(seleniumActions.IsElementPresent(txtCustName));
@@ -760,6 +764,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public void DeleteCustomerFromTheRecords(string custName)
         {
+            // ** Clicks the mutli search button and searches for the customer name ** //
             Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
             seleniumActions.ScrollToPosition(1000, 0);
             seleniumActions.Click(btnMultiSearch);
@@ -772,6 +777,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SendKeys(inp_MultiSearch, custName);
             seleniumActions.Click(btnAdvancedSearch_MultiSearch);
             seleniumActions.SwitchToDefaultContent();
+
+            // ** verifies the search result and deletes the customer ** //
             seleniumActions.SwitchToFrame(iframe_DetailView);
             seleniumActions.WaitForElementToExists(lblFirstRow_ElementPresent);
             Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent));
@@ -794,7 +801,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public void CreateNewCountry()
         {
-            string countryName = Constants.countryName + utility.CurrentTime();
+            string countryName = "srilanka -" + utility.CurrentTime();
             seleniumActions.SwitchToIframes(iframe_DetailView);
             seleniumActions.Wait(3);
             seleniumActions.Click(btnNew);
@@ -829,7 +836,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public string CreateManufacturer()
         {
-            string custName = Constants.TagName + utility.CurrentTime();
+            string custName = Constants.TestName + utility.CurrentTime();
             seleniumActions.SwitchToIframes(iframe_DetailView);
             seleniumActions.Click(btnNew_CustomersPage);
             Assert.IsTrue(seleniumActions.IsElementPresent(txtCustName));
@@ -849,6 +856,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public void DeleteManufacturerFromTheRecords(string custName)
         {
+            // ** Clicks the mutli search button and searches for the manufacturer name ** //
             Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
             seleniumActions.Click(btnMultiSearch);
             Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch));
@@ -861,6 +869,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Wait(4);
             seleniumActions.Click(btnAdvancedSearch_MultiSearch);
             seleniumActions.SwitchToDefaultContent();
+
+            // ** verifies the search result and deletes the manufacturer ** //
             seleniumActions.SwitchToFrame(iframe_DetailView);
             seleniumActions.WaitForElementToExists(lblFirstRow_ElementPresent);
             Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent));
@@ -907,8 +917,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public string CreateVendor()
         {
-            string vendorName = Constants.vendorName + utility.CurrentTime();
-            string vendorCode = Constants.vendorCode + utility.CurrentTime();
+            string vendorName = Constants.Name + utility.CurrentTime();
+            string vendorCode = Constants.Name + utility.RandomNumberGenerator(2);
             seleniumActions.SwitchToIframes(iframe_DetailView);
             seleniumActions.Wait(3);
             seleniumActions.Click(btnNew);
@@ -925,6 +935,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public void DeleteVendor(string vendorName)
         {
+            // ** Clicks the mutli search button and searches for the vendor name ** //
             Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
             seleniumActions.ScrollToPosition(1000, 0);
             seleniumActions.Click(btnMultiSearch);
@@ -936,6 +947,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(inp_MultiSearch);
             seleniumActions.SendKeys(inp_MultiSearch, vendorName);
             seleniumActions.Click(btnAdvancedSearch_MultiSearch);
+
+            // ** verifies the search result and deletes the vendor ** //
             seleniumActions.WaitForElementToExists(lblFirstRow_ElementPresent);
             Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent));
             seleniumActions.Wait(3);
@@ -945,7 +958,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Wait(5);
             seleniumActions.Click(btnYes_Popup);
             Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
-
         }
 
         // ***************** End of TC 05 ************ //
@@ -998,8 +1010,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public string CreatePosition(string site)
         {
-            string position = Constants.position + utility.CurrentTime();
-            string description = Constants.description + utility.CurrentTime();
+            string position = Constants.Name + utility.CurrentTime();
+            string description = Constants.Name + utility.RandomNumberGenerator(2);
             if (site != "Corporate")
             {
                 seleniumActions.SwitchToIframes(iframe_DetailView);
@@ -1108,6 +1120,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         // ****************** End of TC 22 ********* //
 
         // ************** Start Of TC 20 ***************** //
+
         /// <summary>
         /// Creates city by giving country, state and city name
         /// </summary>
@@ -1196,7 +1209,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public string CreateEntity()
         {
             seleniumActions.SwitchToFrame(iframe_DetailView);
-            string entityName = Constants.TagName + utility.CurrentTime();
+            string entityName = Constants.TestName + utility.CurrentTime();
             seleniumActions.Click(txtEntityName);
             seleniumActions.SendKeys(txtEntityName, entityName);
             seleniumActions.ScrollToElement(svgAddContactPersonIcon);
@@ -1270,7 +1283,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// <returns> country name </returns>
         public string CreateCountry()
         {
-            string countryName = Constants.countryName + utility.CurrentTime();
+            string countryName = "srilanka -" + utility.CurrentTime();
             seleniumActions.SwitchToIframes(iframe_DetailView);
             seleniumActions.Wait(3);
             seleniumActions.Click(btnNew);
@@ -1396,7 +1409,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.IsElementPresent(inp_MeetingDate));
             seleniumActions.Click(inp_MeetingDate);
             seleniumActions.Click(tbl_DatePicker);
-            seleniumActions.SendKeys(inp_Location, Constants.Location);
+            seleniumActions.SendKeys(inp_Location, "Chennai");
             seleniumActions.SendKeys(inp_MeetingSub, Constants.Name);
             seleniumActions.Click(ddp_Category);
             seleniumActions.Click(ddl_Categoryddl);
@@ -1485,6 +1498,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public void CreateSupplier()
         {
+            // ** Fills mandatory fields to create supplier ** //
             seleniumActions.Wait(3);
             seleniumActions.SwitchToIframes(iframe_DetailView);
             seleniumActions.Click(btnNew_CustomersPage);
@@ -1493,7 +1507,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SendKeys(txt_SupplierContact, utility.RandomNumberGenerator(3));
             seleniumActions.SendKeys(txt_PrimaryContactEmail, Constants.Name + "@email.com");
             seleniumActions.SendKeys(txt_SecondryContactEmail, "2" + Constants.Name + "@email.com");
-            seleniumActions.Click(ddp_SupplierQe);
+
+            // ** Selects Thani user for supplier quality engineer ** //
+            seleniumActions.Click(svg_SupplierQeIcon);
             seleniumActions.Wait(3);
             seleniumActions.SwitchToFrame(iframe_ifrUsers);
             seleniumActions.SendKeys(hintSearch, "Thani-k");
@@ -1503,7 +1519,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.ScrollToPosition(0, 1000);
             seleniumActions.Click(btn_UserDone);
             seleniumActions.Wait(3);
-            seleniumActions.Click(ddp_SupplierQm);
+
+            // ** Selects Thani user for supplier quality manager ** //
+            seleniumActions.Click(svg_SupplierQmIcon);
             seleniumActions.Wait(3);
             seleniumActions.SwitchToFrame(iframe_ifrUsers);
             seleniumActions.SendKeys(hintSearch, "Thani-k");
@@ -1511,6 +1529,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(chk_AgendaUser);
             seleniumActions.SwitchToParentFrame();
             seleniumActions.Click(btn_UserDone);
+
+            // ** Fills mandatory fields to create supplier ** //
             seleniumActions.Click(ddp_SupplierType);
             seleniumActions.Click(ddl_SupplierType);
             seleniumActions.Wait(3);
@@ -1576,7 +1596,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Wait(4);
             seleniumActions.SendKeys(txtEmpCode, empCode);
             seleniumActions.Click(txtFirstName);
-            seleniumActions.SendKeys(txtFirstName, Constants.TagName);
+            seleniumActions.SendKeys(txtFirstName, Constants.TestName);
             seleniumActions.Click(txtLastName);
             seleniumActions.SendKeys(txtLastName, utility.CurrentTime());
             seleniumActions.Click(txtEmail);
@@ -1628,6 +1648,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// <param name="empCode"></param>
         public void DeleteUserFromGrid(string empCode)
         {
+            seleniumActions.Wait(3);
             seleniumActions.Click(chk_FirstRowInActive);
             seleniumActions.Click(btnDelete);
             IAlert alert = _driver.SwitchTo().Alert();
@@ -1658,7 +1679,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Wait(4);
             seleniumActions.SendKeys(txtEmpCode, empCode);
             seleniumActions.Click(txtFirstName);
-            seleniumActions.SendKeys(txtFirstName, Constants.TagName);
+            seleniumActions.SendKeys(txtFirstName, Constants.TestName);
             seleniumActions.Click(txtLastName);
             seleniumActions.SendKeys(txtLastName, utility.CurrentTime());
             seleniumActions.Click(txtEmail);
@@ -1737,7 +1758,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public string CreateGroup()
         {
-            string groupName = Constants.TagName + utility.CurrentTime();
+            string groupName = Constants.TestName + utility.CurrentTime();
             seleniumActions.SwitchToIframes(iframe_DetailView);
             seleniumActions.SwitchToIframes(iframe_MenuData);
             seleniumActions.IsElementPresent(btn_AddGroup);
@@ -1920,7 +1941,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Wait(4);
             seleniumActions.SendKeys(txtEmpCode, empCode);
             seleniumActions.Click(txtFirstName);
-            seleniumActions.SendKeys(txtFirstName, Constants.TagName);
+            seleniumActions.SendKeys(txtFirstName, Constants.TestName);
             seleniumActions.Click(txtLastName);
             seleniumActions.SendKeys(txtLastName, utility.CurrentTime());
             seleniumActions.Click(txtEmail);
@@ -2052,7 +2073,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Wait(4);
             seleniumActions.SendKeys(txtEmpCode, empCode);
             seleniumActions.Click(txtFirstName);
-            seleniumActions.SendKeys(txtFirstName, Constants.TagName);
+            seleniumActions.SendKeys(txtFirstName, Constants.TestName);
             seleniumActions.Click(txtLastName);
             seleniumActions.SendKeys(txtLastName, utility.CurrentTime());
             seleniumActions.Click(txtEmail);
