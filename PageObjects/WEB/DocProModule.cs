@@ -47,6 +47,21 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By phd_SearchByFolder => By.XPath("//input[@placeholder='Search By Folder']");
         By btnSearch_SearchByFolder => By.XPath("//*[local-name()='svg' and @title='Search']");
         By chk_InUse => By.XPath("//label[@for='chkInUse']");
+        By lblDocuments => By.XPath("//div[text()='Documents']");
+        By breadCrumb_NewDocRequest => By.XPath("(//li[@class='breadcrumb-item active']//a[contains(text(),'New Document Request')])[1]");
+        By btn_LevelSelector => By.XPath("(//span[@id='levelselectionDiv'])[1]");
+        By inp_ChooseFile => By.XPath("(//input[@type='file'])[1]");
+        By chk_OnlineDocument => By.XPath("(//label[@for='chkIsonlinedoc'])[1]");
+        By txtDocNumber => By.XPath("//input[contains(@id,'txtnum')]");
+        By txtDocName => By.XPath("//input[contains(@id,'txtname')]");
+        By btnAdd => By.XPath("(//button[@value='Add'])[1]");
+        By msg_DocUploadedSuccessfully => By.XPath("(//*[contains(text(),'Document Uploaded Successfully')])[2]");
+        By tbl_LevelSelection => By.XPath("(//div[@id='dialog-popuplevel'])[1]");
+        By breadCrumb_Actions => By.XPath("(//li[@class='breadcrumb-item active']//a[contains(text(),'Actions')])[1]");
+        By lblActions => By.XPath("//h5[contains(text(),'Actions')]");
+        By lnk_InheritFromParent => By.XPath("//*[@id = 'aEditRoute']");
+        By drp_NewRoute => By.XPath("//span[contains(@id,'tddrpdownNewRoute')]");
+        By btn_Close => By.XPath("//button[@title='Close']");
 
         #endregion
 
@@ -57,6 +72,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         static By iframe_ifrAlbum => By.XPath("(//iframe[@id='ifrAlbum'])[1]");
         static By iframe => By.XPath("//iframe[contains(@class,'cke_reset')]");
         static By iframe_MenuData => By.XPath("//iframe[@id='MenuData']");
+        static By iframe_PopupLevel => By.XPath("//iframe[@id='ifrpopuplevel']");
+        static By iframe_Route => By.XPath("//iframe[@id='iframeRoute']");
 
         #endregion
 
@@ -164,6 +181,95 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.IsElementPresent(chk_InUse), "Checkbox In Use is not present");
             seleniumActions.Click(chk_InUse);
             seleniumActions.Click(btn_save);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Assign route for the level
+        /// </summary>
+        public void AssignRoute(string subHead)
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData);
+            seleniumActions.SwitchToFrame(iframe_Tree);
+            seleniumActions.Wait(2);
+            seleniumActions.ScrollToPosition(0, 1000);
+            seleniumActions.Click(lnk_InheritFromParent);
+            seleniumActions.SwitchToFrame(iframe_Route);
+            seleniumActions.Wait(4);
+            seleniumActions.Click(drp_NewRoute);
+            seleniumActions.ScrollToElement(By.XPath("//li[@role='treeitem']//span[contains(text(),'" + subHead + "')]"));
+            seleniumActions.Click(By.XPath("//li[@role='treeitem']//span[contains(text(),'" + subHead + "')]"));
+            seleniumActions.Wait(2);
+            seleniumActions.SwitchToFrame(iframe_Tree);
+            seleniumActions.Click(btn_Close);
+            seleniumActions.Click(btn_save);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// This method help us to navigate into sub pages inside the Documents menu
+        /// </summary>
+        public void NavigateToDocumentsPage(String SubHead)
+        {
+            if (seleniumActions.IsElementPresent(sideMenuContainer))
+            {
+                seleniumActions.Wait(5);
+                seleniumActions.Click(lblDocuments);
+                seleniumActions.Wait(2);
+                seleniumActions.ScrollToElement(By.XPath("(//div[@class='slimScrollDiv']//a[@class='submenu_list_link']//span[contains(text(),'" + SubHead + "')])[1]"));
+                seleniumActions.Click(By.XPath("(//div[@class='slimScrollDiv']//a[@class='submenu_list_link']//span[contains(text(),'" + SubHead + "')])[1]"));
+            }
+        }
+
+        /// <summary>
+        /// Validates the new doc req page is visible
+        /// </summary>
+        public void ValidateNewDocRequestPage()
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            Assert.IsTrue(seleniumActions.IsElementPresent(breadCrumb_NewDocRequest,5),"New Doc Request breadcrumb is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(btn_LevelSelector,5),"level selector button is not found");
+        }
+
+        /// <summary>
+        /// Choose exisitng level in new document request page
+        /// </summary>
+        public void ChooseExistingLevel(string levelName)
+        {
+            seleniumActions.Click(btn_LevelSelector);
+            Assert.IsTrue(seleniumActions.IsElementPresent(tbl_LevelSelection, 5), "level selection popup is not found");
+            seleniumActions.SwitchToFrame(iframe_PopupLevel);
+            seleniumActions.ScrollToElement(By.XPath("//ul[@id='tvDocument']//li[@class='level1']//span[contains(text(),'" + levelName + "')]"));
+            seleniumActions.Click(By.XPath("//ul[@id='tvDocument']//li[@class='level1']//span[contains(text(),'" + levelName + "')]"));
+            seleniumActions.SwitchToParentFrame();
+        }
+
+        /// <summary>
+        /// Uploads a new document
+        /// </summary>
+        /// <returns> DocName </returns>
+        public string UploadNewDocument()
+        {
+            string docName = Constants.Name + utility.GenerateRandomText(2);
+            seleniumActions.Click(inp_ChooseFile);
+            seleniumActions.UploadFile(Constants.FilePath,"Test.xlsx");
+            seleniumActions.Click(txtDocNumber);
+            seleniumActions.SendKeys(txtDocNumber,"123");
+            seleniumActions.Click(txtDocName);
+            seleniumActions.SendKeys(txtDocName, docName);
+            seleniumActions.Click(btnAdd);
+            Assert.IsTrue(seleniumActions.IsElementPresent(msg_DocUploadedSuccessfully, 5), "document was not uploaded properly");
+            return docName;
+        }
+
+        /// <summary>
+        /// Validates the actions page is visible
+        /// </summary>
+        public void ValidateActionsPage()
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            Assert.IsTrue(seleniumActions.IsElementPresent(breadCrumb_Actions, 5), "Actions breadcrumb is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblActions, 5), "label action is not found");
         }
 
         #endregion

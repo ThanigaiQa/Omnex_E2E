@@ -123,6 +123,57 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.MakeLevelInUse(scenarioContext["LevelName"].ToString());
         }
 
+        [Then(@"Navigate to (.*) in Documents Page")]
+        public void ThenNavigateToInDocumentsPage(string subHead)
+        {
+            docProModule.NavigateToDocumentsPage(subHead);
+        }
+
+        [Then(@"I validate the (.*) in Documents Page")]
+        public void ThenIValidateTheInDocumentsPage(string subHead)
+        {
+            switch(subHead)
+            {
+                case "Setup":
+                    break;
+                case "Favorites":
+                    break;
+                case "Documents":
+                    break;
+                case "Actions":
+                    docProModule.ValidateActionsPage();
+                    break;
+                case "Advanced Search":
+                    break;
+                case "New Document Request":
+                    docProModule.ValidateNewDocRequestPage();
+                    break;
+                case "New Document Draft":
+                    break;
+                case "Draft Groups":
+                    break;
+                case "Help":
+                    break;
+                case "Records":
+                    break;
+                case "Initiate Change Request":
+                    break;
+            }
+        }
+
+        [Then(@"I choose existing level and upload new document in doc request page")]
+        public void ThenIChooseExistingLevelAndUploadNewDocumentInDocRequestPage()
+        {
+            docProModule.ChooseExistingLevel(scenarioContext["LevelName"].ToString());
+            scenarioContext["DocName"] = docProModule.UploadNewDocument();
+        }
+
+        [Then(@"I assign the route for the level with (.*)")]
+        public void ThenIAssignTheRouteForTheLevelWith(string subHead)
+        {
+            docProModule.AssignRoute(subHead);
+        }
+
 
         #endregion
     }
