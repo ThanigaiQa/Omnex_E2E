@@ -46,7 +46,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By folderManagement_Tab => By.XPath("//div[contains(text(),'Folder Management')]");
         By phd_SearchByFolder => By.XPath("//input[@placeholder='Search By Folder']");
         By btnSearch_SearchByFolder => By.XPath("//*[local-name()='svg' and @title='Search']");
-        By searchedLevel_Fm => By.XPath("//a[contains(@class,'curSelectedNode')]//span[contains(@class,'Lbl')]");
         By chk_InUse => By.XPath("//label[@for='chkInUse']");
 
         #endregion
@@ -156,13 +155,13 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(phd_SearchByFolder);
             seleniumActions.SendKeys(phd_SearchByFolder, LevelName);
             seleniumActions.Click(btnSearch_SearchByFolder);
-            Assert.IsTrue(seleniumActions.IsElementPresent(searchedLevel_Fm),"Searched level not found");
-            seleniumActions.Wait(4);
-            seleniumActions.DoubleClick(searchedLevel_Fm);
+            Assert.IsTrue(seleniumActions.IsElementPresent(By.XPath("(//a[@title='" + LevelName + "']//span)[2]")),"Searched level not found");
+            seleniumActions.Wait(3);    
+            seleniumActions.Click(By.XPath("(//a[@title='" + LevelName + "']//span)[2]"));
             seleniumActions.SwitchToFrame(iframe_Tree);
             seleniumActions.Wait(2);
             seleniumActions.ScrollToPosition(0,1000);
-            Assert.IsTrue(seleniumActions.IsElementPresent(searchedLevel_Fm), "Checkbox In Use is not present");
+            Assert.IsTrue(seleniumActions.IsElementPresent(chk_InUse), "Checkbox In Use is not present");
             seleniumActions.Click(chk_InUse);
             seleniumActions.Click(btn_save);
         }
