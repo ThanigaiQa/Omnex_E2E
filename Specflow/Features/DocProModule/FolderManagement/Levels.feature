@@ -14,8 +14,8 @@ Scenario: Create Delete Level
 	Then I validate the Levels page
 	Then Delete the Level
 	
-@CreateLevel-AttachDocument-DeleteLevel
-Scenario: Create level Attach Document Delete Level
+@TC-01
+Scenario: TC 01 : DOC_2500_10_40_100_110_140_180_210
 	Given Login to the application with 'right' user
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page
@@ -31,3 +31,8 @@ Scenario: Create level Attach Document Delete Level
 	Then I refresh the page
 	Then Navigate to Actions in Documents Page
 	Then I validate the Actions in Documents Page
+	Then I validate pending requests menu
+	Then I search and terminate the document
+	When Navigate to Levels in suite setup Page
+	Then I validate the Levels page
+	Then Delete the Level

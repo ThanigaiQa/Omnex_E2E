@@ -174,6 +174,11 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.AssignRoute(subHead);
         }
 
+        [Then(@"I search and terminate the document")]
+        public void ThenISearchAndTerminateTheDocument()
+        {
+            docProModule.SearchAndTerminateDocument(scenarioContext["DocName"].ToString());
+        }
 
         #endregion
     }

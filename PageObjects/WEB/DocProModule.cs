@@ -5,6 +5,7 @@ using OpenQA.Selenium;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,7 +51,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By lblDocuments => By.XPath("//div[text()='Documents']");
         By breadCrumb_NewDocRequest => By.XPath("(//li[@class='breadcrumb-item active']//a[contains(text(),'New Document Request')])[1]");
         By btn_LevelSelector => By.XPath("(//span[@id='levelselectionDiv'])[1]");
-        By inp_ChooseFile => By.XPath("(//input[@type='file'])[1]");
+        By inp_ChooseFile => By.XPath("(//input[@name = 'MyFile'])[1]");
         By chk_OnlineDocument => By.XPath("(//label[@for='chkIsonlinedoc'])[1]");
         By txtDocNumber => By.XPath("//input[contains(@id,'txtnum')]");
         By txtDocName => By.XPath("//input[contains(@id,'txtname')]");
@@ -62,6 +63,21 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By lnk_InheritFromParent => By.XPath("//*[@id = 'aEditRoute']");
         By drp_NewRoute => By.XPath("//span[contains(@id,'tddrpdownNewRoute')]");
         By btn_Close => By.XPath("//button[@title='Close']");
+        By menu_PendingRequests => By.XPath("//td[@title='Pending Requests']");
+        By lbl_DocNumber => By.XPath("//th[text()='Document Number']");
+        By lbl_DocName => By.XPath("//th[text()='Document Name']");
+        By lbl_Date => By.XPath("//th[text()='Date']");
+        By lbl_Revision => By.XPath("//th[text()='Revision']");
+        By lbl_Status => By.XPath("//th[text()='Status']");
+        By drp_SearchFilter => By.XPath("//select[contains(@class,'datatablefilter')]");
+        By ddlDocName_SearchFilter => By.XPath("//select[contains(@class,'datatablefilter')]//option[@value='name']");
+        By phd_SearchFilter => By.XPath("//input[@type='search']");
+        By lbl_DocNameValue  => By.XPath("(//tr[@role='row']//td//div)[2]");
+        By lbl_StatusValue  => By.XPath("(//a[@id='status'])[1]");
+        By lnk_DocNumberValue => By.XPath("(//a[@id='EventOverDocumentNumber'])[1]");
+        By btn_Terminate => By.XPath("(//span[contains(text(),'Terminate')])[1]");
+        By btnYes_Popup => By.XPath("//button[@id='popup_ok']");
+        By btnNo_PopUp => By.XPath("//button[@id='popup_cancel']");
 
         #endregion
 
@@ -74,6 +90,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         static By iframe_MenuData => By.XPath("//iframe[@id='MenuData']");
         static By iframe_PopupLevel => By.XPath("//iframe[@id='ifrpopuplevel']");
         static By iframe_Route => By.XPath("//iframe[@id='iframeRoute']");
+        static By iframe_Routes => By.XPath("//iframe[@id='iframeRoutes']");
+        static By iframe_Actions => By.XPath("//iframe[@id='iframeActions']");
 
         #endregion
 
@@ -189,18 +207,18 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public void AssignRoute(string subHead)
         {
-            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData);
-            seleniumActions.SwitchToFrame(iframe_Tree);
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
             seleniumActions.Wait(2);
             seleniumActions.ScrollToPosition(0, 1000);
             seleniumActions.Click(lnk_InheritFromParent);
-            seleniumActions.SwitchToFrame(iframe_Route);
             seleniumActions.Wait(4);
+            seleniumActions.SwitchToIframes(iframe_Routes, iframe_Route);
             seleniumActions.Click(drp_NewRoute);
             seleniumActions.ScrollToElement(By.XPath("//li[@role='treeitem']//span[contains(text(),'" + subHead + "')]"));
             seleniumActions.Click(By.XPath("//li[@role='treeitem']//span[contains(text(),'" + subHead + "')]"));
             seleniumActions.Wait(2);
-            seleniumActions.SwitchToFrame(iframe_Tree);
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
             seleniumActions.Click(btn_Close);
             seleniumActions.Click(btn_save);
             seleniumActions.SwitchToDefaultContent();
@@ -229,6 +247,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToFrame(iframe_DetailView);
             Assert.IsTrue(seleniumActions.IsElementPresent(breadCrumb_NewDocRequest,5),"New Doc Request breadcrumb is not found");
             Assert.IsTrue(seleniumActions.IsElementPresent(btn_LevelSelector,5),"level selector button is not found");
+            seleniumActions.SwitchToDefaultContent();
         }
 
         /// <summary>
@@ -236,12 +255,13 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public void ChooseExistingLevel(string levelName)
         {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
             seleniumActions.Click(btn_LevelSelector);
             Assert.IsTrue(seleniumActions.IsElementPresent(tbl_LevelSelection, 5), "level selection popup is not found");
             seleniumActions.SwitchToFrame(iframe_PopupLevel);
             seleniumActions.ScrollToElement(By.XPath("//ul[@id='tvDocument']//li[@class='level1']//span[contains(text(),'" + levelName + "')]"));
             seleniumActions.Click(By.XPath("//ul[@id='tvDocument']//li[@class='level1']//span[contains(text(),'" + levelName + "')]"));
-            seleniumActions.SwitchToParentFrame();
+            seleniumActions.SwitchToDefaultContent();
         }
 
         /// <summary>
@@ -251,14 +271,19 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public string UploadNewDocument()
         {
             string docName = Constants.Name + utility.GenerateRandomText(2);
-            seleniumActions.Click(inp_ChooseFile);
-            seleniumActions.UploadFile(Constants.FilePath,"Test.xlsx");
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.SendKeys(inp_ChooseFile,Constants.FilePath);
+            seleniumActions.ScrollToPosition(0,300);
+            seleniumActions.Wait(2);
             seleniumActions.Click(txtDocNumber);
             seleniumActions.SendKeys(txtDocNumber,"123");
+            seleniumActions.Wait(2);
             seleniumActions.Click(txtDocName);
+            seleniumActions.SendKeys(txtDocName , Keys.Clear);
             seleniumActions.SendKeys(txtDocName, docName);
             seleniumActions.Click(btnAdd);
             Assert.IsTrue(seleniumActions.IsElementPresent(msg_DocUploadedSuccessfully, 5), "document was not uploaded properly");
+            seleniumActions.SwitchToDefaultContent();
             return docName;
         }
 
@@ -270,6 +295,67 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToFrame(iframe_DetailView);
             Assert.IsTrue(seleniumActions.IsElementPresent(breadCrumb_Actions, 5), "Actions breadcrumb is not found");
             Assert.IsTrue(seleniumActions.IsElementPresent(lblActions, 5), "label action is not found");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Verifies the pending requests menu is present
+        /// </summary>
+        public void VerifyPendingRequestsMenu()
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            Assert.IsTrue(seleniumActions.IsElementPresent(menu_PendingRequests, 5), "Pending requests menu is not found");
+            seleniumActions.Click(menu_PendingRequests);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Validates the UI elements of pending requests menu
+        /// </summary>
+        public void ValidateUIElementsOfPendingRequestsMenu()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView,iframe_Actions);
+            // ** Validate => DOC - 2500 - 10 - 110 & 140 ** //
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_DocNumber, 5), "Doc number is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_DocName, 5), "Doc name is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_Date, 5), "date is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_Revision, 5), "revision is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_Status, 5), "status is not found");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Search and terminates the document
+        /// </summary>
+        public void SearchAndTerminateDocument(string docName)
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            seleniumActions.Click(drp_SearchFilter);
+            seleniumActions.Click(ddlDocName_SearchFilter);
+            seleniumActions.Click(phd_SearchFilter);
+            seleniumActions.SendKeys(phd_SearchFilter,docName);
+            seleniumActions.Wait(3);
+            // ** Validate => DOC - 2500 - 10 - 40, 100 : Pending requests menu
+            // should be displayed with the requested documents with In process status ** //
+            Assert.IsTrue(seleniumActions.GetText(lbl_DocNameValue).Equals(docName));
+            Assert.IsTrue(seleniumActions.GetText(lbl_StatusValue).Equals("In Process"));
+            seleniumActions.Click(lbl_StatusValue);
+            // ** Validate => DOC-2500-10-210 ** //
+            Assert.IsTrue(seleniumActions.IsElementPresent(lnk_DocNumberValue, 5), "link doc number value is not found");
+            seleniumActions.ScrollToElement(btn_Terminate);
+            // ** Validate => DOC - 2500 - 10 - 200 ** //
+            seleniumActions.Click(btn_Terminate);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(btnNo_PopUp);
+            // ** Validating => DOC-2500-10-180: Click the terminate button ** //
+            seleniumActions.Click(btn_Terminate);
+            seleniumActions.Wait(3);
+            // ** Validating => DOC-2500-10-190: Click Yes in the terminate popup screen ** //
+            seleniumActions.Click(btnYes_Popup);
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblActions, 5), "label actions in action page is not found");
+            seleniumActions.SwitchToDefaultContent();
         }
 
         #endregion
