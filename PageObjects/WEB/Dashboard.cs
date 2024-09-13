@@ -576,11 +576,11 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(tbl_ToTime);
             seleniumActions.Click(btn_Save);
             seleniumActions.Wait(3);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lblSuccess_Message));
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblSuccess_Message), "The success message was not found on the page.");
             seleniumActions.Click(btnClose_SuccessMessage);
             seleniumActions.Click(hintSearch);
             seleniumActions.SendKeys(hintSearch, shiftName);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent));
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent), "The first row element was not found on the page.");
         }
 
         /// <summary>
@@ -591,7 +591,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(chk_FirstRowInActive);
             seleniumActions.Click(btnDelete);
             seleniumActions.Click(btnYes_Popup);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage), "The deleted success message was not found on the page.");
         }
 
         // ***************** End of TC 04 ************ //
@@ -730,11 +730,11 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Wait(3);
             seleniumActions.SendKeys(inp_CountryName, countryName);
             seleniumActions.Click(btn_Save);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lblSuccess_Message));
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblSuccess_Message), "The success message was not found on the page.");
             seleniumActions.Click(btnClose_SuccessMessage);
             seleniumActions.Click(hintSearch);
             seleniumActions.SendKeys(hintSearch, countryName);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent));
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent), "The first row element was not found on the page.");
         }
 
         /// <summary>
@@ -745,7 +745,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(chk_FirstRowInActive);
             seleniumActions.Click(btnDelete);
             seleniumActions.Click(btnYes_Popup);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage), "The deleted success message was not found on the page.");
         }
 
         // ***************** End of TC 13 ************ //
@@ -857,10 +857,10 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void DeleteVendor(string vendorName)
         {
             // ** Clicks the mutli search button and searches for the vendor name ** //
-            Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
+            Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch), "The multi-search button was not found on the page.");
             seleniumActions.ScrollToPosition(1000, 0);
             seleniumActions.Click(btnMultiSearch);
-            Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch), "Multi Search field is not available");
+            Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch), "The multi-search column dropdown was not found on the page.");
             seleniumActions.Click(drpColumn_MultiSearch);
             seleniumActions.Click(ddl_VendorNameMultiSearch);
             seleniumActions.Click(drpCondition_MultiSearch);
@@ -871,14 +871,14 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
             // ** verifies the search result and deletes the vendor ** //
             seleniumActions.WaitForElementToExists(lblFirstRow_ElementPresent);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent));
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent), "The first row element was not found on the page.");
             seleniumActions.Wait(3);
             seleniumActions.Click(chk_FirstRowInActive);
             seleniumActions.Click(btnDelete);
             seleniumActions.Click(btnYes_Popup);
             seleniumActions.Wait(5);
             seleniumActions.Click(btnYes_Popup);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage), "The deleted success message was not found on the page.");
         }
 
         // ***************** End of TC 05 ************ //
@@ -961,11 +961,11 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         {
             seleniumActions.SwitchToIframes(iframe_DetailView);
             seleniumActions.Wait(3);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lblSuccess_Message));
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblSuccess_Message), "The success message was not found on the page.");
             seleniumActions.Click(btnClose_SuccessMessage);
             seleniumActions.Click(hintSearch);
             seleniumActions.SendKeys(hintSearch, position);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent));
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent), "The first row element was not found on the page.");
             seleniumActions.SwitchToDefaultContent();
         }
 
@@ -979,7 +979,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(chk_FirstRowInActive);
             seleniumActions.Click(btnDelete);
             seleniumActions.Click(btnYes_Popup);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage), "The deleted success message was not found on the page.");
             seleniumActions.SwitchToDefaultContent();
         }
 
@@ -1057,7 +1057,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SendKeys(txt_City, city);
             seleniumActions.Click(btnSave);
             seleniumActions.Wait(3);
-            seleniumActions.VerifyElementIsDisplayed(msgSaveSuccessfully);
+            Assert.IsTrue(seleniumActions.VerifyElementIsDisplayed(msgSaveSuccessfully), "The 'Save Successfully' message was not displayed on the page.");
             seleniumActions.Wait(3);
             seleniumActions.NavigateBack();
             seleniumActions.Refresh();
@@ -1076,7 +1076,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(hintSearch);
             seleniumActions.SendKeys(hintSearch, city);
             seleniumActions.Wait(3);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent));
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblFirstRow_ElementPresent), "The first row element was not found on the page.");
             seleniumActions.SwitchToDefaultContent();
         }
 
@@ -1091,7 +1091,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(btnDelete);
             seleniumActions.Click(btnYes_Popup);
             seleniumActions.Wait(3);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage));
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage), "The deleted success message was not found on the page.");
             seleniumActions.SwitchToDefaultContent();
         }
 
@@ -1689,12 +1689,12 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SendKeys(inp_GroupName, groupName);
             seleniumActions.Click(btn_SaveGroup);
             seleniumActions.Wait(3);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lblSuccess_Message));
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblSuccess_Message), "The success message was not found on the page.");
             seleniumActions.Click(btnClose_SuccessMessage);
             seleniumActions.Click(hintSearch);
             seleniumActions.SendKeys(hintSearch, groupName);
             seleniumActions.Wait(2);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_FirstGroupElement));
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_FirstGroupElement), "The first row element was not found on the page.");
             seleniumActions.SwitchToParentFrame();
             return groupName;
         }
@@ -1715,7 +1715,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(btn_SaveUser);
             seleniumActions.SwitchToIframes(iframe_ifrUsers);
             seleniumActions.Wait(3);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_UserAddedSuccessMessage));
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_UserAddedSuccessMessage), "The user added success message was not found on the page.");
             seleniumActions.Click(btn_closeMessage);
             seleniumActions.SwitchToParentFrame();
         }
@@ -1738,7 +1738,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(btnDelete);
             seleniumActions.Click(popUp_Yes);
             seleniumActions.Wait(3);
-            seleniumActions.IsElementPresent(lblDeletedSuccessMessage);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage), "The deleted success message was not found on the page.");
             seleniumActions.Click(btn_closeMessage);
             seleniumActions.SwitchToParentFrame();
         }
@@ -1762,11 +1762,11 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Wait(3);
             seleniumActions.Click(btnSave_TagPopup);
             seleniumActions.Wait(3);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_UpdatedSuccessMessage));
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_UpdatedSuccessMessage), "The update success message was not found on the page.");
             seleniumActions.Click(btn_closeMessage);
             String existingGroupName = seleniumActions.GetText(By.XPath("//tbody//tr[@role='row']//td[contains(text(),'" + groupName + "')]"));
             seleniumActions.Wait(3);
-            Assert.IsTrue(existingGroupName.Contains("Updated"));
+            Assert.IsTrue(existingGroupName.Contains("Updated"),"The existing group name does not contain the expected text 'Updated'.");
             seleniumActions.SwitchToParentFrame();
             return existingGroupName;
         }
@@ -1788,7 +1788,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(btn_DeleteTag);
             seleniumActions.Click(btnYes_Popup);
             seleniumActions.Wait(3);
-            seleniumActions.IsElementPresent(lblDeletedSuccessMessage);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage), "The deleted success message was not found on the page.");
             seleniumActions.Click(btn_closeMessage);
             seleniumActions.SwitchToParentFrame();
         }
@@ -1955,7 +1955,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(btn_UnlockUsers);
             seleniumActions.Wait(3);
             seleniumActions.Click(popUp_Yes);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lblSuccess_Message));
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblSuccess_Message), "The success message was not found on the page.");
             seleniumActions.Click(btnClose_SuccessMessage);
             return user;
         }
@@ -1969,7 +1969,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Wait(3);
             seleniumActions.SendKeys(hintSearch, Keys.Clear);
             seleniumActions.SendKeys(hintSearch, user);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_NoRecords), "user is present");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_NoRecords), "Records Unavailable");
         }
 
         // ***************** End of TC 19 ************ //
