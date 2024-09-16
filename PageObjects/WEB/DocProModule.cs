@@ -78,6 +78,14 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btn_Terminate => By.XPath("(//span[contains(text(),'Terminate')])[1]");
         By btnYes_Popup => By.XPath("//button[@id='popup_ok']");
         By btnNo_PopUp => By.XPath("//button[@id='popup_cancel']");
+        By btnMultiSearch => By.XPath("//a[@title='Multi Search']");
+        By lblSearch_MultiSearch => By.XPath("//div[@class='dtsb-title']");
+        By drpColumn_MultiSearch => By.XPath("(//div[@class='dtsb-criteria']//select)[1]");
+        By ddlDocName_MultiSearch => By.XPath("(//div[@class='dtsb-criteria']//select//option[contains(text(),'Document Name')])[1]");
+        By drpCondition_MultiSearch => By.XPath("(//div[@class='dtsb-criteria']//select)[2]");
+        By ddlContains_MultiSearch => By.XPath("//div[@class='dtsb-criteria']//select//option[@value='contains']");
+        By inp_MultiSearch => By.XPath("//input[@class='dtsb-value dtsb-input']");
+        By btnAdvancedSearch_MultiSearch => By.XPath("//button[@title='Advanced Search']");
 
         #endregion
 
@@ -330,10 +338,16 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void SearchAndTerminateDocument(string docName)
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
-            seleniumActions.Click(drp_SearchFilter);
-            seleniumActions.Click(ddlDocName_SearchFilter);
-            seleniumActions.Click(phd_SearchFilter);
-            seleniumActions.SendKeys(phd_SearchFilter,docName);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
+            seleniumActions.Click(btnMultiSearch);
+            Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch));
+            seleniumActions.Click(drpColumn_MultiSearch);
+            seleniumActions.Click(ddlDocName_MultiSearch);
+            seleniumActions.Click(drpCondition_MultiSearch);
+            seleniumActions.Click(ddlContains_MultiSearch);
+            seleniumActions.Click(inp_MultiSearch);
+            seleniumActions.SendKeys(inp_MultiSearch, docName);
+            seleniumActions.Click(btnAdvancedSearch_MultiSearch);
             seleniumActions.Wait(3);
             // ** Validate => DOC - 2500 - 10 - 40, 100 : Pending requests menu
             // should be displayed with the requested documents with In process status ** //
