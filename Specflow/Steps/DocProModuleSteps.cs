@@ -44,7 +44,21 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.ValidateUIElementsOfPendingRequestsMenu();
         }
 
-        
+        // *********** Start of TC 06 ************ //
+
+        [Then(@"I choose existing level and upload new document with DCN option in doc request page")]
+        public void ThenIChooseExistingLevelAndUploadNewDocumentWithDCNOptionInDocRequestPage()
+        {
+            docProModule.ChooseExistingLevel(scenarioContext["LevelName"].ToString());
+        }
+
+        [Then(@"I search and terminate the DCN enabled document")]
+        public void ThenISearchAndTerminateTheDCNEnabledDocument()
+        {
+           
+        }
+
+        // *********** End of TC 06 ************ //
 
         #endregion
 

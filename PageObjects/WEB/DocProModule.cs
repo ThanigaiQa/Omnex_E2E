@@ -87,6 +87,12 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By ddlContains_MultiSearch => By.XPath("//div[@class='dtsb-criteria']//select//option[@value='contains']");
         By inp_MultiSearch => By.XPath("//input[@class='dtsb-value dtsb-input']");
         By btnAdvancedSearch_MultiSearch => By.XPath("//button[@title='Advanced Search']");
+        By breadCrumb_BusinessRule => By.XPath("//li[@class='breadcrumb-item']//a[text()='Business Rule']");
+        By menu_DocumentsBusinessRule => By.XPath("//div[@title='Documents)' or @title='Documents']");
+        By btn_DisabledDCNForm => By.XPath("(//div[@class='switch form-control-inline']//span[contains(@class,'bootstrap-switch-danger')])[25]");
+        By btn_EnabledDCNForm => By.XPath("(//div[@class='switch form-control-inline']//span[contains(@class,'bootstrap-switch-success')])[25]");
+        By btn_SaveBusinessRule => By.XPath("//div[contains(@class,'card-footer')]//button[contains(@class,'btn-success')]");
+        By btn_DoneBusinessRule => By.XPath("//button[@title='Done']");
 
         #endregion
 
@@ -375,6 +381,58 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToDefaultContent();
             seleniumActions.SwitchToFrame(iframe_DetailView);
             Assert.IsTrue(seleniumActions.IsElementPresent(lblActions, 5), "label actions in action page is not found");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Validate the browser is redirected to business rule page 
+        /// </summary>
+        public void ValidateBusinessRulePage()
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            Assert.IsTrue(seleniumActions.IsElementPresent(breadCrumb_BusinessRule, 5), "browser is not redirected to business rule page");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// enables the dcn button inside document menu - business rule page 
+        /// </summary>
+        public void EnableDCNButton()
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(menu_DocumentsBusinessRule);
+            seleniumActions.SwitchToFrame(iframe_MenuData);
+            seleniumActions.ScrollToPosition(0,700);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btn_DisabledDCNForm, 5), "unable to find DCN button");
+            seleniumActions.Click(btn_DisabledDCNForm);
+            seleniumActions.Wait(2);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btn_EnabledDCNForm, 5), "dcn button is not enabled");
+            seleniumActions.ScrollToPosition(0, 1000);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btn_SaveBusinessRule, 5), "unable to find save button");
+            seleniumActions.Click(btn_SaveBusinessRule);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(btn_DoneBusinessRule);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// disables the dcn button inside document menu - business rule page
+        /// </summary>
+        public void DisableDCNButton()
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(menu_DocumentsBusinessRule);
+            seleniumActions.SwitchToFrame(iframe_MenuData);
+            seleniumActions.ScrollToPosition(0, 700);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btn_EnabledDCNForm, 5), "unable to find enabled DCN button");
+            seleniumActions.Click(btn_EnabledDCNForm);
+            seleniumActions.Wait(2);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btn_DisabledDCNForm, 5), "dcn button is not disabled");
+            seleniumActions.ScrollToPosition(0, 1000);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btn_SaveBusinessRule, 5), "unable to find save button");
+            seleniumActions.Click(btn_SaveBusinessRule);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(btn_DoneBusinessRule);
             seleniumActions.SwitchToDefaultContent();
         }
 

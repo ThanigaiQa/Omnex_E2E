@@ -180,6 +180,26 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.SearchAndTerminateDocument(scenarioContext["DocName"].ToString());
         }
 
+        [Then(@"I validate the Business rule page")]
+        public void ThenIValidateTheBusinessRulePage()
+        {
+            docProModule.ValidateBusinessRulePage();
+        }
+
+        [Then(@"I (.*) the DCN button in business rule page")]
+        public void ThenITheDCNButtonInBusinessRulePage(string value)
+        {
+            switch (value)
+            {
+                case "enable":
+                    docProModule.EnableDCNButton();
+                    break;
+                case "disable":
+                    docProModule.DisableDCNButton();
+                    break;
+            }
+        }
+
         #endregion
     }
 }
