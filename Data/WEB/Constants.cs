@@ -14,6 +14,7 @@ namespace OMNEX.AUTOMATION.Data.WEB
         public const string RightUsername = "Right-Scenario";
         public const string AdminUsername = "Administrator-Administrator";
         public const string Name = "TestAutomation";
-        public const string FilePath = @"D:\Repo\OmnexAutomation\Files\Test.xlsx";
+        public const string SampleFilePath_Book = "\\Data\\WEB\\Book1.xlsx";
+        public const string SampleFilePath_Test = "\\Data\\WEB\\Test.xlsx";
     }
 }

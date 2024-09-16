@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -278,9 +279,14 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// <returns> DocName </returns>
         public string UploadNewDocument()
         {
+
+            var path = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
+            var actualPath = path.Substring(0, path.LastIndexOf("bin"));
+            var projectPath = new Uri(actualPath).LocalPath;
+
             string docName = Constants.Name + utility.GenerateRandomText(2);
             seleniumActions.SwitchToFrame(iframe_DetailView);
-            seleniumActions.SendKeys(inp_ChooseFile,Constants.FilePath);
+            seleniumActions.SendKeys(inp_ChooseFile, projectPath.ToString() + Constants.SampleFilePath_Book);
             seleniumActions.ScrollToPosition(0,300);
             seleniumActions.Wait(2);
             seleniumActions.Click(txtDocNumber);
