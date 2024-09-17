@@ -94,6 +94,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btn_SaveBusinessRule => By.XPath("//div[contains(@class,'card-footer')]//button[contains(@class,'btn-success')]");
         By btn_DoneBusinessRule => By.XPath("//button[@title='Done']");
 
+        By inpSearch_AssignRoute => By.XPath("//span[contains(@class,'search')]//input[@type='search']");
         #endregion
 
         #region IFrame
@@ -229,7 +230,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Wait(4);
             seleniumActions.SwitchToIframes(iframe_Routes, iframe_Route);
             seleniumActions.Click(drp_NewRoute);
-            seleniumActions.ScrollToElement(By.XPath("//li[@role='treeitem']//span[contains(text(),'" + subHead + "')]"));
+            seleniumActions.Click(inpSearch_AssignRoute);
+            seleniumActions.SendKeys(inpSearch_AssignRoute,subHead);
             seleniumActions.Click(By.XPath("//li[@role='treeitem']//span[contains(text(),'" + subHead + "')]"));
             seleniumActions.Wait(2);
             seleniumActions.SwitchToDefaultContent();
