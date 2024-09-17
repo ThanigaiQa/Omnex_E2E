@@ -93,8 +93,31 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btn_EnabledDCNForm => By.XPath("(//div[@class='switch form-control-inline']//span[contains(@class,'bootstrap-switch-success')])[25]");
         By btn_SaveBusinessRule => By.XPath("//div[contains(@class,'card-footer')]//button[contains(@class,'btn-success')]");
         By btn_DoneBusinessRule => By.XPath("//button[@title='Done']");
-
         By inpSearch_AssignRoute => By.XPath("//span[contains(@class,'search')]//input[@type='search']");
+        By svg_DCNFormIcon => By.XPath("(//*[local-name()='svg' and @title='Document Change Notice Form'])[1]");
+        By rdoMajor_DCN => By.XPath("(//input[@id='rdmajor'])[1]");
+        By drpRawMaterial_DCN => By.XPath("(//span[@id='select2-drpRawmaterial-container'])[1]");
+        By drpWIP_DCN => By.XPath("(//span[@id='select2-drpWIP-container'])[1]");
+        By drpFinishedGoods_DCN => By.XPath("(//span[@id='select2-drpfinishedgoods-container'])[1]");
+        By drpNewProdStarts_DCN => By.XPath("(//span[@id='select2-drpproductstarts-container'])[1]");
+        By drpTrainingReq_DCN => By.XPath("(//span[@id='select2-drptrainingrequirement-container'])[1]");
+        By ddlRework_DCN => By.XPath("(//li[@class='select2-results__option']//span)[1]");
+        By ddlCategoryA_DCN => By.XPath("(//li[@class='select2-results__option']//span)[1]");
+        By btnClose_DCN => By.XPath("//div[@aria-describedby='divdocchangenoticeform']//button[@title='Close']");
+        By lbl_DCNInfo => By.XPath("(//label[@for='DCN_Information'])[1]");
+        By lnk_ViewDCN => By.XPath("(//div[@class='form-control-inline']//a[contains(text(),'View')])[1]");
+        By lbl_RawMaterial => By.XPath("//b[contains(text(),'Raw Material')]"); 
+        By lbl_WIP => By.XPath("//b[contains(text(),'WIP')]"); 
+        By lbl_FinishedGoods => By.XPath("//b[contains(text(),'Finished Goods')]"); 
+        By lbl_ProdStarts => By.XPath("//b[contains(text(),'Product Starts')]"); 
+        By lbl_TrainingReq => By.XPath("//b[contains(text(),'Training Required')]");
+        By lbl_RawMaterial_Value => By.XPath("//table[@id='doctable']//td[3]");
+        By lbl_WIP_Value => By.XPath("//table[@id='doctable']//td[4]");
+        By lbl_FinishedGoods_Value => By.XPath("//table[@id='doctable']//td[5]");
+        By lbl_ProdStarts_Value => By.XPath("//table[@id='doctable']//td[6]");
+        By lbl_TrainingReq_Value => By.XPath("//table[@id='doctable']//td[7]");
+
+
         #endregion
 
         #region IFrame
@@ -287,7 +310,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// <returns> DocName </returns>
         public string UploadNewDocument()
         {
-
             var path = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
             var actualPath = path.Substring(0, path.LastIndexOf("bin"));
             var projectPath = new Uri(actualPath).LocalPath;
@@ -404,13 +426,15 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToFrame(iframe_DetailView);
             seleniumActions.Click(menu_DocumentsBusinessRule);
             seleniumActions.SwitchToFrame(iframe_MenuData);
-            seleniumActions.ScrollToPosition(0,700);
+            seleniumActions.ScrollToPosition(0,1600);
             Assert.IsTrue(seleniumActions.IsElementPresent(btn_DisabledDCNForm, 5), "unable to find DCN button");
             seleniumActions.Click(btn_DisabledDCNForm);
             seleniumActions.Wait(2);
             Assert.IsTrue(seleniumActions.IsElementPresent(btn_EnabledDCNForm, 5), "dcn button is not enabled");
-            seleniumActions.ScrollToPosition(0, 1000);
+            seleniumActions.ScrollToPosition(0, 2800);
+            seleniumActions.ScrollToElement(btn_SaveBusinessRule);
             Assert.IsTrue(seleniumActions.IsElementPresent(btn_SaveBusinessRule, 5), "unable to find save button");
+            seleniumActions.Wait(2);
             seleniumActions.Click(btn_SaveBusinessRule);
             seleniumActions.Wait(2);
             seleniumActions.Click(btn_DoneBusinessRule);
@@ -425,16 +449,117 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToFrame(iframe_DetailView);
             seleniumActions.Click(menu_DocumentsBusinessRule);
             seleniumActions.SwitchToFrame(iframe_MenuData);
-            seleniumActions.ScrollToPosition(0, 700);
+            seleniumActions.ScrollToPosition(0, 1600);
             Assert.IsTrue(seleniumActions.IsElementPresent(btn_EnabledDCNForm, 5), "unable to find enabled DCN button");
             seleniumActions.Click(btn_EnabledDCNForm);
             seleniumActions.Wait(2);
             Assert.IsTrue(seleniumActions.IsElementPresent(btn_DisabledDCNForm, 5), "dcn button is not disabled");
-            seleniumActions.ScrollToPosition(0, 1000);
+            seleniumActions.ScrollToPosition(0, 2600);
             Assert.IsTrue(seleniumActions.IsElementPresent(btn_SaveBusinessRule, 5), "unable to find save button");
+            seleniumActions.Wait(2);
             seleniumActions.Click(btn_SaveBusinessRule);
             seleniumActions.Wait(2);
             seleniumActions.Click(btn_DoneBusinessRule);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Uploads a new document with enabled DCN
+        /// </summary>
+        /// <returns> DocName </returns>
+        public string UploadNewDocumentWithEnabledDCN()
+        {
+            var path = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
+            var actualPath = path.Substring(0, path.LastIndexOf("bin"));
+            var projectPath = new Uri(actualPath).LocalPath;
+
+            string docName = Constants.Name + utility.GenerateRandomText(2);
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.SendKeys(inp_ChooseFile, projectPath.ToString() + Constants.SampleFilePath_Book);
+            seleniumActions.ScrollToPosition(0, 300);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(txtDocNumber);
+            seleniumActions.SendKeys(txtDocNumber, "123");
+            seleniumActions.Wait(2);
+            seleniumActions.Click(txtDocName);
+            seleniumActions.SendKeys(txtDocName, Keys.Clear);
+            seleniumActions.SendKeys(txtDocName, docName);
+
+            Assert.IsTrue(seleniumActions.IsElementPresent(svg_DCNFormIcon, 5), "dcn form icon was not found");
+            seleniumActions.Click(svg_DCNFormIcon);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(rdoMajor_DCN);
+            seleniumActions.Click(drpRawMaterial_DCN);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(ddlRework_DCN);
+            seleniumActions.Click(drpWIP_DCN);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(ddlRework_DCN);
+            seleniumActions.Click(drpFinishedGoods_DCN);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(ddlRework_DCN);
+            seleniumActions.Click(drpNewProdStarts_DCN);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(ddlRework_DCN);
+            seleniumActions.Click(drpTrainingReq_DCN);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(ddlCategoryA_DCN);
+            seleniumActions.Click(btnClose_DCN);
+
+            seleniumActions.Click(btnAdd);
+            Assert.IsTrue(seleniumActions.IsElementPresent(msg_DocUploadedSuccessfully, 5), "document was not uploaded properly");
+            seleniumActions.SwitchToDefaultContent();
+            return docName;
+        }
+
+        /// <summary>
+        /// Search and terminates the document woith DCN
+        /// </summary>
+        public void SearchAndTerminateDocumentWithDCN(string docName)
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
+            seleniumActions.Click(btnMultiSearch);
+            Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch));
+            seleniumActions.Click(drpColumn_MultiSearch);
+            seleniumActions.Click(ddlDocName_MultiSearch);
+            seleniumActions.Click(drpCondition_MultiSearch);
+            seleniumActions.Click(ddlContains_MultiSearch);
+            seleniumActions.Click(inp_MultiSearch);
+            seleniumActions.SendKeys(inp_MultiSearch, docName);
+            seleniumActions.Click(btnAdvancedSearch_MultiSearch);
+            seleniumActions.Wait(3);
+            Assert.IsTrue(seleniumActions.GetText(lbl_DocNameValue).Equals(docName));
+            Assert.IsTrue(seleniumActions.GetText(lbl_StatusValue).Equals("In Process"));
+            seleniumActions.Click(lbl_StatusValue);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lnk_DocNumberValue, 5), "link doc number value is not found");
+
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_DCNInfo, 5), "dcn info is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lnk_ViewDCN, 5), "view dcn link is not found");
+            seleniumActions.Click(lnk_ViewDCN);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_RawMaterial, 5), "label raw material is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_RawMaterial_Value, 5), "raw material value is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_WIP, 5), "label WIP is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_WIP_Value, 5), "WIP value is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_FinishedGoods, 5), "label Finished Goods is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_FinishedGoods_Value, 5), "Finished Goods value is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_ProdStarts, 5), "label Prod Starts is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_ProdStarts_Value, 5), "Prod Starts value is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_TrainingReq, 5), "label Training Req is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_TrainingReq_Value, 5), "Training Req value is not found");
+            seleniumActions.Click(btn_Close);
+
+            seleniumActions.ScrollToElement(btn_Terminate);
+            seleniumActions.Click(btn_Terminate);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(btnNo_PopUp);
+            seleniumActions.Click(btn_Terminate);
+            seleniumActions.Wait(3);
+            
+            seleniumActions.Click(btnYes_Popup);
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblActions, 5), "label actions in action page is not found");
             seleniumActions.SwitchToDefaultContent();
         }
 

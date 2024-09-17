@@ -50,12 +50,13 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         public void ThenIChooseExistingLevelAndUploadNewDocumentWithDCNOptionInDocRequestPage()
         {
             docProModule.ChooseExistingLevel(scenarioContext["LevelName"].ToString());
+            scenarioContext["DocName"] = docProModule.UploadNewDocumentWithEnabledDCN();
         }
 
         [Then(@"I search and terminate the DCN enabled document")]
         public void ThenISearchAndTerminateTheDCNEnabledDocument()
         {
-           
+            docProModule.SearchAndTerminateDocumentWithDCN(scenarioContext["DocName"].ToString());
         }
 
         // *********** End of TC 06 ************ //

@@ -38,8 +38,8 @@ Scenario: TC 02 : DOC_2500_10_40_100_110_140_180_To_210
 	Then Delete the Level
 
 @TC-06
-Scenario: TC-06 : DOC_2500_10_50_300
-	Given Login to the application with 'right' user
+Scenario: TC 06 : DOC_2500_10_50_300
+	Given Login to the application with 'docpro' user
 	When Navigate to Business Rule in suite setup Page
 	Then I validate the Business rule page
 	Then I enable the DCN button in business rule page
