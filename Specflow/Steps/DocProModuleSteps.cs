@@ -53,10 +53,10 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             scenarioContext["DocName"] = docProModule.UploadNewDocumentWithEnabledDCN();
         }
 
-        [Then(@"I search and terminate the DCN enabled document")]
-        public void ThenISearchAndTerminateTheDCNEnabledDocument()
+        [Then(@"I terminate the DCN enabled document")]
+        public void ThenITerminateTheDCNEnabledDocument()
         {
-            docProModule.SearchAndTerminateDocumentWithDCN(scenarioContext["DocName"].ToString());
+            docProModule.TerminateDocumentWithDCN();
         }
 
         // *********** End of TC 06 ************ //

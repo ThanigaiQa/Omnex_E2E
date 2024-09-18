@@ -175,10 +175,27 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.AssignRoute(subHead);
         }
 
-        [Then(@"I search and terminate the document")]
-        public void ThenISearchAndTerminateTheDocument()
+        [Then(@"I search the document")]
+        public void ThenISearchTheDocument()
         {
-            docProModule.SearchAndTerminateDocument(scenarioContext["DocName"].ToString());
+            docProModule.SearchDocumentInActionsPage(scenarioContext["DocName"].ToString());
+        }
+
+        [Then(@"I verify the status value of the document as (.*)")]
+        public void ThenIVerifyTheStatusValueOfTheDocumentAs(string status)
+        {
+            switch(status)
+            {
+                case "InProcess":
+                    docProModule.verifyInProcessStatus();
+                    break;
+            }
+        }
+
+        [Then(@"I Terminate the document")]
+        public void ThenITerminateTheDocument()
+        {
+            docProModule.TerminateDocumentInActionsPage();
         }
 
         [Then(@"I validate the Business rule page")]

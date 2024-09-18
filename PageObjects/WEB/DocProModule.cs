@@ -379,9 +379,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         /// <summary>
-        /// Search and terminates the document
+        /// Searches the document in actions page
         /// </summary>
-        public void SearchAndTerminateDocument(string docName)
+        public void SearchDocumentInActionsPage(string docName)
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
             Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
@@ -399,6 +399,26 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             // should be displayed with the requested documents with In process status ** //
             Assert.IsTrue(seleniumActions.GetText(lbl_DocNameValue).Equals(docName));
             Assert.IsTrue(seleniumActions.GetText(lbl_StatusValue).Equals("In Process"));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// verifies the status as In - Process
+        /// </summary>
+        public void verifyInProcessStatus()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_StatusValue),"Status value is not showing");
+            Assert.IsTrue(seleniumActions.GetText(lbl_StatusValue).Equals("In Process"));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Terminates the document in actions page
+        /// </summary>
+        public void TerminateDocumentInActionsPage()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
             seleniumActions.Click(lbl_StatusValue);
             // ** Validate => DOC-2500-10-210 ** //
             Assert.IsTrue(seleniumActions.IsElementPresent(lnk_DocNumberValue, 5), "link doc number value is not found");
@@ -525,22 +545,22 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// <summary>
         /// Search and terminates the document woith DCN
         /// </summary>
-        public void SearchAndTerminateDocumentWithDCN(string docName)
+        public void TerminateDocumentWithDCN()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
-            Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
-            seleniumActions.Click(btnMultiSearch);
-            Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch));
-            seleniumActions.Click(drpColumn_MultiSearch);
-            seleniumActions.Click(ddlDocName_MultiSearch);
-            seleniumActions.Click(drpCondition_MultiSearch);
-            seleniumActions.Click(ddlContains_MultiSearch);
-            seleniumActions.Click(inp_MultiSearch);
-            seleniumActions.SendKeys(inp_MultiSearch, docName);
-            seleniumActions.Click(btnAdvancedSearch_MultiSearch);
-            seleniumActions.Wait(3);
-            Assert.IsTrue(seleniumActions.GetText(lbl_DocNameValue).Equals(docName));
-            Assert.IsTrue(seleniumActions.GetText(lbl_StatusValue).Equals("In Process"));
+            //Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
+            //seleniumActions.Click(btnMultiSearch);
+            //Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch));
+            //seleniumActions.Click(drpColumn_MultiSearch);
+            //seleniumActions.Click(ddlDocName_MultiSearch);
+            //seleniumActions.Click(drpCondition_MultiSearch);
+            //seleniumActions.Click(ddlContains_MultiSearch);
+            //seleniumActions.Click(inp_MultiSearch);
+            //seleniumActions.SendKeys(inp_MultiSearch, docName);
+            //seleniumActions.Click(btnAdvancedSearch_MultiSearch);
+            //seleniumActions.Wait(3);
+            //Assert.IsTrue(seleniumActions.GetText(lbl_DocNameValue).Equals(docName));
+            //Assert.IsTrue(seleniumActions.GetText(lbl_StatusValue).Equals("In Process"));
             seleniumActions.Click(lbl_StatusValue);
             Assert.IsTrue(seleniumActions.IsElementPresent(lnk_DocNumberValue, 5), "link doc number value is not found");
 
@@ -560,9 +580,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(btn_Close);
 
             seleniumActions.ScrollToElement(btn_Terminate);
-            seleniumActions.Click(btn_Terminate);
-            seleniumActions.Wait(3);
-            seleniumActions.Click(btnNo_PopUp);
             seleniumActions.Click(btn_Terminate);
             seleniumActions.Wait(3);
             
