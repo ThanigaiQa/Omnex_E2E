@@ -113,6 +113,33 @@ Then Navigate to Actions in Documents Page
 Then I validate the Actions in Documents Page
 Then I validate pending requests menu
 
+@TC-01
+Scenario: TC 01 : DOC_2500_10_10
+	Given Login to the application with 'right' user
+	When Navigate to Levels in suite setup Page
+	Then I validate the Levels page
+	Then Create random Level
+	Then I refresh the page
+	When Navigate to DocPro Setup in suite setup Page
+	Then I make the random level in use
+	Then I refresh the page
+	Then Navigate to New Document Request in Documents Page
+	Then I validate the New Document Request in Documents Page
+	And I choose existing level and upload new document in doc request page
+	Then I refresh the page
+	Then Navigate to Actions in Documents Page
+	Then I validate the Actions in Documents Page
+	Then I verify the document is not present in pending request menu
+	Then I refresh the page
+	When Navigate to DocPro Setup in suite setup Page
+	#And I select rights for group for the level
+	Then I give full access for the document
+	Then Navigate to Documents in Documents Page
+	Then I choose the random level and select change request
+	Then I delete the document in document toc
+	When Navigate to Levels in suite setup Page
+	Then I validate the Levels page
+	Then Delete the Level
 
 
 

@@ -61,6 +61,18 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** End of TC 06 ************ //
 
+        [Then(@"I verify the document is not present in pending request menu")]
+        public void ThenIVerifyTheDocumentIsNotPresentInPendingRequestMenu()
+        {
+            
+        }
+
+        [Then(@"I choose the random level and select change request")]
+        public void ThenIChooseTheRandomLevelAndSelectChangeRequest()
+        {
+            
+        }
+
 
         #endregion
 

@@ -227,6 +227,17 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
 
+        [Then(@"I give full access for the document")]
+        public void ThenIGiveFullAccessForTheDocument()
+        {
+
+        }
+
+        [Then(@"I delete the document in document toc")]
+        public void ThenIDeleteTheDocumentInDocumentToc()
+        {
+
+        }
 
         #endregion
     }
