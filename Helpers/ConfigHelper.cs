@@ -74,5 +74,6 @@ namespace OMNEX.AUTOMATION.Helpers
         {
             return GetConfig()["AdminUser"];
         }
+       
     }
 }

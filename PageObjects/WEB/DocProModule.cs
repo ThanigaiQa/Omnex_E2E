@@ -128,6 +128,13 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By chk_DocumentAccess_RequestRight => By.XPath("//td[contains(@style,'white-space')]//input[contains(@id,'Requestright_doc')]");
         By msg_DocRequestCreatedSuccessfully => By.XPath("//*[contains(text(),'Document Request Created Successfully')]");
         By lbl_DocSatusNeedAttachment => By.XPath("//a[text()='Need Attachment']");
+        By menu_RequestsNeedingApproval => By.XPath("//div[text()='Requests Needing Approval ']");
+        By lbl_Keywords => By.XPath("//th[text()='Keyword(s)']");
+        By lbl_Site => By.XPath("//th[text()='Site']");
+        By rad_Reject => By.XPath("//input[@id='rdreject']");
+        By inp_Reason => By.XPath("//body[@contenteditable='true']");
+        By inp_SecondPassword => By.XPath("//input[@id='txtsecondpwd']");
+        By btn_Submit => By.XPath("//button[@id='btnsubmit']");
         #endregion
 
         #region IFrame
@@ -141,6 +148,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         static By iframe_Route => By.XPath("//iframe[@id='iframeRoute']");
         static By iframe_Routes => By.XPath("//iframe[@id='iframeRoutes']");
         static By iframe_Actions => By.XPath("//iframe[@id='iframeActions']");
+        static By iframe_ResetAction => By.XPath("//iframe[contains(@class,'cke_reset')]");
 
         #endregion
 
@@ -548,19 +556,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void TerminateDocumentWithDCN()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
-            //Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
-            //seleniumActions.Click(btnMultiSearch);
-            //Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch));
-            //seleniumActions.Click(drpColumn_MultiSearch);
-            //seleniumActions.Click(ddlDocName_MultiSearch);
-            //seleniumActions.Click(drpCondition_MultiSearch);
-            //seleniumActions.Click(ddlContains_MultiSearch);
-            //seleniumActions.Click(inp_MultiSearch);
-            //seleniumActions.SendKeys(inp_MultiSearch, docName);
-            //seleniumActions.Click(btnAdvancedSearch_MultiSearch);
-            //seleniumActions.Wait(3);
-            //Assert.IsTrue(seleniumActions.GetText(lbl_DocNameValue).Equals(docName));
-            //Assert.IsTrue(seleniumActions.GetText(lbl_StatusValue).Equals("In Process"));
             seleniumActions.Click(lbl_StatusValue);
             Assert.IsTrue(seleniumActions.IsElementPresent(lnk_DocNumberValue, 5), "link doc number value is not found");
 
@@ -653,6 +648,91 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SendKeys(txtDocName, docName);
             seleniumActions.Click(btnAdd);
             Assert.IsTrue(seleniumActions.IsElementPresent(msg_DocRequestCreatedSuccessfully, 5), "document was not uploaded properly");
+            seleniumActions.SwitchToDefaultContent();
+        }
+        /// <summary>
+        /// Search the document status "In Process"
+        /// </summary>
+        public void SearchDocument(string docName)
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
+            seleniumActions.Click(btnMultiSearch);
+            Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch));
+            seleniumActions.Click(drpColumn_MultiSearch);
+            seleniumActions.Click(ddlDocName_MultiSearch);
+            seleniumActions.Click(drpCondition_MultiSearch);
+            seleniumActions.Click(ddlContains_MultiSearch);
+            seleniumActions.Click(inp_MultiSearch);
+            seleniumActions.SendKeys(inp_MultiSearch, docName);
+            seleniumActions.Click(btnAdvancedSearch_MultiSearch);
+            seleniumActions.Wait(3);
+            // ** Validate => DOC - 2500 - 10 - 40 - 80 : Pending requests menu
+            // should be displayed with the requested documents with In process status ** //
+            Assert.IsTrue(seleniumActions.GetText(lbl_DocNameValue).Equals(docName));
+            seleniumActions.SwitchToDefaultContent();
+
+        }
+        /// <summary>
+        /// Verifies the document status 
+        /// </summary>
+        /// <param name="status"></param>
+        public void ValidateDocumentStatus(string status)
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            Assert.IsTrue(seleniumActions.GetText(lbl_StatusValue).Equals(status));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Verifies the Requests Needing Approval menu is present
+        /// </summary>
+        public void VerifyRequestsNeedingApprovalMenu()
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            Assert.IsTrue(seleniumActions.IsElementPresent(menu_RequestsNeedingApproval, 5), "Requests Needing Approval menu is not found");
+            seleniumActions.Click(menu_RequestsNeedingApproval);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Validates the UI elements of Requests Needing Approval menu
+        /// </summary>
+        public void ValidateUIElementsOfRequestsNeedingApprovalMenu()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_DocNumber, 5), "Doc number is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_DocName, 5), "Doc name is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_Keywords, 5), "Keywords is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_Date, 5), "date is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_Revision, 5), "revision is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_Status, 5), "status is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_Site, 5), "site is not found");
+            seleniumActions.SwitchToDefaultContent();
+        }
+        /// <summary>
+        /// This method used to reject document by providing second password
+        /// </summary>
+        /// <param name="secondpassword"></param>
+        public void RejectDocument(string secondpassword)
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            seleniumActions.Click(lbl_StatusValue);
+            seleniumActions.ScrollToElement(rad_Reject);
+            seleniumActions.Click(rad_Reject);
+            seleniumActions.Wait(3);
+            seleniumActions.SwitchToFrame(iframe_ResetAction);
+            seleniumActions.Click(inp_Reason);
+            seleniumActions.SendKeys(inp_Reason,"Test");
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            seleniumActions.Wait(2);
+            seleniumActions.ScrollToPosition(0, 1000);
+            seleniumActions.Click(inp_SecondPassword);
+            seleniumActions.Wait(3);
+            seleniumActions.SendKeys(inp_SecondPassword, secondpassword);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(btn_Submit);
             seleniumActions.SwitchToDefaultContent();
         }
         #endregion

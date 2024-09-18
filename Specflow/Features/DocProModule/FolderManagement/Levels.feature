@@ -147,6 +147,31 @@ Scenario: TC 01 : DOC_2500_10_10
 	Then I validate the Levels page
 	Then Delete the Level
 
-
-
-
+@TC-07
+Scenario: TC 07 : DOC_2500_10_70_80
+Given Login to the application with 'Thani' user
+When Navigate to Levels in suite setup Page
+Then I validate the Levels page
+Then Create random Level
+Then I refresh the page
+When Navigate to DocPro Setup in suite setup Page
+Then I make the random level in use
+And I assign the route for the level with PositionBasedRoute
+Then I refresh the page
+Then Navigate to New Document Request in Documents Page
+Then I validate the New Document Request in Documents Page
+And I choose existing level and upload new document in doc request page
+Then I refresh the page
+Then Navigate to Actions in Documents Page
+Then I validate the Actions in Documents Page
+Then I validate pending requests menu 
+Then I search and validate the document status In Process state  
+Then Logout from the application
+Then Login to the application with 'docpro' user
+Then Navigate to Actions in Documents Page
+Then I validate Requests Needing Approval menu 
+Then I search and validate the document status Reply state 
+Then I reject the document by providing Second Password d1
+When Navigate to Levels in suite setup Page
+Then I validate the Levels page
+Then Delete the Level
