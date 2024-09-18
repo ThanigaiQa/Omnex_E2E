@@ -168,6 +168,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             scenarioContext["DocName"] = docProModule.UploadNewDocument();
         }
 
+
         [Then(@"I assign the route for the level with (.*)")]
         public void ThenIAssignTheRouteForTheLevelWith(string subHead)
         {
@@ -199,6 +200,33 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
                     break;
             }
         }
+
+        [Then(@"I Open the Right for Group for the level")]
+        public void ThenIOpenTheRightForGroupForTheLevel()
+        {
+            docProModule.RightForGroups(scenarioContext["LevelName"].ToString());
+        }
+
+        [Then(@"I Set Attach Rights for the New Document Creation")]
+        public void ThenISetAttachRightsForTheNewDocumentCreation()
+        {
+            docProModule.DocumentCreationResquestRights();
+        }
+
+        [Then(@"I Set View Only permission for New Document Access")]
+        public void ThenISetViewOnlyPermissionForNewDocumentAccess()
+        {
+            docProModule.DocumentAccessRequestRights();
+        }
+
+        [Then(@"I choose existing level and create new document in doc request page")]
+        public void ThenIChooseExistingLevelAndCreateNewDocumentInDocRequestPage()
+        {
+            docProModule.ChooseExistingLevel(scenarioContext["LevelName"].ToString());
+            docProModule.createNewDocument();
+        }
+
+
 
         #endregion
     }

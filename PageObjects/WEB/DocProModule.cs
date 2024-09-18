@@ -116,8 +116,18 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By lbl_FinishedGoods_Value => By.XPath("//table[@id='doctable']//td[5]");
         By lbl_ProdStarts_Value => By.XPath("//table[@id='doctable']//td[6]");
         By lbl_TrainingReq_Value => By.XPath("//table[@id='doctable']//td[7]");
-
-
+        By drp_RightsForGroup => By.XPath("//div[@id='rMenu_TOCDoclvl']//span[contains(text(),'Rights for groups')]//parent::li");
+        By inpSearch_RightsForGroup => By.XPath("//input[@type='search']");
+        By lbl_Rights => By.XPath("//td[@class='sorting_1']");
+        By img_plusIcon => By.XPath("//tr//td[contains(@class,'clsselectchkbx')]");
+        By chk_DocumentCreation_Inherit => By.XPath("(//input[contains(@id,'Inherit')])[1]");
+        By chk_DocumentCreation_AttachRight => By.XPath("(//table[@id='DPLevelgrid']//input[@type='checkbox' and contains(@id,'Attachright')])[1]");
+        By chk_DocumentCreation_RequestRight => By.XPath("(//input[contains(@id,'Requestright')])[1]");
+        By chk_DocumentAccess_ViewOnly => By.XPath("(//table[@id='DPLevelgrid']//input[@type='checkbox' and contains(@id,'viewonly')])[2]");
+        By chk_DocumentAccess_Inherit => By.XPath("(//input[@id='Inherit_Doc_0' and @checked='checked'])[2]");
+        By chk_DocumentAccess_RequestRight => By.XPath("//td[contains(@style,'white-space')]//input[contains(@id,'Requestright_doc')]");
+        By msg_DocRequestCreatedSuccessfully => By.XPath("//*[contains(text(),'Document Request Created Successfully')]");
+        By lbl_DocSatusNeedAttachment => By.XPath("//a[text()='Need Attachment']");
         #endregion
 
         #region IFrame
@@ -563,6 +573,71 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToDefaultContent();
         }
 
+
+        /// <summary>
+        /// Clicks the Rights for Group
+        /// </summary>
+        public void RightForGroups(String LevelName)
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(folderManagement_Tab);
+            seleniumActions.SwitchToFrame(iframe_MenuData);
+            seleniumActions.Click(phd_SearchByFolder);
+            seleniumActions.SendKeys(phd_SearchByFolder, LevelName);
+            seleniumActions.Click(btnSearch_SearchByFolder);
+            Assert.IsTrue(seleniumActions.IsElementPresent(By.XPath("(//a[@title='" + LevelName + "']//span)[2]")), "Searched level not found");
+            seleniumActions.Wait(3);
+            seleniumActions.ContextClick(By.XPath("(//a[@title='" + LevelName + "']//span)[2]"));
+            Assert.IsTrue(seleniumActions.IsElementPresent(drp_RightsForGroup), "unable to find Rights for group option");
+            seleniumActions.Click(drp_RightsForGroup);
+            seleniumActions.SwitchToDefaultContent();
+
+        }
+        /// <summary>
+        /// Set Attach Rights for New Document Creation
+        /// </summary>
+        public void DocumentCreationResquestRights()
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.SwitchToFrame(iframe_MenuData);
+            seleniumActions.SwitchToFrame(iframe_Tree);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(inpSearch_RightsForGroup);
+            seleniumActions.SendKeys(inpSearch_RightsForGroup, "Rights");
+            seleniumActions.Wait(2);
+            Assert.IsTrue(seleniumActions.GetText(lbl_Rights).Equals("Rights"));
+            seleniumActions.Click(chk_DocumentCreation_Inherit);
+            seleniumActions.Click(chk_DocumentCreation_RequestRight);
+            seleniumActions.SwitchToDefaultContent();
+        }
+        /// <summary>
+        ///Set View Only for New Document Access
+        /// </summary>
+        public void DocumentAccessRequestRights()
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.SwitchToFrame(iframe_MenuData);
+            seleniumActions.SwitchToFrame(iframe_Tree);
+            seleniumActions.Click(img_plusIcon);
+            seleniumActions.ScrollToPosition(0,1000);
+            seleniumActions.Click(chk_DocumentAccess_Inherit);
+            seleniumActions.Click(chk_DocumentAccess_RequestRight);
+            seleniumActions.SwitchToDefaultContent();
+        }
+        public void createNewDocument()
+        {
+            string docName = Constants.Name + utility.GenerateRandomText(2);
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(txtDocNumber);
+            seleniumActions.SendKeys(txtDocNumber, "123");
+            seleniumActions.Wait(2);
+            seleniumActions.Click(txtDocName);
+            seleniumActions.SendKeys(txtDocName, Keys.Clear);
+            seleniumActions.SendKeys(txtDocName, docName);
+            seleniumActions.Click(btnAdd);
+            Assert.IsTrue(seleniumActions.IsElementPresent(msg_DocRequestCreatedSuccessfully, 5), "document was not uploaded properly");
+            seleniumActions.SwitchToDefaultContent();
+        }
         #endregion
 
     }
