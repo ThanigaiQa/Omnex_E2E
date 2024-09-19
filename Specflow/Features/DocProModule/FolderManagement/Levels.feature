@@ -100,24 +100,30 @@ Scenario: TC 03 : DOC_2500_10_30_40_90
 
 @TC-05
 Scenario: TC 05: DOC_2500_10_100
-	Given Login to the application with 'right' user
-	When Navigate to Levels in suite setup Page
-	Then I validate the Levels page
-	Then Create random Level
-	Then I refresh the page
-	When Navigate to DocPro Setup in suite setup Page
-	Then I make the random level in use
-	Then I Open the Right for Group for the level
-	Then I Set Attach Rights for the New Document Creation
-	Then I Set View Only permission for New Document Access
-	Then I refresh the page
-	Then Navigate to New Document Request in Documents Page
-	Then I validate the New Document Request in Documents Page
-	And I choose existing level and create new document in doc request page
-	Then I refresh the page
-	Then Navigate to Actions in Documents Page
-	Then I validate the Actions in Documents Page
-	Then I validate pending requests menu
+Given Login to the application with 'right' user
+When Navigate to Levels in suite setup Page
+Then I validate the Levels page
+Then Create random Level
+Then I refresh the page
+When Navigate to DocPro Setup in suite setup Page
+Then I make the random level in use
+Then I Open the Right for Group for the level
+Then I Set Request Rights for the New Document Creation
+Then I Set Request Rights permission for New Document Access
+Then I refresh the page
+Then Navigate to New Document Request in Documents Page
+Then I validate the New Document Request in Documents Page
+And I choose existing level and create new document in doc request page
+Then I refresh the page
+Then Navigate to Actions in Documents Page
+Then I validate the Actions in Documents Page
+Then I validate pending requests menu
+Then I search the created document 
+And I verify the status value of the document as Need Attachment
+#Then I Terminate the document
+#When Navigate to Levels in suite setup Page
+#Then I validate the Levels page
+#Then Delete the Level
 
 @TC-01
 Scenario: TC 01 : DOC_2500_10_10

@@ -2,6 +2,7 @@
 using OMNEX.AUTOMATION.PageObjects.WEB;
 using AventStack.ExtentReports.Gherkin.Model;
 using TechTalk.SpecFlow;
+using AventStack.ExtentReports;
 
 namespace OMNEX.AUTOMATION.Specflow.Steps
 {
@@ -193,6 +194,9 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
                 case "Reply":
                     docProModule.ValidateDocumentStatus(status);
                     break;
+                case "Need Attachment":
+                    docProModule.ValidateDocumentStatus(status);
+                    break;
             }
         }
 
@@ -228,25 +232,30 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.RightForGroups(scenarioContext["LevelName"].ToString());
         }
 
-        [Then(@"I Set Attach Rights for the New Document Creation")]
-        public void ThenISetAttachRightsForTheNewDocumentCreation()
+        [Then(@"I Set Request Rights for the New Document Creation")]
+        public void ThenISetRequestRightsForTheNewDocumentCreation()
         {
             docProModule.DocumentCreationResquestRights();
         }
 
-        [Then(@"I Set View Only permission for New Document Access")]
-        public void ThenISetViewOnlyPermissionForNewDocumentAccess()
+        [Then(@"I Set Request Rights permission for New Document Access")]
+        public void ThenISetRequestRightsPermissionForNewDocumentAccess()
         {
             docProModule.DocumentAccessRequestRights();
+        }
+
+        [Then(@"I search the created document")]
+        public void ThenISearchTheCreatedDocument()
+        {
+            docProModule.SearchDocumentInActionsPage(scenarioContext["CreateNewDocumentDocName"].ToString());
         }
 
         [Then(@"I choose existing level and create new document in doc request page")]
         public void ThenIChooseExistingLevelAndCreateNewDocumentInDocRequestPage()
         {
             docProModule.ChooseExistingLevel(scenarioContext["LevelName"].ToString());
-            docProModule.createNewDocument();
+            scenarioContext["CreateNewDocumentDocName"] = docProModule.createNewDocument();
         }
-
 
         [Then(@"I give full access for the document")]
         public void ThenIGiveFullAccessForTheDocument()

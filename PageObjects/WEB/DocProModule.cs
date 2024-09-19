@@ -135,6 +135,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By inp_Reason => By.XPath("//body[@contenteditable='true']");
         By inp_SecondPassword => By.XPath("//input[@id='txtsecondpwd']");
         By btn_Submit => By.XPath("//button[@id='btnsubmit']");
+        By lbl_DocNeedAttachment => By.XPath("//a[text()='Need Attachment']");
         #endregion
 
         #region IFrame
@@ -625,8 +626,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(chk_DocumentAccess_RequestRight);
             seleniumActions.SwitchToDefaultContent();
         }
-
-        public void createNewDocument()
+        public string createNewDocument()
         {
             string docName = Constants.Name + utility.GenerateRandomText(2);
             seleniumActions.SwitchToFrame(iframe_DetailView);
@@ -639,6 +639,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(btnAdd);
             Assert.IsTrue(seleniumActions.IsElementPresent(msg_DocRequestCreatedSuccessfully, 5), "document was not uploaded properly");
             seleniumActions.SwitchToDefaultContent();
+            return docName;
         }
 
         /// <summary>
