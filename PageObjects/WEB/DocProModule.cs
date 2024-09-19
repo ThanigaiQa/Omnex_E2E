@@ -406,18 +406,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             // ** Validate => DOC - 2500 - 10 - 40, 100 : Pending requests menu
             // should be displayed with the requested documents with In process status ** //
             Assert.IsTrue(seleniumActions.GetText(lbl_DocNameValue).Equals(docName));
-            Assert.IsTrue(seleniumActions.GetText(lbl_StatusValue).Equals("In Process"));
-            seleniumActions.SwitchToDefaultContent();
-        }
-
-        /// <summary>
-        /// verifies the status as In - Process
-        /// </summary>
-        public void verifyInProcessStatus()
-        {
-            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_StatusValue),"Status value is not showing");
-            Assert.IsTrue(seleniumActions.GetText(lbl_StatusValue).Equals("In Process"));
             seleniumActions.SwitchToDefaultContent();
         }
 
@@ -622,6 +610,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(chk_DocumentCreation_RequestRight);
             seleniumActions.SwitchToDefaultContent();
         }
+
         /// <summary>
         ///Set View Only for New Document Access
         /// </summary>
@@ -636,6 +625,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(chk_DocumentAccess_RequestRight);
             seleniumActions.SwitchToDefaultContent();
         }
+
         public void createNewDocument()
         {
             string docName = Constants.Name + utility.GenerateRandomText(2);
@@ -650,29 +640,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.IsElementPresent(msg_DocRequestCreatedSuccessfully, 5), "document was not uploaded properly");
             seleniumActions.SwitchToDefaultContent();
         }
-        /// <summary>
-        /// Search the document status "In Process"
-        /// </summary>
-        public void SearchDocument(string docName)
-        {
-            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
-            Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
-            seleniumActions.Click(btnMultiSearch);
-            Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch));
-            seleniumActions.Click(drpColumn_MultiSearch);
-            seleniumActions.Click(ddlDocName_MultiSearch);
-            seleniumActions.Click(drpCondition_MultiSearch);
-            seleniumActions.Click(ddlContains_MultiSearch);
-            seleniumActions.Click(inp_MultiSearch);
-            seleniumActions.SendKeys(inp_MultiSearch, docName);
-            seleniumActions.Click(btnAdvancedSearch_MultiSearch);
-            seleniumActions.Wait(3);
-            // ** Validate => DOC - 2500 - 10 - 40 - 80 : Pending requests menu
-            // should be displayed with the requested documents with In process status ** //
-            Assert.IsTrue(seleniumActions.GetText(lbl_DocNameValue).Equals(docName));
-            seleniumActions.SwitchToDefaultContent();
 
-        }
         /// <summary>
         /// Verifies the document status 
         /// </summary>
@@ -710,11 +678,11 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.IsElementPresent(lbl_Site, 5), "site is not found");
             seleniumActions.SwitchToDefaultContent();
         }
+
         /// <summary>
         /// This method used to reject document by providing second password
         /// </summary>
-        /// <param name="secondpassword"></param>
-        public void RejectDocument(string secondpassword)
+        public void RejectDocument()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
             seleniumActions.Click(lbl_StatusValue);
@@ -730,11 +698,12 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.ScrollToPosition(0, 1000);
             seleniumActions.Click(inp_SecondPassword);
             seleniumActions.Wait(3);
-            seleniumActions.SendKeys(inp_SecondPassword, secondpassword);
+            seleniumActions.SendKeys(inp_SecondPassword, Constants.SecondPassword);
             seleniumActions.Wait(3);
             seleniumActions.Click(btn_Submit);
             seleniumActions.SwitchToDefaultContent();
         }
+
         #endregion
 
     }

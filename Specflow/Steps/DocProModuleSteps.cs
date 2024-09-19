@@ -76,13 +76,6 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** Start of TC 07 ************ //
 
-        [Then(@"I search and validate the document status (.*) state")]
-        public void ThenISearchAndValidateTheDocumentStatusState(string status)
-        {
-            docProModule.SearchDocument(scenarioContext["DocName"].ToString());
-            docProModule.ValidateDocumentStatus(status);
-        }
-
         [Then(@"I validate Requests Needing Approval menu")]
         public void ThenIValidateRequestsNeedingApprovalMenu()
         {
@@ -90,10 +83,10 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.ValidateUIElementsOfRequestsNeedingApprovalMenu();
         }
 
-        [Then(@"I reject the document by providing Second Password (.*)")]
-        public void ThenIRejectTheDocumentByProvidingSecondPassword(string secondpassword)
+        [Then(@"I reject the document by providing Second Password")]
+        public void ThenIRejectTheDocumentByProvidingSecondPassword()
         {
-            docProModule.RejectDocument(secondpassword);
+            docProModule.RejectDocument();
         }
 
         // *********** Start of TC 07 ************ //

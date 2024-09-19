@@ -187,8 +187,11 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         {
             switch(status)
             {
-                case "InProcess":
-                    docProModule.verifyInProcessStatus();
+                case "In Process":
+                    docProModule.ValidateDocumentStatus(status);
+                    break;
+                case "Reply":
+                    docProModule.ValidateDocumentStatus(status);
                     break;
             }
         }
