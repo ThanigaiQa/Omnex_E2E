@@ -144,7 +144,8 @@ Scenario: TC 01 : DOC_2500_10_10
 	Then I verify the document is not present in pending request menu
 	Then I refresh the page
 	When Navigate to DocPro Setup in suite setup Page
-	#And I select rights for group for the level
+	Then I Open the Right for Group for the level
+	Then I search for rights in document rights page
 	Then I give full access for the document
 	Then Navigate to Documents in Documents Page
 	Then I choose the random level and select change request

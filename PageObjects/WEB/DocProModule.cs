@@ -124,7 +124,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By chk_DocumentCreation_AttachRight => By.XPath("(//table[@id='DPLevelgrid']//input[@type='checkbox' and contains(@id,'Attachright')])[1]");
         By chk_DocumentCreation_RequestRight => By.XPath("(//input[contains(@id,'Requestright')])[1]");
         By chk_DocumentAccess_ViewOnly => By.XPath("(//table[@id='DPLevelgrid']//input[@type='checkbox' and contains(@id,'viewonly')])[2]");
-        By chk_DocumentAccess_Inherit => By.XPath("(//input[@id='Inherit_Doc_0' and @checked='checked'])[2]");
+        By chk_NewDocumentAccess_Inherit => By.XPath("(//input[@id='Inherit_Doc_0' and @checked='checked'])[2]");
         By chk_DocumentAccess_RequestRight => By.XPath("//td[contains(@style,'white-space')]//input[contains(@id,'Requestright_doc')]");
         By msg_DocRequestCreatedSuccessfully => By.XPath("//*[contains(text(),'Document Request Created Successfully')]");
         By lbl_DocSatusNeedAttachment => By.XPath("//a[text()='Need Attachment']");
@@ -136,6 +136,17 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By inp_SecondPassword => By.XPath("//input[@id='txtsecondpwd']");
         By btn_Submit => By.XPath("//button[@id='btnsubmit']");
         By lbl_DocNeedAttachment => By.XPath("//a[text()='Need Attachment']");
+        By chk_NewDocFullAccess => By.XPath("(//input[@id='Fullaccess_0'])[2]");
+        By lnkClick_FullAccess => By.XPath("//table[contains(@class,'table-layout')]//a[contains(text(),'Click')]");
+        By chk_DocumentAccess_Inherit => By.XPath("(//input[@id='Inherit_0' and @checked='checked'])[1]");
+        By chk_DocumentAccess_FullAccess => By.XPath("(//input[@id='fullaccess_0'])[2]");
+        By inp_SearchLevelsInDocumentPage => By.XPath("//input[@placeholder='Search']");
+        By lnk_DocumentNumber_Toc => By.XPath("//div[@class='text-wrap']//a");
+        By lbl_ChangeRequest => By.XPath("//a[@id='CChangeRequest']");
+        By chk_DeleteDocument_Toc => By.XPath("//label[contains(text(),'Delete Document')]");
+        By btn_Continue_Toc => By.XPath("//span[contains(text(),'Continue')]");
+        By lbl_NoRecordsToDisplay => By.XPath("//td[@class='dataTables_empty']");
+
         #endregion
 
         #region IFrame
@@ -594,19 +605,27 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToDefaultContent();
 
         }
+
         /// <summary>
-        /// Set Attach Rights for New Document Creation
+        /// searches for rights in document rights page
         /// </summary>
-        public void DocumentCreationResquestRights()
+        public void SearchForRightsInDocumentRights()
         {
-            seleniumActions.SwitchToFrame(iframe_DetailView);
-            seleniumActions.SwitchToFrame(iframe_MenuData);
-            seleniumActions.SwitchToFrame(iframe_Tree);
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
             seleniumActions.Wait(2);
             seleniumActions.Click(inpSearch_RightsForGroup);
             seleniumActions.SendKeys(inpSearch_RightsForGroup, "Rights");
             seleniumActions.Wait(2);
             Assert.IsTrue(seleniumActions.GetText(lbl_Rights).Equals("Rights"));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Set Attach Rights for New Document Creation
+        /// </summary>
+        public void DocumentCreationResquestRights()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
             seleniumActions.Click(chk_DocumentCreation_Inherit);
             seleniumActions.Click(chk_DocumentCreation_RequestRight);
             seleniumActions.SwitchToDefaultContent();
@@ -617,15 +636,14 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public void DocumentAccessRequestRights()
         {
-            seleniumActions.SwitchToFrame(iframe_DetailView);
-            seleniumActions.SwitchToFrame(iframe_MenuData);
-            seleniumActions.SwitchToFrame(iframe_Tree);
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
             seleniumActions.Click(img_plusIcon);
             seleniumActions.ScrollToPosition(0,1000);
-            seleniumActions.Click(chk_DocumentAccess_Inherit);
+            seleniumActions.Click(chk_NewDocumentAccess_Inherit);
             seleniumActions.Click(chk_DocumentAccess_RequestRight);
             seleniumActions.SwitchToDefaultContent();
         }
+
         public string createNewDocument()
         {
             string docName = Constants.Name + utility.GenerateRandomText(2);
@@ -702,6 +720,79 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SendKeys(inp_SecondPassword, Constants.SecondPassword);
             seleniumActions.Wait(3);
             seleniumActions.Click(btn_Submit);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Verifies pending req doc is not showing in the actions page
+        /// </summary>
+        public void VerifyPendingReqDocIsNotIsPresent(string docName)
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
+            seleniumActions.Click(btnMultiSearch);
+            Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch));
+            seleniumActions.Click(drpColumn_MultiSearch);
+            seleniumActions.Click(ddlDocName_MultiSearch);
+            seleniumActions.Click(drpCondition_MultiSearch);
+            seleniumActions.Click(ddlContains_MultiSearch);
+            seleniumActions.Click(inp_MultiSearch);
+            seleniumActions.SendKeys(inp_MultiSearch, docName);
+            seleniumActions.Click(btnAdvancedSearch_MultiSearch);
+            seleniumActions.Wait(3);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_NoRecordsToDisplay),"Document is showing actions page");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        ///  Gives full access for new doc access and doc access
+        /// </summary>
+        public void FullAccessForDocument()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            seleniumActions.Click(img_plusIcon);
+            seleniumActions.ScrollToPosition(0, 1000);
+            seleniumActions.Click(chk_NewDocumentAccess_Inherit);
+            seleniumActions.Click(chk_NewDocFullAccess);
+            seleniumActions.Click(lnkClick_FullAccess);
+            seleniumActions.Wait(2);
+            if(seleniumActions.IsElementPresent(img_plusIcon))
+            {
+                seleniumActions.Click(img_plusIcon);
+                seleniumActions.ScrollToPosition(0, 1000);
+                seleniumActions.Click(chk_DocumentAccess_Inherit);
+                seleniumActions.Click(chk_DocumentAccess_FullAccess);
+            }
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// This method used to search levels is document page
+        /// </summary>
+        public void SearchLevelsInDocumentPage(string LevelName)
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(inp_SearchLevelsInDocumentPage);
+            seleniumActions.SendKeys(inp_SearchLevelsInDocumentPage, LevelName);
+            seleniumActions.Click(btnSearch_SearchByFolder);
+            Assert.IsTrue(seleniumActions.IsElementPresent(By.XPath("(//a[@title='" + LevelName + "']//span)[2]")), "Searched level not found");
+            seleniumActions.Wait(3);
+            seleniumActions.Click(By.XPath("(//a[@title='" + LevelName + "']//span)[2]"));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // <summary>
+        /// This method used terminate document in toc
+        /// </summary>
+        public void DeleteDocumentInToc()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            seleniumActions.ContextClick(lnk_DocumentNumber_Toc);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_ChangeRequest), "change request option is not displaying");
+            seleniumActions.Click(lbl_ChangeRequest);
+            seleniumActions.ScrollToPosition(0, 1000);
+            seleniumActions.Click(chk_DeleteDocument_Toc);
+            seleniumActions.Click(btn_Continue_Toc);
             seleniumActions.SwitchToDefaultContent();
         }
 

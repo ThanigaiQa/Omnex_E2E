@@ -64,15 +64,8 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         [Then(@"I verify the document is not present in pending request menu")]
         public void ThenIVerifyTheDocumentIsNotPresentInPendingRequestMenu()
         {
-            
+            docProModule.VerifyPendingReqDocIsNotIsPresent(scenarioContext["DocName"].ToString());
         }
-
-        [Then(@"I choose the random level and select change request")]
-        public void ThenIChooseTheRandomLevelAndSelectChangeRequest()
-        {
-            
-        }
-
 
         // *********** Start of TC 07 ************ //
 

@@ -260,13 +260,25 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         [Then(@"I give full access for the document")]
         public void ThenIGiveFullAccessForTheDocument()
         {
+            docProModule.FullAccessForDocument();
+        }
 
+        [Then(@"I choose the random level and select change request")]
+        public void ThenIChooseTheRandomLevelAndSelectChangeRequest()
+        {
+            docProModule.SearchLevelsInDocumentPage(scenarioContext["LevelName"].ToString());
         }
 
         [Then(@"I delete the document in document toc")]
         public void ThenIDeleteTheDocumentInDocumentToc()
         {
-
+            docProModule.DeleteDocumentInToc();
+        }
+        
+        [Then(@"I search for rights in document rights page")]
+        public void ThenISearchForRightsInDocumentRightsPage()
+        {
+            docProModule.SearchForRightsInDocumentRights();
         }
 
         #endregion
