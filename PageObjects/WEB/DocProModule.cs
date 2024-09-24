@@ -2,14 +2,7 @@
 using OMNEX.AUTOMATION.Data.WEB;
 using OMNEX.AUTOMATION.Helpers;
 using OpenQA.Selenium;
-using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OMNEX.AUTOMATION.PageObjects.WEB
 {
@@ -74,7 +67,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By ddlDocName_SearchFilter => By.XPath("//select[contains(@class,'datatablefilter')]//option[@value='name']");
         By phd_SearchFilter => By.XPath("//input[@type='search']");
         By lbl_DocNameValue  => By.XPath("(//tr[@role='row']//td//div)[2]");
-        By lbl_StatusValue  => By.XPath("(//a[@id='status'])[1]");
+        By lnk_StatusValue  => By.XPath("(//a[@id='status'])[1]");
         By lnk_DocNumberValue => By.XPath("(//a[@id='EventOverDocumentNumber'])[1]");
         By btn_Terminate => By.XPath("(//span[contains(text(),'Terminate')])[1]");
         By btnYes_Popup => By.XPath("//button[@id='popup_ok']");
@@ -161,6 +154,30 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btn_UserDone => By.XPath("//button[contains(text(), 'Done')]");
         By inp_ChooseFile_ActionsFlow => By.XPath("(//input[@name = 'Browse'])[1]");
         By chk_DocumentAccess_RequestRight_FromLink => By.XPath("//td[contains(@style,'white-space')]//input[contains(@id,'req_rights')]");
+        By btnLevelSelector_PendingDocDraft => By.XPath("//*[local-name()='svg' and @id='btnSelectLevel']");
+        By inp_ChooseFile_PendingDocDraft => By.XPath("(//input[@id= 'fileUpload'])[1]");
+        By txtDocNum_PendingDocDraft => By.XPath("//input[contains(@id,'txtDocNumberValue')]");
+        By txtDocName_PendingDocDraft => By.XPath("//input[contains(@id,'txtDocNameValue')]");
+        By menu_PendingDocDraft => By.XPath("//td[@title='Pending Document Drafts']");
+        By menu_DraftRequestsNeedingViewing => By.XPath("//td[@title='Draft Requests Needing Viewing']");
+        By lbl_LastCmntDate => By.XPath("//th[text()='Last comment date']");
+        By svg_HamburgerMenu => By.XPath("//*[local-name()='svg' and contains(@class,'menu')]");
+        By txtAddComment => By.XPath("//div[@data-placeholder='Add a comment']");
+        By btn_Send => By.XPath("//span[contains(@class,'send')]");
+        By lblWaitingForComment => By.XPath("(//div[contains(text(),'Waiting for comment')])[1]");
+        By btn_ChangeRequest => By.XPath("//button[@id='btnChangeRequest']");
+        By svg_DraftViewersIcon => By.XPath("//*[local-name()='svg' and @title='User Details']");
+        By tbl_NewestComments => By.XPath("(//li[@data-sort-key='newest'])[1]");
+        By tbl_OldestComments => By.XPath("(//li[@data-sort-key='oldest'])[1]");
+        By tbl_PopularComments => By.XPath("(//li[@data-sort-key='popularity'])[1]");
+        By rdoUserBasedSearchChecked => By.XPath("//input[@id='rdUserBaseSearch' and @checked='checked']");
+        By phd_Name => By.XPath("//div[@id='userListingGridControl_wrapper']//input[@type='search']");
+        By lblTeamLeader_SearchResult => By.XPath("(//table[@id='userListingGridControl']//td[@class='sorting_1'])[1]");
+        By chkUsernameInactive => By.XPath("(//table[@id='userListingGridControl']//tr[@class='odd']//input[@type='checkbox'])[1]");
+        By chkUsernameActive => By.XPath("(//table[@id='userListingGridControl']//tr[@class='odd selected']//input[@type='checkbox'])[1]");
+        By btn_Done => By.XPath("//button[@title='Done']");
+        By lblDocPro_DraftViewer => By.XPath("//div[@class='table-responsive']//div[contains(text(),'DocPro-Admin')]");
+
 
         #endregion
 
@@ -388,9 +405,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         /// <summary>
-        /// Verifies the pending requests menu is present
+        /// Clicks the pending requests menu if present
         /// </summary>
-        public void VerifyPendingRequestsMenu()
+        public void ClickPendingRequestsMenu()
         {
             seleniumActions.SwitchToFrame(iframe_DetailView);
             Assert.IsTrue(seleniumActions.IsElementPresent(menu_PendingRequests, 5), "Pending requests menu is not found");
@@ -442,7 +459,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void TerminateDocumentInActionsPage()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
-            seleniumActions.Click(lbl_StatusValue);
+            seleniumActions.Click(lnk_StatusValue);
             // ** Validate => DOC-2500-10-210 ** //
             Assert.IsTrue(seleniumActions.IsElementPresent(lnk_DocNumberValue, 5), "link doc number value is not found");
             seleniumActions.ScrollToElement(btn_Terminate);
@@ -571,7 +588,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void TerminateDocumentWithDCN()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
-            seleniumActions.Click(lbl_StatusValue);
+            seleniumActions.Click(lnk_StatusValue);
             Assert.IsTrue(seleniumActions.IsElementPresent(lnk_DocNumberValue, 5), "link doc number value is not found");
 
             Assert.IsTrue(seleniumActions.IsElementPresent(lbl_DCNInfo, 5), "dcn info is not found");
@@ -682,7 +699,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void ValidateDocumentStatus(string status)
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
-            Assert.IsTrue(seleniumActions.GetText(lbl_StatusValue).Equals(status));
+            Assert.IsTrue(seleniumActions.GetText(lnk_StatusValue).Equals(status));
             seleniumActions.SwitchToDefaultContent();
         }
 
@@ -719,7 +736,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void RejectDocument()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
-            seleniumActions.Click(lbl_StatusValue);
+            seleniumActions.Click(lnk_StatusValue);
             seleniumActions.ScrollToElement(rad_Reject);
             seleniumActions.Click(rad_Reject);
             seleniumActions.Wait(3);
@@ -917,6 +934,173 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
                 seleniumActions.Click(chk_DocumentAccess_RequestRight_FromLink);
                 seleniumActions.Click(chk_DocumentAccess_FullAccess);
             }
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Choose exisitng level in new document request page
+        /// </summary>
+        public void ChooseExistingLevelForPendingDocDraft(string levelName)
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(btnLevelSelector_PendingDocDraft);
+            Assert.IsTrue(seleniumActions.IsElementPresent(tbl_LevelSelection, 5), "level selection popup is not found");
+            seleniumActions.SwitchToFrame(iframe_PopupLevel);
+            seleniumActions.ScrollToElement(By.XPath("//ul[@id='tvDocument']//li[@class='level1']//span[contains(text(),'" + levelName + "')]"));
+            seleniumActions.Click(By.XPath("//ul[@id='tvDocument']//li[@class='level1']//span[contains(text(),'" + levelName + "')]"));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Uploads a new document
+        /// </summary>
+        /// <returns> DocName </returns>
+        public string UploadNewDocumentForPendingDocDraft()
+        {
+            var path = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
+            var actualPath = path.Substring(0, path.LastIndexOf("bin"));
+            var projectPath = new Uri(actualPath).LocalPath;
+
+            string docName = Constants.Name + utility.GenerateRandomText(2);
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(txtDocNum_PendingDocDraft);
+            seleniumActions.SendKeys(txtDocNum_PendingDocDraft, "777");
+            seleniumActions.Click(txtDocName_PendingDocDraft);
+            seleniumActions.SendKeys(txtDocName_PendingDocDraft, docName);
+            seleniumActions.SendKeys(inp_ChooseFile_PendingDocDraft, projectPath.ToString() + Constants.SampleFilePath_Book);
+            seleniumActions.Click(btn_Continue_Toc);
+            seleniumActions.Click(popUp_Yes);
+            seleniumActions.SwitchToDefaultContent();
+            return docName;
+        }
+
+        /// <summary>
+        /// Clicks the pending doc draft menu if present
+        /// </summary>
+        public void ClickPendingDocDraftMenu()
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            Assert.IsTrue(seleniumActions.IsElementPresent(menu_PendingDocDraft, 5), "Pending doc draft menu is not found");
+            seleniumActions.Click(menu_PendingDocDraft);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Clicks the hamburger menu
+        /// </summary>
+        public void ClickHamburgerMenu()
+        {
+            Assert.IsTrue(seleniumActions.IsElementPresent(svg_HamburgerMenu, 5), "hamburger menu is not found");
+            seleniumActions.Click(svg_HamburgerMenu);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Validates the UI elements of pending doc draft menu
+        /// </summary>
+        public void ValidateUIElementsOfPendingDocDraftMenu()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            // ** Validate => DOC - 2500 - 10 - 110 & 140 ** //
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_DocNumber, 5), "Doc number is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_DocName, 5), "Doc name is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_Date, 5), "date is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_Revision, 5), "revision is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_LastCmntDate, 5), "last cmnt date is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_Status, 5), "status is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblWaitingForComment, 5), "waiting for comment is not found");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// verifies the color code of in process status 
+        /// </summary>
+        public void VerifyColorCodeOfStatusValue()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            string bgColor = seleniumActions.FindElement(lnk_StatusValue).GetCssValue("color");
+            Assert.IsTrue(bgColor.Equals(Constants.StatusColorCode));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Clicks the draft req needing viewing menu if present
+        /// </summary>
+        public void ClickDraftReqNeedingViewingMenu()
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            Assert.IsTrue(seleniumActions.IsElementPresent(menu_DraftRequestsNeedingViewing, 5), "Pending requests menu is not found");
+            seleniumActions.Click(menu_DraftRequestsNeedingViewing);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// adds a comment for the draft in draft req needing viewing menu
+        /// </summary>
+        public void AddCommentForDraftInDraftReqNeedingMenu()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            seleniumActions.Click(lnk_StatusValue);
+            seleniumActions.Click(txtAddComment);
+            seleniumActions.SendKeys(txtAddComment,Constants.Name);
+            seleniumActions.Click(btn_Send);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// verifies the user can be added from draft viewer
+        /// </summary>
+        public void VerifyUserCanBeAddedFromDraftViewer()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            seleniumActions.Click(lnk_StatusValue);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btn_ChangeRequest, 5), "change req button is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(svg_DraftViewersIcon, 5), "Add draft viewers button is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(tbl_OldestComments, 5), "oldest cmnt section tab is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(tbl_NewestComments, 5), "newest cmnt section tab is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(tbl_PopularComments, 5), "popular cmnt section tab is not found");
+            seleniumActions.Click(svg_DraftViewersIcon);
+
+            seleniumActions.SwitchToIframes(iframe_ifrUsers);
+            seleniumActions.Wait(4);
+            seleniumActions.Click(phd_Name);
+            seleniumActions.SendKeys(phd_Name, "DocPro-Admin");
+            seleniumActions.Wait(3);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblTeamLeader_SearchResult));
+            Assert.IsTrue(seleniumActions.GetText(lblTeamLeader_SearchResult).Contains(Constants.DocProUsername));
+            seleniumActions.Click(chkUsernameInactive);
+            seleniumActions.Click(chkUsernameActive);
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(btn_Done);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblDocPro_DraftViewer),"added draft viewer was not visible");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// verifies the user can be removed from draft viewer
+        /// </summary>
+        public void VerifyUserCanBeRemovedFromDraftViewer()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            seleniumActions.Click(lnk_StatusValue);
+            seleniumActions.WaitForElementToExists(svg_DraftViewersIcon);
+            seleniumActions.Click(svg_DraftViewersIcon);
+
+            seleniumActions.SwitchToIframes(iframe_ifrUsers);
+            seleniumActions.Wait(4);
+            seleniumActions.Click(phd_Name);
+            seleniumActions.SendKeys(phd_Name, "DocPro-Admin");
+            seleniumActions.Wait(3);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblTeamLeader_SearchResult));
+            Assert.IsTrue(seleniumActions.GetText(lblTeamLeader_SearchResult).Contains(Constants.DocProUsername));
+            Assert.IsTrue(seleniumActions.IsElementPresent(chkUsernameActive));
+            seleniumActions.Click(chkUsernameActive);
+            Assert.IsTrue(seleniumActions.IsElementPresent(chkUsernameInactive));
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(btn_Done);
+            Assert.IsFalse(seleniumActions.IsElementPresent(lblDocPro_DraftViewer), "added draft viewer was not visible");
             seleniumActions.SwitchToDefaultContent();
         }
 

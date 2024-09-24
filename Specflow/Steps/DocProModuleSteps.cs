@@ -40,11 +40,10 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         [Then(@"I validate pending requests menu")]
         public void ThenIValidatePendingRequestsMenu()
         {
-            docProModule.VerifyPendingRequestsMenu();
             docProModule.ValidateUIElementsOfPendingRequestsMenu();
         }
 
-        // *********** Start of TC 06 ************ //
+        // *********** UA - 01 : Pending Request - Start of TC 06 ************ //
 
         [Then(@"I choose existing level and upload new document with DCN option in doc request page")]
         public void ThenIChooseExistingLevelAndUploadNewDocumentWithDCNOptionInDocRequestPage()
@@ -59,7 +58,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.TerminateDocumentWithDCN();
         }
 
-        // *********** End of TC 06 ************ //
+        // *********** UA - 01 : Pending Request - End of TC 06 ************ //
 
         [Then(@"I verify the document is not present in pending request menu")]
         public void ThenIVerifyTheDocumentIsNotPresentInPendingRequestMenu()
@@ -67,7 +66,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.VerifyPendingReqDocIsNotIsPresent(scenarioContext["DocName"].ToString());
         }
 
-        // *********** Start of TC 07 ************ //
+        // *********** UA - 01 : Pending Request - Start of TC 07 ************ //
 
         [Then(@"I validate Requests Needing Approval menu")]
         public void ThenIValidateRequestsNeedingApprovalMenu()
@@ -82,7 +81,33 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.RejectDocument();
         }
 
-        // *********** Start of TC 07 ************ //
+        // *********** UA - 01 : Pending Request - Start of TC 07 ************ //
+
+        // *********** UA - 02 : Pending Doc Draft - Start of TC 01 ************ //
+
+        [Then(@"I verify the color code of In Process link")]
+        public void ThenIVerifyTheColorCodeOfInProcessLink()
+        {
+            docProModule.VerifyColorCodeOfStatusValue();
+        }
+
+        [Then(@"I add comment in the draft")]
+        public void ThenIAddCommentInTheDraft()
+        {
+            docProModule.AddCommentForDraftInDraftReqNeedingMenu();
+        }
+
+        [Then(@"I add and verify the user can be added from the draft viewer")]
+        public void ThenIAddAndVerifyTheUserCanBeAddedFromTheDraftViewer()
+        {
+            docProModule.VerifyUserCanBeAddedFromDraftViewer();
+        }
+
+        [Then(@"I verify the user can be removed from the draft viewer")]
+        public void ThenIVerifyTheUserCanBeRemovedFromTheDraftViewer()
+        {
+            docProModule.VerifyUserCanBeRemovedFromDraftViewer();
+        }
 
         // *********** Start of TC 05 ************ //
         [Then(@"I validate assign author menu")]

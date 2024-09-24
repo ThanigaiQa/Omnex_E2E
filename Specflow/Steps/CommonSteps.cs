@@ -3,6 +3,7 @@ using OMNEX.AUTOMATION.PageObjects.WEB;
 using AventStack.ExtentReports.Gherkin.Model;
 using TechTalk.SpecFlow;
 using AventStack.ExtentReports;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 
 namespace OMNEX.AUTOMATION.Specflow.Steps
 {
@@ -170,7 +171,6 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             scenarioContext["DocName"] = docProModule.UploadNewDocument();
         }
 
-
         [Then(@"I assign the route for the level with (.*)")]
         public void ThenIAssignTheRouteForTheLevelWith(string subHead)
         {
@@ -285,6 +285,42 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         public void ThenISearchForRightsInDocumentRightsPage()
         {
             docProModule.SearchForRightsInDocumentRights();
+        }
+
+        [Then(@"I choose existing level and upload new document in pending doc draft page")]
+        public void ThenIChooseExistingLevelAndUploadNewDocumentInPendingDocDraftPage()
+        {
+            docProModule.ChooseExistingLevelForPendingDocDraft(scenarioContext["LevelName"].ToString());
+            scenarioContext["DocName"] = docProModule.UploadNewDocumentForPendingDocDraft();
+        }
+
+        [When(@"I click on (.*) menu")]
+        public void WhenIClickOnMenu(string menu)
+        {
+            switch (menu)
+            {
+                case "Pending Document Drafts":
+                    docProModule.ClickPendingDocDraftMenu();
+                    break;
+                case "Draft Request Needing Viewing":
+                    docProModule.ClickDraftReqNeedingViewingMenu();
+                        break;
+                case "Pending Requests":
+                    docProModule.ClickPendingRequestsMenu();
+                    break;
+            }
+        }
+
+        [Then(@"I validate pending doc draft menu")]
+        public void ThenIValidatePendingDocDraftMenu()
+        {
+            docProModule.ValidateUIElementsOfPendingDocDraftMenu();
+        }
+
+        [Then(@"I click on the hamburger menu")]
+        public void ThenIClickOnTheHamburgerMenu()
+        {
+            docProModule.ClickHamburgerMenu();
         }
 
         #endregion
