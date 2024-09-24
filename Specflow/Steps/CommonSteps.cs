@@ -197,6 +197,12 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
                 case "Need Attachment":
                     docProModule.ValidateDocumentStatus(status);
                     break;
+                case "Assign":
+                    docProModule.ValidateDocumentStatus(status);
+                    break;
+                case "Attach Document":
+                    docProModule.ValidateDocumentStatus(status);
+                    break;
             }
         }
 

@@ -146,6 +146,21 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By chk_DeleteDocument_Toc => By.XPath("//label[contains(text(),'Delete Document')]");
         By btn_Continue_Toc => By.XPath("//span[contains(text(),'Continue')]");
         By lbl_NoRecordsToDisplay => By.XPath("//td[@class='dataTables_empty']");
+        By menu_AssignAuthor => By.XPath("//td[@title='Assign Author']");
+        By status_Assign => By.XPath("//a[text()='Assign']");
+        By svg_AddAssignAutor => By.XPath("//*[local-name()='svg' and @id='imgSearch']");
+        By ddlName_MultiSearch => By.XPath("(//div[@class='dtsb-criteria']//select//option[contains(text(),'Name')])[1]");
+        By chk_AssignAuthor => By.XPath("//input[contains(@id, 'Chk_')]");
+        By btn_SaveAuthor => By.XPath("//button[contains(@onclick, 'Save')]");
+        By menu_DocumentsNeedingRevision => By.XPath("//td[@title='Documents Needing Revision']");
+        By status_AttachDocument => By.XPath("//a[text()='Attach Document']");
+        By btn_Continue => By.XPath("//button[@id='btnsave']");
+        By lbl_NameValue => By.XPath("(//tr[@role='row']//td)[2]");
+        By hintSearch => By.XPath("(//input[@type='search'])[1]");
+        By chk_FirstUser => By.XPath("(//input[@name='userListingGridControl_selectCheck'])[1]");
+        By btn_UserDone => By.XPath("//button[contains(text(), 'Done')]");
+        By inp_ChooseFile_ActionsFlow => By.XPath("(//input[@name = 'Browse'])[1]");
+        By chk_DocumentAccess_RequestRight_FromLink => By.XPath("//td[contains(@style,'white-space')]//input[contains(@id,'req_rights')]");
 
         #endregion
 
@@ -793,6 +808,115 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.ScrollToPosition(0, 1000);
             seleniumActions.Click(chk_DeleteDocument_Toc);
             seleniumActions.Click(btn_Continue_Toc);
+            seleniumActions.SwitchToDefaultContent();
+        }
+        /// <summary>
+        /// Verifies the Assigm Author menu is present
+        /// </summary>
+        public void VerifyAssignAuthorMenu()
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            Assert.IsTrue(seleniumActions.IsElementPresent(menu_AssignAuthor, 5), "Assign Author menu is not found");
+            seleniumActions.Click(menu_AssignAuthor);
+            seleniumActions.SwitchToDefaultContent();
+        }
+        /// <summary>
+        /// Searches the Authors in actions page
+        /// </summary>
+        public void SearchAuthorsInAssignAuthorPage()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions, iframe_ifrUsers);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
+            seleniumActions.Click(btnMultiSearch);
+            Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch));
+            seleniumActions.Click(drpColumn_MultiSearch);
+            seleniumActions.Click(ddlName_MultiSearch);
+            seleniumActions.Click(drpCondition_MultiSearch);
+            seleniumActions.Click(ddlContains_MultiSearch);
+            seleniumActions.Click(inp_MultiSearch);
+            seleniumActions.SendKeys(inp_MultiSearch, "docpro");
+            seleniumActions.Click(btnAdvancedSearch_MultiSearch);
+            seleniumActions.Wait(3);
+
+            Assert.IsTrue(seleniumActions.GetText(lbl_NameValue).Equals("docpro"));
+            seleniumActions.Click(chk_AssignAuthor);
+            seleniumActions.SwitchToDefaultContent();
+        }
+        /// <summary>
+        /// This method helps to assign author
+        /// </summary>
+        public void AssignAuthor()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            seleniumActions.Click(status_Assign);
+            seleniumActions.SwitchToDefaultContent(); 
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            seleniumActions.Click(svg_AddAssignAutor);
+            seleniumActions.Wait(2);
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions, iframe_ifrUsers);
+            //seleniumActions.Wait(3);
+            seleniumActions.Click(hintSearch);
+            seleniumActions.SendKeys(hintSearch, "DocPro");
+            seleniumActions.Wait(3);
+            seleniumActions.Click(chk_FirstUser);
+            seleniumActions.SwitchToParentFrame();
+            seleniumActions.ScrollToPosition(0, 1000);
+            seleniumActions.Click(btn_UserDone);
+            seleniumActions.Wait(3);
+            //seleniumActions.SwitchToParentFrame();
+            //seleniumActions.Click(btn_DoneBusinessRule);
+            seleniumActions.Click(btn_SaveAuthor);
+            seleniumActions.SwitchToDefaultContent();
+            
+        }
+        /// <summary>
+        /// Verifies the documents needing revision menu is present
+        /// </summary>
+        public void VerifyDocumentsNeedingRevisionMenu()
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            Assert.IsTrue(seleniumActions.IsElementPresent(menu_DocumentsNeedingRevision, 5), "Documents Needing Revision menu is not found");
+            seleniumActions.Click(menu_DocumentsNeedingRevision);
+            seleniumActions.SwitchToDefaultContent();
+        }
+        /// <summary>
+        /// this method is used to attach document
+        /// </summary>
+         public void AttachDocument()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            Assert.IsTrue(seleniumActions.IsElementPresent(status_AttachDocument), "Attach Document link is not found");
+            seleniumActions.Click(status_AttachDocument);
+            var path = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
+            var actualPath = path.Substring(0, path.LastIndexOf("bin"));
+            var projectPath = new Uri(actualPath).LocalPath;
+            string docName = Constants.Name + utility.GenerateRandomText(2);
+            seleniumActions.SendKeys(inp_ChooseFile_ActionsFlow, projectPath.ToString() + Constants.SampleFilePath_Book);
+            seleniumActions.ScrollToPosition(0, 300);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(btn_Continue);
+            seleniumActions.SwitchToDefaultContent();
+        }
+        /// <summary>
+        ///  Gives full access for new doc access and doc access
+        /// </summary>
+        public void FullAccessForDocumentFromRequestRight()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            seleniumActions.Click(img_plusIcon);
+            seleniumActions.ScrollToPosition(0, 1000);
+            seleniumActions.Click(chk_DocumentAccess_RequestRight);
+            seleniumActions.Click(chk_NewDocFullAccess);
+            seleniumActions.Click(lnkClick_FullAccess);
+            seleniumActions.Wait(2);
+            if (seleniumActions.IsElementPresent(img_plusIcon))
+            {
+                seleniumActions.Click(img_plusIcon);
+                seleniumActions.ScrollToPosition(0, 1000);
+                seleniumActions.Click(chk_DocumentAccess_RequestRight_FromLink);
+                seleniumActions.Click(chk_DocumentAccess_FullAccess);
+            }
             seleniumActions.SwitchToDefaultContent();
         }
 

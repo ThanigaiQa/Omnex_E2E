@@ -229,7 +229,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By tbl_AgendaFromTime => By.XPath("//span[@id='timePickerContent']//td[text()='01:15am']");
         By tbl_AgendaToTime => By.XPath("//span[@id='timePickerContent']//td[text()='02:15am']");
         By tbl_AgendaUsericon => By.XPath("//span[@id='imgrep']");
-        By chk_AgendaUser => By.XPath("(//input[@name='userListingGridControl_selectCheck'])[1]");
+        By chk_FirstUser => By.XPath("(//input[@name='userListingGridControl_selectCheck'])[1]");
         By btn_UserDone => By.XPath("//button[contains(text(), 'Done')]");
         By txt_AgendaDate => By.XPath("//input[@name='sDate']");
         By lbl_TitleAgenda => By.XPath("//div[@id='headingMeetingagenda']");
@@ -1389,7 +1389,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(tbl_AgendaUsericon);
             seleniumActions.Wait(3);
             seleniumActions.SwitchToFrame(iframe_ifrUsers);
-            seleniumActions.Click(chk_AgendaUser);
+            seleniumActions.Click(chk_FirstUser);
             seleniumActions.SwitchToParentFrame();
             seleniumActions.Click(btn_UserDone);
             seleniumActions.Click(txt_AgendaDate);
@@ -1435,7 +1435,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToFrame(iframe_ifrUsers);
             seleniumActions.SendKeys(hintSearch, "Thani-k");
             seleniumActions.Wait(3);
-            seleniumActions.Click(chk_AgendaUser);
+            seleniumActions.Click(chk_FirstUser);
             seleniumActions.SwitchToParentFrame();
             seleniumActions.ScrollToPosition(0, 1000);
             seleniumActions.Click(btn_UserDone);
@@ -1447,7 +1447,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToFrame(iframe_ifrUsers);
             seleniumActions.SendKeys(hintSearch, "Thani-k");
             seleniumActions.Wait(3);
-            seleniumActions.Click(chk_AgendaUser);
+            seleniumActions.Click(chk_FirstUser);
             seleniumActions.SwitchToParentFrame();
             seleniumActions.Click(btn_UserDone);
 
@@ -1810,7 +1810,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Wait(3);
             seleniumActions.SwitchToFrame(iframe_ifrUsers);
             seleniumActions.SendKeys(hintSearch, "Thani-k");
-            seleniumActions.Click(chk_AgendaUser);
+            seleniumActions.Click(chk_FirstUser);
             seleniumActions.SwitchToParentFrame();
             seleniumActions.Click(btn_UserDone);
             seleniumActions.SwitchToDefaultContent();

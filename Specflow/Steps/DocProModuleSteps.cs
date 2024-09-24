@@ -84,6 +84,37 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** Start of TC 07 ************ //
 
+        // *********** Start of TC 05 ************ //
+        [Then(@"I validate assign author menu")]
+        public void ThenIValidateAssignAuthorMenu()
+        {
+            docProModule.VerifyAssignAuthorMenu();
+        }
+
+        [Then(@"Assign the author for the created document")]
+        public void ThenAssignTheAuthorForTheCreatedDocument()
+        { 
+            docProModule.AssignAuthor();
+        }
+
+        [Then(@"I validate the Documents needing revision menu")]
+        public void ThenIValidateTheDocumentsNeedingRevisionMenu()
+        {
+            docProModule.VerifyDocumentsNeedingRevisionMenu();
+        }
+        [Then(@"I Attach the document")]
+        public void ThenIAttachTheDocument()
+        {
+            docProModule.AttachDocument();
+        }
+        [Then(@"I give full access from Request Right for the document")]
+        public void ThenIGiveFullAccessFromRequestRightForTheDocument()
+        {
+            docProModule.FullAccessForDocumentFromRequestRight();
+        }
+
+        // *********** Start of TC 05 ************ //
+
 
         #endregion
 
