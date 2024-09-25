@@ -170,7 +170,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By tbl_NewestComments => By.XPath("(//li[@data-sort-key='newest'])[1]");
         By tbl_OldestComments => By.XPath("(//li[@data-sort-key='oldest'])[1]");
         By tbl_PopularComments => By.XPath("(//li[@data-sort-key='popularity'])[1]");
-        By rdoUserBasedSearchChecked => By.XPath("//input[@id='rdUserBaseSearch' and @checked='checked']");
         By phd_Name => By.XPath("//div[@id='userListingGridControl_wrapper']//input[@type='search']");
         By lblTeamLeader_SearchResult => By.XPath("(//table[@id='userListingGridControl']//td[@class='sorting_1'])[1]");
         By chkUsernameInactive => By.XPath("(//table[@id='userListingGridControl']//tr[@class='odd']//input[@type='checkbox'])[1]");
@@ -1061,17 +1060,17 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.IsElementPresent(tbl_PopularComments, 5), "popular cmnt section tab is not found");
             seleniumActions.Click(svg_DraftViewersIcon);
 
-            seleniumActions.SwitchToIframes(iframe_ifrUsers);
             seleniumActions.Wait(4);
+            seleniumActions.SwitchToIframes(iframe_ifrUsers);
             seleniumActions.Click(phd_Name);
             seleniumActions.SendKeys(phd_Name, "DocPro-Admin");
             seleniumActions.Wait(3);
             Assert.IsTrue(seleniumActions.IsElementPresent(lblTeamLeader_SearchResult));
             Assert.IsTrue(seleniumActions.GetText(lblTeamLeader_SearchResult).Contains(Constants.DocProUsername));
             seleniumActions.Click(chkUsernameInactive);
-            seleniumActions.Click(chkUsernameActive);
+            Assert.IsTrue(seleniumActions.IsElementPresent(chkUsernameActive, 5), "username was not checked");
             seleniumActions.SwitchToDefaultContent();
-            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
             seleniumActions.Click(btn_Done);
             Assert.IsTrue(seleniumActions.IsElementPresent(lblDocPro_DraftViewer),"added draft viewer was not visible");
             seleniumActions.SwitchToDefaultContent();
@@ -1083,22 +1082,22 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void VerifyUserCanBeRemovedFromDraftViewer()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
-            seleniumActions.Click(lnk_StatusValue);
             seleniumActions.WaitForElementToExists(svg_DraftViewersIcon);
             seleniumActions.Click(svg_DraftViewersIcon);
 
-            seleniumActions.SwitchToIframes(iframe_ifrUsers);
             seleniumActions.Wait(4);
+            seleniumActions.SwitchToIframes(iframe_ifrUsers);
             seleniumActions.Click(phd_Name);
             seleniumActions.SendKeys(phd_Name, "DocPro-Admin");
             seleniumActions.Wait(3);
             Assert.IsTrue(seleniumActions.IsElementPresent(lblTeamLeader_SearchResult));
             Assert.IsTrue(seleniumActions.GetText(lblTeamLeader_SearchResult).Contains(Constants.DocProUsername));
-            Assert.IsTrue(seleniumActions.IsElementPresent(chkUsernameActive));
-            seleniumActions.Click(chkUsernameActive);
             Assert.IsTrue(seleniumActions.IsElementPresent(chkUsernameInactive));
+            seleniumActions.Click(chkUsernameInactive);
+            seleniumActions.Wait(2);
+            Assert.IsTrue(seleniumActions.IsElementPresent(chkUsernameInactive),"username was not removed");
             seleniumActions.SwitchToDefaultContent();
-            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
             seleniumActions.Click(btn_Done);
             Assert.IsFalse(seleniumActions.IsElementPresent(lblDocPro_DraftViewer), "added draft viewer was not visible");
             seleniumActions.SwitchToDefaultContent();
