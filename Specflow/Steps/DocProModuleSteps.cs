@@ -109,7 +109,10 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.VerifyUserCanBeRemovedFromDraftViewer();
         }
 
-        // *********** Start of TC 05 ************ //
+        // *********** UA - 02 : Pending Doc Draft - End of TC 01 ************ //
+
+        // *********** UA - 02 : Pending Doc Draft - Start of TC 05 ************ //
+
         [Then(@"I validate assign author menu")]
         public void ThenIValidateAssignAuthorMenu()
         {
@@ -138,8 +141,17 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.FullAccessForDocumentFromRequestRight();
         }
 
-        // *********** Start of TC 05 ************ //
+        // *********** UA - 02 : Pending Doc Draft - End of TC 05 ************ //
 
+        // *********** UA - 02 : Pending Doc Draft - Start of TC 06 ************ //
+
+        [Then(@"I verify the user who already commented on the draft is not present in draft viewer")]
+        public void ThenIVerifyTheUserWhoAlreadyCommentedOnTheDraftIsNotPresentInDraftViewer()
+        {
+            docProModule.VerifyUserCannotRemovedFromTheDraft();
+        }
+
+        // *********** UA - 02 : Pending Doc Draft - End of TC 06 ************ //
 
         #endregion
 

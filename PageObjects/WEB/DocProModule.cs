@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using AventStack.ExtentReports.Gherkin.Model;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OMNEX.AUTOMATION.Data.WEB;
 using OMNEX.AUTOMATION.Helpers;
 using OpenQA.Selenium;
@@ -176,6 +177,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By chkUsernameActive => By.XPath("(//table[@id='userListingGridControl']//tr[@class='odd selected']//input[@type='checkbox'])[1]");
         By btn_Done => By.XPath("//button[@title='Done']");
         By lblDocPro_DraftViewer => By.XPath("//div[@class='table-responsive']//div[contains(text(),'DocPro-Admin')]");
+        By lblRightScenario_DraftViewer => By.XPath("//div[@class='table-responsive']//div[contains(text(),'Right-Scenario')]");
 
 
         #endregion
@@ -994,6 +996,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToDefaultContent();
         }
 
+        // *********** UA - 02 : Pending Doc Draft - Start of TC 01 ************ //
+
         /// <summary>
         /// Validates the UI elements of pending doc draft menu
         /// </summary>
@@ -1102,6 +1106,44 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsFalse(seleniumActions.IsElementPresent(lblDocPro_DraftViewer), "added draft viewer was not visible");
             seleniumActions.SwitchToDefaultContent();
         }
+
+        // *********** UA - 02 : Pending Doc Draft - End of TC 01 ************ //
+
+        // *********** UA - 02 : Pending Doc Draft - Start of TC 06 ************ //
+
+        /// <summary>
+        /// Validate the system should not allow the user to remove the 
+        /// user who has already  commented on the draft
+        /// </summary>
+        public void VerifyUserCannotRemovedFromTheDraft()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            seleniumActions.Click(lnk_StatusValue);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btn_ChangeRequest, 5), "change req button is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(svg_DraftViewersIcon, 5), "Add draft viewers button is not found");
+            seleniumActions.WaitForElementToExists(svg_DraftViewersIcon);
+            seleniumActions.Click(svg_DraftViewersIcon);
+
+            seleniumActions.Wait(4);
+            seleniumActions.SwitchToIframes(iframe_ifrUsers);
+            seleniumActions.Click(phd_Name);
+            seleniumActions.SendKeys(phd_Name, "Right-Scenario");
+            seleniumActions.Wait(3);
+            seleniumActions.Wait(3);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblTeamLeader_SearchResult));
+            Assert.IsTrue(seleniumActions.GetText(lblTeamLeader_SearchResult).Contains(Constants.RightUsername));
+            Assert.IsTrue(seleniumActions.IsElementPresent(chkUsernameInactive));
+            seleniumActions.Click(chkUsernameInactive);
+            seleniumActions.Wait(2);
+            Assert.IsTrue(seleniumActions.IsElementPresent(chkUsernameInactive), "username was not removed");
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            seleniumActions.Click(btn_Done);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblRightScenario_DraftViewer), "added draft viewer was not visible");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** UA - 02 : Pending Doc Draft - End of TC 06 ************ //
 
         #endregion
 
