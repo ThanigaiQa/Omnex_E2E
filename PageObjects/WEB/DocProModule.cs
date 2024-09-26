@@ -182,7 +182,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By ddl_Corporate => By.XPath("//li[contains(text(),'Corporate')]");
         By ddp_Corporate => By.XPath("//span[@title='Corporate']");
         By ddl_RightSite => By.XPath("//li[contains(text(),'RightSite')]");
-
+        By tblLastColumn_pendingRequestDraft => By.XPath("//table[@id='pendingDocumentDraftGrid']//th[last()]");
 
         #endregion
 
@@ -1148,6 +1148,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // *********** UA - 02 : Pending Doc Draft - End of TC 06 ************ //
+
         public void ChangeTheCorporateToRightSite()
         {
             seleniumActions.Click(ddp_Corporate);
@@ -1163,6 +1164,17 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(ddl_Corporate);
         }
 
+        // *********** UA - 02 : Pending Doc Draft - Start of TC 07 ************ //
+        public void ValidateStatusColumnInRightMostEnd()
+        {
+            {
+                seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+                string lastHeaderText = seleniumActions.GetText(tblLastColumn_pendingRequestDraft);
+                Assert.IsTrue(lastHeaderText.Equals("Status"), "The last column is not 'Status'.");
+                seleniumActions.SwitchToDefaultContent();
+            }
+        }
+        // *********** UA - 02 : Pending Doc Draft - End of TC 07 ************ //
 
         #endregion
 
