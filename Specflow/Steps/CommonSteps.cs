@@ -334,6 +334,20 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         {
             docProModule.ChangeTheRightSiteToCorporate();
         }
+        [Then(@"I (.*) the Interface Agreement button in business rule page")]
+        public void ThenITheInterfaceAgreementButtonInBusinessRulePage(string value)
+        {
+            switch (value)
+            {
+                case "enable":
+                    docProModule.EnableInterfaceAgreementButton();
+                    break;
+                case "disable":
+                    docProModule.DisableInterfaceAgreementButton();
+                    break;
+            }
+        }
+
         #endregion
     }
 }

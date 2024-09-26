@@ -163,6 +163,22 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         // *********** UA - 02 : Pending Doc Draft - End of TC 07 ************ //
 
 
+        // *********** UA - 02 : Pending Doc Draft - Start of TC 05 ************ //
+
+        [Then(@"I click on change request button in pending doc draft menu")]
+        public void ThenIClickOnChangeRequestButtonInPendingDocDraftMenu()
+        {
+            docProModule.ClickChangeRequestOnPendingDocDraft();
+        }
+
+        [Then(@"I select online document in change request screen")]
+        public void ThenISelectOnlineDocumentInChangeRequestScreen()
+        {
+            docProModule.ChooseDateAndSelectOnlineDocument();
+        }
+
+        // *********** UA - 02 : Pending Doc Draft - End of TC 05 ************ //
+
         #endregion
 
     }

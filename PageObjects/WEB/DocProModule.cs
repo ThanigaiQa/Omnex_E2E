@@ -183,6 +183,17 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By ddp_Corporate => By.XPath("//span[@title='Corporate']");
         By ddl_RightSite => By.XPath("//li[contains(text(),'RightSite')]");
         By tblLastColumn_pendingRequestDraft => By.XPath("//table[@id='pendingDocumentDraftGrid']//th[last()]");
+        By btn_DisabledInterfaceAgreement => By.XPath("(//div[@class='switch form-control-inline']//span[contains(@class,'bootstrap-switch-danger')])[24]");
+        By btn_EnabledInterfaceAgreement => By.XPath("(//div[@class='switch form-control-inline']//span[contains(@class,'bootstrap-switch-success')])[24]");
+        By txt_EffectiveDate => By.XPath("//div[@id='effdate']//input[@type='text']");
+        By tblDatePicker_EffectiveDate => By.XPath("//div[contains(@class,'datepicker-dropdown')]");
+        By chk_AttachDraft => By.XPath("//label[@for='chkattachdft']");
+        By lblCurrentDate_DatePicker => By.XPath("//div[@class='datepicker-days']//tr//td[contains(@class,'today')]");
+        By txt_ReasonForChange => By.XPath("//div[@id='divrsnchange']//div[contains(@class,'cke_editable ')]");
+        By txt_ChngDescription => By.XPath("//div[@id='divchangedesc']//div[contains(@class,'cke_editable ')]");
+        By icn_StyleBar_ReasonForChange => By.XPath("//div[contains(@class,'changesrequired')]");
+        By lblOnlineDocTemplates => By.XPath("//caption[@id='GridCaptionOnlineDocTemplatesGrid']");
+        By btnClose_OnlineDocument => By.XPath("//div[@aria-describedby='dialog-transitionlistpopup']//button[@title='Close']");
 
         #endregion
 
@@ -1175,6 +1186,90 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             }
         }
         // *********** UA - 02 : Pending Doc Draft - End of TC 07 ************ //
+
+        // *********** UA - 02 : Pending Doc Draft - Start of TC 05 ************ //
+
+        /// <summary>
+        /// Clicks the change req button in pending doc draft
+        /// </summary>
+        public void ClickChangeRequestOnPendingDocDraft()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            seleniumActions.Click(lnk_StatusValue);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btn_ChangeRequest, 5), "change req button is not found");
+            seleniumActions.Click(btn_ChangeRequest);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// enables the Interface Agreement button inside document menu - business rule page 
+        /// </summary>
+        public void EnableInterfaceAgreementButton()
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(menu_DocumentsBusinessRule);
+            seleniumActions.SwitchToFrame(iframe_MenuData);
+            seleniumActions.ScrollToPosition(0, 1600);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btn_DisabledInterfaceAgreement, 5), "unable to find interface agreement button");
+            seleniumActions.Click(btn_DisabledInterfaceAgreement);
+            seleniumActions.Wait(2);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btn_EnabledInterfaceAgreement, 5), "enabled interface agreement button is not enabled");
+            seleniumActions.ScrollToPosition(0, 2800);
+            seleniumActions.ScrollToElement(btn_SaveBusinessRule);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btn_SaveBusinessRule, 5), "unable to find save button");
+            seleniumActions.Wait(2);
+            seleniumActions.Click(btn_SaveBusinessRule);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(btn_DoneBusinessRule);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// disables the Interface Agreement button inside document menu - business rule page
+        /// </summary>
+        public void DisableInterfaceAgreementButton()
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(menu_DocumentsBusinessRule);
+            seleniumActions.SwitchToFrame(iframe_MenuData);
+            seleniumActions.ScrollToPosition(0, 1600);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btn_EnabledInterfaceAgreement, 5), "unable to find enabled interface agreement button");
+            seleniumActions.Click(btn_EnabledInterfaceAgreement);
+            seleniumActions.Wait(2);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btn_DisabledInterfaceAgreement, 5), "disabled interface agreement button is not disabled");
+            seleniumActions.ScrollToPosition(0, 2600);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btn_SaveBusinessRule, 5), "unable to find save button");
+            seleniumActions.Wait(2);
+            seleniumActions.Click(btn_SaveBusinessRule);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(btn_DoneBusinessRule);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// chooses a date and select online document in change request page
+        /// </summary>
+        public void ChooseDateAndSelectOnlineDocument()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            Assert.IsTrue(seleniumActions.IsElementPresent(txt_EffectiveDate, 5), "effective date textbox is not found");
+            seleniumActions.ScrollToPosition(0,1000);
+            seleniumActions.Click(txt_EffectiveDate);
+            Assert.IsTrue(seleniumActions.IsElementPresent(tblDatePicker_EffectiveDate, 5), "date picker is not visible");
+            seleniumActions.Click(lblCurrentDate_DatePicker);
+            seleniumActions.Click(txt_ChngDescription);
+            seleniumActions.SendKeys(txt_ChngDescription,Constants.Name);
+            seleniumActions.Click(txt_ReasonForChange);
+            seleniumActions.SendKeys(txt_ReasonForChange, Constants.Name);
+            seleniumActions.Click(chk_OnlineDocument);
+            seleniumActions.Wait(3);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblOnlineDocTemplates, 5), "online document page is not visible");
+            seleniumActions.Click(btnClose_OnlineDocument);
+            seleniumActions.Click(btn_Continue_Toc);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** UA - 02 : Pending Doc Draft - End of TC 05 ************ //
 
         #endregion
 
