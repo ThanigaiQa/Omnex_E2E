@@ -323,6 +323,17 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.ClickHamburgerMenu();
         }
 
+        [When(@"I Change the site Corporate to RightSite")]
+        public void WhenIChangeTheSiteCorporateToRightSite()
+        {
+            docProModule.ChangeTheCorporateToRightSite();
+        }
+
+        [When(@"I Change the site RightSite to Corporate")]
+        public void WhenIChangeTheSiteRightSiteToCorporate()
+        {
+            docProModule.ChangeTheRightSiteToCorporate();
+        }
         #endregion
     }
 }

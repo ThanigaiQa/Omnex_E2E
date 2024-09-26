@@ -178,6 +178,10 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btn_Done => By.XPath("//button[@title='Done']");
         By lblDocPro_DraftViewer => By.XPath("//div[@class='table-responsive']//div[contains(text(),'DocPro-Admin')]");
         By lblRightScenario_DraftViewer => By.XPath("//div[@class='table-responsive']//div[contains(text(),'Right-Scenario')]");
+        By ddp_RightSite => By.XPath("//span[@title='RightSite']");
+        By ddl_Corporate => By.XPath("//li[contains(text(),'Corporate')]");
+        By ddp_Corporate => By.XPath("//span[@title='Corporate']");
+        By ddl_RightSite => By.XPath("//li[contains(text(),'RightSite')]");
 
 
         #endregion
@@ -1144,6 +1148,21 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // *********** UA - 02 : Pending Doc Draft - End of TC 06 ************ //
+        public void ChangeTheCorporateToRightSite()
+        {
+            seleniumActions.Click(ddp_Corporate);
+            seleniumActions.Click(ddl_RightSite);
+        }
+
+        /// <summary>
+        /// Change the site from "Corporate" to "Right Site"
+        /// </summary>
+        public void ChangeTheRightSiteToCorporate()
+        {
+            seleniumActions.Click(ddp_RightSite);
+            seleniumActions.Click(ddl_Corporate);
+        }
+
 
         #endregion
 
