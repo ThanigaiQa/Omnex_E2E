@@ -154,6 +154,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         // *********** UA - 02 : Pending Doc Draft - End of TC 06 ************ //
 
         // *********** UA - 02 : Pending Doc Draft - Start of TC 07 ************ //
+
         [Then(@"I Validate the status column placed at the right most end")]
         public void ThenIValidateTheStatusColumnPlacedAtTheRightMostEnd()
         {
@@ -161,7 +162,6 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         // *********** UA - 02 : Pending Doc Draft - End of TC 07 ************ //
-
 
         // *********** UA - 02 : Pending Doc Draft - Start of TC 05 ************ //
 

@@ -875,6 +875,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(chk_AssignAuthor);
             seleniumActions.SwitchToDefaultContent();
         }
+
         /// <summary>
         /// This method helps to assign author
         /// </summary>
@@ -901,8 +902,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             //seleniumActions.Click(btn_DoneBusinessRule);
             seleniumActions.Click(btn_SaveAuthor);
             seleniumActions.SwitchToDefaultContent();
-            
         }
+
         /// <summary>
         /// Verifies the documents needing revision menu is present
         /// </summary>
@@ -1176,6 +1177,10 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // *********** UA - 02 : Pending Doc Draft - Start of TC 07 ************ //
+
+        /// <summary>
+        /// This method is used to validate the status column in right end
+        /// </summary>
         public void ValidateStatusColumnInRightMostEnd()
         {
             {
@@ -1185,6 +1190,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
                 seleniumActions.SwitchToDefaultContent();
             }
         }
+
         // *********** UA - 02 : Pending Doc Draft - End of TC 07 ************ //
 
         // *********** UA - 02 : Pending Doc Draft - Start of TC 05 ************ //
