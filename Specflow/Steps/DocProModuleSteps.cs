@@ -185,6 +185,10 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
                 case "online document":
                     docProModule.SelectOnlineDocumentInChangeReqScreen();
                     break;
+                case "Attach Draft":
+                    docProModule.SelectAttachDraftInChangeReqScreen();
+                    break;
+
             }
         }
 

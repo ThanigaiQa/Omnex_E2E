@@ -151,7 +151,39 @@ Scenario: TC 07 : DOC_2500_20_50
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page
 	Then Delete the Level
-	
+
+@TC-03
+Scenario: TC 03 : DOC_2500_20_310
+ Given Login to the application with 'right' user
+	When Navigate to Levels in suite setup Page
+	Then I validate the Levels page
+	Then Create random Level
+	Then I refresh the page
+	When Navigate to DocPro Setup in suite setup Page
+	Then I make the random level in use
+	Then Navigate to New Document Draft in Documents Page
+	Then I validate the New Document Draft in Documents Page
+	And I choose existing level and upload new document in pending doc draft page
+	When I click on Pending Document Drafts menu
+	Then I validate pending doc draft menu
+	Then I search the document
+	Then I click on the hamburger menu
+	And I verify the status value of the document as In Process
+    Then I click on change request button in pending doc draft menu
+	Then I choose the date and enter the reason for change , description in change request screen
+	Then I select Attach Draft in change request screen
+	Then I click on the hamburger menu
+	When Navigate to DocPro Setup in suite setup Page
+	Then I Open the Right for Group for the level
+	Then I search for rights in document rights page
+	Then I give full access for the document
+	Then Navigate to Documents in Documents Page
+	Then I choose the random level and select change request
+	Then I delete the document in document toc
+	When Navigate to Levels in suite setup Page
+	Then I validate the Levels page
+	Then Delete the Level
+
 
 
 	

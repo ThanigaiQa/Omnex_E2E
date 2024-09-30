@@ -194,7 +194,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By icn_StyleBar_ReasonForChange => By.XPath("//div[contains(@class,'changesrequired')]");
         By lblOnlineDocTemplates => By.XPath("//caption[@id='GridCaptionOnlineDocTemplatesGrid']");
         By btnClose_OnlineDocument => By.XPath("//div[@aria-describedby='dialog-transitionlistpopup']//button[@title='Close']");
-
         #endregion
 
         #region IFrame
@@ -1286,6 +1285,23 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // *********** UA - 02 : Pending Doc Draft - End of TC 05 ************ //
+
+        // *********** UA - 02 : Pending Doc Draft - Start of TC 03 ************ //
+
+        /// <summary>
+        /// select attach draft in change request page
+        /// </summary>
+        public void SelectAttachDraftInChangeReqScreen()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            seleniumActions.ScrollToPosition(0, 1000);
+            Assert.IsTrue(seleniumActions.IsElementPresent(chk_AttachDraft), "attach draft checkbox is not visible");
+            seleniumActions.Click(chk_AttachDraft);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(btn_Continue_Toc);
+            seleniumActions.SwitchToDefaultContent();
+        }
+        // *********** UA - 02 : Pending Doc Draft - End of TC 03 ************ //
 
         #endregion
 
