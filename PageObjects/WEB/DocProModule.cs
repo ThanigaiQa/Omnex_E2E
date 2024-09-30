@@ -1301,6 +1301,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(btn_Continue_Toc);
             seleniumActions.SwitchToDefaultContent();
         }
+
         // *********** UA - 02 : Pending Doc Draft - End of TC 03 ************ //
 
         #endregion
