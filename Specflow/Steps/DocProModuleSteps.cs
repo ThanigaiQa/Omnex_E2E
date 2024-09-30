@@ -171,10 +171,21 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.ClickChangeRequestOnPendingDocDraft();
         }
 
-        [Then(@"I select online document in change request screen")]
-        public void ThenISelectOnlineDocumentInChangeRequestScreen()
+        [Then(@"I choose the date and enter the reason for change , description in change request screen")]
+        public void ThenIChooseTheDateAndEnterTheReasonForChangeDescriptionInChangeRequestScreen()
         {
-            docProModule.ChooseDateAndSelectOnlineDocument();
+            docProModule.ChooseDateAndReasonDescriptionInChangeReqScreen();
+        }
+
+        [Then(@"I select (.*) in change request screen")]
+        public void ThenISelectInChangeRequestScreen(string documentType)
+        {
+            switch (documentType)
+            {
+                case "online document":
+                    docProModule.SelectOnlineDocumentInChangeReqScreen();
+                    break;
+            }
         }
 
         // *********** UA - 02 : Pending Doc Draft - End of TC 05 ************ //

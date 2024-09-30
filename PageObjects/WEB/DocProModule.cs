@@ -1253,9 +1253,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         /// <summary>
-        /// chooses a date and select online document in change request page
+        /// chooses a date reason for change and description in change request page
         /// </summary>
-        public void ChooseDateAndSelectOnlineDocument()
+        public void ChooseDateAndReasonDescriptionInChangeReqScreen()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
             Assert.IsTrue(seleniumActions.IsElementPresent(txt_EffectiveDate, 5), "effective date textbox is not found");
@@ -1267,6 +1267,16 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SendKeys(txt_ChngDescription,Constants.Name);
             seleniumActions.Click(txt_ReasonForChange);
             seleniumActions.SendKeys(txt_ReasonForChange, Constants.Name);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// select online document in change request page
+        /// </summary>
+        public void SelectOnlineDocumentInChangeReqScreen()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            seleniumActions.ScrollToPosition(0, 1000);
             seleniumActions.Click(chk_OnlineDocument);
             seleniumActions.Wait(3);
             Assert.IsTrue(seleniumActions.IsElementPresent(lblOnlineDocTemplates, 5), "online document page is not visible");

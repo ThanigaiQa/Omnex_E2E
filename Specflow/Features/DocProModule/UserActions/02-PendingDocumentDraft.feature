@@ -94,7 +94,8 @@ Scenario: TC 05 : DOC_2500_20_350
 	Then I click on the hamburger menu
 	And I verify the status value of the document as In Process
 	Then I click on change request button in pending doc draft menu
-	Then I select online document in change request screen
+	Then I choose the date and enter the reason for change , description in change request screen
+	Then I select 'online document' in change request screen
 	Then I click on the hamburger menu
 	When I click on Pending Requests menu
 	Then I validate pending requests menu
