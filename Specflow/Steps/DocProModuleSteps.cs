@@ -194,6 +194,21 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** UA - 02 : Pending Doc Draft - End of TC 05 ************ //
 
+        // *********** UA - 03 : Draft Request Viewing - Start of TC 02 ************ //
+
+        [Then(@"I validate the Accept and Reject radio button is not present")]
+        public void ThenIValidateTheAcceptAndRejectRadioButtonIsNotPresent()
+        {
+         docProModule.ValidateAcceptAndRejectRadioIsNotPresent();
+        }
+        [Then(@"I validate the latest comment is present in the draft details page")]
+        public void ThenIValidateTheLatestCommentIsPresentInTheDraftDetailsPage()
+        {
+            docProModule.ValidateLatestCommentIsPresent();
+        }
+        // *********** UA - 03 : Draft Request Viewing - End of TC 02 ************ //
+
+
         #endregion
 
     }

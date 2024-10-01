@@ -194,6 +194,10 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By icn_StyleBar_ReasonForChange => By.XPath("//div[contains(@class,'changesrequired')]");
         By lblOnlineDocTemplates => By.XPath("//caption[@id='GridCaptionOnlineDocTemplatesGrid']");
         By btnClose_OnlineDocument => By.XPath("//div[@aria-describedby='dialog-transitionlistpopup']//button[@title='Close']");
+        By rdo_Accept => By.XPath("//label[@for='accept']");
+        By rdo_Reject => By.XPath("//label[@for='reject']");
+        By lbl_LatestComment => By.XPath("(//div[@class='wrapper']//div[@class='content'])[1]");
+
         #endregion
 
         #region IFrame
@@ -1303,6 +1307,35 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // *********** UA - 02 : Pending Doc Draft - End of TC 03 ************ //
+
+        // *********** UA - 03 : Draft Request Viewing - Start of TC 02 ************ //
+
+        /// <summary>
+        /// This method is helps to verify the Accept and Reject radio button is not present in the draft details page
+        /// </summary>
+        
+        public void ValidateAcceptAndRejectRadioIsNotPresent()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            Assert.IsFalse(seleniumActions.IsElementPresent(rdo_Accept,5), "accept radio button should not be present");
+            Assert.IsFalse(seleniumActions.IsElementPresent(rdo_Reject,5), "reject radio button should not be present");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// This method is helps to verify the latest comment is present in the draft details page
+        /// </summary>
+        
+        public void ValidateLatestCommentIsPresent()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            seleniumActions.Click(lnk_StatusValue);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lnk_DocNumberValue, 5), "link doc number value is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_LatestComment), "latest comment is not present");
+            seleniumActions.SwitchToDefaultContent();
+        }
+        // *********** UA - 03 : Draft Request Viewing - End of TC 03 ************ //
+
 
         #endregion
 
