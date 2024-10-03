@@ -1,4 +1,5 @@
-﻿using OMNEX.AUTOMATION.Helpers;
+﻿using Microsoft.VisualStudio.TestPlatform.ObjectModel;
+using OMNEX.AUTOMATION.Helpers;
 using OMNEX.AUTOMATION.PageObjects.WEB;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,8 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.ValidateUIElementsOfPendingRequestsMenu();
         }
 
+        // ********************************************* User Actions - 01 Pending Requests ************************************************ //
+
         // *********** UA - 01 : Pending Request - Start of TC 06 ************ //
 
         [Then(@"I choose existing level and upload new document with DCN option in doc request page")]
@@ -82,6 +85,8 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         // *********** UA - 01 : Pending Request - Start of TC 07 ************ //
+
+        // ********************************************* User Actions - 02 Pending Document Draft ************************************************ //
 
         // *********** UA - 02 : Pending Doc Draft - Start of TC 01 ************ //
 
@@ -194,6 +199,8 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** UA - 02 : Pending Doc Draft - End of TC 05 ************ //
 
+        // ********************************************* User Actions - 03 Draft Request Needing Viewing ************************************************ //
+
         // *********** UA - 03 : Draft Request Viewing - Start of TC 02 ************ //
 
         [Then(@"I validate the Accept and Reject radio button is not present")]
@@ -206,8 +213,24 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         {
             docProModule.ValidateLatestCommentIsPresent();
         }
+
         // *********** UA - 03 : Draft Request Viewing - End of TC 02 ************ //
 
+        // *********** UA - 03 : Draft Req Needing Viewing - Start of TC 01 ************ //
+
+        [Then(@"I add and verify the user can be added from the draft viewer in draft req needing viewing")]
+        public void ThenIAddAndVerifyTheUserCanBeAddedFromTheDraftViewerInDraftReqNeedingViewing()
+        {
+            docProModule.VerifyUserCanBeAddedFromDraftViewerInDraftReqNeedingViewing();
+        }
+
+        [Then(@"I reject the draft request in Draft Request Needing Viewing menu")]
+        public void ThenIRejectTheDraftRequestInDraftRequestNeedingViewingMenu()
+        {
+            docProModule.ClickOnRejectRadioButtonInDraftReqNeedingViewingPage();
+        }
+
+        // *********** UA - 03 : Draft Req Needing Viewing - End of TC 01 ************ //
 
         #endregion
 
