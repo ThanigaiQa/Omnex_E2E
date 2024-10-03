@@ -197,8 +197,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By rdo_Accept => By.XPath("//label[@for='accept']");
         By rdo_Reject => By.XPath("//label[@for='reject']");
         By lbl_LatestComment => By.XPath("(//div[@class='wrapper']//div[@class='content'])[1]");
-        By rdo_reject => By.XPath("//label[@for='reject']");
-        By rdo_accept => By.XPath("//label[@for='accept']");
         By svg_DraftViewersIconDraftReqNeedingPage => By.XPath("//*[local-name()='svg' and @onclick='GetUserDetailPopUp()']");
 
 
@@ -1380,9 +1378,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
             seleniumActions.Click(lnk_StatusValue);
-            Assert.IsTrue(seleniumActions.IsElementPresent(rdo_accept),"accept radio button is not present");
-            Assert.IsTrue(seleniumActions.IsElementPresent(rdo_reject), "reject radio button is not present");
-            seleniumActions.Click(rdo_reject);
+            Assert.IsTrue(seleniumActions.IsElementPresent(rdo_Accept),"accept radio button is not present");
+            Assert.IsTrue(seleniumActions.IsElementPresent(rdo_Reject), "reject radio button is not present");
+            seleniumActions.Click(rdo_Reject);
             seleniumActions.SwitchToDefaultContent();
         }
 
