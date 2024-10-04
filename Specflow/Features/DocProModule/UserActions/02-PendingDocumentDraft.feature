@@ -25,6 +25,7 @@ Scenario: TC 01 : DOC_2500_20_10_80_120_180
 	When I click on Draft Request Needing Viewing menu
 	Then I search the document
 	And I verify the status value of the document as Reply
+	When I click the status value link
 	Then I add comment in the draft
 	When I click on Pending Document Drafts menu
 	Then I search the document
@@ -32,6 +33,7 @@ Scenario: TC 01 : DOC_2500_20_10_80_120_180
 	Then I verify the user can be removed from the draft viewer
 	When I click on Pending Document Drafts menu
 	Then I search the document
+	When I click the status value link
 	Then I Terminate the document
 	Then I click on the hamburger menu
 	When Navigate to Levels in suite setup Page
@@ -55,6 +57,7 @@ Scenario: TC 03 : DOC_2500_20_310
 	Then I search the document
 	Then I click on the hamburger menu
 	And I verify the status value of the document as In Process
+	When I click the status value link
     Then I click on change request button in pending doc draft menu
 	Then I choose the date and enter the reason for change , description in change request screen
 	Then I select Attach Draft in change request screen
@@ -91,6 +94,7 @@ Scenario: TC 04  : DOC_2500_20_340
 	Then I search the document
 	Then I click on the hamburger menu
 	And I verify the status value of the document as In Process
+	When I click the status value link
     Then I click on change request button in pending doc draft menu
 	Then I choose the date and enter the reason for change , description in change request screen
 	Then I select Attach Draft in change request screen
@@ -136,9 +140,10 @@ Scenario: TC 05 : DOC_2500_20_350
 	Then I search the document
 	Then I click on the hamburger menu
 	And I verify the status value of the document as In Process
+	When I click the status value link
 	Then I click on change request button in pending doc draft menu
 	Then I choose the date and enter the reason for change , description in change request screen
-	Then I select 'online document' in change request screen
+	Then I select online document in change request screen
 	Then I click on the hamburger menu
 	When I click on Pending Requests menu
 	Then I validate pending requests menu
@@ -192,9 +197,11 @@ Scenario: TC 06 : DOC_2500_20_190
 	Then I search the document
 	Then I click on the hamburger menu
 	And I verify the status value of the document as In Process
+	When I click the status value link
 	Then I verify the user who already commented on the draft is not present in draft viewer
 	When I click on Pending Document Drafts menu
 	Then I search the document
+	When I click the status value link
 	Then I Terminate the document
 	Then I click on the hamburger menu
 	When Navigate to Levels in suite setup Page
@@ -219,6 +226,7 @@ Scenario: TC 07 : DOC_2500_20_50
 	Then I click on the hamburger menu
 	And I Validate the status column placed at the right most end
 	And I verify the status value of the document as In Process
+	When I click the status value link
 	Then I Terminate the document
 	Then I click on the hamburger menu
 	When Navigate to Levels in suite setup Page

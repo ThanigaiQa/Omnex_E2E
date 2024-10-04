@@ -96,6 +96,12 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.VerifyColorCodeOfStatusValue();
         }
 
+        [When(@"I click the status value link")]
+        public void WhenIClickTheStatusValueLink()
+        {
+            docProModule.ClickStatusValueLink();
+        }
+
         [Then(@"I add comment in the draft")]
         public void ThenIAddCommentInTheDraft()
         {
