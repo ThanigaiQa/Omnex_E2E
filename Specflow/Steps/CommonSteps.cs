@@ -53,7 +53,10 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
                 case "admin":
                     loginPage.LoginToApp(ConfigHelper.GetAdminUser(), ConfigHelper.GetPassword());
                     break;
-               
+                case "fsqa":
+                    loginPage.LoginToApp(ConfigHelper.GetFSQA(), ConfigHelper.GetPassword());
+                    break;
+
             }
         }
 
@@ -295,6 +298,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         [When(@"I click on (.*) menu")]
+        
         public void WhenIClickOnMenu(string menu)
         {
             switch (menu)

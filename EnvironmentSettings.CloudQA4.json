@@ -10,7 +10,8 @@
   "FailLogLanguage": "Json",
   "RightsUser": "RightScenario",
   "DocProUser": "DocProAdmin",
-  "AdminUser": "Administrator"
+  "AdminUser": "Administrator",
+  "FSQA": "FSQA"
 }
 
 

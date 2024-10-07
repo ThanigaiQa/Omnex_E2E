@@ -40,6 +40,60 @@ Scenario: TC 01 : DOC_2500_20_10_80_120_180
 	Then I validate the Levels page
 	Then Delete the Level
 
+@TC-02
+Scenario: TC 02 : DOC_2500_20_200_230_250_300_330
+	Given Login to the application with 'fsqa' user
+	When Navigate to Levels in suite setup Page
+	Then I validate the Levels page
+	Then Create random Level
+	Then I refresh the page
+	When Navigate to DocPro Setup in suite setup Page
+	Then I make the random level in use
+	Then Navigate to New Document Draft in Documents Page
+	Then I validate the New Document Draft in Documents Page
+	And I choose existing level and upload new document in pending doc draft page
+	When I click on Draft Request Needing Viewing menu
+	Then I search the document
+	Then I Click on Reply button to add new comment
+	Then I refresh the page
+	Then Navigate to Actions in Documents Page
+	When I click on Pending Document Drafts menu
+	Then I validate pending doc draft menu
+	Then I search the document
+	Then I Click on In Process button to Validate newest comment
+	Then I refresh the page
+	Then Navigate to Actions in Documents Page
+	When I click on Draft Request Needing Viewing menu
+	Then I search the document
+	Then I Click on Reply button to add old comment
+	Then I refresh the page
+	Then Navigate to Actions in Documents Page
+	When I click on Pending Document Drafts menu
+	Then I validate pending doc draft menu
+	Then I search the document
+	Then I Click on In Process button to Validate oldest comment
+	Then I refresh the page
+	Then Navigate to Actions in Documents Page
+	When I click on Draft Request Needing Viewing menu
+	Then I search the document
+	Then I Click on Reply button to add upvote to the comment
+	Then I refresh the page
+	Then Navigate to Actions in Documents Page
+	When I click on Pending Document Drafts menu
+	Then I validate pending doc draft menu
+	Then I search the document
+	Then I Click on In Process button to Validate upvote comment
+	And  I Validate the Change Request screen
+	Then I refresh the page
+	Then Navigate to Actions in Documents Page
+	When I click on Pending Document Drafts menu
+	Then I search the document
+	Then I Terminate the document
+	When Navigate to Levels in suite setup Page
+	Then I validate the Levels page
+	Then Delete the Level
+	
+
 @TC-03
 Scenario: TC 03 : DOC_2500_20_310
  Given Login to the application with 'right' user

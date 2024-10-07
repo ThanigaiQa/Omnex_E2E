@@ -238,6 +238,59 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** UA - 03 : Draft Req Needing Viewing - End of TC 01 ************ //
 
+        // *********** UA - 02 : Pending Doc Draft - Start of TC 02 ************ //
+
+        [Then(@"I add old comment in the draft")]
+        public void ThenIAddOldCommentInTheDraft()
+        {
+            docProModule.AddOldCommentForDraftInDraftReqNeedingMenu();
+        }
+
+        [Then(@"I Click on Reply button to add new comment")]
+        public void ThenIClickOnReplyButtonToAddNewComment()
+        {
+            docProModule.AddNewestCommentDraftRequestsNeedingViewing();
+        }
+
+        [Then(@"I Click on In Process button to Validate newest comment")]
+        public void ThenIClickOnInProcessButtonToValidateNewestComment()
+        {
+            docProModule.ValidateNewestCommentfromPendingDocumentDrafts();
+        }
+
+        [Then(@"I Click on Reply button to add old comment")]
+        public void ThenIClickOnReplyButtonToAddOldComment()
+        {
+            docProModule.AddOldCommentDraftRequestsNeedingViewing();
+        }
+
+        [Then(@"I Click on In Process button to Validate oldest comment")]
+        public void ThenIClickOnInProcessButtonToValidateOldestComment()
+        {
+            docProModule.ValidateOldestCommentFromPendingDocumentDrafts();
+        }
+
+        [Then(@"I Click on Reply button to add upvote to the comment")]
+        public void ThenIClickOnReplyButtonToAddUpvoteToTheComment()
+        {
+            docProModule.AddPopularCommentDraftRequestsNeedingViewing();
+        }
+
+        [Then(@"I Click on In Process button to Validate upvote comment")]
+        public void ThenIClickOnInProcessButtonToValidateUpvoteComment()
+        {
+            docProModule.ValidatePopularCommentPendingDocumentDrafts();
+        }
+        
+        [Then(@"I Validate the Change Request screen")]
+        public void ThenIValidateTheChangeRequestScreen()
+        {
+            docProModule.SelectAttachDraftWithoutClickingContinue();
+        }
+
+        // *********** UA - 02 : Pending Doc Draft - End of TC 02 ************ //
+
+
         #endregion
 
     }

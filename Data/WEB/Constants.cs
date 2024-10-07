@@ -19,5 +19,7 @@ namespace OMNEX.AUTOMATION.Data.WEB
         public const string SampleFilePath_Test = "\\Data\\WEB\\Test.xlsx";
         public const string SecondPassword = "d1";
         public const string StatusColorCode = "rgba(29, 158, 232, 1)";
+        public const string NewComment = "1";
+        public const string OldComment = "2";
     }
 }

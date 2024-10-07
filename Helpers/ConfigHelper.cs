@@ -74,6 +74,10 @@ namespace OMNEX.AUTOMATION.Helpers
         {
             return GetConfig()["AdminUser"];
         }
-       
+        public static string GetFSQA()
+        {
+            return GetConfig()["FSQA"];
+        }
+
     }
 }
