@@ -88,6 +88,7 @@ Scenario: TC 02 : DOC_2500_20_200_230_250_300_330
 	Then Navigate to Actions in Documents Page
 	When I click on Pending Document Drafts menu
 	Then I search the document
+	When I click the status value link
 	Then I Terminate the document
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page

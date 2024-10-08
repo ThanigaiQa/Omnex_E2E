@@ -469,7 +469,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(inp_MultiSearch);
             seleniumActions.SendKeys(inp_MultiSearch, docName);
             seleniumActions.Click(btnAdvancedSearch_MultiSearch);
-            seleniumActions.Wait(3);
+            seleniumActions.Wait(5);
             // ** Validate => DOC - 2500 - 10 - 40, 100 : Pending requests menu
             // should be displayed with the requested documents with In process status ** //
             Assert.IsTrue(seleniumActions.GetText(lbl_DocNameValue).Equals(docName));
