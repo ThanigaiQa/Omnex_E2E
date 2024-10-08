@@ -328,8 +328,15 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         #endregion
 
+        By ewqimsLogo => By.XPath("//img[@id='mainlogolistmodules']");
+        By supplierPlatformName => By.XPath("//li/a/*[@data-icon='shopping-cart']");
+
+        By menuBars => By.XPath("//*[@data-icon='bars']");
+        By clickDoneUser => By.XPath("//button[@title='Done']");
+
+        
         #region Iframe
-        static By iframe_DetailView => By.XPath("//iframe[@name='Detailview']");
+        static  By iframe_DetailView => By.XPath("//iframe[@name='Detailview']");
         static By iframe_Tree => By.XPath("//iframe[@id='iframeTree']");
         static By iframe_ifrUsers => By.XPath("//iframe[@id='ifrUsers']");
         static By iframe_ifrAlbum => By.XPath("(//iframe[@id='ifrAlbum'])[1]");
@@ -1970,6 +1977,69 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SendKeys(hintSearch, Keys.Clear);
             seleniumActions.SendKeys(hintSearch, user);
             Assert.IsTrue(seleniumActions.IsElementPresent(lbl_NoRecords), "Records Unavailable");
+        }
+
+        ///Select the Supplier Platform
+        public void selectSupplierPlatform()
+        {
+            seleniumActions.Click(ewqimsLogo);
+            seleniumActions.Click(supplierPlatformName);
+            seleniumActions.Wait(3);
+
+        }
+
+        /// <summary>
+        /// Navigate to desired menu by passing the following parameters
+        /// </summary>
+        /// <param name="sideMenu"></param>
+        /// <param name="subMenu"></param>
+        /// <param name="innerMenu"></param> --> Optional
+        public void GoToDesiredMenu(string sideMenu, string subMenu, string innerMenu)
+        {
+
+            //Click on Menubar if Sidemenu not available
+            seleniumActions.Wait(5);
+           
+            if (!seleniumActions.IsElementPresent(By.XPath("//ul[@id='sidemenu']//a/div[text()='"+sideMenu+"']")))
+            {
+                seleniumActions.Click(menuBars);
+            }
+            seleniumActions.Click(By.XPath("//ul[@id='sidemenu']//a/div[text()='"+sideMenu+"']"));
+            seleniumActions.Click(By.XPath("//ul[@id='submenu']/li/a/span[text()='"+subMenu+"']"));           
+            if (!String.Equals(innerMenu,""))
+            {
+                
+                seleniumActions.Wait(2);
+                if (!seleniumActions.VerifyElementIsDisplayed(By.XPath("(//ul[@class='inner_submenu']//a[@title='" + innerMenu + "']//span[contains(text(),'" + innerMenu + "')])[2]"))) ;
+                {
+                    seleniumActions.Click(By.XPath("//ul[@id='sidemenu']//a/div[text()='" + sideMenu + "']"));
+                  //  seleniumActions.Click(By.XPath("//ul[@id='submenu']/li/a/span[text()='" + subMenu + "']"));
+
+                }
+                seleniumActions.MoveToElement(By.XPath("(//ul[@class='inner_submenu']//a[@title='" + innerMenu + "']//span[contains(text(),'" + innerMenu + "')])[2]"));
+                seleniumActions.ActionsClick(By.XPath("(//ul[@class='inner_submenu']//a[@title='" + innerMenu + "']//span[contains(text(),'" + innerMenu + "')])[2]"));
+
+            }
+
+
+        }
+
+        public void SelectTheUser(String userName)
+        {
+            seleniumActions.Wait(3);
+            seleniumActions.SwitchToIframes(iframe_ifrUsers);
+
+            seleniumActions.Click(txtUsername);
+            seleniumActions.SendKeys(txtUsername, text: userName);
+            seleniumActions.Wait(2);
+
+            seleniumActions.MoveToElement(chkTeamLeaderInactive);
+            seleniumActions.Click(chkTeamLeaderInactive);
+
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(clickDoneUser);
+
         }
 
         // ***************** End of TC 19 ************ //

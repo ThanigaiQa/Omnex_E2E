@@ -302,7 +302,8 @@ namespace OMNEX.AUTOMATION.Helpers
             return combinedString;
         }
 
-        /// <summary>
+       
+        /// <summary> 
         /// Returning project path can be used to add address in the files
         /// </summary>
         /// <returns></returns>

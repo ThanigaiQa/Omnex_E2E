@@ -54,6 +54,11 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
                     loginPage.LoginToApp(ConfigHelper.GetAdminUser(), ConfigHelper.GetPassword());
                     break;
                
+
+                case "kaalaa":
+                    loginPage.NavigateToURL(ConfigHelper.GetURL());
+                    loginPage.LoginToApp(ConfigHelper.GetKaalaaUser(), ConfigHelper.GetPasswordA1());
+                    break;
             }
         }
 

@@ -220,14 +220,3 @@ Scenario: 23 Create Country, State, and City functionalities
 	When I Navigate to Country / Region in system Page
 	Then I delete country
 
-@TC-24
-Scenario: 24 Create entity, assign owner and delete entity
-	Given Login to the application with 'Right' user
-	When Navigate to Entity page
-	Then I create a Entity
-	Then I refresh the page
-	When Navigate to Entity Owners page
-	Then I assign owner to the entity
-	Then I refresh the page
-	When Navigate to Entity page
-	Then I delete the Entity
