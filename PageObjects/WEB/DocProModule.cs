@@ -200,7 +200,12 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By svg_DraftViewersIconDraftReqNeedingPage => By.XPath("//*[local-name()='svg' and @onclick='GetUserDetailPopUp()']");
         By btn_Upvote => By.XPath("//button[@class='likedby action upvote']");
         By txtbox_commentsBox => By.XPath("(//div[@class='content'])[1]");
-        
+        By rdo_Accept_Disabled => By.XPath("//input[@id='accept' and contains(@disabled,'disabled')]");
+        By rdo_Reject_Disabled => By.XPath("//input[@id='reject' and contains(@disabled,'disabled')]");
+        By badge_Accepted_Comment => By.XPath("//span[@class='badge badge-success']");
+        By badge_Rejected_Comment => By.XPath("//span[@class='badge badge-danger']");
+
+
 
         #endregion
 
@@ -459,6 +464,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void SearchDocumentInActionsPage(string docName)
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+
             Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
             seleniumActions.Click(btnMultiSearch);
             Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch));
@@ -983,9 +989,10 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             var projectPath = new Uri(actualPath).LocalPath;
 
             string docName = Constants.Name + utility.GenerateRandomText(2);
+            string docNumber = Constants.DocNumber + utility.RandomNumberGenerator(2);
             seleniumActions.SwitchToFrame(iframe_DetailView);
             seleniumActions.Click(txtDocNum_PendingDocDraft);
-            seleniumActions.SendKeys(txtDocNum_PendingDocDraft, "777");
+            seleniumActions.SendKeys(txtDocNum_PendingDocDraft, docNumber);
             seleniumActions.Click(txtDocName_PendingDocDraft);
             seleniumActions.SendKeys(txtDocName_PendingDocDraft, docName);
             seleniumActions.SendKeys(inp_ChooseFile_PendingDocDraft, projectPath.ToString() + Constants.SampleFilePath_Book);
@@ -1494,9 +1501,61 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.IsElementPresent(rdo_Reject), "reject radio button is not present");
             seleniumActions.Click(rdo_Reject);
             seleniumActions.SwitchToDefaultContent();
+
         }
 
         // *********** UA - 03 : Draft Req Needing Viewing - End of TC 01 ************ //
+
+
+
+        // *********** UA - 03 : Draft Req Needing Viewing - Start of TC 02 ************ //
+
+        /// <summary>
+        /// Click Accept Radio Button
+        /// </summary>
+        public void ClickOnAcceptRadioButtonInDraftReqNeedingViewingPage()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            Assert.IsTrue(seleniumActions.IsElementPresent(rdo_Accept), "accept radio button is not present");
+            seleniumActions.Click(rdo_Accept);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Verify Accept and Reject radio button is disabled
+        /// </summary>
+        public void ValidateAcceptAndRejectRadioButtonIsDisabled()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            Assert.IsTrue(seleniumActions.IsElementPresent(rdo_Accept_Disabled), "Accept radio button is not disabled");
+            Assert.IsTrue(seleniumActions.IsElementPresent(rdo_Reject_Disabled), "Reject radio button is not disabled");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Verify Accepted badge color
+        /// </summary>
+        public void ValidateAcceptedBadgeColor()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            string badgeColor = seleniumActions.FindElement(badge_Accepted_Comment).GetCssValue("background-color");
+            Assert.IsTrue(badgeColor.Equals(Constants.AcceptedBadgeColorCode));
+            seleniumActions.SwitchToDefaultContent();
+
+        }
+
+        /// <summary>
+        /// Verify Rejected badge color
+        /// </summary>
+        public void ValidateRejectedBadgeColor()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            string badgeColor = seleniumActions.FindElement(badge_Rejected_Comment).GetCssValue("background-color");
+            Assert.IsTrue(badgeColor.Equals(Constants.RejectedBadgeColorCode));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** UA - 03 : Draft Req Needing Viewing - End of TC 03 ************ //
 
         #endregion
 
