@@ -1,4 +1,5 @@
-﻿using OMNEX.AUTOMATION.Helpers;
+﻿using Microsoft.VisualStudio.TestPlatform.ObjectModel;
+using OMNEX.AUTOMATION.Helpers;
 using OMNEX.AUTOMATION.PageObjects.WEB;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,8 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.ValidateUIElementsOfPendingRequestsMenu();
         }
 
+        // ********************************************* User Actions - 01 Pending Requests ************************************************ //
+
         // *********** UA - 01 : Pending Request - Start of TC 06 ************ //
 
         [Then(@"I choose existing level and upload new document with DCN option in doc request page")]
@@ -83,12 +86,20 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** UA - 01 : Pending Request - Start of TC 07 ************ //
 
+        // ********************************************* User Actions - 02 Pending Document Draft ************************************************ //
+
         // *********** UA - 02 : Pending Doc Draft - Start of TC 01 ************ //
 
         [Then(@"I verify the color code of In Process link")]
         public void ThenIVerifyTheColorCodeOfInProcessLink()
         {
             docProModule.VerifyColorCodeOfStatusValue();
+        }
+
+        [When(@"I click the status value link")]
+        public void WhenIClickTheStatusValueLink()
+        {
+            docProModule.ClickStatusValueLink();
         }
 
         [Then(@"I add comment in the draft")]
@@ -194,6 +205,8 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** UA - 02 : Pending Doc Draft - End of TC 05 ************ //
 
+        // ********************************************* User Actions - 03 Draft Request Needing Viewing ************************************************ //
+
         // *********** UA - 03 : Draft Request Viewing - Start of TC 02 ************ //
 
         [Then(@"I validate the Accept and Reject radio button is not present")]
@@ -206,7 +219,76 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         {
             docProModule.ValidateLatestCommentIsPresent();
         }
+
         // *********** UA - 03 : Draft Request Viewing - End of TC 02 ************ //
+
+        // *********** UA - 03 : Draft Req Needing Viewing - Start of TC 01 ************ //
+
+        [Then(@"I add and verify the user can be added from the draft viewer in draft req needing viewing")]
+        public void ThenIAddAndVerifyTheUserCanBeAddedFromTheDraftViewerInDraftReqNeedingViewing()
+        {
+            docProModule.VerifyUserCanBeAddedFromDraftViewerInDraftReqNeedingViewing();
+        }
+
+        [Then(@"I reject the draft request in Draft Request Needing Viewing menu")]
+        public void ThenIRejectTheDraftRequestInDraftRequestNeedingViewingMenu()
+        {
+            docProModule.ClickOnRejectRadioButtonInDraftReqNeedingViewingPage();
+        }
+
+        // *********** UA - 03 : Draft Req Needing Viewing - End of TC 01 ************ //
+
+        // *********** UA - 02 : Pending Doc Draft - Start of TC 02 ************ //
+
+        [Then(@"I add old comment in the draft")]
+        public void ThenIAddOldCommentInTheDraft()
+        {
+            docProModule.AddOldCommentForDraftInDraftReqNeedingMenu();
+        }
+
+        [Then(@"I Click on Reply button to add new comment")]
+        public void ThenIClickOnReplyButtonToAddNewComment()
+        {
+            docProModule.AddNewestCommentDraftRequestsNeedingViewing();
+        }
+
+        [Then(@"I Click on In Process button to Validate newest comment")]
+        public void ThenIClickOnInProcessButtonToValidateNewestComment()
+        {
+            docProModule.ValidateNewestCommentfromPendingDocumentDrafts();
+        }
+
+        [Then(@"I Click on Reply button to add old comment")]
+        public void ThenIClickOnReplyButtonToAddOldComment()
+        {
+            docProModule.AddOldCommentDraftRequestsNeedingViewing();
+        }
+
+        [Then(@"I Click on In Process button to Validate oldest comment")]
+        public void ThenIClickOnInProcessButtonToValidateOldestComment()
+        {
+            docProModule.ValidateOldestCommentFromPendingDocumentDrafts();
+        }
+
+        [Then(@"I Click on Reply button to add upvote to the comment")]
+        public void ThenIClickOnReplyButtonToAddUpvoteToTheComment()
+        {
+            docProModule.AddPopularCommentDraftRequestsNeedingViewing();
+        }
+
+        [Then(@"I Click on In Process button to Validate upvote comment")]
+        public void ThenIClickOnInProcessButtonToValidateUpvoteComment()
+        {
+            docProModule.ValidatePopularCommentPendingDocumentDrafts();
+        }
+        
+        [Then(@"I Validate the Change Request screen")]
+        public void ThenIValidateTheChangeRequestScreen()
+        {
+            docProModule.SelectAttachDraftWithoutClickingContinue();
+        }
+
+        // *********** UA - 02 : Pending Doc Draft - End of TC 02 ************ //
 
 
         #endregion

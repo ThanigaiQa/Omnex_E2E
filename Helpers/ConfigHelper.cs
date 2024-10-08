@@ -74,48 +74,10 @@ namespace OMNEX.AUTOMATION.Helpers
         {
             return GetConfig()["AdminUser"];
         }
-
-        public static string GetKaalaaUser()
+        public static string GetFSQA()
         {
-            return GetConfig()["Adminkaalaa"];
+            return GetConfig()["FSQA"];
         }
 
-        public static string GetPasswordA1()
-        {
-            return GetConfig()["PasswordA1"];
-        }
-
-        public static string GetSupplierName()
-        {
-            return GetConfig()["SupplierName"];
-        }
-
-        public static void SetSupplierName(String suppliername)
-        {
-            GetConfig()["SupplierName"] = suppliername;
-        }
-
-        public static string GetSupplierCode()
-        {
-            return GetConfig()["SupplierCode"];
-        }
-
-        public static void SetSupplierCode(String suppliercode)
-        {
-            GetConfig()["SupplierCode"] = suppliercode; 
-        }
-
-        public static string GetSupplierEmail()
-        {
-            return GetConfig()["SupplierEmail"];
-        }
-
-        public static void SetSupplierEmail(String supplierEmail)
-        {
-            GetConfig()["SupplierEmail"] = supplierEmail; 
-        }
-        
-       
-       
     }
 }

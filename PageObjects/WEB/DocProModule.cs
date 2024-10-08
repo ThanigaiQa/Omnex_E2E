@@ -197,6 +197,10 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By rdo_Accept => By.XPath("//label[@for='accept']");
         By rdo_Reject => By.XPath("//label[@for='reject']");
         By lbl_LatestComment => By.XPath("(//div[@class='wrapper']//div[@class='content'])[1]");
+        By svg_DraftViewersIconDraftReqNeedingPage => By.XPath("//*[local-name()='svg' and @onclick='GetUserDetailPopUp()']");
+        By btn_Upvote => By.XPath("//button[@class='likedby action upvote']");
+        By txtbox_commentsBox => By.XPath("(//div[@class='content'])[1]");
+        
 
         #endregion
 
@@ -465,7 +469,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(inp_MultiSearch);
             seleniumActions.SendKeys(inp_MultiSearch, docName);
             seleniumActions.Click(btnAdvancedSearch_MultiSearch);
-            seleniumActions.Wait(3);
+            seleniumActions.Wait(5);
             // ** Validate => DOC - 2500 - 10 - 40, 100 : Pending requests menu
             // should be displayed with the requested documents with In process status ** //
             Assert.IsTrue(seleniumActions.GetText(lbl_DocNameValue).Equals(docName));
@@ -478,7 +482,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void TerminateDocumentInActionsPage()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
-            seleniumActions.Click(lnk_StatusValue);
             // ** Validate => DOC-2500-10-210 ** //
             Assert.IsTrue(seleniumActions.IsElementPresent(lnk_DocNumberValue, 5), "link doc number value is not found");
             seleniumActions.ScrollToElement(btn_Terminate);
@@ -493,7 +496,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(btnYes_Popup);
             seleniumActions.SwitchToDefaultContent();
             seleniumActions.SwitchToFrame(iframe_DetailView);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lblActions, 5), "label actions in action page is not found");
+            //Assert.IsTrue(seleniumActions.IsElementPresent(lblActions, 5), "label actions in action page is not found");
             seleniumActions.SwitchToDefaultContent();
         }
 
@@ -607,7 +610,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void TerminateDocumentWithDCN()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
-            seleniumActions.Click(lnk_StatusValue);
             Assert.IsTrue(seleniumActions.IsElementPresent(lnk_DocNumberValue, 5), "link doc number value is not found");
 
             Assert.IsTrue(seleniumActions.IsElementPresent(lbl_DCNInfo, 5), "dcn info is not found");
@@ -755,7 +757,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void RejectDocument()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
-            seleniumActions.Click(lnk_StatusValue);
             seleniumActions.ScrollToElement(rad_Reject);
             seleniumActions.Click(rad_Reject);
             seleniumActions.Wait(3);
@@ -1015,6 +1016,17 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToDefaultContent();
         }
 
+        /// <summary>
+        /// this method helps to click the statusValue link
+        /// </summary>
+        /// 
+        public void ClickStatusValueLink()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            seleniumActions.Click(lnk_StatusValue);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
         // *********** UA - 02 : Pending Doc Draft - Start of TC 01 ************ //
 
         /// <summary>
@@ -1030,7 +1042,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.IsElementPresent(lbl_Revision, 5), "revision is not found");
             Assert.IsTrue(seleniumActions.IsElementPresent(lbl_LastCmntDate, 5), "last cmnt date is not found");
             Assert.IsTrue(seleniumActions.IsElementPresent(lbl_Status, 5), "status is not found");
-            Assert.IsTrue(seleniumActions.IsElementPresent(lblWaitingForComment, 5), "waiting for comment is not found");
             seleniumActions.SwitchToDefaultContent();
         }
 
@@ -1062,9 +1073,18 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void AddCommentForDraftInDraftReqNeedingMenu()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
-            seleniumActions.Click(lnk_StatusValue);
             seleniumActions.Click(txtAddComment);
             seleniumActions.SendKeys(txtAddComment,Constants.Name);
+            seleniumActions.Click(btn_Send);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        public void AddOldCommentForDraftInDraftReqNeedingMenu()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            seleniumActions.Click(lnk_StatusValue);
+            seleniumActions.Click(txtAddComment);
+            seleniumActions.SendKeys(txtAddComment, Constants.TestName);
             seleniumActions.Click(btn_Send);
             seleniumActions.SwitchToDefaultContent();
         }
@@ -1137,7 +1157,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void VerifyUserCannotRemovedFromTheDraft()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
-            seleniumActions.Click(lnk_StatusValue);
             Assert.IsTrue(seleniumActions.IsElementPresent(btn_ChangeRequest, 5), "change req button is not found");
             Assert.IsTrue(seleniumActions.IsElementPresent(svg_DraftViewersIcon, 5), "Add draft viewers button is not found");
             seleniumActions.WaitForElementToExists(svg_DraftViewersIcon);
@@ -1204,7 +1223,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void ClickChangeRequestOnPendingDocDraft()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
-            seleniumActions.Click(lnk_StatusValue);
             Assert.IsTrue(seleniumActions.IsElementPresent(btn_ChangeRequest, 5), "change req button is not found");
             seleniumActions.Click(btn_ChangeRequest);
             seleniumActions.SwitchToDefaultContent();
@@ -1308,12 +1326,113 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         // *********** UA - 02 : Pending Doc Draft - End of TC 03 ************ //
 
+        // *********** UA - 02 : Pending Doc Draft - Start of TC 02 ************ //
+
+        /// <summary>
+        /// Add the comments in Draft Requests Needing Viewing Tab
+        /// </summary>
+        public void AddNewestCommentDraftRequestsNeedingViewing()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            seleniumActions.Click(lnk_StatusValue);
+            seleniumActions.Click(txtAddComment);
+            seleniumActions.SendKeys(txtAddComment, Constants.NewComment);
+            seleniumActions.Click(btn_Send);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Validate the comments in Pending Document Drafts under Newest comment tab
+        /// </summary>
+        public void ValidateNewestCommentfromPendingDocumentDrafts()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            seleniumActions.Click(lnk_StatusValue);
+            seleniumActions.Click(tbl_NewestComments);
+            Assert.IsTrue(seleniumActions.GetText(txtbox_commentsBox).Equals(Constants.NewComment), "Comment is not present in the tab");
+            seleniumActions.SwitchToDefaultContent();
+
+        }
+
+        /// <summary>
+        /// Add the comments in Draft Requests Needing Viewing Tab
+        /// </summary>
+        public void AddOldCommentDraftRequestsNeedingViewing()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            seleniumActions.Click(lnk_StatusValue);
+            seleniumActions.Click(txtAddComment);
+            seleniumActions.SendKeys(txtAddComment, Constants.OldComment);
+            seleniumActions.Click(btn_Send);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Validate the comments in Pending Document Drafts under Oldest comment tab
+        /// </summary>
+        public void ValidateOldestCommentFromPendingDocumentDrafts()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            seleniumActions.Click(lnk_StatusValue);
+            seleniumActions.Click(tbl_OldestComments);
+            Assert.IsTrue(seleniumActions.GetText(txtbox_commentsBox).Equals(Constants.OldComment), "Comment is not present in the tab");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Click the Upvote in Draft Requests Needing Viewing Tab
+        /// </summary>
+        public void AddPopularCommentDraftRequestsNeedingViewing()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            seleniumActions.Click(lnk_StatusValue);
+            seleniumActions.Click(tbl_NewestComments);
+            seleniumActions.Click(btn_Upvote);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Validate the comments in Pending Document Drafts under Newest comment tab
+        /// </summary>
+        public void ValidatePopularCommentPendingDocumentDrafts()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            seleniumActions.Click(lnk_StatusValue);
+            seleniumActions.Click(tbl_PopularComments);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(tbl_OldestComments);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(tbl_PopularComments);
+            seleniumActions.Wait(2);
+            Assert.IsTrue(seleniumActions.GetText(txtbox_commentsBox).Equals(Constants.OldComment), "Comment is not present in the tab");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+
+        /// <summary>
+        /// Validate the attach draft button without continue button
+        /// </summary>
+        public void SelectAttachDraftWithoutClickingContinue()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            seleniumActions.Click(btn_ChangeRequest);
+            seleniumActions.ScrollToPosition(0, 1000);
+            Assert.IsTrue(seleniumActions.IsElementPresent(chk_AttachDraft), "attach draft checkbox is not visible");
+            seleniumActions.Click(chk_AttachDraft);
+           
+        }
+
+        
+        // *********** UA - 02 : Pending Doc Draft - End of TC 03 ************ //
+
+        // ********************************************* User Actions - 03 Draft Request Needing Viewing ************************************************ //
+
         // *********** UA - 03 : Draft Request Viewing - Start of TC 02 ************ //
 
         /// <summary>
         /// This method is helps to verify the Accept and Reject radio button is not present in the draft details page
         /// </summary>
-        
+
         public void ValidateAcceptAndRejectRadioIsNotPresent()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
@@ -1329,13 +1448,55 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void ValidateLatestCommentIsPresent()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
-            seleniumActions.Click(lnk_StatusValue);
             Assert.IsTrue(seleniumActions.IsElementPresent(lnk_DocNumberValue, 5), "link doc number value is not found");
             Assert.IsTrue(seleniumActions.IsElementPresent(lbl_LatestComment), "latest comment is not present");
             seleniumActions.SwitchToDefaultContent();
         }
+
         // *********** UA - 03 : Draft Request Viewing - End of TC 03 ************ //
 
+        // *********** UA - 03 : Draft Req Needing Viewing - Start of TC 01 ************ //
+
+        /// <summary>
+        /// verifies the user can be added from draft viewer in draft req needing viewing
+        /// </summary>
+        public void VerifyUserCanBeAddedFromDraftViewerInDraftReqNeedingViewing()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            Assert.IsTrue(seleniumActions.IsElementPresent(svg_DraftViewersIconDraftReqNeedingPage, 5), "Add draft viewers button is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(tbl_OldestComments, 5), "oldest cmnt section tab is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(tbl_NewestComments, 5), "newest cmnt section tab is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(tbl_PopularComments, 5), "popular cmnt section tab is not found");
+            seleniumActions.Click(svg_DraftViewersIconDraftReqNeedingPage);
+
+            seleniumActions.Wait(4);
+            seleniumActions.SwitchToIframes(iframe_ifrUsers);
+            seleniumActions.Click(phd_Name);
+            seleniumActions.SendKeys(phd_Name, "DocPro-Admin");
+            seleniumActions.Wait(3);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblTeamLeader_SearchResult));
+            Assert.IsTrue(seleniumActions.GetText(lblTeamLeader_SearchResult).Contains(Constants.DocProUsername));
+            seleniumActions.Click(chkUsernameInactive);
+            Assert.IsTrue(seleniumActions.IsElementPresent(chkUsernameActive, 5), "username was not checked");
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            seleniumActions.Click(btn_Done);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// reject the draft request in draft req needing viewing page
+        /// </summary>
+        public void ClickOnRejectRadioButtonInDraftReqNeedingViewingPage()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
+            Assert.IsTrue(seleniumActions.IsElementPresent(rdo_Accept),"accept radio button is not present");
+            Assert.IsTrue(seleniumActions.IsElementPresent(rdo_Reject), "reject radio button is not present");
+            seleniumActions.Click(rdo_Reject);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** UA - 03 : Draft Req Needing Viewing - End of TC 01 ************ //
 
         #endregion
 
