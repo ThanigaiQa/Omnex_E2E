@@ -30,8 +30,13 @@ namespace OMNEX.AUTOMATION.Helpers
         /// <returns>Random integer as string</returns>
         public string RandomNumberGenerator(int limit)
         {
-            Random rnd = new Random(limit);
-            return rnd.Next().ToString();
+            if (limit <= 0)
+                throw new ArgumentException("Limit count must be greater than zero.");
+            Random rnd = new Random();
+            int minValue = (int)Math.Pow(10, limit - 1); 
+            int maxValue = (int)Math.Pow(10, limit) - 1; 
+            int number = rnd.Next(minValue, maxValue + 1); 
+            return number.ToString();
         }
 
         /// <summary>

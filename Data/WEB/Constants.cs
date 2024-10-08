@@ -21,5 +21,8 @@ namespace OMNEX.AUTOMATION.Data.WEB
         public const string StatusColorCode = "rgba(29, 158, 232, 1)";
         public const string NewComment = "1";
         public const string OldComment = "2";
+        public const string AcceptedBadgeColorCode = "rgba(38, 218, 210, 1)";
+        public const string RejectedBadgeColorCode = "rgba(239, 83, 80, 1)";
+        public const string DocNumber = "Doc-";
     }
 }
