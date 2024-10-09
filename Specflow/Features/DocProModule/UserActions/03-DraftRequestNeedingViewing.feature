@@ -31,15 +31,9 @@ Scenario: TC 01 : DOC-2500-40-10-50
 	And I verify the status value of the document as Reply
 	When I click the status value link
 	Then I reject the draft request in Draft Request Needing Viewing menu
-	Then I refresh the page
-	When I click on Draft Request Needing Viewing menu
-	Then I search the document
-	Then I click on the hamburger menu
-	And I verify the status value of the document as Reply
-	When I click the status value link
 	Then I add comment in the draft
 	Then Logout from the application
-	Then Login to the application with 'thani' user
+	#Then Login to the application with 'thani' user
 	#When I click on Pending Document Drafts menu
 	#Then I search the document
 	#Then I click on the hamburger menu

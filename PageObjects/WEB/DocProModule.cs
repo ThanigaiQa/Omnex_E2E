@@ -1069,7 +1069,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void ClickDraftReqNeedingViewingMenu()
         {
             seleniumActions.SwitchToFrame(iframe_DetailView);
-            Assert.IsTrue(seleniumActions.IsElementPresent(menu_DraftRequestsNeedingViewing, 5), "Pending requests menu is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(menu_DraftRequestsNeedingViewing, 5), "Draft req needing viewing menu is not found");
             seleniumActions.Click(menu_DraftRequestsNeedingViewing);
             seleniumActions.SwitchToDefaultContent();
         }
