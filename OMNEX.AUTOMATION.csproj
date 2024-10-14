@@ -28,9 +28,6 @@
 
   <ItemGroup>
     <SpecFlowObsoleteCodeBehindFiles Remove="Specflow\Features\Login - Copy.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Specflow\Features\Supplier Management\Supplier setups\TC-01 Create Supplier with Mandatory Values.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Specflow\Features\Supplier Management\TC-01 Create Supplier with Mandatory Values - Copy.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Specflow\Features\Supplier Management\TC-01 Verify_RememberMe_Functionality .feature.cs" />
   </ItemGroup>
  
    <ItemGroup>
@@ -61,15 +58,6 @@
   <ItemGroup>
     <Compile Update="Specflow\Features\Suite_Module.feature.cs">
       <DependentUpon>Suite_Module.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Specflow\Features\Supplier Management\Supplier setups\TC-01 Create Supplier Route.feature.cs">
-      <DependentUpon>TC-01 Create Supplier Route.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Specflow\Features\Supplier Management\TC-02 Create Supplier Evaluation Request.feature.cs">
-      <DependentUpon>TC-02 Create Supplier Evaluation Request.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Specflow\Features\Supplier Management\TC-01 Create Supplier with Mandatory Values.feature.cs">
-      <DependentUpon>TC-01 Create Supplier with Mandatory Values.feature</DependentUpon>
     </Compile>
   </ItemGroup>
 
