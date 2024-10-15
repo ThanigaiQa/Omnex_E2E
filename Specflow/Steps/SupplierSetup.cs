@@ -139,6 +139,33 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         }
 
+       
+
+        [Then(@"Check the buttons in the Supplier Listing Page")]
+        public void ThenCheckTheButtonsInTheSupplierDetailsPage()
+        {
+            supplier.checkButtonsInSupplierInformation();
+        }
+
+        [Then(@"Set Supplier Evaluation BusinessRule as No")]
+        public void ThenSetSupplierEvaluationBusinessRuleAsNo()
+        {
+            supplier.setSupplierEvaluationBusinessRuleasNO();
+        }
+
+        [Then(@"Set Audit against Part as Yes")]
+        public void ThenSetAuditAgainstPartAsYes()
+        {
+            supplier.setAuditAgainstPartBusinessRuleasYes();
+        }
+
+        [Then(@"Check the fields in the Supplier Details Page")]
+        public void ThenCheckTheFieldsInTheSupplierDetailsPage()
+        {
+           
+        }
+
+
 
         #endregion
 

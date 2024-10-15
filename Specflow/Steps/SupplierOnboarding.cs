@@ -76,7 +76,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             supplier.navigateToSupplierSetup();
         }
 
-        [Then(@"Set Supplier Evaluation BusinessRule")]
+        [Then(@"Set Supplier Evaluation BusinessRule as Yes")]
         public void ThenSetSupplierEvaluationBusinessRule()
         {
             supplier.setSupplierEvaluationBusinessRule();

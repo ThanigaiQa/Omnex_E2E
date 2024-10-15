@@ -78,6 +78,10 @@ namespace OMNEX.AUTOMATION.Helpers
         {
             return GetConfig()["FSQA"];
         }
+        public static string GetKaalaaUser()
+        {
+            return GetConfig()["KaalaaUser"];
+        }
 
     }
 }

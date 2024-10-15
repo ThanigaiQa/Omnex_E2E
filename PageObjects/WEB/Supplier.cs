@@ -54,10 +54,13 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By chkBoxUserResult => By.XPath("(//table[@id='userListingGridControl']//tr[@class='odd']//input[@type='checkbox'])[1]");
         By chkTeamLeaderInactive => By.XPath("(//table[@id='userListingGridControl']//tr[@class='odd']//input[@type='checkbox'])[1]");
         By clickDoneUser => By.XPath("//button[@title='Done']");
-        By newSupplierButton => By.XPath("//*[@id = 'btnAdd' or @id='btnadd']");        
+        By newSupplierButton => By.XPath("//*[@id = 'btnAdd' or @title='New']");        
         By saveSupplier => By.XPath("//button[@id='btnSave']");
         By alertInSupplier => By.XPath("//div[@class='alert alert-warning alert-dismissible border-bottom']/a");
         By closeAlert => By.XPath("//a[@id='alert_ok']");
+        By inputDocproDocName => By.XPath("//input[@id='txtSearchTree_tvDocument']");
+        By btnDocproPopupSearch => By.XPath("//*[local-name()='svg' and @title='Search']");
+        By btnCreateSupplierEvaluationRequest => By.XPath("//button[@id='btnadd' and @title='Create Supplier Evaluation Request']");
         #endregion
        
 
@@ -72,7 +75,10 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By bRuleAuditAgainstPartsNo => By.XPath("//input[@id='rdoIsAuditNo']");
         By bRuleVMFNo => By.XPath("//input[@id='rdoIsVMFFormNo']");
         By bRuleParentSupplierNo => By.XPath("//input[@id='rdoIsParentEntityNo']");
-        #endregion
+
+        By delParentLevelSelector => By.XPath("//a[@id='btnDelParentLavel']"); 
+        By editParentLevelSelector => By.XPath("//a[@id='btnEditParentLavel']");
+        #endregion//button[@id='btnadd' and @title='Create Supplier Evaluation Request']
 
         #region SupplierEvaluation Page
 
@@ -139,7 +145,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         {
             seleniumActions.SwitchToIframes(iframe_DetailView);
             String temp = seleniumActions.GetAttributeValue(By.XPath("//input[@id='txtCode']"), "value");
-            ConfigHelper.SetSupplierCode(temp);
+            //ConfigHelper.SetSupplierCode(temp);
 
             validateSupplierField("SupplierName");
             String primaryMail = "primary@" + temp + ".com";
@@ -148,11 +154,11 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             temp = "Supplier " + temp;
 
             seleniumActions.SendKeys(supplierName, text: temp);
-            ConfigHelper.SetSupplierName(temp);
+           // ConfigHelper.SetSupplierName(temp);
             //temp = temp.Replace("-", "");
             //temp = temp.Replace("\\s", "");
             
-            ConfigHelper.SetSupplierEmail(primaryMail);
+            //ConfigHelper.SetSupplierEmail(primaryMail);
 
             validateSupplierField("Supplier Type");
             seleniumActions.Click(supplierTypeDropdown);
@@ -181,7 +187,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(saveSupplier);
             seleniumActions.Wait(2);
             seleniumActions.Click(closeAlert);
-            Console.WriteLine("Supplier created " + ConfigHelper.GetSupplierName());
+            //Console.WriteLine("Supplier created " + ConfigHelper.GetSupplierName());
             Console.WriteLine("Primary email created " + primaryMail);
             Console.WriteLine("Secondary email created " + secondaryMail);
 
@@ -264,12 +270,12 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Console.WriteLine("Inside Supplier evaluation request");
             seleniumActions.SwitchToIframes(iframe_DetailView);
             String temp = seleniumActions.GetAttributeValue(By.XPath("//input[@id='txtSupplierCode']"), "value");
-            ConfigHelper.SetSupplierCode(temp);
+            //ConfigHelper.SetSupplierCode(temp);
 
             validateSupplierField("SupplierName");
             temp = "Supplier " + temp;
             seleniumActions.SendKeys(supplierName, text: temp);
-            ConfigHelper.SetSupplierName(temp);
+           // ConfigHelper.SetSupplierName(temp);
 
             validateSupplierField("Supplier Name");
             seleniumActions.SendKeys(By.XPath("//input[@id='txtSupplierName']"), text: temp);
@@ -521,14 +527,119 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(supplierBusinessRule);
             seleniumActions.SwitchToFrame(iframeMenuData);
 
+           // string originalWindow = _driver.CurrentWindowHandle;
             seleniumActions.MoveToElement(By.XPath("//a[@id='ahref_divDocProLevelSelector']/span"));
             seleniumActions.Click(By.XPath("//a[@id='ahref_divDocProLevelSelector']/span"));
 
-            seleniumActions.MoveToElement(By.XPath("//a[@id='btnEditParentLavel']"));
-            seleniumActions.Click(By.XPath("//a[@id='btnEditParentLavel']"));
-            seleniumActions.Wait(3);
+            if (seleniumActions.IsElementPresent(By.XPath("//a[@id='btnEditParentLavel' and @style='display: none;']")))
+            {
+               // seleniumActions.Click(delParentLevelSelector);
+                Console.WriteLine("Supplier Level Already present");
+               // seleniumActions.IsElementPresent(closeAlert);
+               // seleniumActions.Click(closeAlert);
+                //seleniumActions.Wait(2);
+
+            }
+            else
+            {
+               seleniumActions.MoveToElement(editParentLevelSelector);
+                seleniumActions.Click(editParentLevelSelector);
+                seleniumActions.Wait(2);
+
+                string originalWindow = _driver.CurrentWindowHandle;
+                //Get all window handles
+                IReadOnlyCollection<string> allWindows = _driver.WindowHandles;
+                // Switch to the new window
+                foreach (string windowHandle in allWindows)
+                {
+                    if (windowHandle != originalWindow)
+                    {
+                        _driver.SwitchTo().Window(windowHandle);
+                        Console.WriteLine("The present title name is ------->" + _driver.SwitchTo().Window(windowHandle).Title);
+                        break;
+                    }
+                }
+                Console.WriteLine("Set the Level as ------->SupplierManagement");
+                seleniumActions.Wait(5);
+                seleniumActions.MoveToElement(inputDocproDocName);
+                seleniumActions.SendKeys(inputDocproDocName, "SupplierManagement");
+                seleniumActions.Click(btnDocproPopupSearch);
+                seleniumActions.Click(By.XPath("//a/span[contains(text(),'SupplierManagement')]"));
+
+                _driver.SwitchTo().Window(originalWindow);
+
+                seleniumActions.SwitchToDefaultContent();
+                seleniumActions.SwitchToIframes(iframe_DetailView, iframeMenuData);
+                seleniumActions.IsElementPresent(closeAlert);
+                seleniumActions.Click(closeAlert);
+            }
+        }
+
+
+
+        public void checkButtonsInSupplierInformation()
+        {
+            if (seleniumActions.IsElementPresent(btnCreateSupplierEvaluationRequest))
+            {
+
+                Console.WriteLine("Evaluation Request Button is enabled");
+            }
+            else if (seleniumActions.IsElementPresent(newSupplierButton))
+            {
+                Console.WriteLine("Evaluation Request Button is Disabled");
+
+            }
+        }
+
+        public void setSupplierEvaluationBusinessRuleasNO()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.MoveToElement(supplierBusinessRule);
+            seleniumActions.Click(supplierBusinessRule);
+            seleniumActions.SwitchToFrame(iframeMenuData);
+
+            seleniumActions.Click(bRuleSupplierEvaluationNo);
+            //seleniumActions.Click(bRuleAuditAgainstPartsYes);
+            //seleniumActions.Click(bRuleVMFNo);
+            //seleniumActions.Click(bRuleParentSupplierNo);
+            //seleniumActions.SwitchToDefaultContent();
 
         }
+
+        public void setAuditAgainstPartBusinessRuleasYes()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.MoveToElement(supplierBusinessRule);
+            seleniumActions.Click(supplierBusinessRule);
+            seleniumActions.SwitchToFrame(iframeMenuData);
+
+            seleniumActions.Click(bRuleSupplierEvaluationNo);
+            seleniumActions.Click(bRuleAuditAgainstPartsYes);
+            //seleniumActions.Click(bRuleVMFNo);
+            //seleniumActions.Click(bRuleParentSupplierNo);
+            //seleniumActions.SwitchToDefaultContent();
+
+        }
+
+        public void verifyFieldsInSupplierDetailsPage()
+        {
+            seleniumActions.MoveToElement(newSupplierButton);
+            seleniumActions.Click(newSupplierButton);
+            seleniumActions.Wait(2);
+            String suppliercode = seleniumActions.GetAttributeValue(By.XPath("//input[@id='txtCode']"), "value");
+            if (suppliercode.Length > 0)            
+                Console.WriteLine("Temporary supplier code is available");            
+            else            
+                Console.WriteLine("Temporary supplier code is not available");
+
+
+            if (seleniumActions.IsElementPresent(By.XPath("//label[contains(text(),'Actions Required')]")))
+                Console.WriteLine("SAM SEM PPAP checkboxes are available");
+            else
+                Console.WriteLine("SAM SEM PPAP checkboxes are not available");
+            
+        }
+
         #endregion
 
 
