@@ -205,11 +205,12 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By rdo_Reject_Disabled => By.XPath("//input[@id='reject' and contains(@disabled,'disabled')]");
         By badge_Accepted_Comment => By.XPath("//span[@class='badge badge-success']");
         By badge_Rejected_Comment => By.XPath("//span[@class='badge badge-danger']");
-        By lblLevelHeading_FolderManagement => By.XPath("//div[@class='card-header']//h5[contains(text(),'Level')]");
         By btn_delete => By.XPath("//div[@id='rMenu_TOCDoclvl']//span[contains(text(),'Delete')]//parent::li");
         By btn_Edit => By.XPath("//div[@id='rMenu_TOCDoclvl']//span[contains(text(),'Edit')]//parent::li");
         By lbl_FolderManagementHeading => By.XPath("//div[@class='card-header']//h5[contains(text(),'Level')]");
-        By btn_New => By.XPath("//div[@id='rMenu_TOCDoclvl']//span[contains(text(),'New')]//parent::li[contains(@disabled,'disabled')]");
+        By btn_New => By.XPath("//div[@id='rMenu_TOCDoclvl']//span[contains(text(),'New')]//parent::li[contains(@disabled,'disabled')]"); 
+        By menu_DocumentManagement => By.XPath("//div[text()='Document Management']");
+        By lbl_FolderManagementDocumentProHeading => By.XPath("//h1[contains(text(),'Document Pro')]");
 
         #endregion
 
@@ -1579,7 +1580,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(By.XPath("(//a[@title='" + LevelName + "']//span)[2]"));
             seleniumActions.SwitchToFrame(iframe_Tree);
             seleniumActions.Wait(2);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lblLevelHeading_FolderManagement), "level heading is not present");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_FolderManagementHeading), "level heading is not present");
             seleniumActions.SwitchToDefaultContent();
         }
 
@@ -1658,7 +1659,20 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         // *********** FM - 03 : Create and delete levels - end of TC 06 ************ //
 
+        // *********** FM - 03 : Create and delete levels - Start of TC 21855 ************ //
 
+        /// <summary>
+        /// Validate Document Pro heading
+        /// </summary>
+        public void ValidateDocumentProHeading()
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(menu_DocumentManagement);
+            seleniumActions.SwitchToIframes(iframe_MenuData, iframe_Tree);
+            Assert.IsTrue(seleniumActions.GetText(lbl_FolderManagementDocumentProHeading).Equals("Document Pro"));
+            seleniumActions.SwitchToDefaultContent();
+        }
+        // *********** FM - 03 : Create and delete levels - end of TC 21855 ************ //
         #endregion
 
     }

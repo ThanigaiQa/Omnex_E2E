@@ -62,6 +62,14 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.ValidateEditTheLevel(scenarioContext["LevelName"].ToString());
         }
 
+        // *********** FM : Levels create and delete - Start of TC 21855 ************ //
+
+        [Then(@"I validate the document pro heading in document management page")]
+        public void ThenIValidateTheDocumentProHeadingInDocumentManagementPage()
+        {
+            docProModule.ValidateDocumentProHeading();
+        }
+        // *********** FM : Levels create and delete - End of TC 21855 ************ //
 
         #endregion
 
