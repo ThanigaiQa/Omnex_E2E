@@ -201,7 +201,6 @@ Scenario: TC 07 : DOC_2500_10_70_80
 @TC-04
 Scenario: TC 04 : DOC_2500_10_150
 	Given Login to the application with 'docpro' user
-	#When I Change the site Corporate to RightSite
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page
 	Then Create random Level

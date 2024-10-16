@@ -4,6 +4,7 @@ using OMNEX.AUTOMATION.Data.WEB;
 using OMNEX.AUTOMATION.Helpers;
 using OpenQA.Selenium;
 using System.Reflection;
+using System.Reflection.Emit;
 
 namespace OMNEX.AUTOMATION.PageObjects.WEB
 {
@@ -205,6 +206,10 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By badge_Accepted_Comment => By.XPath("//span[@class='badge badge-success']");
         By badge_Rejected_Comment => By.XPath("//span[@class='badge badge-danger']");
         By lblLevelHeading_FolderManagement => By.XPath("//div[@class='card-header']//h5[contains(text(),'Level')]");
+        By btn_delete => By.XPath("//div[@id='rMenu_TOCDoclvl']//span[contains(text(),'Delete')]//parent::li");
+        By btn_Edit => By.XPath("//div[@id='rMenu_TOCDoclvl']//span[contains(text(),'Edit')]//parent::li");
+        By lbl_FolderManagementHeading => By.XPath("//div[@class='card-header']//h5[contains(text(),'Level')]");
+        By btn_New => By.XPath("//div[@id='rMenu_TOCDoclvl']//span[contains(text(),'New')]//parent::li[contains(@disabled,'disabled')]");
 
         #endregion
 
@@ -879,7 +884,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SendKeys(inp_MultiSearch, "docpro");
             seleniumActions.Click(btnAdvancedSearch_MultiSearch);
             seleniumActions.Wait(3);
-
             Assert.IsTrue(seleniumActions.GetText(lbl_NameValue).Equals("docpro"));
             seleniumActions.Click(chk_AssignAuthor);
             seleniumActions.SwitchToDefaultContent();
@@ -1580,6 +1584,80 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // ***************** FM - 03 : Level Create and Delete - End of TC 21854 ******************** //
+
+        
+        // *********** FM - 03 : Create and delete levels - Start of TC 04 ************ //
+
+        /// <summary>
+        /// Validate delete button should be disable in levels under folder management
+        /// </summary>
+        public void ValidateDeleteshouldbedisable(String LevelName)
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(folderManagement_Tab);
+            seleniumActions.SwitchToFrame(iframe_MenuData);
+            seleniumActions.Click(phd_SearchByFolder);
+            seleniumActions.SendKeys(phd_SearchByFolder, LevelName);
+            seleniumActions.Click(btnSearch_SearchByFolder);
+            Assert.IsTrue(seleniumActions.IsElementPresent(By.XPath("(//a[@title='" + LevelName + "']//span)[2]")), "Searched level not found");
+            seleniumActions.Wait(3);
+            seleniumActions.ContextClick(By.XPath("(//a[@title='" + LevelName + "']//span)[2]"));
+            string button = seleniumActions.FindElement(btn_delete).GetAttribute("disabled");
+            Assert.IsTrue(button.Equals("true"));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** FM - 03 : Create and delete levels - end of TC 04 ************ //
+
+        // *********** FM - 03 : Create and delete levels - Start of TC 05 ************ //
+
+        /// <summary>
+        /// Validate Edit the level by suite administrator
+        /// </summary>
+        public void ValidateEditTheLevel(String LevelName)
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(folderManagement_Tab);
+            seleniumActions.SwitchToFrame(iframe_MenuData);
+            seleniumActions.Click(phd_SearchByFolder);
+            seleniumActions.SendKeys(phd_SearchByFolder, LevelName);
+            seleniumActions.Click(btnSearch_SearchByFolder);
+            Assert.IsTrue(seleniumActions.IsElementPresent(By.XPath("(//a[@title='" + LevelName + "']//span)[2]")), "Searched level not found");
+            seleniumActions.Wait(3);
+            seleniumActions.ContextClick(By.XPath("(//a[@title='" + LevelName + "']//span)[2]"));
+            seleniumActions.Click(btn_Edit);
+            seleniumActions.SwitchToFrame(iframe_Tree);
+            seleniumActions.Wait(3);
+            string levelnameheading = seleniumActions.GetText(lbl_FolderManagementHeading);
+            Assert.IsTrue(levelnameheading.Contains(LevelName), "Level heading is not display");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** FM - 03 : Create and delete levels - end of TC 05 ************ //
+
+        // *********** FM - 03 : Create and delete levels - Start of TC 06 ************ //
+
+        /// <summary>
+        /// Validate New option button should be disable in levels under folder management
+        /// </summary>
+        public void ValidateNewOptionshouldbedisable(String LevelName)
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(folderManagement_Tab);
+            seleniumActions.SwitchToFrame(iframe_MenuData);
+            seleniumActions.Click(phd_SearchByFolder);
+            seleniumActions.SendKeys(phd_SearchByFolder, LevelName);
+            seleniumActions.Click(btnSearch_SearchByFolder);
+            Assert.IsTrue(seleniumActions.IsElementPresent(By.XPath("(//a[@title='" + LevelName + "']//span)[2]")), "Searched level not found");
+            seleniumActions.Wait(3);
+            seleniumActions.ContextClick(By.XPath("(//a[@title='" + LevelName + "']//span)[2]"));
+            string button = seleniumActions.FindElement(btn_New).GetAttribute("disabled");
+            Assert.IsTrue(button.Equals("true"));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** FM - 03 : Create and delete levels - end of TC 06 ************ //
+
 
         #endregion
 

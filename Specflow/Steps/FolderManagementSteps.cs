@@ -44,6 +44,25 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.VerifyLevelHeadingInFolderManagement(scenarioContext["LevelName"].ToString());
         }
 
+        [Then(@"I Validate the Delete should be Disabled")]
+        public void ThenIValidateTheDeleteShouldBeDisabled()
+        {
+            docProModule.ValidateDeleteshouldbedisable(scenarioContext["LevelName"].ToString());
+        }
+
+        [Then(@"I Validate the New Option should be Disabled")]
+        public void ThenIValidateTheNewOptionShouldBeDisabled()
+        {
+            docProModule.ValidateNewOptionshouldbedisable(scenarioContext["LevelName"].ToString());
+        }
+
+        [Then(@"I Edit the level by suite administrator")]
+        public void ThenIEditTheLevelBySuiteAdministrator()
+        {
+            docProModule.ValidateEditTheLevel(scenarioContext["LevelName"].ToString());
+        }
+
+
         #endregion
 
     }
