@@ -204,8 +204,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By rdo_Reject_Disabled => By.XPath("//input[@id='reject' and contains(@disabled,'disabled')]");
         By badge_Accepted_Comment => By.XPath("//span[@class='badge badge-success']");
         By badge_Rejected_Comment => By.XPath("//span[@class='badge badge-danger']");
-
-
+        By lblLevelHeading_FolderManagement => By.XPath("//div[@class='card-header']//h5[contains(text(),'Level')]");
 
         #endregion
 
@@ -1556,6 +1555,31 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // *********** UA - 03 : Draft Req Needing Viewing - End of TC 03 ************ //
+
+        // ***************** FM - 03 : Level Create and Delete - Start of TC 21854 ******************** //
+
+        /// <summary>
+        /// verifies the level is present folder management heading
+        /// </summary>
+        /// <param name="LevelName"></param>
+        public void VerifyLevelHeadingInFolderManagement(string LevelName)
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(folderManagement_Tab);
+            seleniumActions.SwitchToFrame(iframe_MenuData);
+            seleniumActions.Click(phd_SearchByFolder);
+            seleniumActions.SendKeys(phd_SearchByFolder, LevelName);
+            seleniumActions.Click(btnSearch_SearchByFolder);
+            Assert.IsTrue(seleniumActions.IsElementPresent(By.XPath("(//a[@title='" + LevelName + "']//span)[2]")), "Searched level not found");
+            seleniumActions.Wait(3);
+            seleniumActions.Click(By.XPath("(//a[@title='" + LevelName + "']//span)[2]"));
+            seleniumActions.SwitchToFrame(iframe_Tree);
+            seleniumActions.Wait(2);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblLevelHeading_FolderManagement), "level heading is not present");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // ***************** FM - 03 : Level Create and Delete - End of TC 21854 ******************** //
 
         #endregion
 

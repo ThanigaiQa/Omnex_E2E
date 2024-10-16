@@ -38,6 +38,12 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         #region StepDefinitions
 
+        [Then(@"I verify the (.*) level heading in Folder management menu")]
+        public void ThenIVerifyTheLevelHeadingInFolderManagementMenu(string levelName)
+        {
+            docProModule.VerifyLevelHeadingInFolderManagement(scenarioContext["LevelName"].ToString());
+        }
+
         #endregion
 
     }

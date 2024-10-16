@@ -76,6 +76,7 @@ namespace OMNEX.AUTOMATION.Helpers
             _scenario = _feature.CreateNode<Scenario>(scenarioContext.ScenarioInfo.Title 
                 + " | " + $"Test Case ID : <a href='{linkUrl}' target='_blank'>{linkText}</a>");
         }
+
         [AfterScenario]
         public static void AfterScenario()
         {
