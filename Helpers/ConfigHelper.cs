@@ -78,6 +78,10 @@ namespace OMNEX.AUTOMATION.Helpers
         {
             return GetConfig()["FSQA"];
         }
+        public static string Dummy()
+        {
+            return GetConfig()["Dummy"];
+        }
 
     }
 }

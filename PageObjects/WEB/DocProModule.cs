@@ -211,7 +211,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btn_New => By.XPath("//div[@id='rMenu_TOCDoclvl']//span[contains(text(),'New')]//parent::li[contains(@disabled,'disabled')]"); 
         By menu_DocumentManagement => By.XPath("//div[text()='Document Management']");
         By lbl_FolderManagementDocumentProHeading => By.XPath("//h1[contains(text(),'Document Pro')]");
-
+        By lnk_ModuleSideSubMenu => By.XPath("(//a[@title='Modules'])[1]");
+        
         #endregion
 
         #region IFrame
@@ -1673,6 +1674,23 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToDefaultContent();
         }
         // *********** FM - 03 : Create and delete levels - end of TC 21855 ************ //
+
+        // *********** FM - 03 : Create and delete levels - Start of TC 21870 ************ //
+
+        /// <summary>
+        /// Validate module levels are not displayed under Suite setup
+        /// </summary>
+        public void ValidateModuleLevelsAreNotDisplayed()
+        {
+            seleniumActions.Wait(5);
+            seleniumActions.Click(lblSetup);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblSuiteSetup), "Suite setup is not present");
+            seleniumActions.Click(lblSuiteSetup);
+            Assert.IsFalse(seleniumActions.IsElementPresent(lnk_ModuleSideSubMenu), "Module element is present");
+            seleniumActions.Wait(3);
+
+        }
+        // *********** FM - 03 : Create and delete levels - end of TC 21870 ************ //
         #endregion
 
     }

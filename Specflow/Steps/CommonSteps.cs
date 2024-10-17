@@ -53,7 +53,10 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
                 case "admin":
                     loginPage.LoginToApp(ConfigHelper.GetAdminUser(), ConfigHelper.GetPassword());
                     break;
-               
+                case "dummy":
+                    loginPage.LoginToApp(ConfigHelper.Dummy(), ConfigHelper.GetPassword());
+                    break;
+
             }
         }
 

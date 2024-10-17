@@ -44,23 +44,29 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.VerifyLevelHeadingInFolderManagement(scenarioContext["LevelName"].ToString());
         }
 
+        // *********** FM : Levels create and delete - Start of TC 21858 ************ //
         [Then(@"I Validate the Delete should be Disabled")]
         public void ThenIValidateTheDeleteShouldBeDisabled()
         {
             docProModule.ValidateDeleteshouldbedisable(scenarioContext["LevelName"].ToString());
         }
+        // *********** FM : Levels create and delete - End of TC 21858 ************ //
 
+        // *********** FM : Levels create and delete - Start of TC 21859 ************ //
         [Then(@"I Validate the New Option should be Disabled")]
         public void ThenIValidateTheNewOptionShouldBeDisabled()
         {
             docProModule.ValidateNewOptionshouldbedisable(scenarioContext["LevelName"].ToString());
         }
+        // *********** FM : Levels create and delete - End of TC 21859 ************ //
 
+        // *********** FM : Levels create and delete - Start of TC 21860 ************ //
         [Then(@"I Edit the level by suite administrator")]
         public void ThenIEditTheLevelBySuiteAdministrator()
         {
             docProModule.ValidateEditTheLevel(scenarioContext["LevelName"].ToString());
         }
+        // *********** FM : Levels create and delete - End of TC 21860 ************ //
 
         // *********** FM : Levels create and delete - Start of TC 21855 ************ //
 
@@ -71,6 +77,15 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
         // *********** FM : Levels create and delete - End of TC 21855 ************ //
 
+
+        // *********** FM : Levels create and delete - Start of TC 21870 ************ //
+
+        [Then(@"Validate module levels are not displayed under suite setup")]
+        public void ThenValidateModuleLevelsAreNotDisplayedUnderSuiteSetup()
+        {
+            docProModule.ValidateModuleLevelsAreNotDisplayed();
+        }
+        // *********** FM : Levels create and delete - End of TC 21870 ************ //
         #endregion
 
     }
