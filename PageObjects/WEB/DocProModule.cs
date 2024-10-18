@@ -1,5 +1,6 @@
 ﻿using AventStack.ExtentReports.Gherkin.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.Win32;
 using OMNEX.AUTOMATION.Data.WEB;
 using OMNEX.AUTOMATION.Helpers;
 using OpenQA.Selenium;
@@ -213,6 +214,14 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By lbl_FolderManagementDocumentProHeading => By.XPath("//h1[contains(text(),'Document Pro')]");
         By lnk_ModuleSideSubMenu => By.XPath("(//a[@title='Modules'])[1]");
         
+        By drp_RevDateOpt => By.XPath("//span[contains(@id,'drpRevDateOpt')]");
+        By inp_SearchForRevDateOpt => By.XPath("(//input[@type='search'])[2]");
+        By chk_Record => By.XPath("//label[@id = 'thRecords']");
+        By svg_AddLevelOwner => By.XPath("//span[@id='spnAddLevelOwner']//*[local-name()='svg']");
+        By svg_RemoveLevelOwner => By.XPath("//span[@id='spnRemoveLevelOwner']//*[local-name()='svg']");
+        By lbl_AddedLevelOwnerName => By.XPath("//label[@id='spnOwnerName']");
+
+
         #endregion
 
         #region IFrame
@@ -1696,6 +1705,84 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         }
         // *********** FM - 03 : Create and delete levels - end of TC 21870 ************ //
+
+        // *********** FM - 04 : Revision numbering- Start of TC 22978 ************ //
+
+        /// <summary>
+        /// Assign revision date option value
+        /// </summary>
+        public void AssignRevisionDateOption()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            seleniumActions.Wait(2);
+            seleniumActions.ScrollToPosition(0, 1000);
+            Assert.IsTrue(seleniumActions.IsElementPresent(drp_RevDateOpt), "Dropdown Revision Date Option is not present");
+            seleniumActions.Click(drp_RevDateOpt);
+            seleniumActions.Click(inp_SearchForRevDateOpt);
+            seleniumActions.SendKeys(inp_SearchForRevDateOpt, "User input date");
+            seleniumActions.Click(btn_save);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** FM - 04 : Revision numbering- End of TC 22978 ************ //
+
+        // *********** FM - 04 : Revision numbering- Start of TC 22983 ************ //
+
+        /// <summary>
+        /// click records check box
+        /// </summary>
+        public void ClickRecordsCheckBox()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            seleniumActions.Wait(2);
+            seleniumActions.ScrollToPosition(0, 1000);
+            Assert.IsTrue(seleniumActions.IsElementPresent(chk_Record), "Checkbox Records is not present");
+            seleniumActions.Click(chk_Record);
+            seleniumActions.Click(btn_save);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** FM - 04 : Revision numbering- End of TC 22983 ************ //
+
+        // *********** FM - 04 : Revision numbering- Start of TC 22980 ************ //
+
+        /// <summary>
+        /// Add level owner and validate the level owner is added
+        /// </summary>
+        public void AddlevelOwner()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            seleniumActions.Wait(2);
+            seleniumActions.ScrollToPosition(0, 1000);
+            Assert.IsTrue(seleniumActions.IsElementPresent(svg_AddLevelOwner), "Add level owner option is not present");
+            seleniumActions.Click(svg_AddLevelOwner);
+            seleniumActions.Wait(2);
+            seleniumActions.SwitchToFrame(iframe_ifrUsers);
+            seleniumActions.SendKeys(hintSearch, "Thani-k");
+            seleniumActions.Wait(3);
+            seleniumActions.Click(chk_FirstUser);
+            seleniumActions.SwitchToParentFrame();
+            seleniumActions.ScrollToPosition(0, 1000);
+            seleniumActions.Click(btn_UserDone);
+            Assert.IsTrue(seleniumActions.GetText(lbl_AddedLevelOwnerName).Equals("Thani-k"));
+            seleniumActions.SwitchToDefaultContent(); 
+        }
+
+        /// <summary>
+        /// Remove level owner and validate the level owner is removed
+        /// </summary>
+        public void RemoveLevelOwner()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            seleniumActions.Wait(2);
+            seleniumActions.ScrollToPosition(0, 1000);
+            Assert.IsTrue(seleniumActions.IsElementPresent(svg_RemoveLevelOwner), "Remove level owner option is not present");
+            seleniumActions.Click(svg_RemoveLevelOwner);
+            Assert.IsTrue(string.IsNullOrWhiteSpace(seleniumActions.GetText(lbl_AddedLevelOwnerName)), "It contains some text.");
+            seleniumActions.SwitchToDefaultContent();
+        }
+        // *********** FM - 04 : Revision numbering- End of TC 22980 ************ //
+
         #endregion
 
     }

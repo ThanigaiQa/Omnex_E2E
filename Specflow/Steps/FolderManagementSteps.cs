@@ -100,6 +100,39 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         // *********** FM : Levels create and delete - End of TC 21861,63,64,65,66,67,69,57 ************ //
 
 
+        // *********** FM : Revision Numbering - Start of TC 22978 ************ //
+
+        [Then(@"I assiging value for Revision Date option")]
+        public void ThenIAssigingValueForRevisionDateOption()
+        {
+            docProModule.AssignRevisionDateOption();
+        }
+        // *********** FM : Revision Numbering - End of TC 22978 ************ //
+
+        // *********** FM : Revision Numbering - Start of TC 22983 ************ //
+
+        [Then(@"I Click the records checkbox")]
+        public void ThenIClickTheRecordsCheckbox()
+        {
+            docProModule.ClickRecordsCheckBox();
+        }
+        // *********** FM : Revision Numbering - End of TC 22983 ************ //
+
+        // *********** FM : Revision Numbering - Start of TC 22980 ************ //
+
+        [Then(@"I Add the level owner and validate the level owner is added")]
+        public void ThenIAddTheLevelOwnerAndValidateTheLevelOwnerIsAdded()
+        {
+            docProModule.AddlevelOwner();
+        }
+
+        [Then(@"I remove the level owner and verify the level owner is removed")]
+        public void ThenIRemoveTheLevelOwnerAndVerifyTheLevelOwnerIsRemoved()
+        {
+            docProModule.RemoveLevelOwner();
+        }
+        // *********** FM : Revision Numbering - End of TC 22980 ************ //
+
         #endregion
 
     }
