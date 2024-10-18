@@ -8,7 +8,8 @@ Scenario: TC 01 : DOC_2500_10_10
 	Then Create random Level
 	Then I refresh the page
 	When Navigate to DocPro Setup in suite setup Page
-	Then I make the random level in use
+	Then I search and click the random level in folder management page
+	Then I make the level in use
 	Then I refresh the page
 	Then Navigate to New Document Request in Documents Page
 	Then I validate the New Document Request in Documents Page
@@ -37,7 +38,8 @@ Scenario: TC 02 : DOC_2500_10_40_100_110_140_180_To_210
 	Then Create random Level
 	Then I refresh the page
 	When Navigate to DocPro Setup in suite setup Page
-	Then I make the random level in use
+	Then I search and click the random level in folder management page
+	Then I make the level in use
 	And I assign the route for the level with Assign by admin
 	Then I refresh the page
 	Then Navigate to New Document Request in Documents Page
@@ -64,7 +66,8 @@ Scenario: TC 03 : DOC_2500_10_30_40_90
 	Then Create random Level
 	Then I refresh the page
 	When Navigate to DocPro Setup in suite setup Page
-	Then I make the random level in use
+	Then I search and click the random level in folder management page
+	Then I make the level in use
 	And I assign the route for the level with DocProAdmin
 	Then Logout from the application
 	Then Login to the application with 'right' user
@@ -92,7 +95,8 @@ Scenario: TC 05: DOC_2500_10_100
 	Then Create random Level
 	Then I refresh the page
 	When Navigate to DocPro Setup in suite setup Page
-	Then I make the random level in use
+	Then I search and click the random level in folder management page
+	Then I make the level in use
 	Then I Open the Right for Group for the level
 	Then I search for rights in document rights page
 	Then I Set Request Rights for the New Document Creation
@@ -119,7 +123,8 @@ Scenario: TC 05: DOC_2500_10_100
 	And I verify the status value of the document as Attach Document
 	And I Attach the document
 	When Navigate to DocPro Setup in suite setup Page
-	Then I make the random level in use
+	Then I search and click the random level in folder management page
+	Then I make the level in use
 	Then I Open the Right for Group for the level
 	Then I search for rights in document rights page
 	Then I give full access from Request Right for the document
@@ -142,7 +147,8 @@ Scenario: TC 06 : DOC_2500_10_50_300
 	Then Create random Level
 	Then I refresh the page
 	When Navigate to DocPro Setup in suite setup Page
-	Then I make the random level in use
+	Then I search and click the random level in folder management page
+	Then I make the level in use
 	And I assign the route for the level with Assign by admin
 	Then I refresh the page
 	Then Navigate to New Document Request in Documents Page
@@ -173,7 +179,8 @@ Scenario: TC 07 : DOC_2500_10_70_80
 	Then Create random Level
 	Then I refresh the page
 	When Navigate to DocPro Setup in suite setup Page
-	Then I make the random level in use
+	Then I search and click the random level in folder management page
+	Then I make the level in use
 	And I assign the route for the level with PositionBasedRoute
 	Then I refresh the page
 	Then Navigate to New Document Request in Documents Page
@@ -206,7 +213,8 @@ Scenario: TC 04 : DOC_2500_10_150
 	Then Create random Level
 	Then I refresh the page
 	When Navigate to DocPro Setup in suite setup Page
-	Then I make the random level in use
+	Then I search and click the random level in folder management page
+	Then I make the level in use
 	And I assign the route for the level with Assign by admin
 	Then I refresh the page
 	Then Navigate to New Document Request in Documents Page
@@ -232,7 +240,8 @@ Scenario: TC 04 : DOC_2500_10_150
 	Then Create random Level
 	Then I refresh the page
 	When Navigate to DocPro Setup in suite setup Page
-	Then I make the random level in use
+	Then I search and click the random level in folder management page
+	Then I make the level in use
 	And I assign the route for the level with Assign by admin
 	Then I refresh the page
 	Then Navigate to New Document Request in Documents Page

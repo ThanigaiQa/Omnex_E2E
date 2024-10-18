@@ -123,10 +123,10 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             dashboard.NavigateToUsersPage(subHead);
         }
 
-        [Then(@"I make the (.*) level in use")]
-        public void ThenIMakeTheLevelInUse(string levelName)
+        [Then(@"I make the level in use")]
+        public void ThenIMakeTheLevelInUse()
         {
-            docProModule.MakeLevelInUse(scenarioContext["LevelName"].ToString());
+            docProModule.MakeLevelInUse();
         }
 
         [Then(@"Navigate to (.*) in Documents Page")]
@@ -351,6 +351,12 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
                     docProModule.DisableInterfaceAgreementButton();
                     break;
             }
+        }
+
+        [Then(@"I search and click the (.*) level in folder management page")]
+        public void ThenISearchAndClickTheLevelInFolderManagementPage(string levelName)
+        {
+            docProModule.SearchAndClickLevelInFolderManagement(scenarioContext["LevelName"].ToString());
         }
 
         #endregion

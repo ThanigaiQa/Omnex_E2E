@@ -75,6 +75,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         {
             docProModule.ValidateDocumentProHeading();
         }
+
         // *********** FM : Levels create and delete - End of TC 21855 ************ //
 
 
@@ -85,7 +86,20 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         {
             docProModule.ValidateModuleLevelsAreNotDisplayed();
         }
+
         // *********** FM : Levels create and delete - End of TC 21870 ************ //
+
+        // *********** FM : Levels create and delete - Start of TC 21861,63,64,65,66,67,69,57 ************ //
+
+        [Then(@"I give sublevel access for the level")]
+        public void ThenIGiveSublevelAccessForTheLevel()
+        {
+            
+        }
+
+        // *********** FM : Levels create and delete - End of TC 21861,63,64,65,66,67,69,57 ************ //
+
+
         #endregion
 
     }

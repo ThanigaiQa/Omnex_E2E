@@ -314,10 +314,10 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         /// <summary>
-        /// Clicks folder management ,  searches the level and make it in use
+        /// Clicks folder management ,  searches the level 
         /// </summary>
         /// <param name="LevelName"></param>
-        public void MakeLevelInUse(string LevelName)
+        public void SearchAndClickLevelInFolderManagement(string LevelName)
         {
             seleniumActions.SwitchToFrame(iframe_DetailView);
             seleniumActions.Click(folderManagement_Tab);
@@ -325,10 +325,18 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(phd_SearchByFolder);
             seleniumActions.SendKeys(phd_SearchByFolder, LevelName);
             seleniumActions.Click(btnSearch_SearchByFolder);
-            Assert.IsTrue(seleniumActions.IsElementPresent(By.XPath("(//a[@title='" + LevelName + "']//span)[2]")),"Searched level not found");
-            seleniumActions.Wait(3);    
+            Assert.IsTrue(seleniumActions.IsElementPresent(By.XPath("(//a[@title='" + LevelName + "']//span)[2]")), "Searched level not found");
+            seleniumActions.Wait(3);
             seleniumActions.Click(By.XPath("(//a[@title='" + LevelName + "']//span)[2]"));
-            seleniumActions.SwitchToFrame(iframe_Tree);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Clicks folder management ,  searches the level and make it in use
+        /// </summary>
+        public void MakeLevelInUse()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
             seleniumActions.Wait(2);
             seleniumActions.ScrollToPosition(0,1000);
             Assert.IsTrue(seleniumActions.IsElementPresent(chk_InUse), "Checkbox In Use is not present");
@@ -1431,9 +1439,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.ScrollToPosition(0, 1000);
             Assert.IsTrue(seleniumActions.IsElementPresent(chk_AttachDraft), "attach draft checkbox is not visible");
             seleniumActions.Click(chk_AttachDraft);
-           
         }
-
         
         // *********** UA - 02 : Pending Doc Draft - End of TC 03 ************ //
 
@@ -1586,7 +1592,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // ***************** FM - 03 : Level Create and Delete - End of TC 21854 ******************** //
-
         
         // *********** FM - 03 : Create and delete levels - Start of TC 04 ************ //
 

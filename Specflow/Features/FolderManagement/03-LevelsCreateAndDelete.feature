@@ -22,7 +22,8 @@ Scenario: TC 21856 Validate activate the levels for the specific site
 	Then Create random Level
 	Then I refresh the page
 	When Navigate to DocPro Setup in suite setup Page
-	Then I make the random level in use
+	Then I search and click the random level in folder management page
+	Then I make the level in use
 	Then I refresh the page
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page
@@ -50,7 +51,8 @@ Scenario: TC 21859 : Validate Edit the level by suite administrator
 	Then I refresh the page
 	When Navigate to DocPro Setup in suite setup Page
 	Then I Edit the level by suite administrator
-	Then I make the random level in use
+	Then I search and click the random level in folder management page
+	Then I make the level in use
 	Then I refresh the page
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page
@@ -101,3 +103,13 @@ Scenario: TC 21870 : Validate module levels are not displayed
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page
 	Then Delete the Level
+
+@TC-21857,61,63-67,69
+Scenario: TC 21861,63,64,65,66,67,69,57 : validate New Option and Sub level create, Edit and Delete
+	Given Login to the application with 'right' user
+	When Navigate to Levels in suite setup Page
+	Then I validate the Levels page
+	Then I give sublevel access for the level  
+	Then Create random Level
+	Then I refresh the page
+	When Navigate to DocPro Setup in suite setup Page
