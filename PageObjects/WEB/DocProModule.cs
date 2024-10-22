@@ -213,6 +213,14 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By menu_DocumentManagement => By.XPath("//div[text()='Document Management']");
         By lbl_FolderManagementDocumentProHeading => By.XPath("//h1[contains(text(),'Document Pro')]");
         By lnk_ModuleSideSubMenu => By.XPath("(//a[@title='Modules'])[1]");
+        By ddp_Revopt => By.XPath("//span[contains(@id,'drpRevOpt')]");
+        By inp_Revopt => By.XPath("//input[@class = 'select2-search__field']");
+        By inpbox_Revopt => By.XPath("//span[@id = 'select2-drpRevOpt-container']");
+        By inp_docProautoincreby1 => By.XPath("//ul[@id = 'select2-drpRevOpt-results']");
+        By chk_InheritFromParents=> By.XPath("((//div[@id=\"trRevOpt\"])[1]//following::div[@id='spnRevByInherit'])[1]");
+        By chk_SiteSubLevel => By.XPath("(//label[@id='thAllowSiteSub'])[1]");
+        By btn_NewEnable => By.XPath("//div[@id='rMenu_TOCDoclvl']//span[contains(text(),'New')]");
+        By ddp_DateOpt => By.XPath("//span[@id='select2-drpDocNumOpt-container']");
         
         By drp_RevDateOpt => By.XPath("//span[contains(@id,'drpRevDateOpt')]");
         By inp_SearchForRevDateOpt => By.XPath("(//input[@type='search'])[2]");
@@ -287,6 +295,17 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.VerifyElementIsDisplayed(By.XPath("//h5[contains(text(),'Level - " + levelName + "')]"));
             seleniumActions.SwitchToDefaultContent();
             return levelName;
+        }
+
+        /// <summary>
+        /// Click Sub level creation check box in levels page
+        /// </summary>
+        public void SelectSiteSubLevelCreationCheckbox()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            seleniumActions.Click(chk_SiteSubLevel);
+            seleniumActions.Click(btn_save);
+            seleniumActions.SwitchToDefaultContent();
         }
 
         /// <summary>
@@ -433,7 +452,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.ScrollToPosition(0,300);
             seleniumActions.Wait(2);
             seleniumActions.Click(txtDocNumber);
-            seleniumActions.SendKeys(txtDocNumber,"123");
+            seleniumActions.SendKeys(txtDocNumber, utility.RandomNumberGenerator(3));
             seleniumActions.Wait(2);
             seleniumActions.Click(txtDocName);
             seleniumActions.SendKeys(txtDocName , Keys.Clear);
@@ -1782,6 +1801,101 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToDefaultContent();
         }
         // *********** FM - 04 : Revision numbering- End of TC 22980 ************ //
+
+
+        // *********** FM - 04 : Create and delete levels - Start of TC 22974-75-76 ************ //
+
+        /// <summary>
+        /// Validate the user can define the revision option
+        /// </summary>
+        public void ValidateTheUserCanDefineTheRevisionOption()
+        {
+           
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            seleniumActions.Wait(3);
+            string revisionnumber = "Users define revision";
+            string revisionValiue = seleniumActions.GetText(inpbox_Revopt);
+            if (revisionValiue == revisionnumber)
+            {
+                seleniumActions.Click(btn_save);
+            }
+            else
+            {
+                seleniumActions.Click(ddp_Revopt);
+                seleniumActions.SendKeys(inp_Revopt, "Users define revision");
+                seleniumActions.Click(inp_docProautoincreby1);
+            }
+
+        }
+        /// <summary>
+        /// Validate the user can define the DocPro automatically increments by 1 option
+        /// </summary>
+        public void ValidateTheUserCanDefineTheDocumentNumber()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            seleniumActions.Wait(3);
+            string docproautomaticallyincrements = "DocPro automatically increments by 1";
+            string docincrement = seleniumActions.GetText(inpbox_Revopt);
+            if (docincrement == docproautomaticallyincrements)
+            {
+                seleniumActions.Click(btn_save);
+            }
+            else
+            {
+                seleniumActions.Click(ddp_Revopt);
+                seleniumActions.SendKeys(inp_Revopt, "DocPro automatically increments by 1");
+                seleniumActions.Click(inp_docProautoincreby1);
+            }
+
+            
+
+        }
+        // *********** FM - 04 : Create and delete levels - end of TC 22974-75-76 ************ //
+
+        // *********** FM - 04 : Create and delete levels - Start of TC 22977 ************ //
+
+        /// <summary>
+        /// Validate revision option as Inherit from parent
+        /// </summary>
+        public void ValidaterevisionOptionasInheritFromParent(String LevelName)
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(folderManagement_Tab);
+            seleniumActions.SwitchToFrame(iframe_MenuData);
+            seleniumActions.Click(phd_SearchByFolder);
+            seleniumActions.SendKeys(phd_SearchByFolder, LevelName);
+            seleniumActions.Click(btnSearch_SearchByFolder);
+            Assert.IsTrue(seleniumActions.IsElementPresent(By.XPath("(//a[@title='" + LevelName + "']//span)[2]")), "Searched level not found");
+            seleniumActions.Wait(3);
+            seleniumActions.ContextClick(By.XPath("(//a[@title='" + LevelName + "']//span)[2]"));
+            seleniumActions.Click(btn_NewEnable);
+            seleniumActions.SwitchToFrame(iframe_Tree);
+            seleniumActions.Wait(3);
+            Assert.IsTrue(seleniumActions.IsElementPresent(chk_InheritFromParents), "Inherit from parents check box is not present");
+            seleniumActions.SwitchToDefaultContent();
+
+        }
+        // *********** FM - 04 : Create and delete levels - end of TC 22977 ************ //
+
+        // *********** FM - 04 : Create and delete levels - Start of TC 22979 ************ //
+        /// <summary>
+        /// Validate revision date option as User input date
+        /// </summary>
+        public void ValidateRevisionDateOptionasUserInputDate()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            seleniumActions.Wait(3);
+            string docnumopt = "Last approval date";
+            string lastappdate = seleniumActions.GetText(ddp_DateOpt);
+            if (lastappdate == docnumopt)
+            {
+                seleniumActions.Click(btn_save);
+            }
+            seleniumActions.SwitchToDefaultContent();
+         
+         // *********** FM - 04 : Create and delete levels - end of TC 22979 ************ //
+
+        }
 
         #endregion
 

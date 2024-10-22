@@ -94,11 +94,46 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         [Then(@"I give sublevel access for the level")]
         public void ThenIGiveSublevelAccessForTheLevel()
         {
-            
+            docProModule.SelectSiteSubLevelCreationCheckbox();
         }
 
         // *********** FM : Levels create and delete - End of TC 21861,63,64,65,66,67,69,57 ************ //
 
+        // *********** FM : Levels create and delete - Start of TC 22974-75-76 ************ //
+
+        [Then(@"Validate the user can define the Document number option")]
+        public void ThenValidateTheUserCanDefineTheDocumentNumberOption()
+        {
+            docProModule.ValidateTheUserCanDefineTheDocumentNumber();
+        }
+
+
+        [Then(@"Validate the user can define the revision option")]
+        public void ThenValidateTheUserCanDefineTheRevisionOption()
+        {
+            docProModule.ValidateTheUserCanDefineTheRevisionOption();
+        }
+
+        // *********** FM : Levels create and delete - End of TC 22974-75-76 ************ //
+
+        // *********** FM : Levels create and delete - Start of TC 22977 ************ //
+
+        [Then(@"I Right click the New button and validate the inherit from parent option present under Revision")]
+        public void ThenIRightClickTheNewButtonAndValidateTheInheritFromParentOptionPresentUnderRevision()
+        {
+            docProModule.ValidaterevisionOptionasInheritFromParent(scenarioContext["LevelName"].ToString());
+        }
+        // *********** FM : Levels create and delete - End of TC 22977 ************ //
+
+        // *********** FM : Levels create and delete - Start of TC 22979 ************ //
+        
+        [Then(@"I Validate revision date option as user input date")]
+        public void ThenIValidateRevisionDateOptionAsUserInputDate()
+        {
+            docProModule.ValidateRevisionDateOptionasUserInputDate();
+        }
+        
+        // *********** FM : Levels create and delete - Start of TC 22979 ************ //
 
         // *********** FM : Revision Numbering - Start of TC 22978 ************ //
 
