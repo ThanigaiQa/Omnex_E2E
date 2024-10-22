@@ -28,6 +28,7 @@ Scenario: TC 21856 Validate activate the levels for the specific site
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page
 	Then Delete the Level
+
 @TC-21858
 Scenario: TC 21858 : Validate Delete should be Disabled
 	Given Login to the application with 'right' user
@@ -87,7 +88,7 @@ Scenario: TC 21855 : Validate user should not view levels created by suite admin
 	Then I validate the Levels page
 	Then Delete the Level
 
-	@TC-21870
+@TC-21870
 Scenario: TC 21870 : Validate module levels are not displayed
 	Given Login to the application with 'right' user
 	When Navigate to Levels in suite setup Page
@@ -95,7 +96,7 @@ Scenario: TC 21870 : Validate module levels are not displayed
 	Then Create random Level
 	Then Logout from the application
 	Then Login to the application with 'dummy' user
-	And  Validate module levels are not displayed under suite setup
+	And Validate module levels are not displayed under suite setup
 	Then Logout from the application
 	Then Login to the application with 'right' user
 	When Navigate to DocPro Setup in suite setup Page

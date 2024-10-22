@@ -95,7 +95,7 @@ Scenario: TC 22977 Validate revision option as Inherit from parent
 	Then I validate the Levels page
 	Then Delete the Level
 
-	@TC-22979
+@TC-22979
 Scenario: TC 22979  Validate revision date option as User input date
 	Given Login to the application with 'right' user
 	When Navigate to Levels in suite setup Page

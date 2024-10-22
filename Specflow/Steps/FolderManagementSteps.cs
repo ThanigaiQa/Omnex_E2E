@@ -45,27 +45,33 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         // *********** FM : Levels create and delete - Start of TC 21858 ************ //
+
         [Then(@"I Validate the Delete should be Disabled")]
         public void ThenIValidateTheDeleteShouldBeDisabled()
         {
             docProModule.ValidateDeleteshouldbedisable(scenarioContext["LevelName"].ToString());
         }
+
         // *********** FM : Levels create and delete - End of TC 21858 ************ //
 
         // *********** FM : Levels create and delete - Start of TC 21859 ************ //
+
         [Then(@"I Validate the New Option should be Disabled")]
         public void ThenIValidateTheNewOptionShouldBeDisabled()
         {
             docProModule.ValidateNewOptionshouldbedisable(scenarioContext["LevelName"].ToString());
         }
+
         // *********** FM : Levels create and delete - End of TC 21859 ************ //
 
         // *********** FM : Levels create and delete - Start of TC 21860 ************ //
+
         [Then(@"I Edit the level by suite administrator")]
         public void ThenIEditTheLevelBySuiteAdministrator()
         {
             docProModule.ValidateEditTheLevel(scenarioContext["LevelName"].ToString());
         }
+
         // *********** FM : Levels create and delete - End of TC 21860 ************ //
 
         // *********** FM : Levels create and delete - Start of TC 21855 ************ //
@@ -77,7 +83,6 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         // *********** FM : Levels create and delete - End of TC 21855 ************ //
-
 
         // *********** FM : Levels create and delete - Start of TC 21870 ************ //
 
@@ -107,7 +112,6 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.ValidateTheUserCanDefineTheDocumentNumber();
         }
 
-
         [Then(@"Validate the user can define the revision option")]
         public void ThenValidateTheUserCanDefineTheRevisionOption()
         {
@@ -123,6 +127,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         {
             docProModule.ValidaterevisionOptionasInheritFromParent(scenarioContext["LevelName"].ToString());
         }
+
         // *********** FM : Levels create and delete - End of TC 22977 ************ //
 
         // *********** FM : Levels create and delete - Start of TC 22979 ************ //
@@ -142,6 +147,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         {
             docProModule.AssignRevisionDateOption();
         }
+
         // *********** FM : Revision Numbering - End of TC 22978 ************ //
 
         // *********** FM : Revision Numbering - Start of TC 22983 ************ //
@@ -151,6 +157,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         {
             docProModule.ClickRecordsCheckBox();
         }
+
         // *********** FM : Revision Numbering - End of TC 22983 ************ //
 
         // *********** FM : Revision Numbering - Start of TC 22980 ************ //
@@ -166,6 +173,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         {
             docProModule.RemoveLevelOwner();
         }
+
         // *********** FM : Revision Numbering - End of TC 22980 ************ //
 
         // *********** FM : Revision Numbering - Start of TC 22984 ************ //
@@ -181,6 +189,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         {
             docProModule.SetRevisionValue();
         }
+
         // *********** FM : Revision Numbering - End of TC 22984 ************ //
 
         #endregion

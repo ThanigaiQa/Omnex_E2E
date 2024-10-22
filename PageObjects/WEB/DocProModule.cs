@@ -1706,6 +1706,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.GetText(lbl_FolderManagementDocumentProHeading).Equals("Document Pro"));
             seleniumActions.SwitchToDefaultContent();
         }
+
         // *********** FM - 03 : Create and delete levels - end of TC 21855 ************ //
 
         // *********** FM - 03 : Create and delete levels - Start of TC 21870 ************ //
@@ -1721,8 +1722,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(lblSuiteSetup);
             Assert.IsFalse(seleniumActions.IsElementPresent(lnk_ModuleSideSubMenu), "Module element is present");
             seleniumActions.Wait(3);
-
         }
+
         // *********** FM - 03 : Create and delete levels - end of TC 21870 ************ //
 
         // *********** FM - 04 : Revision numbering- Start of TC 22978 ************ //
@@ -1800,8 +1801,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(string.IsNullOrWhiteSpace(seleniumActions.GetText(lbl_AddedLevelOwnerName)), "It contains some text.");
             seleniumActions.SwitchToDefaultContent();
         }
-        // *********** FM - 04 : Revision numbering- End of TC 22980 ************ //
 
+        // *********** FM - 04 : Revision numbering- End of TC 22980 ************ //
 
         // *********** FM - 04 : Create and delete levels - Start of TC 22974-75-76 ************ //
 
@@ -1810,7 +1811,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public void ValidateTheUserCanDefineTheRevisionOption()
         {
-           
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
             seleniumActions.Wait(3);
             string revisionnumber = "Users define revision";
@@ -1825,8 +1825,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
                 seleniumActions.SendKeys(inp_Revopt, "Users define revision");
                 seleniumActions.Click(inp_docProautoincreby1);
             }
-
         }
+
         /// <summary>
         /// Validate the user can define the DocPro automatically increments by 1 option
         /// </summary>
@@ -1846,10 +1846,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
                 seleniumActions.SendKeys(inp_Revopt, "DocPro automatically increments by 1");
                 seleniumActions.Click(inp_docProautoincreby1);
             }
-
-            
-
         }
+
         // *********** FM - 04 : Create and delete levels - end of TC 22974-75-76 ************ //
 
         // *********** FM - 04 : Create and delete levels - Start of TC 22977 ************ //
@@ -1873,11 +1871,12 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Wait(3);
             Assert.IsTrue(seleniumActions.IsElementPresent(chk_InheritFromParents), "Inherit from parents check box is not present");
             seleniumActions.SwitchToDefaultContent();
-
         }
+
         // *********** FM - 04 : Create and delete levels - end of TC 22977 ************ //
 
         // *********** FM - 04 : Create and delete levels - Start of TC 22979 ************ //
+
         /// <summary>
         /// Validate revision date option as User input date
         /// </summary>
@@ -1892,10 +1891,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
                 seleniumActions.Click(btn_save);
             }
             seleniumActions.SwitchToDefaultContent();
-         
-         // *********** FM - 04 : Create and delete levels - end of TC 22979 ************ //
-
         }
+
+        // *********** FM - 04 : Create and delete levels - end of TC 22979 ************ //
 
         // *********** FM - 04 : Revision numbering- Start of TC 22984 ************ //
 
@@ -1931,6 +1929,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SendKeys(inp_RevisionValue, "1");
             seleniumActions.SwitchToDefaultContent();
         }
+
         // *********** FM - 04 : Revision numbering- End of TC 22984 ************ //
 
         #endregion
