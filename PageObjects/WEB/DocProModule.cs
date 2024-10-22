@@ -228,8 +228,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By svg_AddLevelOwner => By.XPath("//span[@id='spnAddLevelOwner']//*[local-name()='svg']");
         By svg_RemoveLevelOwner => By.XPath("//span[@id='spnRemoveLevelOwner']//*[local-name()='svg']");
         By lbl_AddedLevelOwnerName => By.XPath("//label[@id='spnOwnerName']");
-
-
+        By drp_DocumentReviewedAfter => By.XPath("//span[@id = 'select2-drpDocReviewUnitName-container']");
+        By inp_RevisionValue => By.XPath("//input[@id='txtDocReviewUnit']");
         #endregion
 
         #region IFrame
@@ -1896,6 +1896,42 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
          // *********** FM - 04 : Create and delete levels - end of TC 22979 ************ //
 
         }
+
+        // *********** FM - 04 : Revision numbering- Start of TC 22984 ************ //
+
+        /// <summary>
+        /// set the doc reviwed after as day
+        /// </summary>
+        public void SetDocumentReviewedAfterDropdownAsDay()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            seleniumActions.Wait(2);
+            seleniumActions.ScrollToPosition(0, 1000);
+            Assert.IsTrue(seleniumActions.IsElementPresent(drp_DocumentReviewedAfter), "Document Reviewed After dropdown is not present");
+            if (!seleniumActions.GetText(drp_DocumentReviewedAfter).Equals("Day"))
+            {
+                seleniumActions.Click(drp_DocumentReviewedAfter);
+                Assert.IsTrue(seleniumActions.IsElementPresent(inp_SearchForRevDateOpt), "search option is not present");
+                seleniumActions.Click(inp_SearchForRevDateOpt);
+                seleniumActions.SendKeys(inp_SearchForRevDateOpt, "Day");
+            }
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// set revision value as 1
+        /// </summary>
+        public void SetRevisionValue()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            seleniumActions.Wait(2);
+            Assert.IsTrue(seleniumActions.IsElementPresent(inp_RevisionValue), "Revision value field is not present");
+            seleniumActions.Click(inp_RevisionValue);
+            seleniumActions.SendKeys(inp_RevisionValue, Keys.Clear);
+            seleniumActions.SendKeys(inp_RevisionValue, "1");
+            seleniumActions.SwitchToDefaultContent();
+        }
+        // *********** FM - 04 : Revision numbering- End of TC 22984 ************ //
 
         #endregion
 

@@ -168,6 +168,21 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
         // *********** FM : Revision Numbering - End of TC 22980 ************ //
 
+        // *********** FM : Revision Numbering - Start of TC 22984 ************ //
+
+        [Then(@"I set the Document Reviewed After dropdown value as day")]
+        public void ThenISetTheDocumentReviewedAfterDropdownValueAsDay()
+        {
+            docProModule.SetDocumentReviewedAfterDropdownAsDay();
+        }
+
+        [Then(@"I set the Revision Value")]
+        public void ThenISetTheRevisionValue()
+        {
+            docProModule.SetRevisionValue();
+        }
+        // *********** FM : Revision Numbering - End of TC 22984 ************ //
+
         #endregion
 
     }

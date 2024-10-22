@@ -8,7 +8,8 @@ Scenario: TC 22983 Validate Enable Records option
 	Then Create random Level
 	Then I refresh the page
 	When Navigate to DocPro Setup in suite setup Page
-	Then I make the random level in use
+	Then I search and click the random level in folder management page
+	Then I make the level in use
 	Then I Click the records checkbox
 	Then I refresh the page
 	When Navigate to Levels in suite setup Page
@@ -23,7 +24,8 @@ Scenario: TC 22978 Validate revision date option as laat approval date
 	Then Create random Level
 	Then I refresh the page
 	When Navigate to DocPro Setup in suite setup Page
-	Then I make the random level in use
+	Then I search and click the random level in folder management page
+	Then I make the level in use
 	And I assiging value for Revision Date option
 	Then I refresh the page
 	When Navigate to Levels in suite setup Page
@@ -38,7 +40,8 @@ Scenario: TC 22980 Validate define level owner
 	Then Create random Level
 	Then I refresh the page
 	When Navigate to DocPro Setup in suite setup Page
-	Then I make the random level in use
+	Then I search and click the random level in folder management page
+	Then I make the level in use
 	And I Add the level owner and validate the level owner is added
 	Then I remove the level owner and verify the level owner is removed
 	Then I refresh the page
@@ -113,4 +116,20 @@ Scenario: TC 22979  Validate revision date option as User input date
 	Then I validate the Levels page
 	Then Delete the Level
 
+@TC-22984
+Scenario: TC 22984 Validate frequency of documentation reviewed
+	Given Login to the application with 'right' user
+	When Navigate to Levels in suite setup Page
+	Then I validate the Levels page
+	Then Create random Level
+	Then I refresh the page
+	When Navigate to DocPro Setup in suite setup Page
+	Then I search and click the random level in folder management page
+	Then I make the level in use
+	Then I set the Document Reviewed After dropdown value as day
+	Then I set the Revision Value
+	Then I refresh the page
+	When Navigate to Levels in suite setup Page
+	Then I validate the Levels page
+	Then Delete the Level
 
