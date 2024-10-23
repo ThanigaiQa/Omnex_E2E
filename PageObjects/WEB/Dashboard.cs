@@ -85,7 +85,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btnClose_TeamsPage => By.XPath("//button[@title='Close']");
         By tblRow => By.XPath("//tbody/tr[@role='row']");
         By btnNew => By.XPath("//button[@title='New']");
-
         By lblSuitSetUp => By.XPath("//div[@class='sub-menu']//span[contains(text(),'Suit Setup')]");
 
         /***************TC03 Xpaths**********************/

@@ -24,5 +24,7 @@ namespace OMNEX.AUTOMATION.Data.WEB
         public const string AcceptedBadgeColorCode = "rgba(38, 218, 210, 1)";
         public const string RejectedBadgeColorCode = "rgba(239, 83, 80, 1)";
         public const string DocNumber = "Doc-";
+        public const string SubLevelName = "NewSubLevel";
+        public const string UpdatedSubLevelName = "UpdatedSubLevel";
     }
 }

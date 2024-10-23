@@ -192,6 +192,66 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** FM : Revision Numbering - End of TC 22984 ************ //
 
+        // *********** FM : Levels create and delete - Start of TC 21857,61,63-67,69 ************ //
+
+        [Then(@"I right click on the (.*) level and select (.*) option")]
+        public void ThenIRightClickOnTheLevelAndSelectNewOption(string levelName, string option)
+        {
+            docProModule.RightClickAndSelectNewOptionOnLevel(scenarioContext["LevelName"].ToString(),option);
+        }
+
+        [Then(@"I verify the level heading")]
+        public void ThenIVerifyTheLevelHeading()
+        {
+            docProModule.VerifyLevelHeading();
+        }
+
+        [Then(@"I give sub level name and save the level")]
+        public void ThenIGiveSubLevelNameAndSaveTheLevel()
+        {
+            docProModule.GiveNewSubLevelNameAndClickSave();
+        }
+
+        [Then(@"I click on the folder arrow to open the sublevel")]
+        public void ThenIClickOnTheFolderArrowToOpenTheSublevel()
+        {
+            docProModule.ClickFolderArrowOpen();
+        }
+
+        [Then(@"I click on the sub level and verify the level header")]
+        public void ThenIClickOnTheSubLevelAndVerifyTheLevelHeader()
+        {
+           docProModule.ClickSubLevelAndVerifyLevelHeader();
+        }
+
+        [Then(@"I right click on the sublevel and select (.*) option")]
+        public void ThenIRightClickOnTheSubLevelAndSelectOption(string option)
+        {
+            switch(option)
+            {
+                case "Edit":
+                   docProModule.RightClickOnSubLevelAndSelectEditOption(option);
+                    break;
+                case "Delete":
+                    docProModule.RightClickOnSubLevelAndSelectDeleteOption(option);
+                    break;
+            }
+        }
+
+        [Then(@"I edit the sublevel name and save the sublevel")]
+        public void ThenIEditTheSublevelNameAndSaveTheSublevel()
+        {
+            docProModule.GiveUpdatedSubLevelNameAndClickSave();
+        }
+
+        [Then(@"I verify the sublevel was not found in RightSite")]
+        public void ThenIVerifyTheSublevelWasNotFoundInRightSite()
+        {
+            docProModule.ClickFolderArrowOpenAndVerifySublevelIsNotFound();
+        }
+
+        // *********** FM : Levels create and delete - End of TC 21857,61,63-67,69 ************ //
+
         #endregion
 
     }

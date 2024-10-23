@@ -105,8 +105,8 @@ Scenario: TC 21870 : Validate module levels are not displayed
 	Then I validate the Levels page
 	Then Delete the Level
 
-@TC-21857,61,63-67,69
-Scenario: TC 21861,63,64,65,66,67,69,57 : validate New Option and Sub level create, Edit and Delete
+@TC-21857_61_63_To_67_69
+Scenario: TC 21857_61_63_To_67_69 : validate New Option and Sub level create, Edit and Delete
 	Given Login to the application with 'right' user
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page
@@ -114,3 +114,25 @@ Scenario: TC 21861,63,64,65,66,67,69,57 : validate New Option and Sub level crea
 	Then Create random Level
 	Then I refresh the page
 	When Navigate to DocPro Setup in suite setup Page
+	Then I search and click the random level in folder management page
+	Then I right click on the random level and select New option
+	Then I verify the level heading
+	Then I give sub level name and save the level
+	Then I search and click the random level in folder management page
+	Then I click on the sub level and verify the level header
+	Then I right click on the sublevel and select Edit option
+	And I edit the sublevel name and save the sublevel
+	When I Change the site Corporate to RightSite
+	Then I refresh the page
+	When Navigate to DocPro Setup in suite setup Page
+	Then I search and click the random level in folder management page
+	Then I verify the sublevel was not found in RightSite
+	When I Change the site RightSite to Corporate
+	Then I refresh the page
+	When Navigate to DocPro Setup in suite setup Page
+	Then I search and click the random level in folder management page
+	Then I right click on the sublevel and select Delete option
+	Then I refresh the page
+	When Navigate to Levels in suite setup Page
+	Then I validate the Levels page
+	Then Delete the Level

@@ -221,7 +221,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By chk_SiteSubLevel => By.XPath("(//label[@id='thAllowSiteSub'])[1]");
         By btn_NewEnable => By.XPath("//div[@id='rMenu_TOCDoclvl']//span[contains(text(),'New')]");
         By ddp_DateOpt => By.XPath("//span[@id='select2-drpDocNumOpt-container']");
-        
         By drp_RevDateOpt => By.XPath("//span[contains(@id,'drpRevDateOpt')]");
         By inp_SearchForRevDateOpt => By.XPath("(//input[@type='search'])[2]");
         By chk_Record => By.XPath("//label[@id = 'thRecords']");
@@ -230,6 +229,14 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By lbl_AddedLevelOwnerName => By.XPath("//label[@id='spnOwnerName']");
         By drp_DocumentReviewedAfter => By.XPath("//span[@id = 'select2-drpDocReviewUnitName-container']");
         By inp_RevisionValue => By.XPath("//input[@id='txtDocReviewUnit']");
+        By lblNewLevel => By.XPath("(//div[@class='card']//h5[contains(text(),'New Level') and @class='card-title'])[1]");
+        By txtSublevelName => By.XPath("(//input[@id='txtLevelName'])[1]");
+        By folder_OpenArrow => By.XPath("(//span[@class='button level0 switch root_close'])[1]");
+        By folder_CloseArrow => By.XPath("(//span[@class='button level0 switch root_open'])[1]");
+        By lblSublevelName => By.XPath("//span[contains(text(),'SubLevel')]");
+        By lbl_SubLevelHeader => By.XPath("//div[@class='card-header']//h5[contains(text(),'Level')]");
+        By lblDeletedSuccessMessage => By.XPath("//div[contains(@class,'alert-dismissible')]");
+
         #endregion
 
         #region IFrame
@@ -1931,6 +1938,125 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // *********** FM - 04 : Revision numbering- End of TC 22984 ************ //
+
+        // *********** FM - 04 : Create and delete levels - Start of TC-21857,61,63-67,69 ************ //
+
+        /// <summary>
+        /// Right click on the level and select new option
+        /// </summary>
+        /// <param name="LevelName"></param>
+        public void RightClickAndSelectNewOptionOnLevel(string LevelName, string option)
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(folderManagement_Tab);
+            seleniumActions.SwitchToFrame(iframe_MenuData);
+            Assert.IsTrue(seleniumActions.IsElementPresent(By.XPath("(//a[@title='" + LevelName + "']//span)[2]")), "Searched level not found");
+            seleniumActions.Wait(3);
+            seleniumActions.ContextClick(By.XPath("(//a[@title='" + LevelName + "']//span)[2]"));
+            seleniumActions.Click(By.XPath("(//li[@id='divNewFolder']//span[contains(text(),'" + option + "')])[1]"));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Verifies the level heading 
+        /// </summary>
+        public void VerifyLevelHeading()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            Assert.IsTrue(seleniumActions.VerifyElementIsDisplayed(lblNewLevel),"Label new level is not present");
+            Assert.IsTrue(seleniumActions.GetText(lblNewLevel).Equals("New Level"));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Gives new sub level name and save the level
+        /// </summary>
+        public void GiveNewSubLevelNameAndClickSave()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            seleniumActions.Click(txtSublevelName);
+            seleniumActions.SendKeys(txtSublevelName,Constants.SubLevelName);
+            seleniumActions.ScrollToPosition(0,1000);
+            seleniumActions.Click(btn_save);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Clicks the folder open arrow to open the sublevel
+        /// </summary>
+        public void ClickFolderArrowOpen()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(folder_OpenArrow);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Clicks the sublevel and verifies the level header
+        /// </summary>
+        public void ClickSubLevelAndVerifyLevelHeader()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblSublevelName),"Sub level is not found");
+            seleniumActions.Click(lblSublevelName);
+            seleniumActions.SwitchToFrame(iframe_Tree);
+            Assert.IsTrue(seleniumActions.GetText(lbl_SubLevelHeader).Equals("Level - " + Constants.SubLevelName));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Right click on sublevel and select edit option
+        /// </summary>
+        public void RightClickOnSubLevelAndSelectEditOption(string option)
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData);
+            seleniumActions.ContextClick(lblSublevelName);
+            seleniumActions.Click(By.XPath("(//span[contains(text(),'" + option + "')])[1]"));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Right click on sublevel and select delete option
+        /// </summary>
+        public void RightClickOnSubLevelAndSelectDeleteOption(string option)
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData);
+            seleniumActions.Click(lblSublevelName);
+            seleniumActions.Wait(3);
+            seleniumActions.ContextClick(lblSublevelName);
+            seleniumActions.Click(By.XPath("(//span[contains(text(),'" + option + "')])[1]"));
+            seleniumActions.Click(popUp_Yes);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage), "lbl Deleted success msg is not showing");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Gives updated sub level name and save the level
+        /// </summary>
+        public void GiveUpdatedSubLevelNameAndClickSave()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            seleniumActions.Click(txtSublevelName);
+            seleniumActions.SendKeys(txtSublevelName, Keys.Clear);
+            seleniumActions.SendKeys(txtSublevelName, Constants.UpdatedSubLevelName);
+            seleniumActions.ScrollToPosition(0, 1000);
+            seleniumActions.Click(btn_save);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Clicks the folder open arrow and verify the sublevel is not found
+        /// </summary>
+        public void ClickFolderArrowOpenAndVerifySublevelIsNotFound()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData);
+            Assert.IsFalse(seleniumActions.IsElementPresent(folder_OpenArrow, 5), "Folder open arrow is displaying");
+            Assert.IsFalse(seleniumActions.IsElementPresent(lblSublevelName,5), "Sub level is displaying");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** FM - 04 : Create and delete levels - End of TC-21857,61,63-67,69 ************ //
 
         #endregion
 
