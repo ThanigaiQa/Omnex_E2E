@@ -12,7 +12,7 @@ Scenario: TC-21875 Validate Document management Link
 	Then I search and click the random level in folder management page
 	Then I make the level in use
 	Then I Open the Right for Sites for the level
-	Then I search for rights in document rights page
+	Then I search for rightsite in document rights page
 	And I click the document management link
 	#Then validate the document management link heading
 	#When Navigate to Levels in suite setup Page

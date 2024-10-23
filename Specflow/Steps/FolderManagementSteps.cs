@@ -178,14 +178,14 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** FM : Revision Numbering - Start of TC 22984 ************ //
 
-        [Then(@"I set the Document Reviewed After dropdown value as day")]
-        public void ThenISetTheDocumentReviewedAfterDropdownValueAsDay()
+        [Then(@"I set the Document Reviewed After dropdown value to day and validate that the value is correctly set to day\.")]
+        public void ThenISetTheDocumentReviewedAfterDropdownValueToDayAndValidateThatTheValueIsCorrectlySetToDay_()
         {
             docProModule.SetDocumentReviewedAfterDropdownAsDay();
         }
 
-        [Then(@"I set the Revision Value")]
-        public void ThenISetTheRevisionValue()
+        [Then(@"I set the Revision value and validate that it is correctly set\.")]
+        public void ThenISetTheRevisionValueAndValidateThatItIsCorrectlySet_()
         {
             docProModule.SetRevisionValue();
         }
@@ -254,6 +254,12 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** FM : Rights for level - Start of TC 21875 ************ //
 
+        [Then(@"I search for rightsite in document rights page")]
+        public void ThenISearchForRightsiteInDocumentRightsPage()
+        {
+            docProModule.SearchForRightSiteInDocumentRights();
+        }
+
         [Then(@"I click the document management link")]
         public void ThenIClickTheDocumentManagementLink()
         {
@@ -265,7 +271,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         {
             throw new PendingStepException();
         }
-
+      
         // *********** FM : Rights for level - End of TC 21875 ************ //
 
 

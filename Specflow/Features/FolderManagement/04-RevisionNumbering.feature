@@ -126,8 +126,8 @@ Scenario: TC 22984 Validate frequency of documentation reviewed
 	When Navigate to DocPro Setup in suite setup Page
 	Then I search and click the random level in folder management page
 	Then I make the level in use
-	Then I set the Document Reviewed After dropdown value as day
-	Then I set the Revision Value
+	Then I set the Document Reviewed After dropdown value to day and validate that the value is correctly set to day.
+	Then I set the Revision value and validate that it is correctly set.
 	Then I refresh the page
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page

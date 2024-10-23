@@ -1920,6 +1920,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
                 seleniumActions.Click(inp_SearchForRevDateOpt);
                 seleniumActions.SendKeys(inp_SearchForRevDateOpt, "Day");
             }
+            Assert.IsTrue(seleniumActions.GetText(drp_DocumentReviewedAfter).Equals("Day"));
             seleniumActions.SwitchToDefaultContent();
         }
 
@@ -1934,6 +1935,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(inp_RevisionValue);
             seleniumActions.SendKeys(inp_RevisionValue, Keys.Clear);
             seleniumActions.SendKeys(inp_RevisionValue, "1");
+            Assert.IsTrue(seleniumActions.GetText(inp_RevisionValue).Equals("1"));
             seleniumActions.SwitchToDefaultContent();
         }
 
