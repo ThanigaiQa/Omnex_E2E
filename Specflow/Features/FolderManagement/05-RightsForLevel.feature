@@ -13,10 +13,11 @@ Scenario: TC 21875 Validate Document management Link
 	Then I Open the Right for Sites for the level
 	Then I search for rightsite in document rights page
 	And I click the document management link
-	#Then validate the document management link heading
-	#When Navigate to Levels in suite setup Page
-	#Then I validate the Levels page
-	#Then Delete the Level
+	Then validate the manage site document heading
+	Then I refresh the page
+	When Navigate to Levels in suite setup Page
+	Then I validate the Levels page
+	Then Delete the Level
 
 @TC-21872
 Scenario: TC 21872 Validate Inherit Option should not selected by default

@@ -185,10 +185,16 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.SetDocumentReviewedAfterDropdownAsDay();
         }
 
-        [Then(@"I set the Revision value and validate that it is correctly set\.")]
-        public void ThenISetTheRevisionValueAndValidateThatItIsCorrectlySet_()
+        [Then(@"I set the Revision value")]
+        public void ThenISetTheRevisionValue()
         {
             docProModule.SetRevisionValue();
+        }
+
+        [Then(@"I validate the revision value is set correctly")]
+        public void ThenIValidateTheRevisionValueIsSetCorrectly()
+        {
+            docProModule.ValidateRevisionValue();
         }
 
         // *********** FM : Revision Numbering - End of TC 22984 ************ //
@@ -270,10 +276,10 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.ClickDocumentManagementLink();
         }
 
-        [Then(@"validate the document management link heading")]
-        public void ThenValidateTheDocumentManagementLinkHeading()
+        [Then(@"validate the manage site document heading")]
+        public void ThenValidateTheManageSiteDocumentHeading()
         {
-            throw new PendingStepException();
+            docProModule.ValidateTheManageSiteDocumentHeading(scenarioContext["LevelName"].ToString());
         }
 
         // *********** FM : Rights for level - End of TC 21875 ************ //

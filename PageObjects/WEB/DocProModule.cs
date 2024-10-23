@@ -4,9 +4,11 @@ using Microsoft.Win32;
 using OMNEX.AUTOMATION.Data.WEB;
 using OMNEX.AUTOMATION.Helpers;
 using OpenQA.Selenium;
+using System;
 using System.Reflection;
 using System.Reflection.Emit;
 using TechTalk.SpecFlow;
+using System.Security.Policy;
 
 namespace OMNEX.AUTOMATION.PageObjects.WEB
 {
@@ -238,6 +240,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By lbl_SubLevelHeader => By.XPath("//div[@class='card-header']//h5[contains(text(),'Level')]");
         By lblDeletedSuccessMessage => By.XPath("//div[contains(@class,'alert-dismissible')]");
         By drp_RightsForSites => By.XPath("//div[@id='rMenu_TOCDoclvl']//span[contains(text(),'Rights for sites')]//parent::li");
+        By heading_ManageSiteDocument => By.XPath("//div[@class='card-header']//h5[@class='card-title']");
         #endregion
 
         #region IFrame
@@ -1936,7 +1939,14 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(inp_RevisionValue);
             seleniumActions.SendKeys(inp_RevisionValue, Keys.Clear);
             seleniumActions.SendKeys(inp_RevisionValue, "1");
-            Assert.IsTrue(seleniumActions.GetText(inp_RevisionValue).Equals("1"));
+            seleniumActions.Click(btn_save);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        public void ValidateRevisionValue()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            Assert.AreEqual("1", seleniumActions.GetAttributeValue(inp_RevisionValue, "value"), "The value is not set as expected.");
             seleniumActions.SwitchToDefaultContent();
         }
 
@@ -2110,6 +2120,17 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToDefaultContent();
         }
 
+        /// <summary>
+        ///  Validate the manage site document heading
+        /// </summary>
+        public void ValidateTheManageSiteDocumentHeading(string LevelName)
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            seleniumActions.Wait(2);
+            Assert.IsTrue(seleniumActions.GetText(heading_ManageSiteDocument).Equals("Manage Site Document Access - " + LevelName));
+            seleniumActions.SwitchToDefaultContent();
+
+        }
         // *********** FM - 05 : Rights for level - End of TC 21875 ************ //
 
         // *********** FM - 05 : Rights for level - Start of TC 21872 ************ //
