@@ -236,6 +236,9 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
                 case "Delete":
                     docProModule.RightClickOnSubLevelAndSelectDeleteOption(option);
                     break;
+                case "Rights for sites":
+                    docProModule.RightClickOnSubLevelAndSelectRightsForSiteOption(option);
+                    break;
             }
         }
 
@@ -284,6 +287,16 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         // *********** FM : Rights for level - End of TC 21872 ************ //
+
+        // *********** FM : Rights for level - Start of TC 21873 ************ //
+
+        [Then(@"I validate the inherit option should be selected by default")]
+        public void ThenIValidateTheInheritOptionShouldBeSelectedByDefault()
+        {
+            docProModule.ValidateInheritOptionShouldBeSelectedByDefault();
+        }
+
+        // *********** FM : Rights for level - End of TC 21873 ************ //
 
 
         #endregion

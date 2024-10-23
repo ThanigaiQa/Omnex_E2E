@@ -2127,6 +2127,34 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         // *********** FM - 05 : Rights for level - End of TC 21872 ************ //
 
+        // *********** FM - 05 : Rights for level - Start of TC 21873 ************ //
+
+        /// <summary>
+        /// Right click on sublevel and select rights for site option
+        /// </summary>
+        public void RightClickOnSubLevelAndSelectRightsForSiteOption(string option)
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData);
+            seleniumActions.Click(lblSublevelName);
+            seleniumActions.Wait(3);
+            seleniumActions.ContextClick(lblSublevelName);
+            seleniumActions.Click(By.XPath("(//span[contains(text(),'" + option + "')])[1]"));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Validate the inherit option should be selected by default
+        /// </summary>
+        public void ValidateInheritOptionShouldBeSelectedByDefault()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            Assert.IsTrue(seleniumActions.IsElementPresent(chk_DocumentCreation_Inherit), "Inherit checkbox is not visible");
+            seleniumActions.FindElement(chk_DocumentCreation_Inherit).GetAttribute("checked").Equals("checked");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** FM - 05 : Rights for level - End of TC 21873 ************ //
+
         #endregion
 
     }
