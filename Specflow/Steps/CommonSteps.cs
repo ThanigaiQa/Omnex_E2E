@@ -360,6 +360,12 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.SearchAndClickLevelInFolderManagement(scenarioContext["LevelName"].ToString());
         }
 
+        [Then(@"I Open the Right for Sites for the level")]
+        public void ThenIOpenTheRightForSitesForTheLevel()
+        {
+            docProModule.RightForSites(scenarioContext["LevelName"].ToString());
+        }
+
         #endregion
     }
 }

@@ -252,6 +252,23 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** FM : Levels create and delete - End of TC 21857,61,63-67,69 ************ //
 
+        // *********** FM : Rights for level - Start of TC 21875 ************ //
+
+        [Then(@"I click the document management link")]
+        public void ThenIClickTheDocumentManagementLink()
+        {
+            docProModule.ClickDocumentManagementLink();
+        }
+
+        [Then(@"validate the document management link heading")]
+        public void ThenValidateTheDocumentManagementLinkHeading()
+        {
+            throw new PendingStepException();
+        }
+
+        // *********** FM : Rights for level - End of TC 21875 ************ //
+
+
         #endregion
 
     }

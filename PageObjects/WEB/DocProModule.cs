@@ -236,7 +236,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By lblSublevelName => By.XPath("//span[contains(text(),'SubLevel')]");
         By lbl_SubLevelHeader => By.XPath("//div[@class='card-header']//h5[contains(text(),'Level')]");
         By lblDeletedSuccessMessage => By.XPath("//div[contains(@class,'alert-dismissible')]");
-
+        By drp_RightsForSites => By.XPath("//div[@id='rMenu_TOCDoclvl']//span[contains(text(),'Rights for sites')]//parent::li");
         #endregion
 
         #region IFrame
@@ -2058,6 +2058,56 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         // *********** FM - 04 : Create and delete levels - End of TC-21857,61,63-67,69 ************ //
 
+        
+        // *********** FM - 05 : Rights for level - Start of TC 21875 ************ //
+
+        /// <summary>
+        /// Clicks the Rights for Sites
+        /// </summary>
+        public void RightForSites(String LevelName)
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(folderManagement_Tab);
+            seleniumActions.SwitchToFrame(iframe_MenuData);
+            seleniumActions.Click(phd_SearchByFolder);
+            seleniumActions.SendKeys(phd_SearchByFolder, LevelName);
+            seleniumActions.Click(btnSearch_SearchByFolder);
+            Assert.IsTrue(seleniumActions.IsElementPresent(By.XPath("(//a[@title='" + LevelName + "']//span)[2]")), "Searched level not found");
+            seleniumActions.Wait(3);
+            seleniumActions.ContextClick(By.XPath("(//a[@title='" + LevelName + "']//span)[2]"));
+            Assert.IsTrue(seleniumActions.IsElementPresent(drp_RightsForSites), "unable to find Rights for sites option");
+            seleniumActions.Click(drp_RightsForSites);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// searches for rightSite in document rights page
+        /// </summary>
+        public void SearchForRightSiteInDocumentRights()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(inpSearch_RightsForGroup);
+            seleniumActions.SendKeys(inpSearch_RightsForGroup, "RightSite");
+            seleniumActions.Wait(2);
+            Assert.IsTrue(seleniumActions.GetText(lbl_Rights).Equals("RightSite"));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        ///  click doc management link 
+        /// </summary>
+        public void ClickDocumentManagementLink()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(img_plusIcon);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lnkClick_FullAccess), "document management link is not present");
+            seleniumActions.Click(lnkClick_FullAccess);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** FM - 05 : Rights for level - End of TC 21875 ************ //
         #endregion
 
     }
