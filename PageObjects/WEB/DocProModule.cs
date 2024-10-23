@@ -6,6 +6,7 @@ using OMNEX.AUTOMATION.Helpers;
 using OpenQA.Selenium;
 using System.Reflection;
 using System.Reflection.Emit;
+using TechTalk.SpecFlow;
 
 namespace OMNEX.AUTOMATION.PageObjects.WEB
 {
@@ -2110,6 +2111,22 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // *********** FM - 05 : Rights for level - End of TC 21875 ************ //
+
+        // *********** FM - 05 : Rights for level - Start of TC 21872 ************ //
+
+        /// <summary>
+        /// Validate the inherit option should not be selected by default
+        /// </summary>
+        public void ValidateInheritOptionShouldNotBeSelectedByDefault()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            Assert.IsTrue(seleniumActions.IsElementPresent(chk_DocumentCreation_Inherit), "Inherit checkbox is not visible");
+            seleniumActions.FindElement(chk_DocumentCreation_Inherit).GetAttribute("disabled").Equals("disabled");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** FM - 05 : Rights for level - End of TC 21872 ************ //
+
         #endregion
 
     }

@@ -1,4 +1,5 @@
-﻿using OMNEX.AUTOMATION.Helpers;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OMNEX.AUTOMATION.Helpers;
 using OMNEX.AUTOMATION.PageObjects.WEB;
 using System;
 using System.Collections.Generic;
@@ -271,8 +272,18 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         {
             throw new PendingStepException();
         }
-      
+
         // *********** FM : Rights for level - End of TC 21875 ************ //
+
+        // *********** FM : Rights for level - Start of TC 21872 ************ //
+
+        [Then(@"I validate the inherit option should not be selected by default")]
+        public void ThenIValidateTheInheritOptionShouldNotBeSelectedByDefault()
+        {
+            docProModule.ValidateInheritOptionShouldNotBeSelectedByDefault();
+        }
+
+        // *********** FM : Rights for level - End of TC 21872 ************ //
 
 
         #endregion
