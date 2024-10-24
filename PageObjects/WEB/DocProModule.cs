@@ -2176,6 +2176,32 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         // *********** FM - 05 : Rights for level - End of TC 21873 ************ //
 
+        // *********** FM - 05 : Rights for level - End of TC 21873 ************ //
+
+        /// <summary>
+        /// validate the route link is not present
+        /// </summary>
+        public void ValidateRouteLinkInNotPresent()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            seleniumActions.ScrollToPosition(0,1000);
+            Assert.IsFalse(seleniumActions.VerifyElementIsDisplayed(lnk_InheritFromParent,5),"Inherit parent link is visible");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// validate the route link is present after making the level in use
+        /// </summary>
+        public void ValidateRouteLinkInPresent()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            seleniumActions.ScrollToPosition(0, 1000);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lnk_InheritFromParent), "Inherit parent link is not visible");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** FM - 05 : Rights for level - End of TC 21873 ************ //
+
         #endregion
 
     }

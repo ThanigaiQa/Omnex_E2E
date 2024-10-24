@@ -304,6 +304,24 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** FM : Rights for level - End of TC 21873 ************ //
 
+        // *********** FM : Route - Start of TC 21877_78 ************ //
+
+        [Then(@"I validate the route link is (.*)")]
+        public void ThenIValidateTheRouteLinkIs(string state)
+        {
+            switch(state)
+            {
+                case "present":
+                    docProModule.ValidateRouteLinkInPresent();
+                    break;
+                case "not present":
+                    docProModule.ValidateRouteLinkInNotPresent();
+                    break;
+            }
+        }
+
+        // *********** FM : Route - End of TC 21877_78 ************ //
+
 
         #endregion
 
