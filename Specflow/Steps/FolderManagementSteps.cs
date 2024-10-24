@@ -312,15 +312,25 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             switch(state)
             {
                 case "present":
-                    docProModule.ValidateRouteLinkInPresent();
+                    docProModule.ValidateRouteLinkIsPresent();
                     break;
                 case "not present":
-                    docProModule.ValidateRouteLinkInNotPresent();
+                    docProModule.ValidateRouteLinkIsNotPresent();
                     break;
             }
         }
 
         // *********** FM : Route - End of TC 21877_78 ************ //
+
+        // *********** FM : Route - End of TC 21879_80 ************ //
+
+        [Then(@"I click on the route link and validate the UI elements")]
+        public void ThenIClickOnTheRouteLinkAndValidateTheUIElements()
+        {
+            docProModule.ValidateUIElementsInRoutePage();
+        }
+
+        // *********** FM : Route - End of TC 21879_80 ************ //
 
 
         #endregion

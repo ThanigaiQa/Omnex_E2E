@@ -62,7 +62,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By lblActions => By.XPath("//h5[contains(text(),'Actions')]");
         By lnk_InheritFromParent => By.XPath("//*[@id = 'aEditRoute']");
         By drp_NewRoute => By.XPath("//span[contains(@id,'tddrpdownNewRoute')]");
+        By drp_ExistingRoute => By.XPath("//span[contains(@id,'tddrpdownExistingRoute')]");
         By btn_Close => By.XPath("//button[@title='Close']");
+        By btn_Close_RoutePage => By.XPath("(//div[@aria-describedBy='iframedivs']//button[@title='Close'])[1]");
         By menu_PendingRequests => By.XPath("//td[@title='Pending Requests']");
         By lbl_DocNumber => By.XPath("//th[text()='Document Number']");
         By lbl_DocName => By.XPath("//th[text()='Document Name']");
@@ -402,7 +404,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Wait(2);
             seleniumActions.SwitchToDefaultContent();
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
-            seleniumActions.Click(btn_Close);
+            seleniumActions.Click(btn_Close_RoutePage);
+            Assert.IsTrue(seleniumActions.GetText(lnk_InheritFromParent).Equals(subHead));
             seleniumActions.Click(btn_save);
             seleniumActions.SwitchToDefaultContent();
         }
@@ -2176,12 +2179,12 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         // *********** FM - 05 : Rights for level - End of TC 21873 ************ //
 
-        // *********** FM - 05 : Rights for level - End of TC 21873 ************ //
+        // *********** FM - 07 : Route - Start of TC 21877_78 ************ //
 
         /// <summary>
         /// validate the route link is not present
         /// </summary>
-        public void ValidateRouteLinkInNotPresent()
+        public void ValidateRouteLinkIsNotPresent()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
             seleniumActions.ScrollToPosition(0,1000);
@@ -2192,15 +2195,38 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// <summary>
         /// validate the route link is present after making the level in use
         /// </summary>
-        public void ValidateRouteLinkInPresent()
+        public void ValidateRouteLinkIsPresent()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
             seleniumActions.ScrollToPosition(0, 1000);
             Assert.IsTrue(seleniumActions.IsElementPresent(lnk_InheritFromParent), "Inherit parent link is not visible");
+            Assert.IsTrue(seleniumActions.GetText(lnk_InheritFromParent).Equals("Inherit from parent"));
             seleniumActions.SwitchToDefaultContent();
         }
 
-        // *********** FM - 05 : Rights for level - End of TC 21873 ************ //
+        // *********** FM - 07 : Route - End of TC 21877_78 ************ //
+
+        // *********** FM - 07 : Route - End of TC 21877_78 ************ //
+
+        /// <summary>
+        /// validate UI elements in route page
+        /// </summary>
+        public void ValidateUIElementsInRoutePage()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            seleniumActions.Click(lnk_InheritFromParent);
+            seleniumActions.Wait(4);
+            seleniumActions.SwitchToIframes(iframe_Routes, iframe_Route);
+            Assert.IsTrue(seleniumActions.FindElement(drp_NewRoute).GetAttribute("title").Contains("Inherit from parent"));
+            Assert.IsTrue(seleniumActions.FindElement(drp_ExistingRoute).GetAttribute("title").Contains("Inherit from parent"));
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            seleniumActions.Click(btn_Close_RoutePage);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+
+        // *********** FM - 07 : Route - End of TC 21877_78 ************ //
 
         #endregion
 
