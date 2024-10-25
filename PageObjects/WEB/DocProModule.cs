@@ -243,6 +243,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By lblDeletedSuccessMessage => By.XPath("//div[contains(@class,'alert-dismissible')]");
         By drp_RightsForSites => By.XPath("//div[@id='rMenu_TOCDoclvl']//span[contains(text(),'Rights for sites')]//parent::li");
         By heading_ManageSiteDocument => By.XPath("//div[@class='card-header']//h5[@class='card-title']");
+        By chk_FullAccesForDocument => By.XPath("//input[@type='checkbox' and @id='fullaccess_0']");
         #endregion
 
         #region IFrame
@@ -1949,7 +1950,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void ValidateRevisionValue()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
-            Assert.AreEqual("1", seleniumActions.GetAttributeValue(inp_RevisionValue, "value"), "The value is not set as expected.");
+            Assert.AreEqual(seleniumActions.GetAttributeValue(inp_RevisionValue, "value"), "1", "The value is not set as expected.");
             seleniumActions.SwitchToDefaultContent();
         }
 
@@ -2227,6 +2228,33 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
 
         // *********** FM - 07 : Route - End of TC 21877_78 ************ //
+
+        // *********** FM - 05 : Rights for level - Start of TC 21876 ************ //
+
+        /// <summary>
+        /// click full access checkbox for document 
+        /// </summary>
+        public void ClickFullAccessCheckboxForDocument()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            seleniumActions.Click(img_plusIcon);
+            Assert.IsTrue(seleniumActions.IsElementPresent(chk_FullAccesForDocument), "full access checkbox is not present");
+            seleniumActions.Click(chk_FullAccesForDocument);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// validate full access checkbox is clicked
+        /// </summary>
+        public void GetAttributeAndValidateFullAccessCheckBox()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            seleniumActions.Wait(3);
+            Assert.IsTrue(seleniumActions.FindElement(chk_FullAccesForDocument).GetAttribute("checked").Equals("true"));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** FM - 05 : Rights for level - End of TC 21876 ************ //
 
         #endregion
 

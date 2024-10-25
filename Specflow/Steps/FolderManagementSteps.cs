@@ -332,6 +332,21 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** FM : Route - End of TC 21879_80 ************ //
 
+        // *********** FM : Rights for level - Start of TC 21876 ************ //
+
+        [Then(@"I click plus icon and I give the full access for the document")]
+        public void ThenIClickPlusIconAndIGiveTheFullAccessForTheDocument()
+        {
+            docProModule.ClickFullAccessCheckboxForDocument();
+        }
+
+        [Then(@"I get the attribute and validate the full access checkbox")]
+        public void ThenIGetTheAttributeAndValidateTheFullAccessCheckbox()
+        {
+            docProModule.GetAttributeAndValidateFullAccessCheckBox();
+        }
+
+        // *********** FM : Rights for level - End of TC 21876 ************ //
 
         #endregion
 
