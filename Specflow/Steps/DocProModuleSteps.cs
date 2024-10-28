@@ -290,8 +290,6 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** UA - 02 : Pending Doc Draft - End of TC 02 ************ //
 
-
-
         // *********** UA - 03 : Draft Req Needing Viewing - Start of TC 03 ************ //
 
         [When(@"I click the Accept radio button")]

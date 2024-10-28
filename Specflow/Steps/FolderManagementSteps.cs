@@ -347,6 +347,27 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         // *********** FM : Rights for level - End of TC 21876 ************ //
+        // *********** FM - 07 : Tag Creation search - Start of TC 22986 ************ //
+
+        [Then(@"I verify the tag selection link is present")]
+        public void ThenIVerifyTheTagSelectionLinkIsPresent()
+        {
+            docProModule.VerifyTagSelectionLinkIsPresent();
+        }
+
+        [Then(@"I click on the tag selection link")]
+        public void ThenIClickOnTheTagSelectionLink()
+        {
+            docProModule.ClickTagSelectionLink();
+        }
+
+        [Then(@"I search and select the tagname")]
+        public void ThenISearchAndSelectTheTagname()
+        {
+            docProModule.SearchAndSelectTagName();
+        }
+
+        // *********** FM - 07 : Tag Creation search - End of TC 22986 ************ //
 
         #endregion
 

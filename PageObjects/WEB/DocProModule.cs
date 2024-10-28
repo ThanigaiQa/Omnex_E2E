@@ -244,6 +244,12 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By drp_RightsForSites => By.XPath("//div[@id='rMenu_TOCDoclvl']//span[contains(text(),'Rights for sites')]//parent::li");
         By heading_ManageSiteDocument => By.XPath("//div[@class='card-header']//h5[@class='card-title']");
         By chk_FullAccesForDocument => By.XPath("//input[@type='checkbox' and @id='fullaccess_0']");
+        By lnk_TagSelect => By.XPath("//a[@id='selecttags']");
+        By lbl_TagSearchResult => By.XPath("(//table[@id='FldrTagsGrid']//td[@class='sorting_1'])[1]");
+        By chk_TagNameSelection => By.XPath("//input[@name='FldrTagsGrid_selectCheck']");
+        By btnDone_TagSelection => By.XPath("//button[@title='Select']");
+        By ddl_TagName_MultiSearch => By.XPath("(//div[@class='dtsb-criteria']//select//option[contains(text(),'TagName')])[1]");
+
         #endregion
 
         #region IFrame
@@ -258,6 +264,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         static By iframe_Routes => By.XPath("//iframe[@id='iframeRoutes']");
         static By iframe_Actions => By.XPath("//iframe[@id='iframeActions']");
         static By iframe_ResetAction => By.XPath("//iframe[contains(@class,'cke_reset')]");
+        static By iframe_SelectTags => By.XPath("//iframe[@id='ifrselecttags']");
 
         #endregion
 
@@ -521,7 +528,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void SearchDocumentInActionsPage(string docName)
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
-
             Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
             seleniumActions.Click(btnMultiSearch);
             Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch));
@@ -2226,8 +2232,61 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToDefaultContent();
         }
 
-
         // *********** FM - 07 : Route - End of TC 21877_78 ************ //
+
+        // *********** FM - 09 : Tag Creation search - Start of TC 22986 ************ //
+
+        /// <summary>
+        /// Verify Tag selection link is present
+        /// </summary>
+        public void VerifyTagSelectionLinkIsPresent()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            seleniumActions.Wait(2);
+            seleniumActions.ScrollToPosition(0, 1000);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lnk_TagSelect, 5), "Tag selection link is not present");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Clicks the Tag selection link
+        /// </summary>
+        public void ClickTagSelectionLink()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            seleniumActions.Wait(2);
+            seleniumActions.ScrollToPosition(0, 1000);
+            seleniumActions.Click(lnk_TagSelect);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// search and selects the tagname
+        /// </summary>
+        public void SearchAndSelectTagName()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree,iframe_SelectTags);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
+            seleniumActions.Click(btnMultiSearch);
+            Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch));
+            seleniumActions.Click(drpColumn_MultiSearch);
+            seleniumActions.Click(ddl_TagName_MultiSearch);
+            seleniumActions.Click(drpCondition_MultiSearch);
+            seleniumActions.Click(ddlContains_MultiSearch);
+            seleniumActions.Click(inp_MultiSearch);
+            seleniumActions.SendKeys(inp_MultiSearch, Constants.Name);
+            seleniumActions.Click(btnAdvancedSearch_MultiSearch);
+            Assert.IsTrue(seleniumActions.GetText(lbl_TagSearchResult).Equals(Constants.Name));
+            seleniumActions.Wait(3);
+            seleniumActions.Click(chk_TagNameSelection);
+            seleniumActions.Click(btnDone_TagSelection);
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            Assert.IsTrue(seleniumActions.GetText(lnk_TagSelect).Equals(Constants.Name));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** FM - 07 : Tag Creation search - End of TC 22986 ************ //
 
         // *********** FM - 05 : Rights for level - Start of TC 21876 ************ //
 
