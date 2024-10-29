@@ -249,6 +249,10 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By chk_TagNameSelection => By.XPath("//input[@name='FldrTagsGrid_selectCheck']");
         By btnDone_TagSelection => By.XPath("//button[@title='Select']");
         By ddl_TagName_MultiSearch => By.XPath("(//div[@class='dtsb-criteria']//select//option[contains(text(),'TagName')])[1]");
+        By lbl_EnableEnhancedPrinting => By.XPath("//label[@for='chkEnablePrinting']//*[local-name()='svg']");
+        By drp_Template => By.XPath("//select[@id='drpTemplateList']");
+        By chk_EnabledEnhancedPrinting => By.XPath("//label[@for='chkEnablePrinting']//preceding::input[@id='chkEnablePrinting']");
+
 
         #endregion
 
@@ -2314,6 +2318,36 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // *********** FM - 05 : Rights for level - End of TC 21876 ************ //
+
+        // *********** FM - 08 : Site PDF Preference - Start of TC 23015,16 ************ //
+
+        /// <summary>
+        ///  Disable enhanced printing checkbox to verify template dropdown is disabled
+        /// </summary>
+        public void DisableEnhancedPrintingCheckboxToVerifyTemplateDropdown()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            Assert.IsTrue(seleniumActions.FindElement(chk_EnabledEnhancedPrinting).GetAttribute("checked").Equals("true"));
+            seleniumActions.Click(lbl_EnableEnhancedPrinting);
+            seleniumActions.Wait(2);
+            Assert.IsTrue(seleniumActions.FindElement(drp_Template).GetAttribute("disabled").Equals("true"));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        ///  Enable enhanced printing checkbox to verify template dropdown is enabled
+        /// </summary>
+        public void EnableEnhancedPrintingCheckboxToVerifyTemplateDropdown()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Click(lbl_EnableEnhancedPrinting);
+            seleniumActions.Wait(2);
+            string state = seleniumActions.FindElement(drp_Template).GetAttribute("disabled");
+            Assert.AreEqual(state,null);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** FM - 08 : Site PDF Preference - End of TC 23015,16 ************ //
 
         #endregion
 

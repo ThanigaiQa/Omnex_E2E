@@ -1,6 +1,6 @@
 ﻿Feature: Pending Request
 
-	@TC-01
+@TC-01
 Scenario: TC 01 : DOC_2500_10_10
 	Given Login to the application with 'right' user
 	When Navigate to Levels in suite setup Page

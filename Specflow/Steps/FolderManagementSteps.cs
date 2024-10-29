@@ -369,6 +369,22 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** FM - 07 : Tag Creation search - End of TC 22986 ************ //
 
+        // *********** FM - 08 : Site PDF Preference - Start of TC 23015,16 ************ //
+
+        [Then(@"I disable the Enhanced printing checkbox to verify the template is option is disabled")]
+        public void ThenIDisableTheEnhancedPrintingCheckboxToVerifyTheTemplateIsOptionIsDisabled()
+        {
+            docProModule.DisableEnhancedPrintingCheckboxToVerifyTemplateDropdown();
+        }
+
+        [Then(@"I enable the Enhanced printing checkbox to verify the template is option is enabled")]
+        public void ThenIEnableTheEnhancedPrintingCheckboxToVerifyTheTemplateIsOptionIsEnabled()
+        {
+            docProModule.EnableEnhancedPrintingCheckboxToVerifyTemplateDropdown();
+        }
+
+        // *********** FM - 08 : Site PDF Preference - End of TC 23015,16 ************ //
+
         #endregion
 
     }
