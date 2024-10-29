@@ -252,6 +252,14 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By lbl_EnableEnhancedPrinting => By.XPath("//label[@for='chkEnablePrinting']//*[local-name()='svg']");
         By drp_Template => By.XPath("//select[@id='drpTemplateList']");
         By chk_EnabledEnhancedPrinting => By.XPath("//label[@for='chkEnablePrinting']//preceding::input[@id='chkEnablePrinting']");
+        By ddn_Template => By.XPath("//select[@class='custom-select']");
+        By chk_SelectAllModules => By.XPath("//select[@class='custom-select']");
+        By lbl_ToVerifyTemplateDropDown => By.XPath("//label[contains(text(),'Template')]//following::select[@class='custom-select']");
+        By lnk_LevelPdfPreference => By.XPath("//a[@id = 'aLevelPdfPrefernce']");
+        By chk_IncludeTemplate => By.XPath("//label[@for='chkInclTemplate']//preceding::input[@id='chkInclTemplate']");
+        By lbl_IncludeTemplate => By.XPath("//label[@for='chkInclTemplate']");
+        By lbl_EnableRestrickedView => By.XPath("//label[@for='chkResrictedView']");
+        By chk_EnableRestrickedView => By.XPath("//label[@for='chkResrictedView']//preceding::input[@id='chkResrictedView']");
 
 
         #endregion
@@ -2348,6 +2356,66 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // *********** FM - 08 : Site PDF Preference - End of TC 23015,16 ************ //
+
+        // *********** FM - 08 : site PDF preference - Start of TC 23020 ************ //
+
+        /// <summary>
+        /// Click Include Template checkbox 
+        /// </summary>
+        public void ClickIncludeTemplateCheckBox()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_IncludeTemplate), "Include Template checkbox is not present");
+            if (seleniumActions.FindElement(chk_IncludeTemplate).GetAttribute("checked") == null)
+            {
+                seleniumActions.Click(lbl_IncludeTemplate);
+                seleniumActions.Click(btn_save);
+            }
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Verify Include Template checkbox is checked
+        /// </summary>
+        public void ValidateIncludeTemplateCheckboxIsChecked()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Wait(3);
+            Assert.IsTrue(seleniumActions.FindElement(chk_IncludeTemplate).GetAttribute("checked").Equals("true"));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** FM - 08 : site PDF preference - End of TC 23020 ************ //
+
+        // *********** FM - 08 : site PDF preference - Start of TC 23017,18 ************ //
+
+        /// <summary>
+        /// Click Enable Restricked View checkbox 
+        /// </summary>
+        public void ClickEnableRestrickedViewCheckBox()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            Assert.IsTrue(seleniumActions.IsElementPresent(chk_EnableRestrickedView),"Enable Restricked View checkbox is not present");
+            if (seleniumActions.FindElement(chk_EnableRestrickedView).GetAttribute("checked") == null)
+            {
+                seleniumActions.Click(lbl_EnableRestrickedView);
+                seleniumActions.Click(btn_save);
+            }
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Verify Enable Restricked View checkbox is checked
+        /// </summary>
+        public void ValidateEnableRestrickedViewCheckboxIsChecked()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Wait(3);
+            Assert.IsTrue(seleniumActions.FindElement(chk_IncludeTemplate).GetAttribute("checked").Equals("true"));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** FM - 08 : site PDF preference - End of TC 23017,18 ************ //
 
         #endregion
 

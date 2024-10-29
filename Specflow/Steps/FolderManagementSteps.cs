@@ -347,6 +347,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         // *********** FM : Rights for level - End of TC 21876 ************ //
+
         // *********** FM - 07 : Tag Creation search - Start of TC 22986 ************ //
 
         [Then(@"I verify the tag selection link is present")]
@@ -384,6 +385,39 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         // *********** FM - 08 : Site PDF Preference - End of TC 23015,16 ************ //
+
+
+        // *********** FM - 08 : SitePDFPreference - Start of TC 23020 ************ //
+
+        [When(@"I Click the Include Template checkbox")]
+        public void WhenIClickTheIncludeTemplateCheckbox()
+        {
+         docProModule.ClickIncludeTemplateCheckBox();
+        }
+
+        [Then(@"I validate The Include Template checkBox is checked")]
+        public void ThenIValidateTheIncludeTemplateCheckBoxIsChecked()
+        {
+         docProModule.ValidateIncludeTemplateCheckboxIsChecked();
+        }
+
+        // *********** FM - 08 : SitePDFPreference - End of TC 23020 ************ //
+
+        // *********** FM - 08 : SitePDFPreference - Start of TC 23017,18 ************ //
+
+        [When(@"I Click the Enable Restricked view checkbox")]
+        public void WhenIClickTheEnableRestrickedViewCheckbox()
+        {
+            docProModule.ClickEnableRestrickedViewCheckBox();
+        }
+
+        [Then(@"I validate The Enable Restricked view checkBox is checked")]
+        public void ThenIValidateTheEnableRestrickedViewCheckBoxIsChecked()
+        {
+            docProModule.ValidateEnableRestrickedViewCheckboxIsChecked();
+        }
+
+        // *********** FM - 08 : SitePDFPreference - End of TC 23017,18 ************ //
 
         #endregion
 
