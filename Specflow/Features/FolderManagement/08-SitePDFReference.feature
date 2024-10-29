@@ -20,8 +20,8 @@ Scenario: TC-23020 Validate Incude Template checkbox
 Scenario: TC-23017_18 Validate Restricted View Checkbox
 	Given Login to the application with 'right' user
 	When Navigate to PDF Preferences in suite setup Page
-	And I Click the Enable Restricked view checkbox
+	And I Click the Enable Restricted view checkbox
 	Then I refresh the page
 	When Navigate to PDF Preferences in suite setup Page
-	Then I validate The Enable Restricked view checkBox is checked
+	Then I validate The Enable Restricted view checkBox is checked
 

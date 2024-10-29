@@ -405,16 +405,16 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** FM - 08 : SitePDFPreference - Start of TC 23017,18 ************ //
 
-        [When(@"I Click the Enable Restricked view checkbox")]
-        public void WhenIClickTheEnableRestrickedViewCheckbox()
+        [When(@"I Click the Enable Restricted view checkbox")]
+        public void WhenIClickTheEnableRestrictedViewCheckbox()
         {
-            docProModule.ClickEnableRestrickedViewCheckBox();
+            docProModule.ClickEnableRestrictedViewCheckBox();
         }
 
-        [Then(@"I validate The Enable Restricked view checkBox is checked")]
-        public void ThenIValidateTheEnableRestrickedViewCheckBoxIsChecked()
+        [Then(@"I validate The Enable Restricted view checkBox is checked")]
+        public void ThenIValidateTheEnableRestrictedViewCheckBoxIsChecked()
         {
-            docProModule.ValidateEnableRestrickedViewCheckboxIsChecked();
+            docProModule.ValidateEnableRestrictedViewCheckboxIsChecked();
         }
 
         // *********** FM - 08 : SitePDFPreference - End of TC 23017,18 ************ //

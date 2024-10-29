@@ -2390,9 +2390,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         // *********** FM - 08 : site PDF preference - Start of TC 23017,18 ************ //
 
         /// <summary>
-        /// Click Enable Restricked View checkbox 
+        /// Click Enable Restricted View checkbox 
         /// </summary>
-        public void ClickEnableRestrickedViewCheckBox()
+        public void ClickEnableRestrictedViewCheckBox()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView);
             Assert.IsTrue(seleniumActions.IsElementPresent(chk_EnableRestrickedView),"Enable Restricked View checkbox is not present");
@@ -2405,9 +2405,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         /// <summary>
-        /// Verify Enable Restricked View checkbox is checked
+        /// Verify Enable Restricted View checkbox is checked
         /// </summary>
-        public void ValidateEnableRestrickedViewCheckboxIsChecked()
+        public void ValidateEnableRestrictedViewCheckboxIsChecked()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView);
             seleniumActions.Wait(3);
