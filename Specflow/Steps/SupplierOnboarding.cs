@@ -48,7 +48,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         [Given(@"I Navigate to innermenu '([^']*)' and '([^']*)' and '([^']*)'")]
         public void GivenINavigateToInnerMenu(string sideMenu, string subMenu, string InnerMenu)
         {
-            dashboard.GoToDesiredMenu(sideMenu, subMenu, InnerMenu);
+            supplier.GoToDesiredMenu(sideMenu, subMenu, InnerMenu);
         }
 
         [Then(@"I Navigate to innermenu '([^']*)' and '([^']*)' and '([^']*)'")]
@@ -58,11 +58,12 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
 
-        [When(@"Create a New Supplier")]
+        [Given(@"Create a New Supplier")]
         public void WhenCreateANewSupplier()
         {
             supplier.ClickAddSupplierButton();
-            supplier.EnterMandatoryFieldsforSupplier();
+            scenarioContext["SupplierName"] = supplier.EnterMandatoryFieldsforSupplier();
+            Console.WriteLine("Printing the suppliername from context  --->"+scenarioContext["SupplierName"]);
         }
 
         // ************** End of TC 1 ****************** //
@@ -90,6 +91,43 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         // ************** End of TC 2 ****************** //
+
+        [Then(@"Search for Supplier and open it")]
+        public void ThenSearchForSupplierAndOpenIt()
+        {
+           //scenarioContext["SupplierName"] = "Supplier PS-49";
+           Console.WriteLine("Searching the suppliername from context  --->" + scenarioContext["SupplierName"]);
+            supplier.searchBySupplierName(scenarioContext["SupplierName"].ToString());          
+           
+            
+        }
+
+        [When(@"Add Part for the Supplier")]
+        public void WhenAddPartForTheSupplier()
+        {
+            supplier.addParts();
+        }
+
+        [Then(@"Add Location for the Part")]
+        public void ThenAddLocationForThePart()
+        {
+           // scenarioContext["SupplierName"] = "Supplier PS-49";
+            supplier.addLocationDetails(scenarioContext["SupplierName"].ToString());
+        }
+
+        [Then(@"uncheck SAM and SEM for Part")]
+        public void ThenUncheckSAMAndSEMForPart()
+        {
+            supplier.uncheckSAMandSEM();
+        }
+
+        [Then(@"create a new Project for Supplier")]
+        public void ThenCreateANewProjectForSupplier()
+        {
+            supplier.addNewProject(scenarioContext["SupplierName"].ToString());
+        }
+
+
         #endregion
     }
 }

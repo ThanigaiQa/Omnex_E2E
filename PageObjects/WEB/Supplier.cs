@@ -1,18 +1,6 @@
-﻿
-using OMNEX.AUTOMATION.Data.WEB;
-using OMNEX.AUTOMATION.Helpers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using OMNEX.AUTOMATION.Helpers;
 using OpenQA.Selenium;
-using System.Reflection.Metadata;
-using System.Diagnostics;
-using System.Security.Cryptography.X509Certificates;
-using System.Reflection;
-using System.Diagnostics.Metrics;
-using System.Collections.Generic;
-using System.Xml.Linq;
-using System.Reactive.Subjects;
 using TechTalk.SpecFlow;
-using System.Drawing;
 
 namespace OMNEX.AUTOMATION.PageObjects.WEB
 {
@@ -23,6 +11,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         private SeleniumActions seleniumActions;
         public Utilities utility;
         public Dashboard dashboard;
+        public ScenarioContext scenarioContext;
         #endregion
 
 
@@ -33,9 +22,11 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             _driver = driver;
             seleniumActions = new SeleniumActions(_driver);
             utility = new Utilities();
-            dashboard = new Dashboard(_driver);
-            
+            //dashboard = new Dashboard(_driver);
+           // this.scenarioContext = scenarioContext;
         }
+
+      
         #endregion
 
 
@@ -61,8 +52,12 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By inputDocproDocName => By.XPath("//input[@id='txtSearchTree_tvDocument']");
         By btnDocproPopupSearch => By.XPath("//*[local-name()='svg' and @title='Search']");
         By btnCreateSupplierEvaluationRequest => By.XPath("//button[@id='btnadd' and @title='Create Supplier Evaluation Request']");
+
+        By selectSupplierSearchDropdown => By.XPath("//select[@id='filtercolumn_SuSupplierGridViewControl']");
+        By inputSupplierNameSearch => By.XPath("//div[@id='SuSupplierGridViewControl_filter']//input[@type='search']");
         #endregion
-       
+        By tabPartsDEtails => By.XPath("//a[@id='ahref_tbPartDetails']");
+        By btnAddParts => By.XPath("//button[@id='btnNewParts']");
 
 
 
@@ -95,6 +90,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         #region SupplierGroups
         By inboxSM =>By.XPath("//div[@class='ibox-content']//div[contains(text(),'Supplier Management')]");
         By buttonAddGroups = By.XPath("//div[@id='SuGroupsGridViewControl_wrapper']//button[@id='btn_add_hold']");
+        private IWebDriver webDriver;
+
         By inputGroupName => By.XPath("//div[@id='AddTable']//input[@id='0_groupname']");
         By saveGroupName => By.XPath("//button[@id='btnSaveDetails_SuGroupsGridViewControl']");
         By iconAddUsersforGroup => By.XPath("//table[@id='SuGroupsGridViewControl']//td[contains(text(),'Automation Group')]/following-sibling::td/*[local-name()='svg' and @data-icon='user-plus']");       
@@ -134,14 +131,50 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         public void ClickAddSupplierButton()
         {
-            seleniumActions.Wait(2);
+            seleniumActions.Wait(4);
             seleniumActions.SwitchToIframes(iframe_DetailView);
             seleniumActions.MoveToElement(newSupplierButton);
             seleniumActions.Click(newSupplierButton);
             seleniumActions.SwitchToDefaultContent();  
         }
 
-        public void EnterMandatoryFieldsforSupplier()
+        /// <summary>
+        /// Navigate to desired menu by passing the following parameters
+        /// </summary>
+        /// <param name="sideMenu"></param>
+        /// <param name="subMenu"></param>
+        /// <param name="innerMenu"></param> --> Optional
+        public void GoToDesiredMenu(string sideMenu, string subMenu, string innerMenu)
+        {
+
+            //Click on Menubar if Sidemenu not available
+            seleniumActions.Wait(5);
+
+            if (!seleniumActions.IsElementPresent(By.XPath("//ul[@id='sidemenu']//a/div[text()='" + sideMenu + "']")))
+            {
+                seleniumActions.Click(menuBars);
+            }
+            seleniumActions.Click(By.XPath("//ul[@id='sidemenu']//a/div[text()='" + sideMenu + "']"));
+            seleniumActions.Click(By.XPath("//ul[@id='submenu']/li/a/span[text()='" + subMenu + "']"));
+            if (!String.Equals(innerMenu, ""))
+            {
+
+                seleniumActions.Wait(2);
+                if (!seleniumActions.VerifyElementIsDisplayed(By.XPath("(//ul[@class='inner_submenu']//a[@title='" + innerMenu + "']//span[contains(text(),'" + innerMenu + "')])[2]"))) ;
+                {
+                    seleniumActions.Click(By.XPath("//ul[@id='sidemenu']//a/div[text()='" + sideMenu + "']"));
+                    //  seleniumActions.Click(By.XPath("//ul[@id='submenu']/li/a/span[text()='" + subMenu + "']"));
+
+                }
+                seleniumActions.MoveToElement(By.XPath("(//ul[@class='inner_submenu']//a[@title='" + innerMenu + "']//span[contains(text(),'" + innerMenu + "')])[2]"));
+                seleniumActions.ActionsClick(By.XPath("(//ul[@class='inner_submenu']//a[@title='" + innerMenu + "']//span[contains(text(),'" + innerMenu + "')])[2]"));
+
+            }
+
+
+        }
+
+        public String EnterMandatoryFieldsforSupplier()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView);
             String temp = seleniumActions.GetAttributeValue(By.XPath("//input[@id='txtCode']"), "value");
@@ -190,6 +223,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             //Console.WriteLine("Supplier created " + ConfigHelper.GetSupplierName());
             Console.WriteLine("Primary email created " + primaryMail);
             Console.WriteLine("Secondary email created " + secondaryMail);
+            seleniumActions.SwitchToDefaultContent();
+            return temp;
 
         }
 
@@ -282,6 +317,21 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         }
 
+        public void searchBySupplierName(String SupplieName)
+        {
+            
+            Console.WriteLine("Searching for the suppliername from context  --->" + SupplieName);
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(selectSupplierSearchDropdown);
+            seleniumActions.Click(By.XPath("//select[@id='filtercolumn_SuSupplierGridViewControl']/option[@value='Name']"));
+            
+            seleniumActions.SendKeys(inputSupplierNameSearch, text: SupplieName);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(By.XPath("//table[@id='SuSupplierGridViewControl']//td/a[contains(text(),'"+ SupplieName + "')]"));
+            seleniumActions.Wait(5);
+            seleniumActions.SwitchToDefaultContent();
+        }
         #endregion
 
         #region SupplierSetupPageActions
@@ -608,6 +658,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         public void setAuditAgainstPartBusinessRuleasYes()
         {
+            seleniumActions.Wait(3);
             seleniumActions.SwitchToIframes(iframe_DetailView);
             seleniumActions.MoveToElement(supplierBusinessRule);
             seleniumActions.Click(supplierBusinessRule);
@@ -640,6 +691,119 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             
         }
 
+
+        public void addParts()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Click(tabPartsDEtails);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(btnAddParts);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(By.XPath("//span[@id='select2-cmbSite-container']"));
+            seleniumActions.Click(By.XPath("//ul[@id='select2-cmbSite-results']/li/span[contains(text(),'Corporate')]"));
+            seleniumActions.Click(By.XPath("//span[@id='select2-cmbType-container']"));
+            seleniumActions.Click(By.XPath("//ul[@id='select2-cmbType-results']/li/span[contains(text(),'Default')]"));
+            seleniumActions.Click(By.XPath("//span[@id='select2-cmbTree-container']"));
+            seleniumActions.Click(By.XPath("//ul[@id=\"select2-cmbTree-results\"]/li/span[contains(text(),'Part')]"));
+            seleniumActions.Wait(3);
+            seleniumActions.MoveToElement(By.XPath("//input[@id=\"txtSearchTree_tvwProductionItem\"]"));
+            seleniumActions.SendKeys(By.XPath("//input[@id=\"txtSearchTree_tvwProductionItem\"]"), text: "test");
+            seleniumActions.Wait(3);
+            seleniumActions.Click(By.XPath("//span[contains(text(),'Test')]//parent::a//parent::li//span[contains(@class,'checkbox')]"));
+            seleniumActions.MoveToElement(By.XPath("//button[@id='btnPartDone']"));
+            seleniumActions.Click(By.XPath("//button[@id='btnPartDone']"));
+            seleniumActions.Wait(3);
+            seleniumActions.SwitchToDefaultContent();
+
+        }
+
+        public void addLocationDetails(String suppliername)
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+
+            if (seleniumActions.IsElementPresent(By.XPath("//td[contains(text(),'Test')]//parent::tr/td/img[@title='Supplier Location']")))
+            {
+                seleniumActions.Click(By.XPath("//td[contains(text(),'Test')]//parent::tr/td/img[@title='Supplier Location']"));
+            }
+            else
+            {
+                seleniumActions.Click(By.XPath(" //td[contains(text(),'Test')]//parent::tr/td"));
+                seleniumActions.Click(By.XPath(" //td[contains(text(),'Test')]//parent::tr//parent::tbody/tr[@class='child']//*/img[@title='Supplier Location']"));
+            }
+           
+            seleniumActions.MoveToElement(By.XPath("//button[@id='btn_add_hold']"));
+            seleniumActions.Click(By.XPath("//button[@id='btn_add_hold']"));
+            seleniumActions.SendKeys(By.XPath("//textarea[@name='LocationCode']"), text: utility.GenerateRandomText(5));
+            seleniumActions.SendKeys(By.XPath("//textarea[@name='Street']"), text:"Supplier Street 1");
+            seleniumActions.SendKeys(By.XPath("//input[@name='Zipcode']"), text: "100001");
+            seleniumActions.Click(By.XPath("//button[@id='btnSaveDetails_SUAddressGridControl']"));//a[@id='alert_ok']
+            seleniumActions.Click(By.XPath("//a[@id='alert_ok']"));
+           // String suppliername = scenarioContext["SupplierName"].ToString();
+            seleniumActions.Click(By.XPath("//div/h5[contains(text(),'"+suppliername+"')]/following-sibling::button[@title='Close']"));
+            seleniumActions.SwitchToDefaultContent();
+
+        }
+
+        public void uncheckSAMandSEM()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            // seleniumActions.Click(tabPartsDEtails);           
+            seleniumActions.Click(By.XPath("//td[contains(text(),'Test')]/parent::tr/td/input[@name='chkVAM']"));
+            seleniumActions.Click(By.XPath("//td[contains(text(),'Test')]/parent::tr/td/input[@name='chkVEM']"));
+            seleniumActions.SwitchToDefaultContent();
+
+        }
+
+        public void addNewProject(String supplierName)
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+           // seleniumActions.MoveToElement(By.XPath("//li[@class=' PAactive']"));
+            seleniumActions.Click(By.XPath("//li[@id='3']"));
+            seleniumActions.Wait(5);
+            //seleniumActions.MoveToElement(By.XPath("//div[@id='PPLProjectListGrid_wrapper']//li/button[contains(text(),'New')]"));
+            seleniumActions.ActionsClick(By.XPath("//div[@id='PPLProjectListGrid_wrapper']//li/button[contains(text(),'New')]"));
+
+            String projectname= supplierName+"-"+utility.CurrentTime();
+            seleniumActions.Wait(3);
+            seleniumActions.Click(By.XPath("//span[@id='select2-SelectedPillarID-container']"));
+            seleniumActions.Click(By.XPath("//li/span[contains(text(), 'Supplier PPAP')]"));
+            seleniumActions.Wait(5);
+            seleniumActions.SendKeys(By.XPath("//input[@id='ProjectName']"), text: projectname);
+            seleniumActions.SendKeys(By.XPath("//input[@id='ProjectShortName']"), text: projectname);
+            //seleniumActions.Click(By.XPath("//span[@id='select2-SelectedPillarID-container']"));
+            //seleniumActions.Click(By.XPath("//li/span[contains(text(), 'Supplier PPAP')]"));
+            
+            seleniumActions.ScrollToElement(By.XPath("//label[contains(text(),'BOM Import')]/parent::div/div/iframe[@id='iframe']"));
+            seleniumActions.ScrollToElement(By.XPath("//span[@id='divSupplierSpan']"));
+            seleniumActions.SwitchToFrame(By.XPath("//label[contains(text(),'BOM Import')]/parent::div/div/iframe[@id='iframe']"));
+            seleniumActions.MoveToElement(By.XPath("//button[@onclick='parent.OpenSupplierTree(); return false;']"));
+            seleniumActions.Wait(3);
+            seleniumActions.ActionsClick(By.XPath("//button[@onclick='parent.OpenSupplierTree(); return false;']"));
+            //seleniumActions.Wait(3);
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.SwitchToIframes(iframe_DetailView);            
+            seleniumActions.Click(By.XPath("//ul[@id='tvSupplier']/li/span[2]"));
+            seleniumActions.Wait(5);
+            seleniumActions.Click(By.XPath("//div[@class='ui-dialog-buttonpane ui-widget-content ui-helper-clearfix modal-footer']/div/button[contains(text(),'Save')]"));
+            
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(By.XPath("//div[@class='row no-gutters align-items-center']/div/button[@id='btnSave']"));
+            //seleniumActions.Wait(3);
+            //seleniumActions.Click(By.XPath("//div[@class='row no-gutters align-items-center']/div/button[@id='btnSave']"));
+            seleniumActions.SendKeys(By.XPath("//textarea[@id='txtCharterComments']"), text: projectname);
+            seleniumActions.Click(By.XPath("//button[@class='btn btn-mini btn-success']"));
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.Wait(5);
+
+        }
+
+        public void addTaskDetails()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Click(By.XPath("//li/i[@onclick='openDeliverableInfoWindow();']"));
+        }
         #endregion
 
 
