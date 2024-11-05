@@ -29,7 +29,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             featureContext = featurecontext;
             loginPage = new LoginPage(driverContext.WebDriver);
             dashboard = new Dashboard(driverContext.WebDriver);
-            supplier = new Supplier(driverContext.WebDriver);
+            supplier = new Supplier(driverContext.WebDriver, scenariocontext);
         }
         #endregion
 
@@ -95,7 +95,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         [Then(@"Search for Supplier and open it")]
         public void ThenSearchForSupplierAndOpenIt()
         {
-           //scenarioContext["SupplierName"] = "Supplier PS-49";
+           //scenarioContext["SupplierName"] = "Supplier PS-81";
            Console.WriteLine("Searching the suppliername from context  --->" + scenarioContext["SupplierName"]);
             supplier.searchBySupplierName(scenarioContext["SupplierName"].ToString());          
            
@@ -124,9 +124,51 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         [Then(@"create a new Project for Supplier")]
         public void ThenCreateANewProjectForSupplier()
         {
-            supplier.addNewProject(scenarioContext["SupplierName"].ToString());
+            supplier.addNewProject(scenarioContext["SupplierName"].ToString()); 
+            
         }
 
+        [Then(@"Add Task deatils for the Project")]
+        public void ThenAddTaskDeatilsForTheProject()
+        {
+            supplier.addTaskDetails();
+        }
+
+        [Then(@"Add Input Documents for FirstTask")]
+        public void ThenAddInputDocumentsForFirstTask()
+        {
+            supplier.addInputdoc();
+        }
+
+        [Then(@"Add Input Documents for Second Task")]
+        public void ThenAddInputDocumentsForSecondTask()
+        {
+            supplier.addInputdocFortask2();
+        }
+
+        [Then(@"Publish the Project")]
+        public void ThenPublishTheProject()
+        {
+            supplier.publishProjectToDocpro();
+
+            dashboard.LogoutApplication();
+           // loginPage.LoginToApp(scenarioContext["PrimaryEmail"].ToString(), "pass1");
+        }
+
+        [Given(@"Login to the application as Supplier user")]
+        public void GivenLoginToTheApplicationAsSupplierUser()
+        {
+            scenarioContext["PrimaryEmail"] = "primary@PS-100.com";
+            scenarioContext["ProjectName"] = "Supplier PS-100-05112024215348";
+            loginPage.NavigateToURL(ConfigHelper.GetURL());
+            loginPage.LoginToApp(scenarioContext["PrimaryEmail"].ToString(), "pass1");
+        }
+
+        [Given(@"Select the ProjectName and open the task for '([^']*)'")]
+        public void GivenSelectTheProjectNameAndOpenTheTaskFor(string UserType)
+        {
+            supplier.openProjectandTask(UserType);
+        }
 
         #endregion
     }

@@ -17,6 +17,11 @@ Scenario:TC 01
 	Then Add Location for the Part
 	Then uncheck SAM and SEM for Part
 	And create a new Project for Supplier
+	And Add Task deatils for the Project
+	And Add Input Documents for FirstTask
+	And Add Input Documents for Second Task
+	And Publish the Project
+
 	
 
 @TC-02 
@@ -30,3 +35,10 @@ Scenario:TC 02
 	#Then Add Location for the Part
 	#Then uncheck SAM and SEM for Part
 	And create a new Project for Supplier
+
+@TC-02 
+Scenario:TC 03
+#Scenario:01_Search Supplier and Add parts
+	Given Login to the application as Supplier user
+	And I Navigate to innermenu 'Supplier Management' and 'APQP/PPAP' and 'Projects'
+	And Select the ProjectName and open the task for 'PrimaryUser'

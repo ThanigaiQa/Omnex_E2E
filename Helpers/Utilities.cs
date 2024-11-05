@@ -228,6 +228,17 @@ namespace OMNEX.AUTOMATION.Helpers
 
             return "";
         }
+        //Added by Karthik for date addition
+        public string DateAfterAddingDays(int noOfDays)
+        {
+            DateTime date = DateTime.Now;
+            Console.WriteLine("Present date --->" + date.ToString());
+            String addedDate = date.AddDays(noOfDays).ToShortDateString();
+            addedDate = GetFormattedDate(addedDate);
+            Console.WriteLine("Added date --->" + addedDate);
+            return addedDate;
+        }
+        // ended by karthik  for date addition
         /// <summary>
         /// 
         /// </summary>

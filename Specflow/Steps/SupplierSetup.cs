@@ -31,7 +31,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             scenarioContext = scenariocontext;
             featureContext = featurecontext;
             dashboard = new Dashboard(driverContext.WebDriver);
-           supplier = new Supplier(driverContext.WebDriver);
+           supplier = new Supplier(driverContext.WebDriver, scenariocontext);
 
         }
 
