@@ -419,6 +419,47 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** FM - 08 : SitePDFPreference - End of TC 23017,18 ************ //
 
+        // *********** FM - 08 : SitePDFPreference - Start of TC 23023-25 ************ //
+
+        [Then(@"I click on the multi search button")]
+        [When(@"I click on the multi search button")]
+        public void ThenIClickOnTheMultiSearchButton()
+        {
+            docProModule.ClickMultiSearchButton();
+        }
+
+        [Then(@"I verify the UI elements of Multisearch popup window")]
+        public void ThenIVerifyTheUIElementsOfMultisearchPopupWindow()
+        {
+            docProModule.ValidateMultiSearchWindow();
+        }
+
+        [Then(@"I search document type using multi search and verify the record size")]
+        public void ThenISearchDocumentTypeUsingMultiSearchAndVerifyTheRecordSize()
+        {
+            docProModule.SearchWithDocTypeAndVerifyRecordSize();
+        }
+
+        [When(@"I click on the refresh button")]
+        public void WhenIClickOnTheRefreshButton()
+        {
+            docProModule.ClickRefreshButtonInSitePDFPage();
+        }
+
+        [When(@"I verify the size of the records showing in Site PDF Preference page")]
+        public void WhenIVerifyTheSizeOfTheRecordsShowingInSitePDFPreferencePage()
+        {
+            docProModule.VerifyRecordSizeAfterRefresh();
+        }
+
+        [Then(@"I search and update the Site PDF record")]
+        public void ThenISearchAndUpdateTheSitePDFRecord()
+        {
+            docProModule.SearchDocTypeAndUpdateTheRecord();
+        }
+
+        // *********** FM - 08 : SitePDFPreference - End of TC 23023-25 ************ //
+
         #endregion
 
     }

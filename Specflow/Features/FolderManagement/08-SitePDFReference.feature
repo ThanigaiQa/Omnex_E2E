@@ -25,3 +25,14 @@ Scenario: TC-23017_18 Validate Restricted View Checkbox
 	When Navigate to PDF Preferences in suite setup Page
 	Then I validate The Enable Restricted view checkBox is checked
 
+@TC-23023,24,25
+Scenario: TC-23023_To_25 Validate the search column
+	Given Login to the application with 'right' user
+	When Navigate to PDF Preferences in suite setup Page
+	Then I click on the multi search button
+	Then I verify the UI elements of Multisearch popup window
+	Then I search document type using multi search and verify the record size
+	When I click on the refresh button
+	And I verify the size of the records showing in Site PDF Preference page
+	When I click on the multi search button
+	Then I search and update the Site PDF record

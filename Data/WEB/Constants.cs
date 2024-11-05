@@ -26,5 +26,7 @@ namespace OMNEX.AUTOMATION.Data.WEB
         public const string DocNumber = "Doc-";
         public const string SubLevelName = "NewSubLevel";
         public const string UpdatedSubLevelName = "UpdatedSubLevel";
+        public const string DocTypeProject = "Project Charter Template";
+        public const string DocTypeDynamic = "Dynamic Control Plan (Production Item)";
     }
 }

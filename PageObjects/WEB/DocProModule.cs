@@ -260,6 +260,16 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By lbl_IncludeTemplate => By.XPath("//label[@for='chkInclTemplate']");
         By lbl_EnableRestrickedView => By.XPath("//label[@for='chkResrictedView']");
         By chk_EnableRestrickedView => By.XPath("//label[@for='chkResrictedView']//preceding::input[@id='chkResrictedView']");
+        By lbl_SearchTitle_MultiSearch => By.XPath("//div[@class='dtsb-title']");
+        By btnRefresh_MultiSearch => By.XPath("//button[@class='dtsb-clearAll dtsb-button']");
+        By btnAdd_MultiSearch => By.XPath("//button[@class='dtsb-add dtsb-button']");
+        By btnRemove_MultiSearch => By.XPath("(//button[@class='dtsb-delete dtsb-button'])[2]");
+        By btnRefresh_PDF => By.XPath("//li[@id='refresh']");
+        By btnUpdate_PDF => By.XPath("//button[@title='Update']");
+        By chk_SearchResultSitePDF => By.XPath("(//td[contains(@class,'clsselectchkbx')]//input[@type='checkbox'])[1]");
+        By lblSuccessMessage => By.XPath("//div[contains(@class,'alert-success')]");
+        By ddl_DocType => By.XPath("(//option[contains(text(),'Document Type')])[1]");
+        By tblRow => By.XPath("//tbody//tr[@role='row']");
 
 
         #endregion
@@ -2416,6 +2426,106 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // *********** FM - 08 : site PDF preference - End of TC 23017,18 ************ //
+
+        // *********** FM - 08 : site PDF preference - Start of TC 23023-25 ************ //
+
+        /// <summary>
+        /// Clicks the multi search button
+        /// </summary>
+        public void ClickMultiSearchButton()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.WaitForElementToExists(btnMultiSearch);
+            seleniumActions.Click(btnMultiSearch);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Validate UI elements of multi search window
+        /// </summary>
+        public void ValidateMultiSearchWindow()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblSearch_MultiSearch), "search title is not found");
+            Assert.IsTrue(seleniumActions.GetText(lblSearch_MultiSearch).Equals("Search (1)"));
+            seleniumActions.Click(btnRefresh_MultiSearch);
+            Assert.IsTrue(seleniumActions.GetText(lblSearch_MultiSearch).Equals("Search"));
+            Assert.IsTrue(seleniumActions.IsElementPresent(btnAdd_MultiSearch), "Add button is not found");
+            seleniumActions.Click(btnAdd_MultiSearch);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(btnAdd_MultiSearch);
+            Assert.IsTrue(seleniumActions.GetText(lblSearch_MultiSearch).Equals("Search (2)"));
+            seleniumActions.Click(btnRemove_MultiSearch);
+            seleniumActions.Wait(2);
+            Assert.IsTrue(seleniumActions.GetText(lblSearch_MultiSearch).Equals("Search (1)"));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// searches the record with doctype and verifies the record size
+        /// </summary>
+        public void SearchWithDocTypeAndVerifyRecordSize()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Click(drpColumn_MultiSearch);
+            seleniumActions.Click(ddl_DocType);
+            seleniumActions.Click(drpCondition_MultiSearch);
+            seleniumActions.Click(ddlContains_MultiSearch);
+            seleniumActions.Click(inp_MultiSearch);
+            seleniumActions.SendKeys(inp_MultiSearch, Constants.DocTypeProject);
+            seleniumActions.Click(btnAdvancedSearch_MultiSearch);
+            seleniumActions.Wait(3);
+            IList<IWebElement> rowCount = seleniumActions.FindElements(tblRow);
+            int rowSize = rowCount.Count;
+            Assert.AreEqual(rowSize, 1);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Clicks the refresh button in Site PDF Preference page
+        /// </summary>
+        public void ClickRefreshButtonInSitePDFPage()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Click(btnRefresh_PDF);
+            seleniumActions.Wait(2);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Verifies all the records are showing after refreshing the page
+        /// </summary>
+        public void VerifyRecordSizeAfterRefresh()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            IList<IWebElement> rowCount = seleniumActions.FindElements(tblRow);
+            int rowSize = rowCount.Count;
+            Assert.AreNotEqual(rowSize, 1);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// searches a record with doctype and updates the record
+        /// </summary>
+        public void SearchDocTypeAndUpdateTheRecord()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Wait(2);
+            seleniumActions.SendKeys(inp_MultiSearch, Keys.Clear);
+            seleniumActions.SendKeys(inp_MultiSearch, Constants.DocTypeDynamic);
+            seleniumActions.Click(btnAdvancedSearch_MultiSearch);
+            seleniumActions.Wait(2);
+            IList<IWebElement> rowCount = seleniumActions.FindElements(tblRow);
+            int rowSize = rowCount.Count;
+            Assert.AreEqual(rowSize, 1);
+            seleniumActions.Click(chk_SearchResultSitePDF);
+            seleniumActions.Click(btnUpdate_PDF);
+            seleniumActions.Click(btn_save);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblSuccessMessage),"Success message is not showing");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** FM - 08 : site PDF preference - End of TC 23023-25 ************ //
 
         #endregion
 
