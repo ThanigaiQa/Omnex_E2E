@@ -460,6 +460,28 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** FM - 08 : SitePDFPreference - End of TC 23023-25 ************ //
 
+
+        // *********** FM - 02 : LevelPDFPreference - Start of TC 22999 ************ //
+
+        [Then(@"I click the Level PDF preferences link")]
+        public void ThenIClickTheLevelPDFPreferencesLink()
+        {
+        docProModule.VerifyLevelPDFPreferencesLinkAndClickIt();
+        }
+
+        [Then(@"I validate the Level PDF Preferences page heading")]
+        public void ThenIValidateTheLevelPDFPreferencesPageHeading()
+        {
+            docProModule.ValidateLevelPDFPreferencesPageHeading();
+        }
+
+        [Then(@"I verify all UI elements on the Level PDF Preferences page")]
+        public void ThenIVerifyAllUIElementsOnTheLevelPDFPreferencesPage()
+        {
+            docProModule.ValidateUIElementsInLevelPDFPreferencesPage();
+        }
+        // *********** FM - 02 : LevelPDFPreference - End of TC 22999 ************ //
+
         #endregion
 
     }

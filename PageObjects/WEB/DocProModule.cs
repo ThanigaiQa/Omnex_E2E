@@ -270,6 +270,16 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By lblSuccessMessage => By.XPath("//div[contains(@class,'alert-success')]");
         By ddl_DocType => By.XPath("(//option[contains(text(),'Document Type')])[1]");
         By tblRow => By.XPath("//tbody//tr[@role='row']");
+        By lbl_LevelPdfPreferencesPageHeading => By.XPath("//div[contains(@class,'modal-header')]//h5");
+        By drp_TemplateInLevelPDFPreferncesPAge => By.XPath("//label[contains(text(),'Template')]//following::select[@class='custom-select']");
+        By lbl_RestrictedView => By.XPath("//label[@for='chkResrictedView']");
+        By btn_LevelPDFRestart => By.XPath("//li[contains(@onclick,'gridModPDFDocTypes')]");
+        By btn_LevelPDFSave => By.XPath("//button[contains(@onclick,'Savepdf')]");
+        By btn_LevelPDFUseSiteDefault => By.XPath("//button[@id='btnDefaultSave']");
+        By btn_LevelApplyThisToAllSubLevels => By.XPath("//button[@id='btnApplyToChild']");
+        By btn_LevelPDFShowSamplePDF => By.XPath("//button[@id='btnShowTemplate']");
+        By drp_LevelPDFSearch => By.XPath("//select[contains(@class,'datatablefilter') and contains(@id,'gridModPDFDocTypes')]");
+        By pagination_LevelPDFPagination => By.XPath("//div[@id='gridModPDFDocTypes_paginate']");
 
 
         #endregion
@@ -287,6 +297,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         static By iframe_Actions => By.XPath("//iframe[@id='iframeActions']");
         static By iframe_ResetAction => By.XPath("//iframe[contains(@class,'cke_reset')]");
         static By iframe_SelectTags => By.XPath("//iframe[@id='ifrselecttags']");
+        static By iframe_water => By.XPath("//iframe[@id='iframewater']");
 
         #endregion
 
@@ -2526,6 +2537,59 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // *********** FM - 08 : site PDF preference - End of TC 23023-25 ************ //
+
+
+        // *********** FM - 02 : level PDF preference - Start of TC 22999 ************ //
+
+        /// <summary>
+        /// Verify level PDF preferences link and clicking it
+        /// </summary>
+        public void VerifyLevelPDFPreferencesLinkAndClickIt()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView,iframe_MenuData, iframe_Tree);
+            seleniumActions.Wait(2);
+            seleniumActions.ScrollToPosition(0, 1000);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lnk_LevelPdfPreference),"level pdf link is not present");
+            seleniumActions.Click(lnk_LevelPdfPreference);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Validate level pdf preferences page heading
+        /// </summary>
+        public void ValidateLevelPDFPreferencesPageHeading()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView,iframe_MenuData, iframe_Tree);
+            seleniumActions.Wait(3);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_LevelPdfPreferencesPageHeading));
+            Assert.IsTrue(seleniumActions.GetText(lbl_LevelPdfPreferencesPageHeading).Equals("Level PDF Preferences"));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Validate level pdf preferences page UI elements
+        /// </summary>
+        public void ValidateUIElementsInLevelPDFPreferencesPage()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView,iframe_MenuData,iframe_Tree,iframe_water);
+            seleniumActions.Wait(3);
+            Assert.IsTrue(seleniumActions.IsElementPresent(drp_TemplateInLevelPDFPreferncesPAge),"Template dropdown is not present");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_RestrictedView),"Enable Restricted View checkbox is not present");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_IncludeTemplate),"Include Template is not present");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_EnableEnhancedPrinting), "Enable Enhancing Printing checkbox is not present");
+            Assert.IsTrue(seleniumActions.IsElementPresent(btn_LevelPDFRestart), "Restart button is not present");
+            Assert.IsTrue(seleniumActions.IsElementPresent(btn_LevelPDFSave), "level PDF preferences page save button is not present");
+            Assert.IsTrue(seleniumActions.IsElementPresent(btn_LevelPDFUseSiteDefault), "Use Site Default button is not present");
+            Assert.IsTrue(seleniumActions.IsElementPresent(btn_LevelApplyThisToAllSubLevels), "Apply this to all sub levels button is not present");
+            Assert.IsTrue(seleniumActions.IsElementPresent(btn_LevelPDFShowSamplePDF), "Show Sample PDF button is not present");
+            Assert.IsTrue(seleniumActions.IsElementPresent(drp_LevelPDFSearch), "search is not present in Level PDF Preferences page");
+            string dropdownText = seleniumActions.GetText(drp_LevelPDFSearch);
+            Assert.IsTrue(dropdownText.Contains("Modules"), "'Modules' option is missing in the search dropdown.");
+            Assert.IsTrue(dropdownText.Contains("Document Type"), "'Document Type' option is missing in the search dropdown.");
+            Assert.IsTrue(seleniumActions.IsElementPresent(pagination_LevelPDFPagination), "pagination is not presnt in Level PDF Preferences page");
+            seleniumActions.SwitchToDefaultContent();
+        }
+        // *********** FM - 02 : level PDF preference - End of TC 22999 ************ //
 
         #endregion
 
