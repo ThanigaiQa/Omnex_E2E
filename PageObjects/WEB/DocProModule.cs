@@ -1875,6 +1875,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             }
             else
             {
+                seleniumActions.ScrollToPosition(0, 1000);
                 seleniumActions.Click(ddp_Revopt);
                 seleniumActions.SendKeys(inp_Revopt, "Users define revision");
                 seleniumActions.Click(inp_docProautoincreby1);
@@ -2301,6 +2302,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree,iframe_SelectTags);
             Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
             seleniumActions.Click(btnMultiSearch);
+            seleniumActions.Wait(4);
             Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch));
             seleniumActions.Click(drpColumn_MultiSearch);
             seleniumActions.Click(ddl_TagName_MultiSearch);
@@ -2312,6 +2314,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.GetText(lbl_TagSearchResult).Equals(Constants.Name));
             seleniumActions.Wait(3);
             seleniumActions.Click(chk_TagNameSelection);
+            seleniumActions.Wait(2);
             seleniumActions.Click(btnDone_TagSelection);
             seleniumActions.SwitchToDefaultContent();
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
