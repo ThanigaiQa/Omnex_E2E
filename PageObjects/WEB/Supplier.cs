@@ -127,6 +127,15 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By lnkInputDocument => By.XPath("//table[@id='AttachmentListGrid']//td[7]/a");
         By iconOutputDocumentClip => By.XPath("//table[@id='AttachmentListGrid']//*[local-name()='svg' and @data-icon='paperclip']");
         By lblPercentageCompleteLink => By.XPath("//label[@id='lblProgressPercent']");
+        By outputDocName => By.XPath("//form[@action='/Common/ProjectPlanner/DeliverableInfo/OutputAttachment']//input[@id='txtDocName']");
+        By btnAddAttachment => By.XPath("//button[@id='btnAdd']");
+        By lblOutputAttachment => By.XPath("//label[@for='fileOP']");
+        By btnAddPeriodicUpdate => By.XPath("//button[@id='btn_add_hold']");
+        By inputPercentageOfTask => By.XPath("//input[@name='Percent']");
+        By inputHourstoComplete => By.XPath("//input[@name='Hours']");
+        By savePeriodicdetails => By.XPath("//button[@id='btnSaveDetails_PeiodicUpdateResourceGridcontrol']");
+        By iconClosePeriodicUpdatePopup => By.XPath("//div[@aria-describedby='divshowPeriodicUpdateResourcedialog']//button[@title='Close']");
+        By iconCloseDeliverableInfo => By.XPath("//div[@aria-describedby='openDeliverableInfoWindow']//button[1]");
         #endregion
 
         #region SupplierType
@@ -908,7 +917,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToFrame(iframeOpenDeliverable);
             seleniumActions.WaitForElementToExists(btnAttachInputDoc);
             seleniumActions.Click(btnAttachInputDoc);
-            seleniumActions.Wait(3);
+            seleniumActions.Wait(5);
 
             seleniumActions.WaitForElementToExists(iframeContainer);
             seleniumActions.SwitchToFrame(iframeContainer);
@@ -946,40 +955,147 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         public void openProjectandTask(String userType)
         {
-            seleniumActions.Wait(5);
+           
             seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Wait(5);
             seleniumActions.ActionsClick(By.XPath("//table[@id='PPLProjectListGrid']//td/a[contains(text(),'" + scenarioContext["ProjectName"].ToString() + "')]"));
             seleniumActions.Wait(5);
-            if (userType.Equals("PrimaryUser"))
+           if (userType.Equals("PrimaryUser"))
             {
-                seleniumActions.Click(serialNoinFirstRow);
+               seleniumActions.Click(serialNoinFirstRow);
             }
             else
             {
-                seleniumActions.Click(serialNoinSecondRow);
-            }
-            seleniumActions.Click(deliverableInfo);
-            seleniumActions.Wait(5);
+               seleniumActions.Click(serialNoinSecondRow);
+           }
+            //seleniumActions.Click(deliverableInfo);
+
+        }
+
+        public void selectDeliverableInfoForSecondaryUser()
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(By.XPath("//table[@class='ui-selectable ui-grid-body-table']//tr[1]/td[2]"));
         }
 
         public void attachOutputDocument()
         {
+            
+            
+            seleniumActions.Click(deliverableInfo);
+            seleniumActions.Wait(5);
             seleniumActions.SwitchToFrame(iframeOpenDeliverable);
             seleniumActions.Click(lnkInputDocument);
-            seleniumActions.Wait(5);
+            seleniumActions.Wait(3);
+
+            seleniumActions.Click(iconOutputDocumentClip);
+            seleniumActions.WaitForElementToExists(iframeContainer);
+            seleniumActions.SwitchToFrame(iframeContainer);
 
             var path = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
             var actualPath = path.Substring(0, path.LastIndexOf("\\bin"));
             var projectPath = new Uri(actualPath).LocalPath;
 
-            seleniumActions.Click(iconOutputDocumentClip);
+            seleniumActions.Click(lblOutputAttachment); 
             seleniumActions.UploadFile(projectPath.ToString(), Constants.UploadFilePath_Test);
+            seleniumActions.Wait(3);
+            seleniumActions.SendKeys(outputDocName, text: "Output Doc attached by " + scenarioContext["PrimaryEmail"].ToString());
+            seleniumActions.Click(btnAddAttachment);
+            seleniumActions.SwitchToDefaultContent();
+
+        }
+        public void attachOutputDocument2()
+        {
+
+
+            seleniumActions.Click(deliverableInfo);
+            seleniumActions.Wait(5);
+            //seleniumActions.SwitchToFrame(iframeOpenDeliverable);
+            seleniumActions.WaitForElementToExists(iframeContainer);
+            seleniumActions.SwitchToFrame(iframeContainer);
+            seleniumActions.Click(lnkInputDocument);
+            seleniumActions.Wait(3);
+
+            seleniumActions.Click(iconOutputDocumentClip);
+            
+            
+
+            var path = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
+            var actualPath = path.Substring(0, path.LastIndexOf("\\bin"));
+            var projectPath = new Uri(actualPath).LocalPath;
+            seleniumActions.SwitchToFrame(iframeContainer);
+            seleniumActions.Click(lblOutputAttachment);
+            seleniumActions.UploadFile(projectPath.ToString(), Constants.UploadFilePath_Test);
+            seleniumActions.Wait(3);
+            seleniumActions.SendKeys(outputDocName, text: "Output Doc attached by " + scenarioContext["SecondaryEmail"].ToString());
+            seleniumActions.Click(btnAddAttachment);
+            seleniumActions.SwitchToDefaultContent();
 
         }
 
-        public void updateTaskPercentage()
+        public void updateTaskPercentage(string taskPercent)
         {
+            seleniumActions.SwitchToFrame(iframe_DetailView);            
+            seleniumActions.SwitchToFrame(iframeOpenDeliverable);
             seleniumActions.Click(lblPercentageCompleteLink);
+
+            seleniumActions.WaitForElementToExists(iframeContainer);
+            seleniumActions.SwitchToFrame(iframeContainer);
+            seleniumActions.Click(btnAddPeriodicUpdate);
+            seleniumActions.SendKeys(inputPercentageOfTask, text: taskPercent);
+            seleniumActions.SendKeys(inputHourstoComplete, text: "8");
+            seleniumActions.Click(savePeriodicdetails);           
+           
+            seleniumActions.SwitchToParentFrame();
+            seleniumActions.Click(iconClosePeriodicUpdatePopup);
+            seleniumActions.SwitchToParentFrame();
+            seleniumActions.Click(iconCloseDeliverableInfo);
+            //table[@class='ui-frozen-body-table ui-selectable ui-grid-body-table']//tr[1]/td[5]/div/i[@title='Deliverable completed']
+            seleniumActions.SwitchToDefaultContent();
+           // seleniumActions.SwitchToFrame(iframe_DetailView);
+
+        }
+        public void updateTaskPercentage2()
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.SwitchToFrame(iframeContainer);
+            seleniumActions.Click(lblPercentageCompleteLink);
+
+            seleniumActions.WaitForElementToExists(iframeContainer);
+            seleniumActions.SwitchToFrame(iframeContainer);
+            seleniumActions.Click(btnAddPeriodicUpdate);
+            seleniumActions.SendKeys(inputPercentageOfTask, text: "100");
+            //seleniumActions.SendKeys(By.XPath("//input[@name='EndDate']"), utility.DateAfterAddingDays(0));
+            seleniumActions.Click(By.XPath("//input[@name='EndDate']"));
+            seleniumActions.Click(By.XPath("//td[@class='today day']"));
+            seleniumActions.SendKeys(inputHourstoComplete, text: "8");
+            seleniumActions.Click(savePeriodicdetails);
+
+            seleniumActions.SwitchToParentFrame();
+            seleniumActions.Click(iconClosePeriodicUpdatePopup);
+            seleniumActions.SwitchToParentFrame();
+            seleniumActions.Click(iconCloseDeliverableInfo);
+            //table[@class='ui-frozen-body-table ui-selectable ui-grid-body-table']//tr[1]/td[5]/div/i[@title='Deliverable completed']
+            seleniumActions.SwitchToDefaultContent();
+            // seleniumActions.SwitchToFrame(iframe_DetailView);
+
+        }
+
+        public void updateStatusOfProject()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            // seleniumActions.MoveToElement(By.XPath("//li[@class=' PAactive']"));
+            seleniumActions.Click(By.XPath("//li[@id='3']"));
+            seleniumActions.Wait(5);
+            seleniumActions.ActionsClick(By.XPath("//table[@id='PPLProjectListGrid']//td/a[contains(text(),'" + scenarioContext["ProjectName"].ToString() + "')]"));
+            seleniumActions.Click(By.XPath("//i[@id='BtnCharter']"));
+           // seleniumActions.VerifyElementIsDisplayed(By.XPath("//div[contains(text(),'All the deliverables in the project are completed')]"));
+            seleniumActions.Click(By.XPath("//select[@id='ProjectStatus']"));
+            seleniumActions.SelectDropDown(By.XPath("//select[@id='ProjectStatus']"), "value", "3");
+            seleniumActions.Click(By.XPath("//button[@id='btnSave']"));
+            seleniumActions.SendKeys(By.XPath("//textarea[@id='txtCharterComments']"), text: "Completed Automation");
+            seleniumActions.Click(By.XPath("//button[@class='btn btn-mini btn-success']"));
+            seleniumActions.SwitchToDefaultContent();
         }
     }
 }
