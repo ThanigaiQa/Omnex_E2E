@@ -313,7 +313,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
                 seleniumActions.Wait(5);
                 seleniumActions.Click(lblSetup);
                 seleniumActions.Click(lblSuiteSetup);
-                seleniumActions.Wait(2);
+                seleniumActions.Wait(3);
                 seleniumActions.ScrollToElement(By.XPath("(//a[@class='submenu_list_link has-arrow']//following-sibling::ul[@class='inner_submenu']//span[contains(text(),'" + SubHead + "')])[2]"));
                 seleniumActions.Click(By.XPath("(//a[@class='submenu_list_link has-arrow']//following-sibling::ul[@class='inner_submenu']//span[contains(text(),'" + SubHead + "')])[2]"));
             }

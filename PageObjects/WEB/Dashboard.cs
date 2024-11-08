@@ -635,10 +635,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(drpCountry_AddAddress);
             seleniumActions.ScrollToElement(ddlIndia_AddAddress);
             seleniumActions.Click(ddlIndia_AddAddress);
-            seleniumActions.Click(drpState_AddAddress);
-            seleniumActions.Click(ddlTamilnadu_AddAddress);
-            seleniumActions.Click(drpCity_AddAddress);
-            seleniumActions.Click(ddlChennai_AddAddress);
             seleniumActions.Click(txtZipCode_AddAddress);
             seleniumActions.SendKeys(txtZipCode_AddAddress, "600012");
             seleniumActions.Click(btnSave_AddAddress);
