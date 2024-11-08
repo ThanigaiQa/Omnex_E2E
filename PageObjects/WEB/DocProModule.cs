@@ -74,8 +74,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By drp_SearchFilter => By.XPath("//select[contains(@class,'datatablefilter')]");
         By ddlDocName_SearchFilter => By.XPath("//select[contains(@class,'datatablefilter')]//option[@value='name']");
         By phd_SearchFilter => By.XPath("//input[@type='search']");
-        By lbl_DocNameValue  => By.XPath("(//tr[@role='row']//td//div)[2]");
-        By lnk_StatusValue  => By.XPath("(//a[@id='status'])[1]");
+        By lbl_DocNameValue => By.XPath("(//tr[@role='row']//td//div)[2]");
+        By lnk_StatusValue => By.XPath("(//a[@id='status'])[1]");
         By lnk_DocNumberValue => By.XPath("(//a[@id='EventOverDocumentNumber'])[1]");
         By btn_Terminate => By.XPath("(//span[contains(text(),'Terminate')])[1]");
         By btnYes_Popup => By.XPath("//button[@id='popup_ok']");
@@ -107,10 +107,10 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btnClose_DCN => By.XPath("//div[@aria-describedby='divdocchangenoticeform']//button[@title='Close']");
         By lbl_DCNInfo => By.XPath("(//label[@for='DCN_Information'])[1]");
         By lnk_ViewDCN => By.XPath("(//div[@class='form-control-inline']//a[contains(text(),'View')])[1]");
-        By lbl_RawMaterial => By.XPath("//b[contains(text(),'Raw Material')]"); 
-        By lbl_WIP => By.XPath("//b[contains(text(),'WIP')]"); 
-        By lbl_FinishedGoods => By.XPath("//b[contains(text(),'Finished Goods')]"); 
-        By lbl_ProdStarts => By.XPath("//b[contains(text(),'Product Starts')]"); 
+        By lbl_RawMaterial => By.XPath("//b[contains(text(),'Raw Material')]");
+        By lbl_WIP => By.XPath("//b[contains(text(),'WIP')]");
+        By lbl_FinishedGoods => By.XPath("//b[contains(text(),'Finished Goods')]");
+        By lbl_ProdStarts => By.XPath("//b[contains(text(),'Product Starts')]");
         By lbl_TrainingReq => By.XPath("//b[contains(text(),'Training Required')]");
         By lbl_RawMaterial_Value => By.XPath("//table[@id='doctable']//td[3]");
         By lbl_WIP_Value => By.XPath("//table[@id='doctable']//td[4]");
@@ -214,7 +214,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btn_delete => By.XPath("//div[@id='rMenu_TOCDoclvl']//span[contains(text(),'Delete')]//parent::li");
         By btn_Edit => By.XPath("//div[@id='rMenu_TOCDoclvl']//span[contains(text(),'Edit')]//parent::li");
         By lbl_FolderManagementHeading => By.XPath("//div[@class='card-header']//h5[contains(text(),'Level')]");
-        By btn_New => By.XPath("//div[@id='rMenu_TOCDoclvl']//span[contains(text(),'New')]//parent::li[contains(@disabled,'disabled')]"); 
+        By btn_New => By.XPath("//div[@id='rMenu_TOCDoclvl']//span[contains(text(),'New')]//parent::li[contains(@disabled,'disabled')]");
         By menu_DocumentManagement => By.XPath("//div[text()='Document Management']");
         By lbl_FolderManagementDocumentProHeading => By.XPath("//h1[contains(text(),'Document Pro')]");
         By lnk_ModuleSideSubMenu => By.XPath("(//a[@title='Modules'])[1]");
@@ -222,7 +222,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By inp_Revopt => By.XPath("//input[@class = 'select2-search__field']");
         By inpbox_Revopt => By.XPath("//span[@id = 'select2-drpRevOpt-container']");
         By inp_docProautoincreby1 => By.XPath("//ul[@id = 'select2-drpRevOpt-results']");
-        By chk_InheritFromParents=> By.XPath("((//div[@id=\"trRevOpt\"])[1]//following::div[@id='spnRevByInherit'])[1]");
+        By chk_InheritFromParents => By.XPath("((//div[@id=\"trRevOpt\"])[1]//following::div[@id='spnRevByInherit'])[1]");
         By chk_SiteSubLevel => By.XPath("(//label[@id='thAllowSiteSub'])[1]");
         By btn_NewEnable => By.XPath("//div[@id='rMenu_TOCDoclvl']//span[contains(text(),'New')]");
         By ddp_DateOpt => By.XPath("//span[@id='select2-drpDocNumOpt-container']");
@@ -420,7 +420,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
             seleniumActions.Wait(2);
-            seleniumActions.ScrollToPosition(0,1000);
+            seleniumActions.ScrollToPosition(0, 1000);
             Assert.IsTrue(seleniumActions.IsElementPresent(chk_InUse), "Checkbox In Use is not present");
             seleniumActions.Click(chk_InUse);
             seleniumActions.Click(btn_save);
@@ -440,7 +440,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToIframes(iframe_Routes, iframe_Route);
             seleniumActions.Click(drp_NewRoute);
             seleniumActions.Click(inpSearch_AssignRoute);
-            seleniumActions.SendKeys(inpSearch_AssignRoute,subHead);
+            seleniumActions.SendKeys(inpSearch_AssignRoute, subHead);
             seleniumActions.Click(By.XPath("//li[@role='treeitem']//span[contains(text(),'" + subHead + "')]"));
             seleniumActions.Wait(2);
             seleniumActions.SwitchToDefaultContent();
@@ -472,8 +472,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void ValidateNewDocRequestPage()
         {
             seleniumActions.SwitchToFrame(iframe_DetailView);
-            Assert.IsTrue(seleniumActions.IsElementPresent(breadCrumb_NewDocRequest,5),"New Doc Request breadcrumb is not found");
-            Assert.IsTrue(seleniumActions.IsElementPresent(btn_LevelSelector,5),"level selector button is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(breadCrumb_NewDocRequest, 5), "New Doc Request breadcrumb is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(btn_LevelSelector, 5), "level selector button is not found");
             seleniumActions.SwitchToDefaultContent();
         }
 
@@ -504,13 +504,13 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             string docName = Constants.Name + utility.GenerateRandomText(2);
             seleniumActions.SwitchToFrame(iframe_DetailView);
             seleniumActions.SendKeys(inp_ChooseFile, projectPath.ToString() + Constants.SampleFilePath_Book);
-            seleniumActions.ScrollToPosition(0,300);
+            seleniumActions.ScrollToPosition(0, 300);
             seleniumActions.Wait(2);
             seleniumActions.Click(txtDocNumber);
             seleniumActions.SendKeys(txtDocNumber, utility.RandomNumberGenerator(3));
             seleniumActions.Wait(2);
             seleniumActions.Click(txtDocName);
-            seleniumActions.SendKeys(txtDocName , Keys.Clear);
+            seleniumActions.SendKeys(txtDocName, Keys.Clear);
             seleniumActions.SendKeys(txtDocName, docName);
             seleniumActions.Click(btnAdd);
             Assert.IsTrue(seleniumActions.IsElementPresent(msg_DocUploadedSuccessfully, 5), "document was not uploaded properly");
@@ -545,7 +545,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public void ValidateUIElementsOfPendingRequestsMenu()
         {
-            seleniumActions.SwitchToIframes(iframe_DetailView,iframe_Actions);
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
             // ** Validate => DOC - 2500 - 10 - 110 & 140 ** //
             Assert.IsTrue(seleniumActions.IsElementPresent(lbl_DocNumber, 5), "Doc number is not found");
             Assert.IsTrue(seleniumActions.IsElementPresent(lbl_DocName, 5), "Doc name is not found");
@@ -620,7 +620,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToFrame(iframe_DetailView);
             seleniumActions.Click(menu_DocumentsBusinessRule);
             seleniumActions.SwitchToFrame(iframe_MenuData);
-            seleniumActions.ScrollToPosition(0,1600);
+            seleniumActions.ScrollToPosition(0, 1600);
             Assert.IsTrue(seleniumActions.IsElementPresent(btn_DisabledDCNForm, 5), "unable to find DCN button");
             seleniumActions.Click(btn_DisabledDCNForm);
             seleniumActions.Wait(2);
@@ -732,7 +732,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.ScrollToElement(btn_Terminate);
             seleniumActions.Click(btn_Terminate);
             seleniumActions.Wait(3);
-            
+
             seleniumActions.Click(btnYes_Popup);
             seleniumActions.SwitchToDefaultContent();
             seleniumActions.SwitchToFrame(iframe_DetailView);
@@ -793,7 +793,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
             seleniumActions.Click(img_plusIcon);
-            seleniumActions.ScrollToPosition(0,1000);
+            seleniumActions.ScrollToPosition(0, 1000);
             seleniumActions.Click(chk_NewDocumentAccess_Inherit);
             seleniumActions.Click(chk_DocumentAccess_RequestRight);
             seleniumActions.SwitchToDefaultContent();
@@ -864,7 +864,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Wait(3);
             seleniumActions.SwitchToFrame(iframe_ResetAction);
             seleniumActions.Click(inp_Reason);
-            seleniumActions.SendKeys(inp_Reason,"Test");
+            seleniumActions.SendKeys(inp_Reason, "Test");
             seleniumActions.SwitchToDefaultContent();
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
             seleniumActions.Wait(2);
@@ -894,7 +894,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SendKeys(inp_MultiSearch, docName);
             seleniumActions.Click(btnAdvancedSearch_MultiSearch);
             seleniumActions.Wait(3);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_NoRecordsToDisplay),"Document is showing actions page");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_NoRecordsToDisplay), "Document is showing actions page");
             seleniumActions.SwitchToDefaultContent();
         }
 
@@ -910,7 +910,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(chk_NewDocFullAccess);
             seleniumActions.Click(lnkClick_FullAccess);
             seleniumActions.Wait(2);
-            if(seleniumActions.IsElementPresent(img_plusIcon))
+            if (seleniumActions.IsElementPresent(img_plusIcon))
             {
                 seleniumActions.Click(img_plusIcon);
                 seleniumActions.ScrollToPosition(0, 1000);
@@ -988,7 +988,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
             seleniumActions.Click(status_Assign);
-            seleniumActions.SwitchToDefaultContent(); 
+            seleniumActions.SwitchToDefaultContent();
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
             seleniumActions.Click(svg_AddAssignAutor);
             seleniumActions.Wait(2);
@@ -1022,7 +1022,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// <summary>
         /// this method is used to attach document
         /// </summary>
-         public void AttachDocument()
+        public void AttachDocument()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
             Assert.IsTrue(seleniumActions.IsElementPresent(status_AttachDocument), "Attach Document link is not found");
@@ -1176,7 +1176,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
             seleniumActions.Click(txtAddComment);
-            seleniumActions.SendKeys(txtAddComment,Constants.Name);
+            seleniumActions.SendKeys(txtAddComment, Constants.Name);
             seleniumActions.Click(btn_Send);
             seleniumActions.SwitchToDefaultContent();
         }
@@ -1217,7 +1217,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToDefaultContent();
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
             seleniumActions.Click(btn_Done);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lblDocPro_DraftViewer),"added draft viewer was not visible");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblDocPro_DraftViewer), "added draft viewer was not visible");
             seleniumActions.SwitchToDefaultContent();
         }
 
@@ -1240,7 +1240,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.IsElementPresent(chkUsernameInactive));
             seleniumActions.Click(chkUsernameInactive);
             seleniumActions.Wait(2);
-            Assert.IsTrue(seleniumActions.IsElementPresent(chkUsernameInactive),"username was not removed");
+            Assert.IsTrue(seleniumActions.IsElementPresent(chkUsernameInactive), "username was not removed");
             seleniumActions.SwitchToDefaultContent();
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
             seleniumActions.Click(btn_Done);
@@ -1382,12 +1382,12 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
             Assert.IsTrue(seleniumActions.IsElementPresent(txt_EffectiveDate, 5), "effective date textbox is not found");
-            seleniumActions.ScrollToPosition(0,1000);
+            seleniumActions.ScrollToPosition(0, 1000);
             seleniumActions.Click(txt_EffectiveDate);
             Assert.IsTrue(seleniumActions.IsElementPresent(tblDatePicker_EffectiveDate, 5), "date picker is not visible");
             seleniumActions.Click(lblCurrentDate_DatePicker);
             seleniumActions.Click(txt_ChngDescription);
-            seleniumActions.SendKeys(txt_ChngDescription,Constants.Name);
+            seleniumActions.SendKeys(txt_ChngDescription, Constants.Name);
             seleniumActions.Click(txt_ReasonForChange);
             seleniumActions.SendKeys(txt_ReasonForChange, Constants.Name);
             seleniumActions.SwitchToDefaultContent();
@@ -1522,7 +1522,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.IsElementPresent(chk_AttachDraft), "attach draft checkbox is not visible");
             seleniumActions.Click(chk_AttachDraft);
         }
-        
+
         // *********** UA - 02 : Pending Doc Draft - End of TC 03 ************ //
 
         // ********************************************* User Actions - 03 Draft Request Needing Viewing ************************************************ //
@@ -1536,15 +1536,15 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void ValidateAcceptAndRejectRadioIsNotPresent()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
-            Assert.IsFalse(seleniumActions.IsElementPresent(rdo_Accept,5), "accept radio button should not be present");
-            Assert.IsFalse(seleniumActions.IsElementPresent(rdo_Reject,5), "reject radio button should not be present");
+            Assert.IsFalse(seleniumActions.IsElementPresent(rdo_Accept, 5), "accept radio button should not be present");
+            Assert.IsFalse(seleniumActions.IsElementPresent(rdo_Reject, 5), "reject radio button should not be present");
             seleniumActions.SwitchToDefaultContent();
         }
 
         /// <summary>
         /// This method is helps to verify the latest comment is present in the draft details page
         /// </summary>
-        
+
         public void ValidateLatestCommentIsPresent()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
@@ -1590,7 +1590,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void ClickOnRejectRadioButtonInDraftReqNeedingViewingPage()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
-            Assert.IsTrue(seleniumActions.IsElementPresent(rdo_Accept),"accept radio button is not present");
+            Assert.IsTrue(seleniumActions.IsElementPresent(rdo_Accept), "accept radio button is not present");
             Assert.IsTrue(seleniumActions.IsElementPresent(rdo_Reject), "reject radio button is not present");
             seleniumActions.Click(rdo_Reject);
             seleniumActions.SwitchToDefaultContent();
@@ -1674,7 +1674,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // ***************** FM - 03 : Level Create and Delete - End of TC 21854 ******************** //
-        
+
         // *********** FM - 03 : Create and delete levels - Start of TC 04 ************ //
 
         /// <summary>
@@ -1685,6 +1685,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToFrame(iframe_DetailView);
             seleniumActions.Click(folderManagement_Tab);
             seleniumActions.SwitchToFrame(iframe_MenuData);
+            seleniumActions.Wait(2);
             seleniumActions.Click(phd_SearchByFolder);
             seleniumActions.SendKeys(phd_SearchByFolder, LevelName);
             seleniumActions.Click(btnSearch_SearchByFolder);
@@ -1839,7 +1840,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.ScrollToPosition(0, 1000);
             seleniumActions.Click(btn_UserDone);
             Assert.IsTrue(seleniumActions.GetText(lbl_AddedLevelOwnerName).Equals("Thani-k"));
-            seleniumActions.SwitchToDefaultContent(); 
+            seleniumActions.SwitchToDefaultContent();
         }
 
         /// <summary>
@@ -2020,7 +2021,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void VerifyLevelHeading()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
-            Assert.IsTrue(seleniumActions.VerifyElementIsDisplayed(lblNewLevel),"Label new level is not present");
+            Assert.IsTrue(seleniumActions.VerifyElementIsDisplayed(lblNewLevel), "Label new level is not present");
             Assert.IsTrue(seleniumActions.GetText(lblNewLevel).Equals("New Level"));
             seleniumActions.SwitchToDefaultContent();
         }
@@ -2032,8 +2033,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
             seleniumActions.Click(txtSublevelName);
-            seleniumActions.SendKeys(txtSublevelName,Constants.SubLevelName);
-            seleniumActions.ScrollToPosition(0,1000);
+            seleniumActions.SendKeys(txtSublevelName, Constants.SubLevelName);
+            seleniumActions.ScrollToPosition(0, 1000);
             seleniumActions.Click(btn_save);
             seleniumActions.SwitchToDefaultContent();
         }
@@ -2055,7 +2056,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void ClickSubLevelAndVerifyLevelHeader()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lblSublevelName),"Sub level is not found");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblSublevelName), "Sub level is not found");
             seleniumActions.Click(lblSublevelName);
             seleniumActions.SwitchToFrame(iframe_Tree);
             Assert.IsTrue(seleniumActions.GetText(lbl_SubLevelHeader).Equals("Level - " + Constants.SubLevelName));
@@ -2109,13 +2110,13 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData);
             Assert.IsFalse(seleniumActions.IsElementPresent(folder_OpenArrow, 5), "Folder open arrow is displaying");
-            Assert.IsFalse(seleniumActions.IsElementPresent(lblSublevelName,5), "Sub level is displaying");
+            Assert.IsFalse(seleniumActions.IsElementPresent(lblSublevelName, 5), "Sub level is displaying");
             seleniumActions.SwitchToDefaultContent();
         }
 
         // *********** FM - 04 : Create and delete levels - End of TC-21857,61,63-67,69 ************ //
 
-        
+
         // *********** FM - 05 : Rights for level - Start of TC 21875 ************ //
 
         /// <summary>
@@ -2228,8 +2229,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void ValidateRouteLinkIsNotPresent()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
-            seleniumActions.ScrollToPosition(0,1000);
-            Assert.IsFalse(seleniumActions.VerifyElementIsDisplayed(lnk_InheritFromParent,5),"Inherit parent link is visible");
+            seleniumActions.ScrollToPosition(0, 1000);
+            Assert.IsFalse(seleniumActions.VerifyElementIsDisplayed(lnk_InheritFromParent, 5), "Inherit parent link is visible");
             seleniumActions.SwitchToDefaultContent();
         }
 
@@ -2299,7 +2300,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public void SearchAndSelectTagName()
         {
-            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree,iframe_SelectTags);
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree, iframe_SelectTags);
             Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
             seleniumActions.Click(btnMultiSearch);
             seleniumActions.Wait(4);
@@ -2375,7 +2376,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(lbl_EnableEnhancedPrinting);
             seleniumActions.Wait(2);
             string state = seleniumActions.FindElement(drp_Template).GetAttribute("disabled");
-            Assert.AreEqual(state,null);
+            Assert.AreEqual(state, null);
             seleniumActions.SwitchToDefaultContent();
         }
 
@@ -2419,9 +2420,11 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void ClickEnableRestrictedViewCheckBox()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView);
-            Assert.IsTrue(seleniumActions.IsElementPresent(chk_EnableRestrickedView),"Enable Restricked View checkbox is not present");
+            seleniumActions.Wait(2);
+            Assert.IsTrue(seleniumActions.IsElementPresent(chk_EnableRestrickedView), "Enable Restricked View checkbox is not present");
             if (seleniumActions.FindElement(chk_EnableRestrickedView).GetAttribute("checked") == null)
             {
+                seleniumActions.Wait(2);
                 seleniumActions.Click(lbl_EnableRestrickedView);
                 seleniumActions.Click(btn_save);
             }
@@ -2535,7 +2538,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(chk_SearchResultSitePDF);
             seleniumActions.Click(btnUpdate_PDF);
             seleniumActions.Click(btn_save);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lblSuccessMessage),"Success message is not showing");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblSuccessMessage), "Success message is not showing");
             seleniumActions.SwitchToDefaultContent();
         }
 
@@ -2549,10 +2552,11 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public void VerifyLevelPDFPreferencesLinkAndClickIt()
         {
-            seleniumActions.SwitchToIframes(iframe_DetailView,iframe_MenuData, iframe_Tree);
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
             seleniumActions.Wait(2);
             seleniumActions.ScrollToPosition(0, 1000);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lnk_LevelPdfPreference),"level pdf link is not present");
+            seleniumActions.Wait(2);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lnk_LevelPdfPreference), "level pdf link is not present");
             seleniumActions.Click(lnk_LevelPdfPreference);
             seleniumActions.SwitchToDefaultContent();
         }
@@ -2562,9 +2566,10 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public void ValidateLevelPDFPreferencesPageHeading()
         {
-            seleniumActions.SwitchToIframes(iframe_DetailView,iframe_MenuData, iframe_Tree);
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
             seleniumActions.Wait(3);
             Assert.IsTrue(seleniumActions.IsElementPresent(lbl_LevelPdfPreferencesPageHeading));
+            seleniumActions.Wait(2);
             Assert.IsTrue(seleniumActions.GetText(lbl_LevelPdfPreferencesPageHeading).Equals("Level PDF Preferences"));
             seleniumActions.SwitchToDefaultContent();
         }
@@ -2574,11 +2579,11 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public void ValidateUIElementsInLevelPDFPreferencesPage()
         {
-            seleniumActions.SwitchToIframes(iframe_DetailView,iframe_MenuData,iframe_Tree,iframe_water);
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree, iframe_water);
             seleniumActions.Wait(3);
-            Assert.IsTrue(seleniumActions.IsElementPresent(drp_TemplateInLevelPDFPreferncesPAge),"Template dropdown is not present");
-            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_RestrictedView),"Enable Restricted View checkbox is not present");
-            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_IncludeTemplate),"Include Template is not present");
+            Assert.IsTrue(seleniumActions.IsElementPresent(drp_TemplateInLevelPDFPreferncesPAge), "Template dropdown is not present");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_RestrictedView), "Enable Restricted View checkbox is not present");
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_IncludeTemplate), "Include Template is not present");
             Assert.IsTrue(seleniumActions.IsElementPresent(lbl_EnableEnhancedPrinting), "Enable Enhancing Printing checkbox is not present");
             Assert.IsTrue(seleniumActions.IsElementPresent(btn_LevelPDFRestart), "Restart button is not present");
             Assert.IsTrue(seleniumActions.IsElementPresent(btn_LevelPDFSave), "level PDF preferences page save button is not present");
@@ -2586,6 +2591,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.IsElementPresent(btn_LevelApplyThisToAllSubLevels), "Apply this to all sub levels button is not present");
             Assert.IsTrue(seleniumActions.IsElementPresent(btn_LevelPDFShowSamplePDF), "Show Sample PDF button is not present");
             Assert.IsTrue(seleniumActions.IsElementPresent(drp_LevelPDFSearch), "search is not present in Level PDF Preferences page");
+            seleniumActions.Wait(2);
             string dropdownText = seleniumActions.GetText(drp_LevelPDFSearch);
             Assert.IsTrue(dropdownText.Contains("Modules"), "'Modules' option is missing in the search dropdown.");
             Assert.IsTrue(dropdownText.Contains("Document Type"), "'Document Type' option is missing in the search dropdown.");
