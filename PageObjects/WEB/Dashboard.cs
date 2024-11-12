@@ -2,23 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OMNEX.AUTOMATION.Data.WEB;
 using OMNEX.AUTOMATION.Helpers;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
-using System.Reflection.Metadata;
-using System.Diagnostics;
-using System.Security.Cryptography.X509Certificates;
 using System.Reflection;
-using System.Diagnostics.Metrics;
-using System.Collections.Generic;
-using System.Xml.Linq;
-using System.Reactive.Subjects;
-using Amazon.DynamoDBv2.DocumentModel;
-using OpenQA.Selenium.Interactions;
-using Amazon.DynamoDBv2.Model;
-using AventStack.ExtentReports.Gherkin.Model;
-using TechTalk.SpecFlow.CommonModels;
-using Amazon.SecretsManager.Model.Internal.MarshallTransformations;
 
 namespace OMNEX.AUTOMATION.PageObjects.WEB
 {
