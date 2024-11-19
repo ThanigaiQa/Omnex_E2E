@@ -1,4 +1,7 @@
-﻿using OpenQA.Selenium;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using OMNEX.AUTOMATION.Data.WEB;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,6 +9,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace OMNEX.AUTOMATION.Helpers
@@ -331,5 +335,25 @@ namespace OMNEX.AUTOMATION.Helpers
             return projectPath;
         }
 
+        public static void setGlobalValue(string variable, string value)
+        {           
+           string filePath = @"C:\Users\91759\source\repos\Omnex_E2E\Data\WEB\GlobalVariableJson.json";
+           string jsonContent = File.ReadAllText(filePath);
+           dynamic jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject(jsonContent);
+           JToken jToken = jsonObj.SelectToken(variable);
+           jToken.Replace(value);
+           string updatedJsonString = jsonObj.ToString();
+           File.WriteAllText(filePath, updatedJsonString);
+        }
+
+        public static string getGlobalValue(String variableName)
+        {
+            string filePath = "C:\\Users\\91759\\source\\repos\\Omnex_E2E\\Data\\WEB\\GlobalVariableJson.json";
+            using FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            using JsonDocument doc = JsonDocument.Parse(fs);
+            JsonElement root = doc.RootElement;
+            string name = root.GetProperty(variableName).GetString();           
+            return name;
+        }
     }
 }

@@ -62,8 +62,10 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         public void WhenCreateANewSupplier()
         {
             supplier.ClickAddSupplierButton();
-            scenarioContext["SupplierName"] = supplier.EnterMandatoryFieldsforSupplier();
-            Console.WriteLine("Printing the suppliername from context  --->"+scenarioContext["SupplierName"]);
+            
+            string SupplierName = supplier.EnterMandatoryFieldsforSupplier();
+            Utilities.setGlobalValue("SupplierName", SupplierName);
+            //Console.WriteLine("Printing the suppliername from context  --->"+scenarioContext["SupplierName"]);
         }
 
         // ************** End of TC 1 ****************** //
@@ -95,9 +97,9 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         [Then(@"Search for Supplier and open it")]
         public void ThenSearchForSupplierAndOpenIt()
         {
-           //scenarioContext["SupplierName"] = "Supplier PS-105";
-           Console.WriteLine("Searching the suppliername from context  --->" + scenarioContext["SupplierName"]);
-            supplier.searchBySupplierName(scenarioContext["SupplierName"].ToString());          
+            String supplierName = Utilities.getGlobalValue("SupplierName");
+           //Console.WriteLine("Searching the suppliername from context  --->" + scenarioContext["SupplierName"]);
+            supplier.searchBySupplierName(supplierName);          
            
             
         }
@@ -112,7 +114,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         public void ThenAddLocationForThePart()
         {
            // scenarioContext["SupplierName"] = "Supplier PS-49";
-            supplier.addLocationDetails(scenarioContext["SupplierName"].ToString());
+            supplier.addLocationDetails(Utilities.getGlobalValue("SupplierName"));
         }
 
         [Then(@"uncheck SAM and SEM for Part")]
@@ -124,7 +126,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         [Then(@"create a new Project for Supplier")]
         public void ThenCreateANewProjectForSupplier()
         {
-            supplier.addNewProject(scenarioContext["SupplierName"].ToString()); 
+            supplier.addNewProject(Utilities.getGlobalValue("SupplierName")); 
             
         }
 
@@ -161,7 +163,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
            // scenarioContext["PrimaryEmail"] = "primary@PS-103.com";
            // scenarioContext["ProjectName"] = "Supplier PS-103-06112024121758";
             loginPage.NavigateToURL(ConfigHelper.GetURL());
-            loginPage.LoginToApp(scenarioContext["PrimaryEmail"].ToString(), "pass1");
+            loginPage.LoginToApp(Utilities.getGlobalValue("SupplierPrimaryEmail"), "pass1");
         }
 
         [Given(@"Login to the application as Secondary Supplier user")]
@@ -170,7 +172,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             //scenarioContext["SecondaryEmail"] = "secondary@PS-103.com";
             //scenarioContext["ProjectName"] = "Supplier PS-103-06112024121758";
             loginPage.NavigateToURL(ConfigHelper.GetURL());
-            loginPage.LoginToApp(scenarioContext["SecondaryEmail"].ToString(), "pass1");
+            loginPage.LoginToApp(Utilities.getGlobalValue("SupplierSecondaryEmail"), "pass1");
         }
 
 
@@ -228,8 +230,18 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         [Then(@"Update the Status of the Project as Completed\.")]
         public void ThenUpdateTheStatusOfTheProjectAsCompleted_()
         {
-            //scenarioContext["ProjectName"] = "Supplier PS-105-06112024221216";
+            
             supplier.updateStatusOfProject();
+        }
+
+        [Given(@"Write into Json")]
+        public void GivenWriteIntoJson()
+        {
+            Utilities.setGlobalValue("SupplierCode", "Avon-PS-123");
+            Utilities.getGlobalValue("SupplierCode");
+
+            Utilities.setGlobalValue("SupplierName", "Avon Corp");
+            Utilities.getGlobalValue("SupplierName");
         }
 
 

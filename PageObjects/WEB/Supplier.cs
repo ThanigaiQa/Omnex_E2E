@@ -216,23 +216,18 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         {
             seleniumActions.SwitchToIframes(iframe_DetailView);
             String temp = seleniumActions.GetAttributeValue(By.XPath("//input[@id='txtCode']"), "value");
-            //ConfigHelper.SetSupplierCode(temp);
-
+            Utilities.setGlobalValue("SupplierCode", temp);
+            
             validateSupplierField("SupplierName");
             String primaryMail = "primary@" + temp + ".com";
-            String secondaryMail = "secondary@" + temp + ".com";
-            scenarioContext["PrimaryEmail"] = primaryMail;
-            scenarioContext["SecondaryEmail"] = secondaryMail;
+            String secondaryMail = "secondary@" + temp + ".com";            
+            Utilities.setGlobalValue("SupplierPrimaryEmail", primaryMail);
+            Utilities.setGlobalValue("SupplierSecondaryEmail", secondaryMail);
 
             temp = "Supplier " + temp;
-
+            Utilities.setGlobalValue("SupplierName", temp);
             seleniumActions.SendKeys(supplierName, text: temp);
-            // ConfigHelper.SetSupplierName(temp);
-            //temp = temp.Replace("-", "");
-            //temp = temp.Replace("\\s", "");
-
-            //ConfigHelper.SetSupplierEmail(primaryMail);
-
+            
             validateSupplierField("Supplier Type");
             seleniumActions.Click(supplierTypeDropdown);
             seleniumActions.ScrollToElement(By.XPath("//ul[@id='select2-cmbSupplierType-results']/li/span[contains(text(),'New Vendor')]"));
@@ -786,6 +781,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         public void uncheckSAMandSEM()
         {
+            seleniumActions.Wait(3);
             seleniumActions.SwitchToIframes(iframe_DetailView);
             // seleniumActions.Click(tabPartsDEtails);           
             seleniumActions.Click(By.XPath("//td[contains(text(),'Test')]/parent::tr/td/input[@name='chkVAM']"));
@@ -804,7 +800,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.ActionsClick(By.XPath("//div[@id='PPLProjectListGrid_wrapper']//li/button[contains(text(),'New')]"));
 
             String projectname = supplierName + "-" + utility.CurrentTime();
-            scenarioContext["ProjectName"] = projectname;
+            Utilities.setGlobalValue("ProjectName", projectname);
+            //scenarioContext["ProjectName"] = projectname;
             seleniumActions.Wait(3);
             seleniumActions.Click(By.XPath("//span[@id='select2-SelectedPillarID-container']"));
             seleniumActions.Click(By.XPath("//li/span[contains(text(), 'Supplier PPAP')]"));
@@ -958,7 +955,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
            
             seleniumActions.SwitchToFrame(iframe_DetailView);
             seleniumActions.Wait(5);
-            seleniumActions.ActionsClick(By.XPath("//table[@id='PPLProjectListGrid']//td/a[contains(text(),'" + scenarioContext["ProjectName"].ToString() + "')]"));
+            seleniumActions.ActionsClick(By.XPath("//table[@id='PPLProjectListGrid']//td/a[contains(text(),'" + Utilities.getGlobalValue("ProjectName") + "')]"));
             seleniumActions.Wait(5);
            if (userType.Equals("PrimaryUser"))
             {
@@ -999,7 +996,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(lblOutputAttachment); 
             seleniumActions.UploadFile(projectPath.ToString(), Constants.UploadFilePath_Test);
             seleniumActions.Wait(3);
-            seleniumActions.SendKeys(outputDocName, text: "Output Doc attached by " + scenarioContext["PrimaryEmail"].ToString());
+            seleniumActions.SendKeys(outputDocName, text: "Output Doc attached by " + Utilities.getGlobalValue("SupplierPrimaryEmail"));
             seleniumActions.Click(btnAddAttachment);
             seleniumActions.SwitchToDefaultContent();
 
@@ -1027,7 +1024,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(lblOutputAttachment);
             seleniumActions.UploadFile(projectPath.ToString(), Constants.UploadFilePath_Test);
             seleniumActions.Wait(3);
-            seleniumActions.SendKeys(outputDocName, text: "Output Doc attached by " + scenarioContext["SecondaryEmail"].ToString());
+            seleniumActions.SendKeys(outputDocName, text: "Output Doc attached by " + Utilities.getGlobalValue("SupplierSecondaryEmail"));
             seleniumActions.Click(btnAddAttachment);
             seleniumActions.SwitchToDefaultContent();
 
@@ -1037,6 +1034,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         {
             seleniumActions.SwitchToFrame(iframe_DetailView);            
             seleniumActions.SwitchToFrame(iframeOpenDeliverable);
+            seleniumActions.Wait(3);
             seleniumActions.Click(lblPercentageCompleteLink);
 
             seleniumActions.WaitForElementToExists(iframeContainer);
@@ -1059,6 +1057,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         {
             seleniumActions.SwitchToFrame(iframe_DetailView);
             seleniumActions.SwitchToFrame(iframeContainer);
+            seleniumActions.Wait(3);
             seleniumActions.Click(lblPercentageCompleteLink);
 
             seleniumActions.WaitForElementToExists(iframeContainer);
@@ -1067,6 +1066,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SendKeys(inputPercentageOfTask, text: "100");
             //seleniumActions.SendKeys(By.XPath("//input[@name='EndDate']"), utility.DateAfterAddingDays(0));
             seleniumActions.Click(By.XPath("//input[@name='EndDate']"));
+            seleniumActions.ScrollToElement(By.XPath("//td[@class='today day']"));
             seleniumActions.Click(By.XPath("//td[@class='today day']"));
             seleniumActions.SendKeys(inputHourstoComplete, text: "8");
             seleniumActions.Click(savePeriodicdetails);
@@ -1087,13 +1087,13 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             // seleniumActions.MoveToElement(By.XPath("//li[@class=' PAactive']"));
             seleniumActions.Click(By.XPath("//li[@id='3']"));
             seleniumActions.Wait(5);
-            seleniumActions.ActionsClick(By.XPath("//table[@id='PPLProjectListGrid']//td/a[contains(text(),'" + scenarioContext["ProjectName"].ToString() + "')]"));
+            seleniumActions.ActionsClick(By.XPath("//table[@id='PPLProjectListGrid']//td/a[contains(text(),'" + Utilities.getGlobalValue("ProjectName") + "')]"));
             seleniumActions.Click(By.XPath("//i[@id='BtnCharter']"));
            // seleniumActions.VerifyElementIsDisplayed(By.XPath("//div[contains(text(),'All the deliverables in the project are completed')]"));
             seleniumActions.Click(By.XPath("//select[@id='ProjectStatus']"));
             seleniumActions.SelectDropDown(By.XPath("//select[@id='ProjectStatus']"), "value", "3");
             seleniumActions.Click(By.XPath("//button[@id='btnSave']"));
-            seleniumActions.SendKeys(By.XPath("//textarea[@id='txtCharterComments']"), text: "Completed Automation");
+            seleniumActions.SendKeys(By.XPath("//textarea[@id='txtReason']"), text: "Completed Automation");
             seleniumActions.Click(By.XPath("//button[@class='btn btn-mini btn-success']"));
             seleniumActions.SwitchToDefaultContent();
         }
