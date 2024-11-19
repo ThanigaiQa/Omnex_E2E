@@ -19,6 +19,7 @@ csharp_style_expression_bodied_local_functions = false:silent
 csharp_indent_labels = one_less_than_current
 csharp_style_prefer_primary_constructors = true:suggestion
 csharp_space_around_binary_operators = before_and_after
+csharp_prefer_system_threading_lock = true:suggestion
 
 [*.{cs,vb}]
 #### Naming styles ####
