@@ -280,7 +280,12 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btn_LevelPDFShowSamplePDF => By.XPath("//button[@id='btnShowTemplate']");
         By drp_LevelPDFSearch => By.XPath("//select[contains(@class,'datatablefilter') and contains(@id,'gridModPDFDocTypes')]");
         By pagination_LevelPDFPagination => By.XPath("//div[@id='gridModPDFDocTypes_paginate']");
-
+        By txt_Search => By.XPath("//span[contains(@class,'search--dropdown')]//input[@type='search']");
+        By ddl_Month => By.XPath("//span[contains(@class,'select2-dropdown')]//li//span[contains(text(),'Month')]");
+        By inp_DocReviewedAfter => By.XPath("//input[@id='txtDocReviewUnit']");
+        By lbl_RevOptValue => By.XPath("//span[@id='select2-drpRevOpt-container']//span");
+        By lbl_DocNumOptValue => By.XPath("//span[@id='select2-drpDocNumOpt-container']//span");
+        By lbl_RevDateOptValue => By.XPath("//span[@id='select2-drpRevDateOpt-container']//span");
 
         #endregion
 
@@ -2544,7 +2549,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         // *********** FM - 08 : site PDF preference - End of TC 23023-25 ************ //
 
-
         // *********** FM - 02 : level PDF preference - Start of TC 22999 ************ //
 
         /// <summary>
@@ -2598,7 +2602,31 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.IsElementPresent(pagination_LevelPDFPagination), "pagination is not presnt in Level PDF Preferences page");
             seleniumActions.SwitchToDefaultContent();
         }
+
         // *********** FM - 02 : level PDF preference - End of TC 22999 ************ //
+
+        // *********** Smoke Cases - Start of TC 04 ************ //
+
+        /// <summary>
+        /// edits the dropdowns in folder management page for a level
+        /// </summary>
+        public void EditDropdownsInFolderManagement()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            seleniumActions.ScrollToPosition(0, 800);
+            seleniumActions.Click(drp_DocumentReviewedAfter);
+            seleniumActions.Click(ddl_Month);
+            seleniumActions.Click(inp_DocReviewedAfter);
+            seleniumActions.SendKeys(inp_DocReviewedAfter, Keys.Clear);
+            seleniumActions.SendKeys(inp_DocReviewedAfter, "2");
+            Assert.IsTrue(seleniumActions.GetText(lbl_RevOptValue).Equals("DocPro automatically increments by 1"));
+            Assert.IsTrue(seleniumActions.GetText(lbl_DocNumOptValue).Equals("User Defined Document Number"));
+            Assert.IsTrue(seleniumActions.GetText(lbl_RevDateOptValue).Equals("Last approval date"));
+            seleniumActions.Click(btn_save);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** Smoke Cases - End of TC 04 ************ //
 
         #endregion
 

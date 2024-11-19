@@ -96,7 +96,6 @@ Scenario: TC 02 : DOC_2500_20_200_230_250_300_330
 	Then I validate the Levels page
 	Then Delete the Level
 	
-
 @TC-03
 Scenario: TC 03 : DOC_2500_20_310
  Given Login to the application with 'right' user
@@ -172,7 +171,6 @@ Scenario: TC 04  : DOC_2500_20_340
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page
 	Then Delete the Level
-
 
 @TC-05
 Scenario: TC 05 : DOC_2500_20_350

@@ -318,6 +318,16 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** UA - 03 : Draft Req Needing Viewing - End of TC 03 ************ //
 
+        // *********** Smoke Cases - Start of TC 04 ************ //
+
+        [Then(@"I edit dropdown values for the level in folder management page")]
+        public void ThenIEditDropdownValuesForTheLevelInFolderManagementPage()
+        {
+            docProModule.EditDropdownsInFolderManagement();
+        }
+
+        // *********** Smoke Cases - End of TC 04 ************ //
+
         #endregion
 
     }
