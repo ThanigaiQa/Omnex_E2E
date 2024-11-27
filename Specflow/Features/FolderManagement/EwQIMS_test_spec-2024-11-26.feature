@@ -1,4 +1,4 @@
-﻿Feature: 10 - Suite levels
+﻿Feature: EwQIMS_test_spec-2024-11-26
 
 @TC-01
 Scenario: TC01_DOC_1400_10_20
