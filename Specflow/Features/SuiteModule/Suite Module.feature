@@ -43,7 +43,7 @@ Scenario: 05 Creation And Deletion Vendor
 
 @TC-06
 Scenario: 06 Verify Create and Delete Suplier
-	Given Login to the application with 'docpro' user
+	Given Login to the application with 'thani' user
 	When I Navigate to Supplier Information in system Page
 	Then Create Supplier
 	And I refresh the page

@@ -286,6 +286,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By lbl_RevOptValue => By.XPath("//span[@id='select2-drpRevOpt-container']//span");
         By lbl_DocNumOptValue => By.XPath("//span[@id='select2-drpDocNumOpt-container']//span");
         By lbl_RevDateOptValue => By.XPath("//span[@id='select2-drpRevDateOpt-container']//span");
+        By lbl_DocumentPro => By.XPath("//h1[contains(text(),'Document Pro')]");
+        By lbl_KeyFeatures => By.XPath("//h3[contains(text(),'Key Features')]");
 
         #endregion
 
@@ -2627,6 +2629,21 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // *********** Smoke Cases - End of TC 04 ************ //
+
+        // *********** FM - 10 : Suite Levels - Start of TC 01 - DOC-1400-10-20 ************ //
+
+        /// <summary>
+        /// Validates the docpro landing screen after clickking the level
+        /// </summary>
+        public void ValidateDocProLandingScreen()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_DocumentPro));
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_KeyFeatures));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** FM - 10 : Suite Levels - End of TC 01 - DOC-1400-10-20 ************ //
 
         #endregion
 

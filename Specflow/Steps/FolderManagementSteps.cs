@@ -483,6 +483,16 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** FM - 02 : LevelPDFPreference - End of TC 22999 ************ //
 
+        // *********** FM - 10 : Suite levels - Start of TC 01 ************ //
+
+        [Then(@"I validate the DocPro landing screen is showing instead of displaying level details")]
+        public void ThenIValidateTheDocProLandingScreenIsShowingInsteadOfDisplayingLevelDetails()
+        {
+            docProModule.ValidateDocProLandingScreen();
+        }
+
+        // *********** FM - 10 : Suite levels - End of TC 01 ************ //
+
         #endregion
 
     }

@@ -56,7 +56,9 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
                 case "dummy":
                     loginPage.LoginToApp(ConfigHelper.Dummy(), ConfigHelper.GetPassword());
                     break;
-
+                case "noaccess":
+                    loginPage.LoginToApp(ConfigHelper.NoAccess(), ConfigHelper.GetPassword());
+                    break;
             }
         }
 
@@ -139,7 +141,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         [Then(@"I validate the (.*) in Documents Page")]
         public void ThenIValidateTheInDocumentsPage(string subHead)
         {
-            switch(subHead)
+            switch (subHead)
             {
                 case "Setup":
                     break;
@@ -190,7 +192,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         [Then(@"I verify the status value of the document as (.*)")]
         public void ThenIVerifyTheStatusValueOfTheDocumentAs(string status)
         {
-            switch(status)
+            switch (status)
             {
                 case "In Process":
                     docProModule.ValidateDocumentStatus(status);
@@ -284,7 +286,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         {
             docProModule.DeleteDocumentInToc();
         }
-        
+
         [Then(@"I search for rights in document rights page")]
         public void ThenISearchForRightsInDocumentRightsPage()
         {
@@ -299,7 +301,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         [When(@"I click on (.*) menu")]
-        
+
         public void WhenIClickOnMenu(string menu)
         {
             switch (menu)
@@ -309,7 +311,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
                     break;
                 case "Draft Request Needing Viewing":
                     docProModule.ClickDraftReqNeedingViewingMenu();
-                        break;
+                    break;
                 case "Pending Requests":
                     docProModule.ClickPendingRequestsMenu();
                     break;
