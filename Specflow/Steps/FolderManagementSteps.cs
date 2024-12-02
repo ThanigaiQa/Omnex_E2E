@@ -493,6 +493,36 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** FM - 10 : Suite levels - End of TC 01 ************ //
 
+        // *********** FM - 10 : Suite levels - End of TC 02 ************ //
+
+        [Then(@"I validate the level color '([^']*)' making the level in use")]
+        public void ThenIValidateTheLevelColorMakingTheLevelInUse(string state)
+        {
+            switch (state)
+            {
+                case "before":
+                    docProModule.ValidateLevelColorBeforeInUse();
+                    break;
+                case "after":
+                    docProModule.ValidateLevelColorAfterInUse();
+                    break;
+            }
+        }
+
+        // *********** FM - 10 : Suite levels - End of TC 02 ************ //
+
+        // *********** FM - 10 : Suite levels - Start of TC 03 ************ //
+
+        [Then(@"I validate only edit option is enabled without making the level in use")]
+        public void ThenIValidateOnlyEditOptionIsEnabledWithoutMakingTheLevelInUse()
+        {
+            docProModule.ValidateEditOptionIsEnabledBeforeLevelInuse();
+        }
+
+        // *********** FM - 10 : Suite levels - End of TC 03 ************ //
+
+
+
         #endregion
 
     }

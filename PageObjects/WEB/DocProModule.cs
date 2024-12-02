@@ -288,7 +288,14 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By lbl_RevDateOptValue => By.XPath("//span[@id='select2-drpRevDateOpt-container']//span");
         By lbl_DocumentPro => By.XPath("//h1[contains(text(),'Document Pro')]");
         By lbl_KeyFeatures => By.XPath("//h3[contains(text(),'Key Features')]");
-
+        By lbl_LevelNameInFM => By.XPath("(//a[contains(@class,'level')]//span)[2]");
+        By ddl_RightForSite_Disabled => By.XPath("//div[@id='rightsContextMenu']//li[@id='divSiterights' and contains(@cursor,'not-allowed')]");
+        By ddl_RightForGroups_Disabled => By.XPath("//div[@id='rightsContextMenu']//li[@id='divGrouprights' and contains(@cursor,'not-allowed')]");
+        By ddl_RightForUsers_Disabled => By.XPath("//div[@id='rightsContextMenu']//li[@id='divUserrights' and contains(@cursor,'not-allowed')]");
+        By ddl_New_Disabled => By.XPath("//div[@id='rightsContextMenu']//li[@id='divNewFolder' and contains(@cursor,'not-allowed')]");
+        By ddl_Delete_Disabled => By.XPath("//div[@id='rightsContextMenu']//li[@id='divDeleteFolder' and contains(@cursor,'not-allowed')]");
+        By ddl_Edit_Enabled => By.XPath("//div[@id='rightsContextMenu']//li[@id='divEditFolder']");
+        
         #endregion
 
         #region IFrame
@@ -2644,6 +2651,60 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // *********** FM - 10 : Suite Levels - End of TC 01 - DOC-1400-10-20 ************ //
+
+        // *********** FM - 10 : Suite Levels - Start of TC 02 - DOC-1400-10-30 ************ //
+
+        /// <summary>
+        /// Validates the level color is in gray before making it in use
+        /// </summary>
+        public void ValidateLevelColorBeforeInUse()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData);
+            string levelColor = seleniumActions.FindElement(lbl_LevelNameInFM).GetCssValue("color");
+            Assert.AreNotEqual(levelColor, Constants.BlackColor);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Validates the level color is in black before making it in use
+        /// </summary>
+        public void ValidateLevelColorAfterInUse()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData);
+            seleniumActions.ScrollToPosition(1000,0);
+            seleniumActions.Click(btnSearch_SearchByFolder);
+            string levelColor = seleniumActions.FindElement(lbl_LevelNameInFM).GetCssValue("color");
+            Assert.AreEqual(levelColor, Constants.BlackColor);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** FM - 10 : Suite Levels - End of TC 02 - DOC-1400-10-30 ************ //
+
+        // *********** FM - 10 : Suite Levels - End of TC 02 - DOC-1400-10-30 ************ //
+
+        /// <summary>
+        /// validates only edit option is enabled without making the level in use
+        /// </summary>
+        public void ValidateEditOptionIsEnabledBeforeLevelInuse()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData);
+            seleniumActions.Click(lbl_LevelNameInFM);
+            seleniumActions.ContextClick(lbl_LevelNameInFM);
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddl_RightForSite_Disabled), "right for site drpdown is enabled");
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddl_RightForGroups_Disabled), "right for grps drpdown is enabled");
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddl_RightForUsers_Disabled), "right for users drpdown is enabled");
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddl_New_Disabled), "New folder drpdown is enabled");
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddl_Delete_Disabled), "Delete folder drpdown is enabled");
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddl_Edit_Enabled), "Edit folder drpdown is disabled");
+            seleniumActions.Click(ddl_Edit_Enabled);
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            seleniumActions.ScrollToPosition(0,1000);
+            Assert.IsTrue(seleniumActions.IsElementPresent(chk_InUse), "In use checkbox is not present");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** FM - 10 : Suite Levels - End of TC 02 - DOC-1400-10-30 ************ //
 
         #endregion
 
