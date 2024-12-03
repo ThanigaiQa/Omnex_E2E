@@ -103,6 +103,13 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.SelectSiteSubLevelCreationCheckbox();
         }
 
+        [Then(@"I gave the access for site modification site sub level creation")]
+        public void ThenIGaveTheAccessForSiteModificationSiteSubLevelCreation()
+        {
+            docProModule.SelectSiteSubLevelCreationAndAllowSiteCheckbox();
+        }
+
+
         // *********** FM : Levels create and delete - End of TC 21861,63,64,65,66,67,69,57 ************ //
 
         // *********** FM : Levels create and delete - Start of TC 22974-75-76 ************ //

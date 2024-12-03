@@ -5,6 +5,7 @@
   "AppVersion": "5",
   "ThaniUser": "Thani",
   "Password": "test123",
+  "AdministratorPassword": "a1",
   "LogSwitch": "enabled",
   "LogLanguage": "Json",
   "FailLogLanguage": "Json",

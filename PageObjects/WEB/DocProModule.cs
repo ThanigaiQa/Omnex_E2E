@@ -224,6 +224,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By inp_docProautoincreby1 => By.XPath("//ul[@id = 'select2-drpRevOpt-results']");
         By chk_InheritFromParents => By.XPath("((//div[@id=\"trRevOpt\"])[1]//following::div[@id='spnRevByInherit'])[1]");
         By chk_SiteSubLevel => By.XPath("(//label[@id='thAllowSiteSub'])[1]");
+        By chk_SiteModification => By.XPath("(//label[@id='thSiteMod'])[1]");
         By btn_NewEnable => By.XPath("//div[@id='rMenu_TOCDoclvl']//span[contains(text(),'New')]");
         By ddp_DateOpt => By.XPath("//span[@id='select2-drpDocNumOpt-container']");
         By drp_RevDateOpt => By.XPath("//span[contains(@id,'drpRevDateOpt')]");
@@ -296,6 +297,10 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By ddl_Delete_Disabled => By.XPath("//div[@id='rightsContextMenu']//li[@id='divDeleteFolder' and contains(@cursor,'not-allowed')]");
         By ddl_Edit_Enabled => By.XPath("//div[@id='rightsContextMenu']//li[@id='divEditFolder']");
         
+        By lbl_levelName => By.XPath("//span[contains(@class,'Lbl_PrimaryID')]");
+
+        
+
         #endregion
 
         #region IFrame
@@ -371,6 +376,18 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         public void SelectSiteSubLevelCreationCheckbox()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            seleniumActions.Click(chk_SiteSubLevel);
+            seleniumActions.Click(btn_save);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Click Sub level creation check box and Allow Site modification Check box in levels page
+        /// </summary>
+        public void SelectSiteSubLevelCreationAndAllowSiteCheckbox()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            seleniumActions.Click(chk_SiteModification);
             seleniumActions.Click(chk_SiteSubLevel);
             seleniumActions.Click(btn_save);
             seleniumActions.SwitchToDefaultContent();
@@ -2706,6 +2723,34 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         // *********** FM - 10 : Suite Levels - End of TC 02 - DOC-1400-10-30 ************ //
 
+        // *********** FM - 10 : Suite Levels - Start of TC 01 - DOC-FM-100-010************ //
+
+        /// <summary>
+        /// Validates the docpro landing screen after clickking the level
+        /// </summary>
+
+        public void ValidateLevelRightClicksOPtion(String levelName)
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(folderManagement_Tab);
+            seleniumActions.SwitchToFrame(iframe_MenuData); 
+            seleniumActions.Click(phd_SearchByFolder);
+            seleniumActions.SendKeys(phd_SearchByFolder, levelName);
+            seleniumActions.Click(btnSearch_SearchByFolder);
+            Assert.IsTrue(seleniumActions.IsElementPresent(By.XPath("(//a[@title='" + levelName + "']//span)[2]")), "Searched level not found");
+            seleniumActions.Wait(3);
+            string levelColor = seleniumActions.FindElement(lbl_levelName).GetCssValue("background-color");
+            Assert.IsTrue(levelColor.Equals(Constants.LevelWithoutInuseColor));
+            seleniumActions.Wait(3);
+            seleniumActions.ContextClick(By.XPath("(//a[@title='" + levelName + "']//span)[2]"));
+            seleniumActions.IsElementPresent(btn_Edit);
+            Assert.IsTrue(seleniumActions.FindElement(btn_delete).GetAttribute("disabled").Equals("true"));
+            Assert.IsTrue(seleniumActions.FindElement(drp_RightsForSites).GetAttribute("disabled").Equals("true"));
+            Assert.IsTrue(seleniumActions.FindElement(drp_RightsForGroup).GetAttribute("disabled").Equals("true"));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** FM - 10 : Suite Levels - End of TC 01 - DOC-FM-100-010************ //
         #endregion
 
     }

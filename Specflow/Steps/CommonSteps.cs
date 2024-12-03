@@ -51,13 +51,10 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
                     loginPage.LoginToApp(ConfigHelper.GetThaniUser(), ConfigHelper.GetPassword());
                     break;
                 case "admin":
-                    loginPage.LoginToApp(ConfigHelper.GetAdminUser(), ConfigHelper.GetPassword());
+                    loginPage.LoginToApp(ConfigHelper.GetAdminUser(), ConfigHelper.AdminPassword());
                     break;
                 case "dummy":
                     loginPage.LoginToApp(ConfigHelper.Dummy(), ConfigHelper.GetPassword());
-                    break;
-                case "noaccess":
-                    loginPage.LoginToApp(ConfigHelper.NoAccess(), ConfigHelper.GetPassword());
                     break;
             }
         }
@@ -367,6 +364,14 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         {
             docProModule.RightForSites(scenarioContext["LevelName"].ToString());
         }
+
+        [Then(@"I Validate the Right click options")]
+        public void ThenIValidateTheRightClickOptions()
+        {
+            
+            docProModule.ValidateLevelRightClicksOPtion(scenarioContext["LevelName"].ToString());
+        }
+
 
         #endregion
     }
