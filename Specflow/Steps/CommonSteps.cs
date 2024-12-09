@@ -66,10 +66,12 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         [Then(@"I validate the Levels page")]
+        [When(@"I validate the Levels page")]
         public void ThenIValidateTheLevelsPage()
         {
             docProModule.validateLevelsPage();
         }
+
 
         [When(@"Create (.*) Level")]
         [Then(@"Create (.*) Level")]
@@ -354,6 +356,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         [Then(@"I search and click the (.*) level in folder management page")]
+        [When(@"I search and click the (.*) level in folder management page")]
         public void ThenISearchAndClickTheLevelInFolderManagementPage(string levelName)
         {
             docProModule.SearchAndClickLevelInFolderManagement(scenarioContext["LevelName"].ToString());
@@ -366,11 +369,32 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         [Then(@"I Validate the Right click options")]
+        [When(@"I Validate the Right click options")]
         public void ThenIValidateTheRightClickOptions()
         {
             
             docProModule.ValidateLevelRightClicksOPtion(scenarioContext["LevelName"].ToString());
         }
+
+        [Then(@"Right click the level and select the new button to create the sublevel")]
+        public void ThenRightClickTheLevelAndSelectTheNewButtonToCreateTheSublevel()
+        {
+            docProModule.RightClickNewAndCreateSubLevel(scenarioContext["LevelName"].ToString());
+        }
+
+        [When(@"I Validate the Right click options new and edit enable")]
+        public void WhenIValidateTheRightClickOptionsNewAndEditEnable()
+        {
+            docProModule.ValidateEditNewOptionIsEnabledBeforeLevelInuse();
+        }
+
+        [Then(@"I Validate the New and Delete option disable in Right click options")]
+        public void ThenIValidateTheNewAndDeleteOptionDisableInRightClickOptions()
+        {
+            docProModule.ValidateNewDeleteOptionIsDisabledAfterLevelInuse();
+        }
+
+
 
 
         #endregion

@@ -26,6 +26,7 @@ Scenario: TC02_DOC_1400_10_30
 	When Navigate to DocPro Setup in suite setup Page
 	Then I search and click the random level in folder management page
 	Then I validate the level color 'before' making the level in use
+	Then I search and click the random level in folder management page
 	Then I make the level in use
 	Then I validate the level color 'after' making the level in use
 	Then I refresh the page
@@ -48,3 +49,4 @@ Scenario: TC03_DOC_2500_10_80
 	Then I validate the Levels page
 	Then Delete the Level
 
+	

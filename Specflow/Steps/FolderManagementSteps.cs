@@ -104,6 +104,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         [Then(@"I gave the access for site modification site sub level creation")]
+        [When(@"I gave the access for site modification site sub level creation")]
         public void ThenIGaveTheAccessForSiteModificationSiteSubLevelCreation()
         {
             docProModule.SelectSiteSubLevelCreationAndAllowSiteCheckbox();
@@ -503,6 +504,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         // *********** FM - 10 : Suite levels - End of TC 02 ************ //
 
         [Then(@"I validate the level color '([^']*)' making the level in use")]
+        [When(@"I validate the level color '([^']*)' making the level in use")]
         public void ThenIValidateTheLevelColorMakingTheLevelInUse(string state)
         {
             switch (state)

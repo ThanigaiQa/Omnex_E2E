@@ -296,10 +296,18 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By ddl_New_Disabled => By.XPath("//div[@id='rightsContextMenu']//li[@id='divNewFolder' and contains(@cursor,'not-allowed')]");
         By ddl_Delete_Disabled => By.XPath("//div[@id='rightsContextMenu']//li[@id='divDeleteFolder' and contains(@cursor,'not-allowed')]");
         By ddl_Edit_Enabled => By.XPath("//div[@id='rightsContextMenu']//li[@id='divEditFolder']");
-        
+        By ddl_New_Enabled => By.XPath("//div[@id='rightsContextMenu']//li[@id='divNewFolder']");
         By lbl_levelName => By.XPath("//span[contains(@class,'Lbl_PrimaryID')]");
-
+        By ddl_RightForSite_Enabled=> By.XPath("//div[@id='rightsContextMenu']//li[@id='divSiterights']");
+        By ddl_RightForGroups_Enabled => By.XPath("//div[@id='rightsContextMenu']//li[@id='divGrouprights']");
+        By ddl_RightForUsers_Enabled => By.XPath("//div[@id='rightsContextMenu']//li[@id='divUserrights']");
+        By ddl_Delete_Enable => By.XPath("//div[@id='rightsContextMenu']//li[@id='divDeleteFolder']");
         
+            
+            
+
+
+
 
         #endregion
 
@@ -2723,6 +2731,26 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         // *********** FM - 10 : Suite Levels - End of TC 02 - DOC-1400-10-30 ************ //
 
+        // *********** FM - 10 : Suite Levels - TC02 - DOC-FM-100-020 ************ //
+        /// <summary>
+        /// validates only edit option is enabled without making the level in use
+        /// </summary>
+        public void ValidateEditNewOptionIsEnabledBeforeLevelInuse()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData);
+            seleniumActions.Click(lbl_LevelNameInFM);
+            seleniumActions.ContextClick(lbl_LevelNameInFM);
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddl_RightForSite_Disabled), "right for site drpdown is enabled");
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddl_RightForGroups_Disabled), "right for grps drpdown is enabled");
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddl_RightForUsers_Disabled), "right for users drpdown is enabled");
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddl_New_Enabled), "New folder drpdown is disabled");
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddl_Delete_Disabled), "Delete folder drpdown is enabled");
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddl_Edit_Enabled), "Edit folder drpdown is disabled");
+
+            seleniumActions.SwitchToDefaultContent();
+        }
+        // *********** FM - 10 : Suite Levels - End of TC02 - DOC-FM-100-020 ************ //
+
         // *********** FM - 10 : Suite Levels - Start of TC 01 - DOC-FM-100-010************ //
 
         /// <summary>
@@ -2743,14 +2771,62 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(levelColor.Equals(Constants.LevelWithoutInuseColor));
             seleniumActions.Wait(3);
             seleniumActions.ContextClick(By.XPath("(//a[@title='" + levelName + "']//span)[2]"));
-            seleniumActions.IsElementPresent(btn_Edit);
             Assert.IsTrue(seleniumActions.FindElement(btn_delete).GetAttribute("disabled").Equals("true"));
             Assert.IsTrue(seleniumActions.FindElement(drp_RightsForSites).GetAttribute("disabled").Equals("true"));
             Assert.IsTrue(seleniumActions.FindElement(drp_RightsForGroup).GetAttribute("disabled").Equals("true"));
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddl_New_Disabled), "New folder drpdown is enabled");
             seleniumActions.SwitchToDefaultContent();
         }
 
         // *********** FM - 10 : Suite Levels - End of TC 01 - DOC-FM-100-010************ //
+
+        // *********** FM - 10 : Suite Levels - Start of TC 01 - DOC-FM-100-010************ //
+
+        /// <summary>
+        /// Validates the docpro landing screen after clickking the level
+        /// </summary>
+
+        public void RightClickNewAndCreateSubLevel(String levelName)
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(folderManagement_Tab);
+            seleniumActions.SwitchToFrame(iframe_MenuData);
+            seleniumActions.Click(phd_SearchByFolder);
+            seleniumActions.SendKeys(phd_SearchByFolder, levelName);
+            seleniumActions.Click(btnSearch_SearchByFolder);
+            Assert.IsTrue(seleniumActions.IsElementPresent(By.XPath("(//a[@title='" + levelName + "']//span)[2]")), "Searched level not found");
+            seleniumActions.Wait(3);
+            seleniumActions.ContextClick(By.XPath("(//a[@title='" + levelName + "']//span)[2]"));
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddl_New_Enabled), "unable to find New option");
+            seleniumActions.Click(btn_NewEnable);
+            seleniumActions.Wait(3);
+            seleniumActions.SwitchToFrame(iframe_Tree);
+            seleniumActions.SendKeys(inp_Levelname, "Testersa");
+            seleniumActions.Click(btn_save);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** FM - 10 : Suite Levels - End of TC 01 - DOC-FM-100-010************ //
+
+        // *********** FM - 10 : Suite Levels - TC02 - DOC-FM-100-020 ************ //
+        /// <summary>
+        /// validates only edit option is enabled without making the level in use
+        /// </summary>
+        public void ValidateNewDeleteOptionIsDisabledAfterLevelInuse()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData);
+            seleniumActions.Click(lbl_LevelNameInFM);
+            seleniumActions.ContextClick(lbl_LevelNameInFM);
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddl_RightForSite_Enabled), "right for site drpdown is disabled");
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddl_RightForGroups_Enabled), "right for grps drpdown is disabled");
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddl_RightForUsers_Enabled), "right for users drpdown is disabled");
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddl_New_Enabled), "New folder drpdown is Enabled");
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddl_Delete_Enable), "Delete folder drpdown is enabled");
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddl_Edit_Enabled), "Edit folder drpdown is disabled");
+
+            seleniumActions.SwitchToDefaultContent();
+        }
+        // *********** FM - 10 : Suite Levels - End of TC02 - DOC-FM-100-020 ************ //
         #endregion
 
     }
