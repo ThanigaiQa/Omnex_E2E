@@ -408,17 +408,18 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// <returns></returns>
         public String EditLevel(String LevelName)
         {
+            string editedLevel = Constants.Level + "-" + utility.CurrentTime();
             seleniumActions.SwitchToIframes(iframe_DetailView);
             seleniumActions.Click(btn_refreshLevel);
             seleniumActions.MoveToElement(By.XPath("//table[@class='Tbltitle']//ul[@id='TOCDoclvl']//a[contains(@title,'" + LevelName + "')]"));
             seleniumActions.Click(By.XPath("(//table[@class='Tbltitle']//ul[@id='TOCDoclvl']//a[contains(@title,'" + LevelName + "')]//following::*[local-name()='svg' and contains(@class,'pencil')])[1]"));
             seleniumActions.SwitchToIframes(iframe_Tree);
-            seleniumActions.SendKeys(inp_Levelname, Constants.Level);
+            seleniumActions.SendKeys(inp_Levelname, editedLevel);
             seleniumActions.Click(btn_save);
-            //seleniumActions.VerifyElementIsDisplayed(By.XPath("//h5[contains(text(),'Level - "+Constants.Level+""));
+            string levelHeader = "Level - " + editedLevel;
+            seleniumActions.IsElementPresent(By.XPath("//h5[contains(text(),'" + levelHeader + "')]"));
             seleniumActions.SwitchToDefaultContent();
-            return Constants.Level;
-            //(//table[@class='Tbltitle']//ul[@id='TOCDoclvl']//a[contains(@title,'AAA')]//following::*[local-name()='svg' and contains(@class,'pencil')])[1]
+            return editedLevel;
         }
 
         /// <summary>
@@ -2827,7 +2828,79 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToDefaultContent();
         }
         // *********** FM - 10 : Suite Levels - End of TC02 - DOC-FM-100-020 ************ //
-        #endregion
 
+        // *********** FM - 10 : Suite Levels - Edit level before and after In use ************ //
+
+        /// <summary>
+        /// Clicks folder management ,  searches the edited level 
+        /// </summary>
+        public void SearchAndClickEditedLevelInFolderManagement(string editedLevelName)
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(folderManagement_Tab);
+            seleniumActions.SwitchToFrame(iframe_MenuData);
+            seleniumActions.Click(phd_SearchByFolder);
+            seleniumActions.SendKeys(phd_SearchByFolder, editedLevelName);
+            seleniumActions.Click(btnSearch_SearchByFolder);
+            Assert.IsTrue(seleniumActions.IsElementPresent(By.XPath("(//a[@title='" + editedLevelName + "']//span)[2]")), "Searched level not found");
+            seleniumActions.Wait(3);
+            seleniumActions.Click(By.XPath("(//a[@title='" + editedLevelName + "']//span)[2]"));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Use this method to Edit the already edited level
+        /// </summary>
+        /// <param name="editedLevelName"></param>
+        /// <returns></returns>
+        public String EditLevelAfterInUse(String editedLevelName)
+        {
+            string reEditedLevel = Constants.EditLevelAfterInuse + utility.CurrentTime();
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Click(btn_refreshLevel);
+            seleniumActions.MoveToElement(By.XPath("//table[@class='Tbltitle']//ul[@id='TOCDoclvl']//a[contains(@title,'" + editedLevelName + "')]"));
+            seleniumActions.Click(By.XPath("(//table[@class='Tbltitle']//ul[@id='TOCDoclvl']//a[contains(@title,'" + editedLevelName + "')]//following::*[local-name()='svg' and contains(@class,'pencil')])[1]"));
+            seleniumActions.SwitchToIframes(iframe_Tree);
+            seleniumActions.SendKeys(inp_Levelname, reEditedLevel);
+            seleniumActions.Click(btn_save);
+            string levelHeader = "Level - " + Constants.EditLevelAfterInuse;
+            seleniumActions.IsElementPresent(By.XPath("//h5[contains(text(),'" + levelHeader + "')]"));
+            seleniumActions.SwitchToDefaultContent();
+            return reEditedLevel;
+        }
+
+        /// <summary>
+        /// Clicks folder management ,  searches the Re edited level 
+        /// </summary>
+        public void SearchAndClickReEditedLevelInFolderManagement(string ReEditedLevelName)
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.Click(folderManagement_Tab);
+            seleniumActions.SwitchToFrame(iframe_MenuData);
+            seleniumActions.Click(phd_SearchByFolder);
+            seleniumActions.SendKeys(phd_SearchByFolder, ReEditedLevelName);
+            seleniumActions.Click(btnSearch_SearchByFolder);
+            Assert.IsTrue(seleniumActions.IsElementPresent(By.XPath("(//a[@title='" + ReEditedLevelName + "']//span)[2]")), "Searched level not found");
+            seleniumActions.Wait(3);
+            seleniumActions.Click(By.XPath("(//a[@title='" + ReEditedLevelName + "']//span)[2]"));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Deletes the level by hovering on the Re edited level
+        /// </summary>
+        /// <param name="ReEditedLevelName"></param>
+        public void DeleteReEditedLevelByHovering(String ReEditedLevelName)
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Click(btn_refreshLevel);
+            seleniumActions.MoveToElement(By.XPath("//table[@class='Tbltitle']//ul[@id='TOCDoclvl']//a[contains(@title,'" + ReEditedLevelName + "')]"));
+            seleniumActions.Click(By.XPath("(//table[@class='Tbltitle']//ul[@id='TOCDoclvl']//a[contains(@title,'" + ReEditedLevelName + "')]//following::*[local-name()='svg' and contains(@class,'trash')])[1]"));
+            seleniumActions.Click(popUp_Yes);
+        }
+
+        // *********** FM - 10 : Suite Levels - Edit level before and after In use ************ //
+
+        #endregion
     }
 }

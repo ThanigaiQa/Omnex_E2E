@@ -372,8 +372,27 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         [When(@"I Validate the Right click options")]
         public void ThenIValidateTheRightClickOptions()
         {
-            
             docProModule.ValidateLevelRightClicksOPtion(scenarioContext["LevelName"].ToString());
+        }
+
+        [Then(@"I search and click (.*) level in the folder management page")]
+        public void ThenISearchAndClickLevelInTheFolderManagementPage(string level)
+        {
+            switch(level)
+            {
+                case "edited":
+                    docProModule.SearchAndClickEditedLevelInFolderManagement(scenarioContext["EditedLevelName"].ToString());
+                    break;
+                case "ReEdited":
+                    docProModule.SearchAndClickReEditedLevelInFolderManagement(scenarioContext["EditedLevelAfterInUse"].ToString());
+                    break;
+            }
+        }
+
+        [When(@"Edit the Level after in use")]
+        public void WhenEditTheLevelAfterInUse()
+        {
+            scenarioContext["EditedLevelAfterInUse"] = docProModule.EditLevelAfterInUse(scenarioContext["EditedLevelName"].ToString());
         }
 
         [Then(@"Right click the level and select the new button to create the sublevel")]
@@ -394,6 +413,11 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.ValidateNewDeleteOptionIsDisabledAfterLevelInuse();
         }
 
+        [Then(@"Delete the Re Edited Level")]
+        public void ThenDeleteTheReEditedLevel()
+        {
+            docProModule.DeleteReEditedLevelByHovering(scenarioContext["EditedLevelAfterInUse"].ToString());
+        }
 
 
 

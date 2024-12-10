@@ -49,4 +49,29 @@ Scenario: TC03_DOC_2500_10_80
 	Then I validate the Levels page
 	Then Delete the Level
 
-	
+@TC-04
+Scenario: Edit the level name before and after In use
+	Given Login to the application with 'right' user
+	When Navigate to Levels in suite setup Page
+	Then I validate the Levels page
+	Then Create random Level
+	Then I refresh the page
+	When Navigate to Levels in suite setup Page
+	Then I validate the Levels page
+	When Edit the Level
+	Then I refresh the page
+	When Navigate to DocPro Setup in suite setup Page
+	Then I search and click edited level in the folder management page
+	Then I make the level in use
+	Then I refresh the page
+	When Navigate to Levels in suite setup Page
+	Then I validate the Levels page
+	When Edit the Level after in use
+	Then I refresh the page
+	When Navigate to DocPro Setup in suite setup Page
+	Then I search and click ReEdited level in the folder management page
+	Then I refresh the page
+	When Navigate to Levels in suite setup Page
+	Then I validate the Levels page
+	Then Delete the Re Edited Level
+
