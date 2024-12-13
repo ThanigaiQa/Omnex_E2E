@@ -86,3 +86,4 @@ Scenario:EwQIMS-49040: DOC-FM-100-040
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page
 	Then Delete the Level
+

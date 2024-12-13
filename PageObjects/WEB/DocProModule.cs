@@ -43,6 +43,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By popUp_Yes => By.XPath("//button[@id='popup_ok']");
         By inp_Levelname => By.XPath("//input[@id='txtLevelName']");
         By btn_save => By.XPath("//button[@id='btnSave']");
+        By btn_Reset => By.XPath("//button[@id='btnReset']");
+        By btn_Prefix => By.XPath("//input[@id='txtPrefix']");
+        By btn_DocReviewafter => By.XPath("//input[@id='txtReviewUnit']");
         By btn_refreshLevel => By.XPath("//*[local-name()='svg' and @id='btnreferesh']");
         By folderManagement_Tab => By.XPath("//div[contains(text(),'Folder Management')]");
         By phd_SearchByFolder => By.XPath("//input[@placeholder='Search By Folder']");
@@ -302,9 +305,13 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By ddl_RightForGroups_Enabled => By.XPath("//div[@id='rightsContextMenu']//li[@id='divGrouprights']");
         By ddl_RightForUsers_Enabled => By.XPath("//div[@id='rightsContextMenu']//li[@id='divUserrights']");
         By ddl_Delete_Enable => By.XPath("//div[@id='rightsContextMenu']//li[@id='divDeleteFolder']");
+        By lbl_FrequencyAlert => By.XPath("//div[@class='alert alert-warning alert-dismissible border-bottom']");
+        By lbl_days => By.XPath("(//span[contains(@id,'drpReviewAfter')])[1]");
         
-            
-            
+
+
+
+
 
 
 
@@ -378,9 +385,73 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             return levelName;
         }
 
+        
+
         /// <summary>
-        /// Click Sub level creation check box in levels page
+        /// Validate the Reset scenario in the level page
         /// </summary>
+        
+        public void ValidateResetScenario()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            seleniumActions.Click(inpLevelNumber);
+            seleniumActions.Click(popUp_Yes);
+            seleniumActions.SendKeys(inpLevelNumber,"10000");
+            string levelnum = seleniumActions.GetAttributeValue(inpLevelNumber, "value");
+            seleniumActions.SendKeys(inp_Levelname, "Tester");
+            string levelname = seleniumActions.GetAttributeValue(inp_Levelname, "value");
+            seleniumActions.SendKeys(btn_Prefix, "QA");
+            string prefixname = seleniumActions.GetAttributeValue(btn_Prefix, "value");
+            seleniumActions.SendKeys(btn_DocReviewafter, "1");
+            string docreviewday = seleniumActions.GetAttributeValue(btn_DocReviewafter, "value");
+            seleniumActions.Click(btn_Reset);
+            seleniumActions.Wait(3);
+            Assert.IsFalse(seleniumActions.GetText(inpLevelNumber).Equals(levelnum));
+            Assert.IsFalse(seleniumActions.GetText(inp_Levelname).Equals(levelname));
+            Assert.IsFalse(seleniumActions.GetText(btn_Prefix).Equals(prefixname));
+            Assert.IsFalse(seleniumActions.GetText(btn_DocReviewafter).Equals(docreviewday));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Validate the Review Frequency must be numeric alert popup
+        /// </summary>
+
+        public void ValidateReviewFrequencyMustBeNumeric()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            seleniumActions.Click(inpLevelNumber);
+            seleniumActions.Click(popUp_Yes);
+            seleniumActions.SendKeys(inpLevelNumber, "10000");
+            seleniumActions.SendKeys(inp_Levelname, "Tester");
+            seleniumActions.SendKeys(btn_DocReviewafter, "QA");
+            seleniumActions.Click(btn_save);
+            seleniumActions.Wait(2);
+            seleniumActions.IsElementPresent(lbl_FrequencyAlert);
+            string alrt = seleniumActions.GetText(lbl_FrequencyAlert);
+            Assert.IsTrue(SeleniumActions.Equals(alrt, "×\r\nEwQIMS : Review Frequency must be numeric"));
+            seleniumActions.Wait(3);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Validate the Review Frequency must be numeric alert popup
+        /// </summary>
+
+        public void ValidateDocumentReviewedFieldAcceptDigits()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            seleniumActions.Click(inpLevelNumber);
+            seleniumActions.Click(popUp_Yes);
+            seleniumActions.SendKeys(inpLevelNumber, "10000");
+            seleniumActions.SendKeys(inp_Levelname, "Tester");
+            seleniumActions.IsElementPresent(lbl_days);
+            seleniumActions.SendKeys(btn_DocReviewafter, "100001");
+            seleniumActions.Click(btn_save);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+
         public void SelectSiteSubLevelCreationCheckbox()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);

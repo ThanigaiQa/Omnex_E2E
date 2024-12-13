@@ -419,6 +419,24 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.DeleteReEditedLevelByHovering(scenarioContext["EditedLevelAfterInUse"].ToString());
         }
 
+        [Then(@"Validate the Reset button")]
+        public void ThenValidateTheResetButton()
+        {
+            docProModule.ValidateResetScenario();
+        }
+
+        [Then(@"Validate Review frequency must be numeric")]
+        public void ThenValidateReviewFrequencyMustBeNumeric()
+        {
+            docProModule.ValidateReviewFrequencyMustBeNumeric();
+        }
+
+        [Then(@"Validate whether the system can accept the Document reviewed after greater than (.*) Days")]
+        public void ThenValidateWhetherTheSystemCanAcceptTheDocumentReviewedAfterGreaterThanDays(int p0)
+        {
+            docProModule.ValidateDocumentReviewedFieldAcceptDigits();
+        }
+
 
 
         #endregion
