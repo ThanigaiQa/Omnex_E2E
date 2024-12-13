@@ -22,15 +22,15 @@ Scenario:EwQIMS_49926_Days_Validation
 	Then Validate whether the system can accept the Document reviewed after greater than 9999 Days 
 
 @TC-04
-Scenario: EwQIMS_10814_Click on select hyperlin
+Scenario: EwQIMS_10814_Click on select hyperlink
 	Given Login to the application with 'admin' user
 	When Navigate to Levels in suite setup Page
 	And I validate the Levels page
 	And Create random Level
-	Then I refresh the page
-	Then I verify the tag selection link is present
-	Then I click on the tag selection link
-	Then I search and select the tagname
+	Then I navigate to levels and click edit icon
+	Then I verify the tag selection link is present in levels page
+	Then I click on the tag selection link in levels page
+	Then I search and select the tagname in levels page
 	Then I refresh the page
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page

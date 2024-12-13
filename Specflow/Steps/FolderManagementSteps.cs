@@ -531,6 +531,33 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         // *********** FM - 10 : Suite levels - End of TC 03 ************ //
 
 
+        // *********** Satrt of EwQIMS_10814_Click on select hyperlink -************ //
+
+        [Then(@"I navigate to levels and click edit icon")]
+        public void ThenINavigateToLevelsAndClickEditIcon()
+        {
+            docProModule.NavigateAndClickEditIconForLevels(scenarioContext["LevelName"].ToString());
+        }
+
+        [Then(@"I verify the tag selection link is present in levels page")]
+        public void ThenIVerifyTheTagSelectionLinkIsPresentInLevelsPage()
+        {
+            docProModule.VerifyTagSelectionLinkIsPresentInLevelsPage();
+        }
+
+        [Then(@"I click on the tag selection link in levels page")]
+        public void ThenIClickOnTheTagSelectionLinkInLevelsPage()
+        {
+            docProModule.ClickTagSelectionLinkInLevelsPage();
+        }
+
+        [Then(@"I search and select the tagname in levels page")]
+        public void ThenISearchAndSelectTheTagnameInLevelsPage()
+        {
+            docProModule.SearchAndSelectTagNameInLevelsPage();
+        }
+
+        // *********** End of EwQIMS_10814_Click on select hyperlink -************ //
 
         #endregion
 

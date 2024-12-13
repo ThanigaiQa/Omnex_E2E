@@ -2972,6 +2972,77 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         // *********** FM - 10 : Suite Levels - Edit level before and after In use ************ //
 
+        // *********** Satrt of EwQIMS_10814_Click on select hyperlink -************ //
+
+        /// <summary>
+        /// Use this method to navigate and click edit icon on level
+        /// </summary>
+        /// <param name="LevelName"></param>
+        /// <returns></returns>
+        public void NavigateAndClickEditIconForLevels(String LevelName)
+        {
+            string editedLevel = Constants.Level + "-" + utility.CurrentTime();
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Click(btn_refreshLevel);
+            seleniumActions.MoveToElement(By.XPath("//table[@class='Tbltitle']//ul[@id='TOCDoclvl']//a[contains(@title,'" + LevelName + "')]"));
+            seleniumActions.Click(By.XPath("(//table[@class='Tbltitle']//ul[@id='TOCDoclvl']//a[contains(@title,'" + LevelName + "')]//following::*[local-name()='svg' and contains(@class,'pencil')])[1]"));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Verify Tag selection link is present in levels page
+        /// </summary>
+        public void VerifyTagSelectionLinkIsPresentInLevelsPage()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            seleniumActions.Wait(2);
+            seleniumActions.ScrollToPosition(0, 1000);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lnk_TagSelect, 5), "Tag selection link is not present");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Clicks the Tag selection link n levels page
+        /// </summary>
+        public void ClickTagSelectionLinkInLevelsPage()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            seleniumActions.Wait(2);
+            seleniumActions.ScrollToPosition(0, 1000);
+            seleniumActions.Click(lnk_TagSelect);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// search and selects the tagname in levels page
+        /// </summary>
+        public void SearchAndSelectTagNameInLevelsPage()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree, iframe_SelectTags);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
+            seleniumActions.Click(btnMultiSearch);
+            seleniumActions.Wait(4);
+            Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch));
+            seleniumActions.Click(drpColumn_MultiSearch);
+            seleniumActions.Click(ddl_TagName_MultiSearch);
+            seleniumActions.Click(drpCondition_MultiSearch);
+            seleniumActions.Click(ddlContains_MultiSearch);
+            seleniumActions.Click(inp_MultiSearch);
+            seleniumActions.SendKeys(inp_MultiSearch, Constants.Name);
+            seleniumActions.Click(btnAdvancedSearch_MultiSearch);
+            Assert.IsTrue(seleniumActions.GetText(lbl_TagSearchResult).Equals(Constants.Name));
+            seleniumActions.Wait(3);
+            seleniumActions.Click(chk_TagNameSelection);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(btnDone_TagSelection);
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            Assert.IsTrue(seleniumActions.GetText(lnk_TagSelect).Equals(Constants.Name));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** End of EwQIMS_10814_Click on select hyperlink -************ //
+
         #endregion
     }
 }
