@@ -438,7 +438,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// Validate the Review Frequency must be numeric alert popup
         /// </summary>
 
-        public void ValidateDocumentReviewedFieldAcceptDigits()
+        public void ValidateDayDocumentReviewedFieldAcceptDigits()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
             seleniumActions.Click(inpLevelNumber);

@@ -35,3 +35,18 @@ Scenario: EwQIMS_10814_Click on select hyperlink
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page
 	Then Delete the Level
+
+@TC-05
+Scenario: EwQIMS_432_With enable Sub level creation
+	Given Login to the application with 'admin' user
+	When Navigate to Levels in suite setup Page
+	And I validate the Levels page
+	And Create random Level
+	Then I refresh the page
+	Then I verify the tag selection link is present
+	Then I click on the tag selection link
+	Then I search and select the tagname
+	Then I refresh the page
+	When Navigate to Levels in suite setup Page
+	Then I validate the Levels page
+	Then Delete the Level
