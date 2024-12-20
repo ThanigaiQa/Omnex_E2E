@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using TechTalk.SpecFlow;
 using System.Security.Policy;
+using System.Diagnostics.Metrics;
 
 namespace OMNEX.AUTOMATION.PageObjects.WEB
 {
@@ -307,7 +308,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By ddl_Delete_Enable => By.XPath("//div[@id='rightsContextMenu']//li[@id='divDeleteFolder']");
         By lbl_FrequencyAlert => By.XPath("//div[@class='alert alert-warning alert-dismissible border-bottom']");
         By lbl_days => By.XPath("(//span[contains(@id,'drpReviewAfter')])[1]");
-        
+        By drp_DocumentsReviewdAfterInLevelsPage => By.XPath("//span[@id = 'select2-drpReviewAfter-container']");
+
+        By inp_SearchForDocumentsReviewdAfterInLevelsPage = By.XPath("//input[@type='search']");
 
 
 
@@ -2078,7 +2081,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
                 seleniumActions.Click(drp_DocumentReviewedAfter);
                 Assert.IsTrue(seleniumActions.IsElementPresent(inp_SearchForRevDateOpt), "search option is not present");
                 seleniumActions.Click(inp_SearchForRevDateOpt);
-                seleniumActions.SendKeys(inp_SearchForRevDateOpt, "Day");
+                seleniumActions.SendKeys(inp_SearchForRevDateOpt, "Day"+ Keys.Enter);
             }
             Assert.IsTrue(seleniumActions.GetText(drp_DocumentReviewedAfter).Equals("Day"));
             seleniumActions.SwitchToDefaultContent();
@@ -2793,6 +2796,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.IsElementPresent(ddl_New_Disabled), "New folder drpdown is enabled");
             Assert.IsTrue(seleniumActions.IsElementPresent(ddl_Delete_Disabled), "Delete folder drpdown is enabled");
             Assert.IsTrue(seleniumActions.IsElementPresent(ddl_Edit_Enabled), "Edit folder drpdown is disabled");
+            seleniumActions.Wait(2);
             seleniumActions.Click(ddl_Edit_Enabled);
             seleniumActions.SwitchToDefaultContent();
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
@@ -3030,18 +3034,124 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(inp_MultiSearch);
             seleniumActions.SendKeys(inp_MultiSearch, Constants.Name);
             seleniumActions.Click(btnAdvancedSearch_MultiSearch);
+            seleniumActions.Wait(2);
             Assert.IsTrue(seleniumActions.GetText(lbl_TagSearchResult).Equals(Constants.Name));
             seleniumActions.Wait(3);
             seleniumActions.Click(chk_TagNameSelection);
             seleniumActions.Wait(2);
             seleniumActions.Click(btnDone_TagSelection);
+            seleniumActions.SwitchToParentFrame();
+            seleniumActions.Wait(2);
+            seleniumActions.Click(btn_save);
             seleniumActions.SwitchToDefaultContent();
+            seleniumActions.Wait(2);
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
             Assert.IsTrue(seleniumActions.GetText(lnk_TagSelect).Equals(Constants.Name));
             seleniumActions.SwitchToDefaultContent();
         }
 
         // *********** End of EwQIMS_10814_Click on select hyperlink -************ //
+
+        // *********** Satrt of EwQIMS_10820_Display selected Tags in Folder Management -************ //
+
+        /// <summary>
+        /// set the doc reviwed after as month in levels page
+        /// </summary>
+        public void SetDocumentReviewedAfterDropdownAsMonthInLevelsPage()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            seleniumActions.Wait(2);
+            seleniumActions.ScrollToPosition(0, 1000);
+            Assert.IsTrue(seleniumActions.IsElementPresent(drp_DocumentsReviewdAfterInLevelsPage), "Document Reviewed After dropdown is not present");
+            if (!seleniumActions.GetText(drp_DocumentsReviewdAfterInLevelsPage).Equals("Month"))
+            {
+                seleniumActions.Click(drp_DocumentsReviewdAfterInLevelsPage);
+                Assert.IsTrue(seleniumActions.IsElementPresent(inp_SearchForDocumentsReviewdAfterInLevelsPage), "search option is not present");
+                seleniumActions.Click(inp_SearchForDocumentsReviewdAfterInLevelsPage);
+                seleniumActions.SendKeys(inp_SearchForDocumentsReviewdAfterInLevelsPage, "Month"+ Keys.Enter);
+            }
+            Assert.IsTrue(seleniumActions.GetText(drp_DocumentsReviewdAfterInLevelsPage).Equals("Month"));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// verify the tag selection is present in the folder management
+        /// </summary>
+        public void VerifyTagSelectionLinkIsPresentInFolderManagement()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lnk_TagSelect), "tag selection is not present");
+            seleniumActions.SwitchToDefaultContent();
+
+        }
+
+        // *********** End of EwQIMS_10820_Display selected Tags in Folder Management -************ //
+
+        // *********** Start of EwQIMS_10809_Validate whether the selected Tag can be edited   -************ //
+
+        /// <summary>
+        /// this method used to click and uncheck the selected tag in levels page
+        /// </summary>
+        public void ClickAndUncheckTheSelectedTagInLevelsPage()
+        {
+            ClickTagSelectionLinkInLevelsPage();
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree, iframe_SelectTags);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
+            seleniumActions.Click(btnMultiSearch);
+            seleniumActions.Wait(4);
+            Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch));
+            seleniumActions.Click(drpColumn_MultiSearch);
+            seleniumActions.Click(ddl_TagName_MultiSearch);
+            seleniumActions.Click(drpCondition_MultiSearch);
+            seleniumActions.Click(ddlContains_MultiSearch);
+            seleniumActions.Click(inp_MultiSearch);
+            seleniumActions.SendKeys(inp_MultiSearch, Constants.Name);
+            seleniumActions.Click(btnAdvancedSearch_MultiSearch);
+            seleniumActions.Wait(2);
+            Assert.IsTrue(seleniumActions.GetText(lbl_TagSearchResult).Equals(Constants.Name));
+            seleniumActions.Wait(3);
+            seleniumActions.Click(chk_TagNameSelection);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(btnDone_TagSelection);
+            seleniumActions.SwitchToParentFrame();
+            seleniumActions.Wait(2);
+            seleniumActions.Click(btn_save);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// this method used to search and select any other tag in levels page
+        /// </summary>
+        public void SearchAndSelectOtherTagNameInLevelsPage()
+        {
+            ClickTagSelectionLinkInLevelsPage();
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree, iframe_SelectTags);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch));
+            seleniumActions.Click(btnMultiSearch);
+            seleniumActions.Wait(4);
+            Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch));
+            seleniumActions.Click(drpColumn_MultiSearch);
+            seleniumActions.Click(ddl_TagName_MultiSearch);
+            seleniumActions.Click(drpCondition_MultiSearch);
+            seleniumActions.Click(ddlContains_MultiSearch);
+            seleniumActions.Click(inp_MultiSearch);
+            seleniumActions.SendKeys(inp_MultiSearch, Constants.TagName);
+            seleniumActions.Click(btnAdvancedSearch_MultiSearch);
+            seleniumActions.Wait(2);
+            Assert.IsTrue(seleniumActions.GetText(lbl_TagSearchResult).Equals(Constants.TagName));
+            seleniumActions.Wait(3);
+            seleniumActions.Click(chk_TagNameSelection);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(btnDone_TagSelection);
+            seleniumActions.SwitchToParentFrame();
+            seleniumActions.Click(btn_save);
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            Assert.IsTrue(seleniumActions.GetText(lnk_TagSelect).Equals(Constants.TagName));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** End of EwQIMS_10809_Validate whether the selected Tag can be edited   -************ //
 
         #endregion
     }

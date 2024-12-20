@@ -1,23 +1,24 @@
 ﻿Feature: In Use - Activate the suite levels in Doc pro
 
 @TC-01
-Scenario: TC01_DOC_1400_10_20
+Scenario: EwQIMS-1219: DOC-1400-10-20_user can view the level details
 	Given Login to the application with 'right' user
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page
 	Then Create random Level
 	Then Logout from the application
-	Given Login to the application with 'noaccess' user
+	Given Login to the application with 'dummy' user
 	When Navigate to DocPro Setup in suite setup Page
 	Then I search and click the random level in folder management page
 	Then I validate the DocPro landing screen is showing instead of displaying level details
-	Then I refresh the page
+	Then Logout from the application
+	Given Login to the application with 'right' user
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page
 	Then Delete the Level
 	
 @TC-02
-Scenario: TC02_DOC_1400_10_30
+Scenario: EwQIMS-1220: DOC-1400-10-30_User can activate the levels for the specific site
 	Given Login to the application with 'right' user
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page
@@ -35,7 +36,7 @@ Scenario: TC02_DOC_1400_10_30
 	Then Delete the Level
 
 @TC-03
-Scenario: TC03_DOC_2500_10_80
+Scenario: EwQIMS-10943: DOC-1400-10-80_Right click options for the level created by suite administartor with not in use status
 	Given Login to the application with 'right' user
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page

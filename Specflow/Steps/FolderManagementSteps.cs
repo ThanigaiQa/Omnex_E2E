@@ -559,6 +559,39 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** End of EwQIMS_10814_Click on select hyperlink -************ //
 
+        // *********** Satrt of EwQIMS_10820_Display selected Tags in Folder Management -************ //
+
+        [Then(@"I set the Document Reviewed After dropdown value to Month in levels page")]
+        public void ThenISetTheDocumentReviewedAfterDropdownValueToMonthInLevelsPage()
+        {
+            docProModule.SetDocumentReviewedAfterDropdownAsMonthInLevelsPage();
+
+        }
+
+        [Then(@"I verify the tag selection is present in folder Management")]
+        public void ThenIVerifyTheTagSelectionIsPresentInFolderManagement()
+        {
+          docProModule.VerifyTagSelectionLinkIsPresentInFolderManagement();
+        }
+
+        // *********** End of EwQIMS_10820_Display selected Tags in Folder Management -************ //
+
+        // *********** Start of EwQIMS_10809_Validate whether the selected Tag can be edited   -************ //
+
+        [Then(@"I Click and uncheck the selected tag in levels page")]
+        public void ThenIClickAndUncheckTheSelectedTagInLevelsPage()
+        {
+          docProModule.ClickAndUncheckTheSelectedTagInLevelsPage();
+        }
+
+        [Then(@"I search and select any other tagname in levels page")]
+        public void ThenISearchAndSelectAnyOtherTagnameInLevelsPage()
+        {
+            docProModule.SearchAndSelectOtherTagNameInLevelsPage();
+        }
+
+        // *********** End of EwQIMS_10809_Validate whether the selected Tag can be edited   -************ //
+
         #endregion
 
     }
