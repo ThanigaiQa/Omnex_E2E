@@ -311,9 +311,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By drp_DocumentsReviewdAfterInLevelsPage => By.XPath("//span[@id = 'select2-drpReviewAfter-container']");
 
         By inp_SearchForDocumentsReviewdAfterInLevelsPage = By.XPath("//input[@type='search']");
-
-
-
+        By chk_AllowSiteModificationIsChecked => By.XPath("//input[contains(@class, 'chk-col-blue') and @checked]");
 
 
 
@@ -3152,6 +3150,40 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // *********** End of EwQIMS_10809_Validate whether the selected Tag can be edited   -************ //
+
+        // *********** Start of EwQIMS-430_Validate the user can enable allow site modification   -************ //
+
+        /// <summary>
+        /// this method used to verify the site modification checkbox is checked
+        /// </summary>
+        public void VerifyAllowSiteModificationCheckboxIsChecked()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            Assert.IsTrue(seleniumActions.IsElementPresent(chk_AllowSiteModificationIsChecked), "The checkbox is not checked");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** End of EwQIMS-430_Validate the user can enable allow site modification   -************ //
+
+        // *********** Start of EwQIMS-431_Validate the user can disable allow site modification   -************ //
+
+        /// <summary>
+        /// this method used to uncheck the Allow Site Modification and verify the checkbox is disabled
+        /// </summary>
+        public void UncheckAllowSiteModificationCheckboxAndVerifyTheCheckboxIsUnchecked()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            seleniumActions.Click(chk_SiteModification);
+            seleniumActions.Click(chk_SiteSubLevel);
+            seleniumActions.Click(btn_save);
+            seleniumActions.SwitchToDefaultContent();
+            seleniumActions.Wait(2);
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            Assert.IsFalse(seleniumActions.IsElementPresent(chk_AllowSiteModificationIsChecked), "The checkbox is checked");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** EwQIMS-431_Validate the user can disable allow site modification   -************ //
 
         #endregion
     }

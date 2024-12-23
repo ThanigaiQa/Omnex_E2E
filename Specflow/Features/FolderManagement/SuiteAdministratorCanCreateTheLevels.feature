@@ -87,7 +87,7 @@ Scenario: EwQIMS-10807_The levels can create along with the Tag selection
 	Then Delete the Level
 
 @TC-08
-Scenario: EwQIMS-10809_Validate whether the selected Tag can be edited  
+Scenario: EwQIMS-10809_Validate whether the selected Tag can be edited
 	Given Login to the application with 'admin' user
 	When Navigate to Levels in suite setup Page
 	And I validate the Levels page
@@ -102,3 +102,32 @@ Scenario: EwQIMS-10809_Validate whether the selected Tag can be edited  
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page
 	Then Delete the Level
+
+@TC-09
+Scenario: EwQIMS-430_Validate the user can enable allow site modification
+	Given Login to the application with 'admin' user
+	When Navigate to Levels in suite setup Page
+	And I validate the Levels page
+	And Create random Level
+	Then I navigate to levels and click edit icon
+	And I gave the access for site modification site sub level creation
+	Then I Verify the site modification checkbox is enabled
+	Then I refresh the page
+	When Navigate to Levels in suite setup Page
+	Then I validate the Levels page
+	Then Delete the Level
+
+@TC-10
+Scenario: EwQIMS-431_Validate the user can disable allow site modification
+	Given Login to the application with 'admin' user
+	When Navigate to Levels in suite setup Page
+	And I validate the Levels page
+	And Create random Level
+	Then I navigate to levels and click edit icon
+	And I gave the access for site modification site sub level creation
+	Then I uncheck the site modification checkbox and verify the checkbox is Unchecked
+	Then I refresh the page
+	When Navigate to Levels in suite setup Page
+	Then I validate the Levels page
+	Then Delete the Level
+

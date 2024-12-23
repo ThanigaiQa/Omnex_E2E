@@ -592,6 +592,26 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** End of EwQIMS_10809_Validate whether the selected Tag can be edited   -************ //
 
+        // *********** Start of  EwQIMS-430_Validate the user can enable allow site modification   -************ //
+
+        [Then(@"I Verify the site modification checkbox is enabled")]
+        public void ThenIVerifyTheSiteModificationCheckboxIsEnabled()
+        {
+            docProModule.VerifyAllowSiteModificationCheckboxIsChecked();
+        }
+
+        // *********** End of  EwQIMS-430_Validate the user can enable allow site modification   -************ //
+
+        // *********** Start of  EwQIMS-431_Validate the user can disable allow site modification   -************ //
+
+        [Then(@"I uncheck the site modification checkbox and verify the checkbox is Unchecked")]
+        public void ThenIUncheckTheSiteModificationCheckboxAndVerifyTheCheckboxIsUnchecked()
+        {
+            docProModule.UncheckAllowSiteModificationCheckboxAndVerifyTheCheckboxIsUnchecked();
+        }
+
+        // ***********  End of EwQIMS-431_Validate the user can disable allow site modification   -************ //
+
         #endregion
 
     }
