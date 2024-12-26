@@ -612,6 +612,16 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // ***********  End of EwQIMS-431_Validate the user can disable allow site modification   -************ //
 
+        // *********** Start of EwQIMS-47452 Validate special characters in level name and Prefix   -************ //
+
+        [Then(@"I enter special characters into the Prefix field and verify that it accepts them")]
+        public void ThenIEnterSpecialCharactersIntoThePrefixFieldAndVerifyThatItAcceptsThem()
+        {
+            docProModule.TestSpecialCharacterAcceptanceInPrefixField();
+        }
+
+        // *********** End of EwQIMS-47452 Validate special characters in level name and Prefix   -************ //
+
         #endregion
 
     }

@@ -131,3 +131,16 @@ Scenario: EwQIMS-431_Validate the user can disable allow site modification
 	Then I validate the Levels page
 	Then Delete the Level
 
+@TC-11
+Scenario: EwQIMS-47452: Validate special characters in level name and Prefix
+	Given Login to the application with 'admin' user
+	When Navigate to Levels in suite setup Page
+	And I validate the Levels page
+	And Create random Level
+	Then I navigate to levels and click edit icon
+	Then I enter special characters into the Prefix field and verify that it accepts them
+	Then I refresh the page
+	When Navigate to Levels in suite setup Page
+	Then I validate the Levels page
+	Then Delete the Level
+

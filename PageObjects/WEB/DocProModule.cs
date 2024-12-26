@@ -3185,6 +3185,24 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         // *********** EwQIMS-431_Validate the user can disable allow site modification   -************ //
 
+        // *********** Start of EwQIMS-47452 Validate special characters in level name and Prefix   -************ //
+
+        /// <summary>
+        /// this method used to test special character acceptance in prefix field
+        /// </summary>
+        public void TestSpecialCharacterAcceptanceInPrefixField ()
+        {
+            string specialCharacters = "!@#$%^&*";
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            seleniumActions.Click(btn_Prefix);
+            seleniumActions.SendKeys(btn_Prefix, specialCharacters);
+            string enteredValue = seleniumActions.GetAttributeValue(btn_Prefix, "value");
+            Assert.AreEqual(specialCharacters, enteredValue, "The Prefix field does not accept special characters as expected.");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** End of EwQIMS-47452 Validate special characters in level name and Prefix   -************ //
+
         #endregion
     }
 }
