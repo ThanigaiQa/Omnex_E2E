@@ -622,6 +622,16 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** End of EwQIMS-47452 Validate special characters in level name and Prefix   -************ //
 
+        // ***********  Start of EwQIMS-47491_validate whether the system accepts the space as a character to create Level name ************ //
+
+        [Then(@"I validate the level name field should not accept blank space as input")]
+        public void ThenIValidateTheLevelNameFieldShouldNotAcceptBlankSpaceAsInput()
+        {
+            docProModule.ValidateLevelNameCannotBeEmpty();
+        }
+
+        // ***********  End of EwQIMS-47491_validate whether the system accepts the space as a character to create Level name ************ //
+
         #endregion
 
     }

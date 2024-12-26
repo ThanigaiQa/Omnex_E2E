@@ -8,7 +8,7 @@ Scenario: EwQIMS_15729_Reset button
 	Then Validate the Reset button
 
 @TC-02
-Scenario: EwQIMS_10816_Frequency Validation
+Scenario: EwQIMS_10816_Frequency Validation	`
 	Given Login to the application with 'admin' user
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page
@@ -143,4 +143,11 @@ Scenario: EwQIMS-47452: Validate special characters in level name and Prefix
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page
 	Then Delete the Level
+
+@TC-12
+Scenario: EwQIMS-47491_Validate whether the system accepts the space as a character to create Level name
+	Given Login to the application with 'admin' user
+	When Navigate to Levels in suite setup Page
+	And I validate the Levels page
+	Then I validate the level name field should not accept blank space as input
 

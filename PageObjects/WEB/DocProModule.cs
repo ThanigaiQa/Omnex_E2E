@@ -312,10 +312,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         By inp_SearchForDocumentsReviewdAfterInLevelsPage = By.XPath("//input[@type='search']");
         By chk_AllowSiteModificationIsChecked => By.XPath("//input[contains(@class, 'chk-col-blue') and @checked]");
-
-
-
-
+        By lbl_Alert_LevelNameNumberCannotBeEmpty => By.XPath("//div[contains(text(),'Level name/number empty')]");
 
         #endregion
 
@@ -3202,6 +3199,22 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // *********** End of EwQIMS-47452 Validate special characters in level name and Prefix   -************ //
+
+        // ***********  Start of EwQIMS-47491_validate whether the system accepts the space as a character to create Level name ************ //
+
+        /// <summary>
+        /// Validates the level name cannot accept empty space
+        /// </summary>
+        public void ValidateLevelNameCannotBeEmpty()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            seleniumActions.Click(btn_save);
+            seleniumActions.VerifyElementIsDisplayed(lbl_Alert_LevelNameNumberCannotBeEmpty);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // ***********  End of EwQIMS-47491_validate whether the system accepts the space as a character to create Level name ************ //
+
 
         #endregion
     }
