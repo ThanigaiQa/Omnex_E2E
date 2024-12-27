@@ -434,7 +434,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         [Then(@"Validate whether the system can accept the Document reviewed after greater than (.*) Days")]
         public void ThenValidateWhetherTheSystemCanAcceptTheDocumentReviewedAfterGreaterThanDays(int p0)
         {
-            docProModule.ValidateDayDocumentReviewedFieldAcceptDigits();
+             docProModule.ValidateDayDocumentReviewedFieldAcceptDigits();
         }
 
 

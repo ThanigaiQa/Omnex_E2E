@@ -383,8 +383,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             return levelName;
         }
 
-        
-
         /// <summary>
         /// Validate the Reset scenario in the level page
         /// </summary>
@@ -3215,6 +3213,44 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         // ***********  End of EwQIMS-47491_validate whether the system accepts the space as a character to create Level name ************ //
 
+        // ***********  Start of EwQIMS-47494_To validate whether the system accepts the all special characters to create in the level name ************ //
+
+        /// <summary>
+        /// this method used to test special character acceptance in level name field
+        /// </summary>
+        public string ValidateLevelNameAcceptsSpecialCharacter()
+        {
+            string specialCharacters = "AA`(|)-_+[]:,./";
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            seleniumActions.SendKeys(inp_Levelname, specialCharacters);
+            seleniumActions.Click(btn_save);
+            seleniumActions.SwitchToDefaultContent();
+            return specialCharacters;
+        }
+
+        // ***********  End of EwQIMS-47494_To validate whether the system accepts the all special characters to create in the level name ************ //
+
+        // ***********  Start of EwQIMS-15739_To validate whether the system accepts the user can enter alphabet (Upper and Lower) in Level Name/Prefix field ************ //
+
+        /// <summary>
+        /// Use this method to test upper and lower character acceptance in level name and prefix field
+        /// </summary>
+        public String ValidateLevelNameAndPrefixFieldAcceptsUpperAndLowercase()
+        {
+            string input = "aa Automation-" + utility.CurrentTime();
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            seleniumActions.SendKeys(inp_Levelname, input);
+            seleniumActions.Click(inpLevelNumber);
+            seleniumActions.Click(popUp_Yes);
+            seleniumActions.SendKeys(inpLevelNumber, utility.CurrentTime());
+            seleniumActions.Click(btn_Prefix);
+            seleniumActions.SendKeys(btn_Prefix, input);
+            seleniumActions.Click(btn_save);
+            seleniumActions.SwitchToDefaultContent();
+            return input;
+        }
+
+        // ***********  End of EwQIMS-15739_To validate whether the system accepts the user can enter alphabet (Upper and Lower) in Level Name/Prefix field ************ //
 
         #endregion
     }

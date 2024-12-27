@@ -632,6 +632,38 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // ***********  End of EwQIMS-47491_validate whether the system accepts the space as a character to create Level name ************ //
 
+        // ***********  End of EwQIMS-47494_To validate whether the system accepts the all special characters to create in the level name ************ //
+
+        [Then(@"I validate the level name field should is accepting special characters as input")]
+        public void ThenIValidateTheLevelNameFieldShouldIsAcceptingSpecialCharactersAsInput()
+        {
+           scenarioContext["LevelNameWithSpecialCharacters"] = docProModule.ValidateLevelNameAcceptsSpecialCharacter();
+        }
+
+        [Then(@"I delete the level name with special characters")]
+        public void ThenIDeleteTheLevelNameWithSpecialCharacters()
+        {
+            docProModule.DeleteLevelByHovering(scenarioContext["LevelNameWithSpecialCharacters"].ToString());
+        }
+
+        // ***********  End of EwQIMS-47494_To validate whether the system accepts the all special characters to create in the level name ************ //
+
+        // ***********  Start of EwQIMS-15739_To validate whether the system accepts the user can enter alphabet (Upper and Lower) in Level Name/Prefix field ************ //
+
+        [Then(@"I validate the level name and prefix field should is accepting upper and lower characters characters as input")]
+        public void ThenIValidateTheLevelNameAndPrefixFieldShouldIsAcceptingUpperAndLowerCharactersCharactersAsInput()
+        {
+            scenarioContext["LevelNameWithUpperAndLowercase"] = docProModule.ValidateLevelNameAndPrefixFieldAcceptsUpperAndLowercase();
+        }
+
+        [Then(@"I delete the level name with Upper and lower character")]
+        public void ThenIDeleteTheLevelNameWithUpperAndLowerCharacter()
+        {
+            docProModule.DeleteLevelByHovering(scenarioContext["LevelNameWithUpperAndLowercase"].ToString());
+        }
+
+        // ***********  End of EwQIMS-15739_To validate whether the system accepts the user can enter alphabet (Upper and Lower) in Level Name/Prefix field ************ //
+
         #endregion
 
     }

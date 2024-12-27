@@ -151,3 +151,21 @@ Scenario: EwQIMS-47491_Validate whether the system accepts the space as a charac
 	And I validate the Levels page
 	Then I validate the level name field should not accept blank space as input
 
+@TC-13
+Scenario: EwQIMS-47494_To validate whether the system accepts the all special characters to create in the level name
+	Given Login to the application with 'admin' user
+	When Navigate to Levels in suite setup Page
+	And I validate the Levels page
+	Then I validate the level name field should is accepting special characters as input
+	Then I delete the level name with special characters
+
+@TC-14
+Scenario: EwQIMS-15739_To validate whether the system accepts the user can enter alphabet (Upper and Lower) in Level Name/Prefix field
+	Given Login to the application with 'right' user
+	When Navigate to Levels in suite setup Page
+	And I validate the Levels page
+	Then I validate the level name and prefix field should is accepting upper and lower characters characters as input
+	Then I refresh the page
+	When Navigate to Levels in suite setup Page
+	Then I validate the Levels page
+	Then I delete the level name with Upper and lower character
