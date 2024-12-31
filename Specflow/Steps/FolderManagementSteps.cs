@@ -664,6 +664,17 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // ***********  End of EwQIMS-15739_To validate whether the system accepts the user can enter alphabet (Upper and Lower) in Level Name/Prefix field ************ //
 
+        // *********** Start of  EwQIMS-439_Delete validation with dependency   -************ //
+
+        [Then(@"I validate that the level is not deleted and a dependency alert message is displayed")]
+        public void ThenIValidateThatTheLevelIsNotDeletedAndADependencyAlertMessageIsDisplayed()
+        {
+            docProModule.VerifyDependencyAlertMessageWhileDeleteLevel();
+        }
+
+        // *********** End of  EwQIMS-439_Delete validation with dependency   -************ //
+
+
         #endregion
 
     }

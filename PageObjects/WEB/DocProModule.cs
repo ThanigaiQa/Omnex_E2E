@@ -10,6 +10,7 @@ using System.Reflection.Emit;
 using TechTalk.SpecFlow;
 using System.Security.Policy;
 using System.Diagnostics.Metrics;
+using Amazon.DynamoDBv2.Model;
 
 namespace OMNEX.AUTOMATION.PageObjects.WEB
 {
@@ -312,6 +313,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         By inp_SearchForDocumentsReviewdAfterInLevelsPage = By.XPath("//input[@type='search']");
         By chk_AllowSiteModificationIsChecked => By.XPath("//input[contains(@class, 'chk-col-blue') and @checked]");
+        By lbl_alertLevelDependencyMessage => By.XPath("//div[contains(text(),'This level is used by site and contains documents. Please transfer documents')]");
         By lbl_Alert_LevelNameNumberCannotBeEmpty => By.XPath("//div[contains(text(),'Level name/number empty')]");
 
         #endregion
@@ -500,6 +502,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.MoveToElement(By.XPath("//table[@class='Tbltitle']//ul[@id='TOCDoclvl']//a[contains(@title,'" + LevelName + "')]"));
             seleniumActions.Click(By.XPath("(//table[@class='Tbltitle']//ul[@id='TOCDoclvl']//a[contains(@title,'" + LevelName + "')]//following::*[local-name()='svg' and contains(@class,'trash')])[1]"));
             seleniumActions.Click(popUp_Yes);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage), "lbl Deleted success msg is not showing");
+            seleniumActions.SwitchToDefaultContent();
         }
 
         /// <summary>
@@ -3251,6 +3255,20 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // ***********  End of EwQIMS-15739_To validate whether the system accepts the user can enter alphabet (Upper and Lower) in Level Name/Prefix field ************ //
+
+        // *********** Start of  EwQIMS-439_Delete validation with dependency   -************ //
+
+        /// <summary>
+        /// this method used to test special character acceptance in prefix field
+        /// </summary>
+        public void VerifyDependencyAlertMessageWhileDeleteLevel()
+        {
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_alertLevelDependencyMessage), "This error is not displayed");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** End of  EwQIMS-439_Delete validation with dependency   -************ //
 
         #endregion
     }

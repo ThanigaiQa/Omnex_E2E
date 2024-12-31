@@ -132,7 +132,7 @@ Scenario: EwQIMS-431_Validate the user can disable allow site modification
 	Then Delete the Level
 
 @TC-11
-Scenario: EwQIMS-47452: Validate special characters in level name and Prefix
+Scenario: EwQIMS-47452_Validate special characters in level name and Prefix
 	Given Login to the application with 'admin' user
 	When Navigate to Levels in suite setup Page
 	And I validate the Levels page
@@ -143,6 +143,28 @@ Scenario: EwQIMS-47452: Validate special characters in level name and Prefix
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page
 	Then Delete the Level
+
+@TC-12
+Scenario: EwQIMS-439_Delete validation with dependency
+	Given Login to the application with 'admin' user
+	When Navigate to Levels in suite setup Page
+	And I validate the Levels page
+	And Create random Level
+	Then I refresh the page
+	When Navigate to DocPro Setup in suite setup Page
+	Then I search and click the random level in folder management page
+	Then I make the level in use
+	Then I refresh the page
+	Then Navigate to New Document Draft in Documents Page
+	Then I validate the New Document Draft in Documents Page
+	And I choose existing level and upload new document in pending doc draft page
+	Then I refresh the page
+	When Navigate to Levels in suite setup Page
+	Then I navigate to levels and click edit icon
+	Then I validate the Levels page
+	Then Delete the Level
+	Then I validate that the level is not deleted and a dependency alert message is displayed
+
 
 @TC-12
 Scenario: EwQIMS-47491_Validate whether the system accepts the space as a character to create Level name
