@@ -624,10 +624,19 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // ***********  Start of EwQIMS-47491_validate whether the system accepts the space as a character to create Level name ************ //
 
-        [Then(@"I validate the level name field should not accept blank space as input")]
-        public void ThenIValidateTheLevelNameFieldShouldNotAcceptBlankSpaceAsInput()
+        [Then(@"I validate the (.*) field should not accept blank space as input")]
+        public void ThenIValidateTheLevelNameFieldShouldNotAcceptBlankSpaceAsInput(string value)
         {
-            docProModule.ValidateLevelNameCannotBeEmpty();
+            switch(value)
+            {
+                case "level name":
+                    docProModule.ValidateLevelNameCannotBeEmpty();
+                    break;
+                case "level number":
+                    docProModule.ValidateLevelNumberCannotBeEmpty();
+                    break;
+            }
+            
         }
 
         // ***********  End of EwQIMS-47491_validate whether the system accepts the space as a character to create Level name ************ //

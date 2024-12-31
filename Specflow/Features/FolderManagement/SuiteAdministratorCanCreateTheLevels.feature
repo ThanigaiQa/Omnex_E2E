@@ -165,15 +165,14 @@ Scenario: EwQIMS-439_Delete validation with dependency
 	Then Delete the Level
 	Then I validate that the level is not deleted and a dependency alert message is displayed
 
-
-@TC-12
+@TC-13
 Scenario: EwQIMS-47491_Validate whether the system accepts the space as a character to create Level name
 	Given Login to the application with 'admin' user
 	When Navigate to Levels in suite setup Page
 	And I validate the Levels page
 	Then I validate the level name field should not accept blank space as input
 
-@TC-13
+@TC-14
 Scenario: EwQIMS-47494_To validate whether the system accepts the all special characters to create in the level name
 	Given Login to the application with 'admin' user
 	When Navigate to Levels in suite setup Page
@@ -181,7 +180,7 @@ Scenario: EwQIMS-47494_To validate whether the system accepts the all special ch
 	Then I validate the level name field should is accepting special characters as input
 	Then I delete the level name with special characters
 
-@TC-14
+@TC-15
 Scenario: EwQIMS-15739_To validate whether the system accepts the user can enter alphabet (Upper and Lower) in Level Name/Prefix field
 	Given Login to the application with 'right' user
 	When Navigate to Levels in suite setup Page
@@ -191,3 +190,10 @@ Scenario: EwQIMS-15739_To validate whether the system accepts the user can enter
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page
 	Then I delete the level name with Upper and lower character
+
+@TC-16
+Scenario: EwQIMS-10805_Validate Level Number as Blank Space
+	Given Login to the application with 'admin' user
+	When Navigate to Levels in suite setup Page
+	And I validate the Levels page
+	Then I validate the level number field should not accept blank space as input

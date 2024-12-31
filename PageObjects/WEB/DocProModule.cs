@@ -3270,6 +3270,25 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         // *********** End of  EwQIMS-439_Delete validation with dependency   -************ //
 
+        // ***********  Start of EwQIMS-10805_Validate Level Number as Blank Space ************ //
+
+        /// <summary>
+        /// Validates the level number cannot accept empty space
+        /// </summary>
+        public void ValidateLevelNumberCannotBeEmpty()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            seleniumActions.SendKeys(inp_Levelname, "sample");
+            seleniumActions.Click(inpLevelNumber);
+            seleniumActions.Click(popUp_Yes);
+            seleniumActions.SendKeys(inpLevelNumber, Keys.Clear);
+            seleniumActions.Click(btn_save);
+            seleniumActions.VerifyElementIsDisplayed(lbl_Alert_LevelNameNumberCannotBeEmpty);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // ***********  End of EwQIMS-10805_Validate Level Number as Blank Space ************ //
+
         #endregion
     }
 }
