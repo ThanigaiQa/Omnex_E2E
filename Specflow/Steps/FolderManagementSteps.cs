@@ -636,23 +636,38 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
                     docProModule.ValidateLevelNumberCannotBeEmpty();
                     break;
             }
-            
         }
 
         // ***********  End of EwQIMS-47491_validate whether the system accepts the space as a character to create Level name ************ //
 
         // ***********  End of EwQIMS-47494_To validate whether the system accepts the all special characters to create in the level name ************ //
 
-        [Then(@"I validate the level name field should is accepting special characters as input")]
-        public void ThenIValidateTheLevelNameFieldShouldIsAcceptingSpecialCharactersAsInput()
+        [Then(@"I validate the (.*) field should is accepting special characters as input")]
+        public void ThenIValidateTheLevelNameFieldShouldIsAcceptingSpecialCharactersAsInput(string value)
         {
-           scenarioContext["LevelNameWithSpecialCharacters"] = docProModule.ValidateLevelNameAcceptsSpecialCharacter();
+            switch (value)
+            {
+                case "level name":
+                    scenarioContext["LevelNameWithSpecialCharacters"] = docProModule.ValidateLevelNameAcceptsSpecialCharacter();
+                    break;
+                case "prefix":
+                    scenarioContext["PrefixFieldWithSpecialCharactersLevel"] = docProModule.ValidatePrefixFieldAcceptsSpecialCharacter();
+                    break;
+            }
         }
 
-        [Then(@"I delete the level name with special characters")]
-        public void ThenIDeleteTheLevelNameWithSpecialCharacters()
+        [Then(@"I delete the (.*) with special characters")]
+        public void ThenIDeleteTheLevelNameWithSpecialCharacters(string value)
         {
-            docProModule.DeleteLevelByHovering(scenarioContext["LevelNameWithSpecialCharacters"].ToString());
+            switch (value)
+            {
+                case "level name":
+                    docProModule.DeleteLevelByHovering(scenarioContext["LevelNameWithSpecialCharacters"].ToString());
+                    break;
+                case "prefix":
+                    docProModule.DeleteLevelByHovering(scenarioContext["PrefixFieldWithSpecialCharactersLevel"].ToString());
+                    break;
+            }
         }
 
         // ***********  End of EwQIMS-47494_To validate whether the system accepts the all special characters to create in the level name ************ //

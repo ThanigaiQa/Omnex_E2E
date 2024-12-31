@@ -3224,7 +3224,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public string ValidateLevelNameAcceptsSpecialCharacter()
         {
-            string specialCharacters = "AA`(|)-_+[]:,./";
+            string specialCharacters = Constants.SpecialCharacters;
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
             seleniumActions.SendKeys(inp_Levelname, specialCharacters);
             seleniumActions.Click(btn_save);
@@ -3288,6 +3288,25 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // ***********  End of EwQIMS-10805_Validate Level Number as Blank Space ************ //
+
+        // ***********  Start of EwQIMS-15728_Validate Prefix with Special characters ************ //
+
+        /// <summary>
+        /// this method used to test special character acceptance in prefix field
+        /// </summary>
+        public string ValidatePrefixFieldAcceptsSpecialCharacter()
+        {
+            string prefixWithSpclChrtrLevel = Constants.PrefixwithSpclChrtrLevel + utility.CurrentTime();
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            seleniumActions.SendKeys(inp_Levelname, prefixWithSpclChrtrLevel);
+            seleniumActions.Click(btn_Prefix);
+            seleniumActions.SendKeys(btn_Prefix, Constants.PrefixFieldSpclChrtrInput);
+            seleniumActions.Click(btn_save);
+            seleniumActions.SwitchToDefaultContent();
+            return prefixWithSpclChrtrLevel;
+        }
+
+        // ***********  End of EwQIMS-15728_Validate Prefix with Special characters ************ //
 
         #endregion
     }

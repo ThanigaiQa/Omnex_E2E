@@ -197,3 +197,11 @@ Scenario: EwQIMS-10805_Validate Level Number as Blank Space
 	When Navigate to Levels in suite setup Page
 	And I validate the Levels page
 	Then I validate the level number field should not accept blank space as input
+
+@TC-17
+Scenario: EwQIMS-15728_Validate Prefix with Special characters
+	Given Login to the application with 'admin' user
+	When Navigate to Levels in suite setup Page
+	And I validate the Levels page
+	Then I validate the prefix field should is accepting special characters as input
+	Then I delete the prefix with special characters
