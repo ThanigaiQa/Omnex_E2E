@@ -315,6 +315,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By chk_AllowSiteModificationIsChecked => By.XPath("//input[contains(@class, 'chk-col-blue') and @checked]");
         By lbl_alertLevelDependencyMessage => By.XPath("//div[contains(text(),'This level is used by site and contains documents. Please transfer documents')]");
         By lbl_Alert_LevelNameNumberCannotBeEmpty => By.XPath("//div[contains(text(),'Level name/number empty')]");
+        By inp_DisabledLevelNumField => By.XPath("//input[@id='txtLevelNum' and @disabled]");
 
         #endregion
 
@@ -3282,7 +3283,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(popUp_Yes);
             seleniumActions.SendKeys(inpLevelNumber, Keys.Clear);
             seleniumActions.Click(btn_save);
-            seleniumActions.VerifyElementIsDisplayed(lbl_Alert_LevelNameNumberCannotBeEmpty);
+            Assert.IsTrue(seleniumActions.VerifyElementIsDisplayed(lbl_Alert_LevelNameNumberCannotBeEmpty));
             seleniumActions.SwitchToDefaultContent();
         }
 
@@ -3306,6 +3307,22 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // ***********  End of EwQIMS-15728_Validate Prefix with Special characters ************ //
+
+        // *********** Start of EwQIMS-15733: Edit Level Number ************ //
+
+        /// <summary>
+        /// this method used to test the level num field is disabled
+        /// </summary>
+        public void ValidateLevelNumberFieldIsDisabled()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            seleniumActions.Click(inpLevelNumber);
+            seleniumActions.Click(btnNo_PopUp);
+            Assert.IsTrue(seleniumActions.VerifyElementIsDisplayed(inp_DisabledLevelNumField));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** End of EwQIMS-15733: Edit Level Number ************ //
 
         #endregion
     }

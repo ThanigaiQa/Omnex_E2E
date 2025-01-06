@@ -696,7 +696,17 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.VerifyDependencyAlertMessageWhileDeleteLevel();
         }
 
-        // *********** End of  EwQIMS-439_Delete validation with dependency   -************ //
+        // *********** End of  EwQIMS-439_Delete validation with dependency ************ //
+
+        // *********** Start of EwQIMS-15733: Edit Level Number   -************ //
+
+        [Then(@"I validate the level number field is disabled after clicking no in level num alert popup")]
+        public void ThenIValidateTheLevelNumberFieldIsDisabledAfterClickingNoInLevelNumAlertPopup()
+        {
+            docProModule.ValidateLevelNumberFieldIsDisabled();
+        }
+
+        // *********** End of EwQIMS-15733: Edit Level Number ************ //
 
 
         #endregion

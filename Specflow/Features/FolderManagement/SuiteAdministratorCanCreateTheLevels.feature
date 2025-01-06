@@ -205,3 +205,10 @@ Scenario: EwQIMS-15728_Validate Prefix with Special characters
 	And I validate the Levels page
 	Then I validate the prefix field should is accepting special characters as input
 	Then I delete the prefix with special characters
+
+@TC-18
+Scenario: EwQIMS-15733_Validate whether the system accepts the user can create/Edit the 'Level Number' field
+	Given Login to the application with 'admin' user
+	When Navigate to Levels in suite setup Page
+	And I validate the Levels page
+	Then I validate the level number field is disabled after clicking no in level num alert popup
