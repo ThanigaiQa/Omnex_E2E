@@ -1,7 +1,7 @@
 ﻿Feature: Level creation scenarios for Suite/Module Admin & Group Rights
 
 @TC-01
-Scenario:EwQIMS_49033_TC01_DOC-FM-100-010
+Scenario:EwQIMS_49033_The levels created under the Suite for Suite admin (Administrator login) 
 	Given Login to the application with 'admin' user
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page
@@ -22,7 +22,7 @@ Scenario:EwQIMS_49033_TC01_DOC-FM-100-010
 	Then Delete the Level
 
 @TC-02
-Scenario:EwQIMS_49037_TC02_DOC-FM-100-020
+Scenario:EwQIMS_49037_Suite admin for the levels created under Folder management
 	Given Login to the application with 'admin' user
 	When Navigate to Levels in suite setup Page
 	And  I validate the Levels page
@@ -48,7 +48,7 @@ Scenario:EwQIMS_49037_TC02_DOC-FM-100-020
 
 
 @TC-03
-Scenario:EwQIMS_49039_DOC_FM_100_030
+Scenario:EwQIMS_49039_The Suite Admin can create new Parent levels under Folder management
 	Given Login to the application with 'admin' user
 	When Navigate to Levels in suite setup Page
 	And  I validate the Levels page
@@ -68,7 +68,7 @@ Scenario:EwQIMS_49039_DOC_FM_100_030
 
 
 @TC-04
-Scenario:EwQIMS-49040: DOC-FM-100-040
+Scenario:EwQIMS_49040_Suite Admin can create new Sub levels under Folder management
 	Given Login to the application with 'admin' user
 	When Navigate to Levels in suite setup Page
 	And  I validate the Levels page

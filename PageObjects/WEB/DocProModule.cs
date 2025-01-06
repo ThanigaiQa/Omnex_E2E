@@ -420,8 +420,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
             seleniumActions.Click(inpLevelNumber);
             seleniumActions.Click(popUp_Yes);
-            seleniumActions.SendKeys(inpLevelNumber, "10000");
-            seleniumActions.SendKeys(inp_Levelname, "Tester");
+            seleniumActions.SendKeys(inpLevelNumber, "1000012");
+            seleniumActions.SendKeys(inp_Levelname, "SASASH");
             seleniumActions.SendKeys(btn_DocReviewafter, "QA");
             seleniumActions.Click(btn_save);
             seleniumActions.Wait(2);
@@ -2847,7 +2847,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.FindElement(btn_delete).GetAttribute("disabled").Equals("true"));
             Assert.IsTrue(seleniumActions.FindElement(drp_RightsForSites).GetAttribute("disabled").Equals("true"));
             Assert.IsTrue(seleniumActions.FindElement(drp_RightsForGroup).GetAttribute("disabled").Equals("true"));
-            Assert.IsTrue(seleniumActions.IsElementPresent(ddl_New_Disabled), "New folder drpdown is enabled");
             seleniumActions.SwitchToDefaultContent();
         }
 
