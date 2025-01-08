@@ -32,7 +32,7 @@ Scenario: TC-23023_To_25 Validate the search column
 	Then I click on the multi search button
 	Then I verify the UI elements of Multisearch popup window
 	Then I search document type using multi search and verify the record size
-	When I click on the refresh button
+	When I click on the refresh button in Site PDF page
 	And I verify the size of the records showing in Site PDF Preference page
 	When I click on the multi search button
 	Then I search and update the Site PDF record

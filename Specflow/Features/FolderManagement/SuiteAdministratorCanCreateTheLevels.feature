@@ -212,3 +212,42 @@ Scenario: EwQIMS-15733_Validate whether the system accepts the user can create/E
 	When Navigate to Levels in suite setup Page
 	And I validate the Levels page
 	Then I validate the level number field is disabled after clicking no in level num alert popup
+
+@TC-19
+Scenario: EwQIMS-32426_Validate the system should show correct parent level name when creating subchild level
+	Given Login to the application with 'admin' user
+	When Navigate to Levels in suite setup Page
+	And I validate the Levels page
+	Then I give sublevel access for the level 
+	Then Create random Level
+	When I click on the refresh button in level page
+	Then I right click the random level and click new option
+	Then I give sublevel access for the level 
+	Then I create a new subfolder level 
+	When I click on the refresh button in level page
+	Then I verify the subfolder is created for the parent level
+	Then I right click the subfolder level and click new option
+	Then I create new Subchild level
+	When I click on the refresh button in level page
+	Then I verify the Subchild level is created for the subfolder
+	When I click on the refresh button in level page
+	Then Delete the Level
+
+@TC-20
+Scenario: EwQIMS-32424_To validate the system should not duplicate the subfolders when creating
+	Given Login to the application with 'admin' user
+	When Navigate to Levels in suite setup Page
+	And I validate the Levels page
+	Then I give sublevel access for the level 
+	Then Create random Level
+	When I click on the refresh button in level page
+	Then I right click the random level and click new option
+	Then I create a new subfolder level 
+	Then I refresh the page
+	When Navigate to DocPro Setup in suite setup Page
+	Then  Right click the level and select the new button to create the sublevel
+	Then I Validate the level name is already being used warning for duplicate level creation
+	
+
+
+	

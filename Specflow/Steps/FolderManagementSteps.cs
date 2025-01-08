@@ -110,7 +110,6 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.SelectSiteSubLevelCreationAndAllowSiteCheckbox();
         }
 
-
         // *********** FM : Levels create and delete - End of TC 21861,63,64,65,66,67,69,57 ************ //
 
         // *********** FM : Levels create and delete - Start of TC 22974-75-76 ************ //
@@ -448,10 +447,18 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             docProModule.SearchWithDocTypeAndVerifyRecordSize();
         }
 
-        [When(@"I click on the refresh button")]
-        public void WhenIClickOnTheRefreshButton()
+        [When(@"I click on the refresh button in (.*) page")]
+        public void WhenIClickOnTheRefreshButtonInPage(string pageName)
         {
-            docProModule.ClickRefreshButtonInSitePDFPage();
+            switch(pageName)
+            {
+                case "Site PDF":
+                    docProModule.ClickRefreshButtonInSitePDFPage();
+                    break;
+                case "level":
+                    docProModule.ClickRefreshButtonInLevelsPage();
+                    break;
+            }
         }
 
         [When(@"I verify the size of the records showing in Site PDF Preference page")]
@@ -688,7 +695,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // ***********  End of EwQIMS-15739_To validate whether the system accepts the user can enter alphabet (Upper and Lower) in Level Name/Prefix field ************ //
 
-        // *********** Start of  EwQIMS-439_Delete validation with dependency   -************ //
+        // *********** Start of  EwQIMS-439_Delete validation with dependency ************ //
 
         [Then(@"I validate that the level is not deleted and a dependency alert message is displayed")]
         public void ThenIValidateThatTheLevelIsNotDeletedAndADependencyAlertMessageIsDisplayed()
@@ -698,7 +705,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** End of  EwQIMS-439_Delete validation with dependency ************ //
 
-        // *********** Start of EwQIMS-15733: Edit Level Number   -************ //
+        // *********** Start of EwQIMS-15733: Edit Level Number ************ //
 
         [Then(@"I validate the level number field is disabled after clicking no in level num alert popup")]
         public void ThenIValidateTheLevelNumberFieldIsDisabledAfterClickingNoInLevelNumAlertPopup()
@@ -708,6 +715,47 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** End of EwQIMS-15733: Edit Level Number ************ //
 
+        // *********** Start of EwQIMS-32426: Parent Level Name Hierarchy ************ //
+
+        [Then(@"I right click the (.*) level and click new option")]
+        public void ThenIRightClickTheLevelAndClickNewOption(string level)
+        {
+            switch (level)
+            {
+                case "random":
+                    docProModule.RightClickParentLevelAndClickNew(scenarioContext["LevelName"].ToString());
+                    break;
+                case "subfolder":
+                    docProModule.RightClickSubFolderLevelAndClickNew(scenarioContext["SubfolderLevelName"].ToString());
+                    break;
+            }
+        }
+
+        [Then(@"I create a new subfolder level")]
+        public void ThenICreateANewSubfolderLevel()
+        {
+            scenarioContext["SubfolderLevelName"] = docProModule.CreateNewSubfolderLevel();
+        }
+
+        [Then(@"I verify the subfolder is created for the parent level")]
+        public void ThenIVerifyTheSubfolderIsCreatedForParentTheLevel()
+        {
+            docProModule.VerifySubFolderIsCreatedInsideParentLevel(scenarioContext["LevelName"].ToString(), scenarioContext["SubfolderLevelName"].ToString());
+        }
+
+        [Then(@"I create new Subchild level")]
+        public void ThenICreateNewSubchildLevel()
+        {
+            scenarioContext["SubChildLevelName"] = docProModule.CreateNewSubChildLevel();
+        }
+
+        [Then(@"I verify the Subchild level is created for the subfolder")]
+        public void ThenIVerifyTheSubchildLevelIsCreatedForTheSubfolder()
+        {
+            docProModule.VerifySubChildIsCreatedInsideSubFolderLevel(scenarioContext["LevelName"].ToString(), scenarioContext["SubfolderLevelName"].ToString(), scenarioContext["SubChildLevelName"].ToString());
+        }
+
+        // *********** End of EwQIMS-32426: Parent Level Name Hierarchy ************ //
 
         #endregion
 

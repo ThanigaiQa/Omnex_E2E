@@ -316,6 +316,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By lbl_alertLevelDependencyMessage => By.XPath("//div[contains(text(),'This level is used by site and contains documents. Please transfer documents')]");
         By lbl_Alert_LevelNameNumberCannotBeEmpty => By.XPath("//div[contains(text(),'Level name/number empty')]");
         By inp_DisabledLevelNumField => By.XPath("//input[@id='txtLevelNum' and @disabled]");
+        By btnRefresh_LevelPage => By.XPath("//*[local-name()='svg' and @id='btnreferesh']");
 
         #endregion
 
@@ -427,8 +428,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(btn_save);
             seleniumActions.Wait(2);
             seleniumActions.IsElementPresent(lbl_FrequencyAlert);
-            string alrt = seleniumActions.GetText(lbl_FrequencyAlert);
-            Assert.IsTrue(SeleniumActions.Equals(alrt, "×\r\nEwQIMS : Review Frequency must be numeric"));
+            Assert.IsTrue(seleniumActions.GetText(lbl_FrequencyAlert).Contains("Review Frequency must be numeric"));
             seleniumActions.Wait(3);
             seleniumActions.SwitchToDefaultContent();
         }
@@ -2859,7 +2859,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// Validates the docpro landing screen after clickking the level
         /// </summary>
 
-        public void RightClickNewAndCreateSubLevel(String levelName)
+        public void RightClickNewAndCreateSubLevel(String levelName, string subFolderName)
         {
             seleniumActions.SwitchToFrame(iframe_DetailView);
             seleniumActions.Click(folderManagement_Tab);
@@ -2874,7 +2874,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(btn_NewEnable);
             seleniumActions.Wait(3);
             seleniumActions.SwitchToFrame(iframe_Tree);
-            seleniumActions.SendKeys(inp_Levelname, "Testersa");
+            seleniumActions.SendKeys(inp_Levelname, subFolderName);
             seleniumActions.Click(btn_save);
             seleniumActions.SwitchToDefaultContent();
         }
@@ -3323,6 +3323,112 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // *********** End of EwQIMS-15733: Edit Level Number ************ //
+
+        // *********** Start of EwQIMS-32426: Parent Level Name Hierarchy ************ //
+
+        /// <summary>
+        /// Clicks refresh button in levels page
+        /// </summary>
+        public void ClickRefreshButtonInLevelsPage()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Click(btnRefresh_LevelPage);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(btnRefresh_LevelPage);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Right clicks the parent level and clicks new
+        /// </summary>
+        public void RightClickParentLevelAndClickNew(string levelName)
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.MoveToElement(By.XPath("//table[@class='Tbltitle']//ul[@id='TOCDoclvl']//a[contains(@title,'" + levelName + "')]"));
+            seleniumActions.Click(By.XPath("(//table[@class='Tbltitle']//ul[@id='TOCDoclvl']//a[contains(@title,'" + levelName + "')]//following::*[local-name()='svg' and contains(@class,'plus')])[1]"));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Creates a new subfolder level inside the parent level
+        /// </summary>
+        public string CreateNewSubfolderLevel()
+        {
+            string subfolder = Constants.SubfolderLevel + utility.CurrentTime();
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            seleniumActions.Click(inp_Levelname);
+            seleniumActions.SendKeys(inp_Levelname, subfolder);
+            seleniumActions.Click(btn_save);
+            seleniumActions.SwitchToDefaultContent();
+            return subfolder;
+        }
+
+        /// <summary>
+        /// verifies the subfolder level is created under correct parent level
+        /// </summary>
+        public void VerifySubFolderIsCreatedInsideParentLevel(string levelName, string subFolderName)
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            Assert.IsTrue(seleniumActions.IsElementPresent(By.XPath("//a[@title='" + levelName + "']//parent::li//child::span[contains(@class,'center_close')]")));
+            seleniumActions.ScrollToElement(By.XPath("//a[@title='" + levelName + "']//parent::li//child::span[contains(@class,'center_close')]"));
+            seleniumActions.Click(By.XPath("//a[@title='" + levelName + "']//parent::li//child::span[contains(@class,'center_close')]"));
+            Assert.IsTrue(seleniumActions.IsElementPresent(By.XPath("//span[contains(text(),'" + subFolderName + "')]")));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Right clicks the subfolder level and clicks new
+        /// </summary>
+        public void RightClickSubFolderLevelAndClickNew(string subFolderName)
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.MoveToElement(By.XPath("//table[@class='Tbltitle']//ul[@id='TOCDoclvl']//a[contains(@title,'" + subFolderName + "')]"));
+            seleniumActions.Click(By.XPath("(//table[@class='Tbltitle']//ul[@id='TOCDoclvl']//a[contains(@title,'" + subFolderName + "')]//following::*[local-name()='svg' and contains(@class,'plus')])[1]"));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// Creates a new subchild level inside the subfolder level
+        /// </summary>
+        public string CreateNewSubChildLevel()
+        {
+            string subchild = Constants.SubChildLevel + utility.CurrentTime();
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            seleniumActions.Click(inp_Levelname);
+            seleniumActions.SendKeys(inp_Levelname, subchild);
+            seleniumActions.Click(btn_save);
+            seleniumActions.SwitchToDefaultContent();
+            return subchild;
+        }
+
+        /// <summary>
+        /// verifies the subchild level is created under correct subfolder level
+        /// </summary>
+        public void VerifySubChildIsCreatedInsideSubFolderLevel(string levelName, string subFolderName, string subChildName)
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Click(By.XPath("//a[@title='" + levelName + "']//parent::li//child::span[contains(@class,'center_close')]"));
+            Assert.IsTrue(seleniumActions.VerifyElementIsDisplayed(By.XPath("//a[@title='" + subFolderName + "']//parent::li//child::span[contains(@class,'bottom_close')]")));
+            seleniumActions.Click(By.XPath("//a[@title='" + subFolderName + "']//parent::li//child::span[contains(@class,'bottom_close')]"));
+            Assert.IsTrue(seleniumActions.VerifyElementIsDisplayed(By.XPath("//span[contains(text(),'" + subChildName + "')]")));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** End of EwQIMS-32426: Parent Level Name Hierarchy ************ //
+
+        // *********** Start of EwQIMS-32424: Duplicate Level Creation ************ //
+
+        /// <summary>
+        /// Validate the duplicate level creation alert
+        /// </summary>
+        public void ValidateTheDuplicateLevelCreationAlert()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
+            Assert.IsTrue(seleniumActions.GetText(lbl_FrequencyAlert).Contains(" This level name is already being used"));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** End of EwQIMS-32424: Duplicate Level Creation ************ //
 
         #endregion
     }

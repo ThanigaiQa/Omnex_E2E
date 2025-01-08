@@ -398,7 +398,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         [Then(@"Right click the level and select the new button to create the sublevel")]
         public void ThenRightClickTheLevelAndSelectTheNewButtonToCreateTheSublevel()
         {
-            docProModule.RightClickNewAndCreateSubLevel(scenarioContext["LevelName"].ToString());
+           docProModule.RightClickNewAndCreateSubLevel(scenarioContext["LevelName"].ToString(), scenarioContext["SubfolderLevelName"].ToString());
         }
 
         [When(@"I Validate the Right click options new and edit enable")]
@@ -437,7 +437,11 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
              docProModule.ValidateDayDocumentReviewedFieldAcceptDigits();
         }
 
-
+        [Then(@"I Validate the level name is already being used warning for duplicate level creation")]
+        public void ThenIValidateTheLevelNameIsAlreadyBeingUsedWarningForDuplicateLevelCreation()
+        {
+            docProModule.ValidateTheDuplicateLevelCreationAlert();
+        }
 
         #endregion
     }

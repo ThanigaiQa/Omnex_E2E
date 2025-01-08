@@ -35,6 +35,8 @@ namespace OMNEX.AUTOMATION.Data.WEB
         public const string PrefixwithSpclChrtrLevel = "AAA";
         public const string PrefixFieldSpclChrtrInput = "Doc-123_.";
         public const string SpecialCharacters = "AA`(|)-_+[]:,./";
+        public const string SubfolderLevel = "AAASubLevel";
+        public const string SubChildLevel = "AAAChildLevel";
 
     }
 }
