@@ -757,6 +757,16 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** End of EwQIMS-32426: Parent Level Name Hierarchy ************ //
 
+        // *********** Start of EwQIMS-47529: Parent Level Name blank for creating a new parent level ************ //
+
+        [Then(@"I validate the parent level name field is greyed out before giving input")]
+        public void ThenIValidateTheParentLevelNameFieldIsGreyedOutBeforeGivingInput()
+        {
+            docProModule.ValidateLevelNameFieldIsGreyedOutBeforeGivingAnyInput();
+        }
+
+        // *********** End of EwQIMS-47529: Parent Level Name blank for creating a new parent level ************ //
+
         #endregion
 
     }

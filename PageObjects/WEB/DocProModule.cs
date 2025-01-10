@@ -317,6 +317,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By lbl_Alert_LevelNameNumberCannotBeEmpty => By.XPath("//div[contains(text(),'Level name/number empty')]");
         By inp_DisabledLevelNumField => By.XPath("//input[@id='txtLevelNum' and @disabled]");
         By btnRefresh_LevelPage => By.XPath("//*[local-name()='svg' and @id='btnreferesh']");
+        By inpParentLevelName_LevelPage => By.XPath("(//input[@id='tdParentLevelName' and @readonly='true'])[1]");
 
         #endregion
 
@@ -3429,6 +3430,20 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // *********** End of EwQIMS-32424: Duplicate Level Creation ************ //
+
+        // *********** Start of EwQIMS-47529: Parent Level Name blank for creating a new parent level ************ //
+
+        /// <summary>
+        /// validate level name field is greyed out before giving any input
+        /// </summary>
+        public void ValidateLevelNameFieldIsGreyedOutBeforeGivingAnyInput()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            Assert.IsTrue(seleniumActions.VerifyElementIsDisplayed(inpParentLevelName_LevelPage));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** Start of EwQIMS-47529: Parent Level Name blank for creating a new parent level ************ //
 
         #endregion
     }

@@ -1,7 +1,7 @@
 {
   "Environment": "CloudQA4",
   "Browser": "Chrome",
-  "URL": "https://cloudqa4.ewqims.com/common/EwIMSNew/Index/Index",
+  "URL": "https://automation-qa101.ewqims.com",
   "AppVersion": "5",
   "ThaniUser": "Thani",
   "Password": "test123",

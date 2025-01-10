@@ -247,7 +247,13 @@ Scenario: EwQIMS-32424_To validate the system should not duplicate the subfolder
 	When Navigate to DocPro Setup in suite setup Page
 	Then  Right click the level and select the new button to create the sublevel
 	Then I Validate the level name is already being used warning for duplicate level creation
-	
+
+@TC-21
+Scenario: EwQIMS-47529_Validate whether the parent level name field displays with empty and grey out initially
+	Given Login to the application with 'admin' user
+	When Navigate to Levels in suite setup Page
+	And I validate the Levels page
+	Then I validate the parent level name field is greyed out before giving input
 
 
 	
