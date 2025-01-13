@@ -37,6 +37,5 @@ namespace OMNEX.AUTOMATION.Data.WEB
         public const string SpecialCharacters = "AA`(|)-_+[]:,./";
         public const string SubfolderLevel = "AAASubLevel";
         public const string SubChildLevel = "AAAChildLevel";
-
     }
 }

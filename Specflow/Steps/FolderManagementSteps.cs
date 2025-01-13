@@ -572,7 +572,6 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         public void ThenISetTheDocumentReviewedAfterDropdownValueToMonthInLevelsPage()
         {
             docProModule.SetDocumentReviewedAfterDropdownAsMonthInLevelsPage();
-
         }
 
         [Then(@"I verify the tag selection is present in folder Management")]
@@ -766,6 +765,16 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         // *********** End of EwQIMS-47529: Parent Level Name blank for creating a new parent level ************ //
+
+        // *********** Start of EwQIMS-22144: DOC-Display selected template ************ //
+
+        [Then(@"I select template from the dropdown and verify the template is selected")]
+        public void ThenISelectTemplateFromTheDropdownAndVerifyTheTemplateIsSelected()
+        {
+            
+        }
+
+        // *********** End of EwQIMS-22144: DOC-Display selected template ************ //
 
         #endregion
 

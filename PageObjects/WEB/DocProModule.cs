@@ -277,7 +277,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By ddl_DocType => By.XPath("(//option[contains(text(),'Document Type')])[1]");
         By tblRow => By.XPath("//tbody//tr[@role='row']");
         By lbl_LevelPdfPreferencesPageHeading => By.XPath("//div[contains(@class,'modal-header')]//h5");
-        By drp_TemplateInLevelPDFPreferncesPAge => By.XPath("//label[contains(text(),'Template')]//following::select[@class='custom-select']");
+        By drp_TemplateInLevelPDFPreferencesPage => By.XPath("//label[contains(text(),'Template')]//following::select[@class='custom-select']");
         By lbl_RestrictedView => By.XPath("//label[@for='chkResrictedView']");
         By btn_LevelPDFRestart => By.XPath("//li[contains(@onclick,'gridModPDFDocTypes')]");
         By btn_LevelPDFSave => By.XPath("//button[contains(@onclick,'Savepdf')]");
@@ -2693,7 +2693,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree, iframe_water);
             seleniumActions.Wait(3);
-            Assert.IsTrue(seleniumActions.IsElementPresent(drp_TemplateInLevelPDFPreferncesPAge), "Template dropdown is not present");
+            Assert.IsTrue(seleniumActions.IsElementPresent(drp_TemplateInLevelPDFPreferencesPage), "Template dropdown is not present");
             Assert.IsTrue(seleniumActions.IsElementPresent(lbl_RestrictedView), "Enable Restricted View checkbox is not present");
             Assert.IsTrue(seleniumActions.IsElementPresent(lbl_IncludeTemplate), "Include Template is not present");
             Assert.IsTrue(seleniumActions.IsElementPresent(lbl_EnableEnhancedPrinting), "Enable Enhancing Printing checkbox is not present");
@@ -3440,6 +3440,19 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
             Assert.IsTrue(seleniumActions.VerifyElementIsDisplayed(inpParentLevelName_LevelPage));
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** Start of EwQIMS-47529: Parent Level Name blank for creating a new parent level ************ //
+
+        // *********** Start of EwQIMS-47529: Parent Level Name blank for creating a new parent level ************ //
+
+        public void VerifyTemplateIsSelectedInLevelPDFPreference()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree, iframe_water);
+            seleniumActions.Wait(3);
+            Assert.IsTrue(seleniumActions.IsElementPresent(drp_TemplateInLevelPDFPreferencesPage), "Template dropdown is not present");
+            seleniumActions.Click(drp_TemplateInLevelPDFPreferencesPage);
             seleniumActions.SwitchToDefaultContent();
         }
 
