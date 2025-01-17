@@ -782,6 +782,14 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** End of EwQIMS-22144: DOC-Display selected template ************ //
 
+        // *********** level PDF preference - Start of TC 22153 22154 ************ //
+        [Then(@"I Validate the Refresh action")]
+        public void ThenIValidateTheRefreshAction()
+        {
+            docProModule.ValidateRefreshsInLevelPDFPreferencesPage();
+        }
+
+        // *********** level PDF preference - end of TC 22153 22154 ************ //
         #endregion
 
     }

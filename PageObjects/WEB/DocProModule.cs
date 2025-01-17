@@ -323,6 +323,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By ddlAutomationTemp_LevelPDFPreference => By.XPath("//label[contains(text(),'Template')]//following::select[@class='custom-select']//option[contains(text(),'Automation Template')]");
         By msgPreferencesSavedSuccessfully => By.XPath("//div[contains(text(),'saved successfully')]");
         By btn_UseSiteDefault => By.XPath("//div[contains(text(),'saved successfully')]");
+        By input_pdfsearch => By.XPath("//select[contains(@id,'gridModPDFDocTypes')]//following::input[1]");
 
         #endregion
 
@@ -3501,6 +3502,26 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // *********** End of EwQIMS-22142: DOC-Creating Template ************ //
+
+        // *********** level PDF preference - Start of TC 22153 22154 ************ //
+
+        /// <summary>
+        /// Validate level pdf preferences page Refresh action
+        /// </summary>
+        public void ValidateRefreshsInLevelPDFPreferencesPage()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree, iframe_water);
+            seleniumActions.Wait(5);
+            seleniumActions.SendKeys(input_pdfsearch, "tfrd");
+            seleniumActions.Wait(3);
+            Assert.IsTrue(seleniumActions.GetText(lbl_NoRecordsToDisplay).Contains("There are no records to display"));
+            seleniumActions.Click(btn_LevelPDFRestart);
+            seleniumActions.Wait(3);
+            Assert.IsFalse(seleniumActions.IsElementPresent(lbl_NoRecordsToDisplay), "(There are no records to display) text is present");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** level PDF preference - End of TC 22153 22154 ************ //
 
         #endregion
     }
