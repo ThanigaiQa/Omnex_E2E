@@ -768,10 +768,16 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** Start of EwQIMS-22144: DOC-Display selected template ************ //
 
-        [Then(@"I select template from the dropdown and verify the template is selected")]
-        public void ThenISelectTemplateFromTheDropdownAndVerifyTheTemplateIsSelected()
+        [Then(@"I select template from the dropdown")]
+        public void ThenISelectTemplateFromTheDropdown()
         {
-            
+            docProModule.SelectTemplateFromTemplateDropdown();
+        }
+
+        [Then(@"I verify the template is selected and reset to default")]
+        public void ThenIVerifyTheTemplateIsSelectedAndResetToDefault()
+        {
+            docProModule.VerifyTemplateIsSelectedAndResetToDefault();
         }
 
         // *********** End of EwQIMS-22144: DOC-Display selected template ************ //

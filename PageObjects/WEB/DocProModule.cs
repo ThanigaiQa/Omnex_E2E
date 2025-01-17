@@ -318,6 +318,11 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By inp_DisabledLevelNumField => By.XPath("//input[@id='txtLevelNum' and @disabled]");
         By btnRefresh_LevelPage => By.XPath("//*[local-name()='svg' and @id='btnreferesh']");
         By inpParentLevelName_LevelPage => By.XPath("(//input[@id='tdParentLevelName' and @readonly='true'])[1]");
+        By ddlTemplateName_LevelPDFPreference => By.XPath("//label[contains(text(),'Template')]//following::select[@class='custom-select']//option[@selected]");
+        By ddlSuiteDefault_LevelPDFPreference => By.XPath("//label[contains(text(),'Template')]//following::select[@class='custom-select']//option[contains(text(),'Suite Default')]");
+        By ddlAutomationTemp_LevelPDFPreference => By.XPath("//label[contains(text(),'Template')]//following::select[@class='custom-select']//option[contains(text(),'Automation Template')]");
+        By msgPreferencesSavedSuccessfully => By.XPath("//div[contains(text(),'saved successfully')]");
+        By btn_UseSiteDefault => By.XPath("//div[contains(text(),'saved successfully')]");
 
         #endregion
 
@@ -3457,6 +3462,45 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // *********** Start of EwQIMS-47529: Parent Level Name blank for creating a new parent level ************ //
+
+        // *********** Start of EwQIMS-22142 : DOC-Creating Template ************ //
+
+        /// <summary>
+        /// selects template from dropdown
+        /// </summary>
+        public void SelectTemplateFromTemplateDropdown()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree, iframe_water);
+            seleniumActions.Click(drp_TemplateInLevelPDFPreferencesPage);
+            if(seleniumActions.GetText(ddlTemplateName_LevelPDFPreference).Equals("Automation Template"))
+            {
+                seleniumActions.Click(ddlSuiteDefault_LevelPDFPreference);
+            }
+            seleniumActions.Click(btn_save);
+            Assert.IsTrue(seleniumActions.IsElementPresent(msgPreferencesSavedSuccessfully), "save msg is not present");
+            seleniumActions.SwitchToDefaultContent();
+
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData);
+            seleniumActions.Click(btn_refreshLevel);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// verify template is selected and reset to default
+        /// </summary>
+        public void VerifyTemplateIsSelectedAndResetToDefault()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree, iframe_water);
+            seleniumActions.Click(drp_TemplateInLevelPDFPreferencesPage);
+            if (seleniumActions.GetText(ddlTemplateName_LevelPDFPreference).Equals("Suite Default"))
+            {
+                seleniumActions.Click(btn_UseSiteDefault);
+                seleniumActions.Click(popUp_Yes);
+            }
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** End of EwQIMS-22142: DOC-Creating Template ************ //
 
         #endregion
     }
