@@ -783,6 +783,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         // *********** End of EwQIMS-22144: DOC-Display selected template ************ //
 
         // *********** level PDF preference - Start of TC 22153 22154 ************ //
+
         [Then(@"I Validate the Refresh action")]
         public void ThenIValidateTheRefreshAction()
         {
@@ -790,6 +791,29 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         // *********** level PDF preference - end of TC 22153 22154 ************ //
+
+        // *********** level PDF preference - Start of TC 22150 ************ //
+
+        [Then(@"I create a new template in Pdf template page")]
+        public void ThenICreateANewTemplateInPdfTemplatePage()
+        {
+            docProModule.CreateNewTemplateInPDfTemplatePage();
+        }
+
+        [Then(@"I verify the newly created template is visible in the template dropdown")]
+        public void ThenIVerifyTheNewlyCreatedTemplateIsVisibleInTheTemplateDropdown()
+        {
+            docProModule.VerifyNewTemplateIsVisibleFromTemplateDropdown();
+        }
+
+        [Then(@"I delete the newly created template in Pdf template page")]
+        public void ThenIDeleteTheNewlyCreatedTemplateInPdfTemplatePage()
+        {
+            docProModule.DeleteNewlyCreatedTemplateInPdfTemplate();
+        }
+
+        // *********** level PDF preference - end of TC 22150 ************ //
+
         #endregion
 
     }

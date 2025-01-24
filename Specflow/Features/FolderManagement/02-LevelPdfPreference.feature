@@ -2,7 +2,7 @@
 
 @TC-22999
 Scenario: EwQIMS_22999_Validate Display of Level PDF preferences
-	Given Login to the application with 'thani' user
+	Given Login to the application with 'admin' user
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page
 	Then I give sublevel access for the level
@@ -56,7 +56,7 @@ Scenario: EwQIMS-22149 Check box unselecting
 	Then I validate the Levels page
 	Then Delete the Level
  
- @TC-22153_22154
+@TC-22153_22154
 Scenario: EwQIMS-22153_22154 Validate Refresh from pdf preference
 	Given Login to the application with 'admin' user
 	When Navigate to Levels in suite setup Page
@@ -69,6 +69,29 @@ Scenario: EwQIMS-22153_22154 Validate Refresh from pdf preference
 	Then I make the level in use
 	Then I click the Level PDF preferences link
 	Then I Validate the Refresh action
+	Then I refresh the page
+	When Navigate to Levels in suite setup Page
+	Then I validate the Levels page
+	Then Delete the Level
+
+@TC-22150
+Scenario: EwQIMS-22150 Validate Refresh from pdf preference
+	Given Login to the application with 'admin' user
+	When I Navigate to PDF Templates in system Page
+	Then I create a new template in Pdf template page
+	Then I refresh the page
+	When Navigate to Levels in suite setup Page
+	Then I validate the Levels page
+	Then Create random Level
+	Then I refresh the page
+	When Navigate to DocPro Setup in suite setup Page
+	Then I search and click the random level in folder management page
+	Then I make the level in use
+	Then I click the Level PDF preferences link
+	Then I verify the newly created template is visible in the template dropdown
+	Then I refresh the page
+	When I Navigate to PDF Templates in system Page
+	Then I delete the newly created template in Pdf template page
 	Then I refresh the page
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page
