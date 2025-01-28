@@ -75,7 +75,7 @@ Scenario: EwQIMS-22153_22154 Validate Refresh from pdf preference
 	Then Delete the Level
 
 #PDF Template - Test cases covered
-@TC-22150,17924,17925,17927,17930,17931
+@TC-22150,17924,17925,17927,17930,17931,18035,48801,48812,48813
 Scenario: EwQIMS-22150 Validate Refresh from pdf preference
 	Given Login to the application with 'admin' user
 	When I Navigate to PDF Templates in system Page

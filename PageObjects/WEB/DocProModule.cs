@@ -13,6 +13,7 @@ using System.Diagnostics.Metrics;
 using Amazon.DynamoDBv2.Model;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Interactions;
+using Amazon.DynamoDBv2.DocumentModel;
 
 namespace OMNEX.AUTOMATION.PageObjects.WEB
 {
@@ -337,6 +338,14 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By chkIncludeCoverPage => By.XPath("//label[@for='chkIncludeCPage']");
         By ddlQATesting_LevelPDFPreference => By.XPath("//label[contains(text(),'Template')]//following::select[@class='custom-select']//option[contains(text(),'QATesting')]");
         By chk_FirstRowInActive => By.XPath("//tbody//tr[@role='row' and @class='odd']//input[@type='checkbox']");
+        By drpPositionInTempDetails => By.XPath("//select[@id='drpwMarkPosition']");
+        By ddlPositionTopInTempDetails => By.XPath("(//select[@id='drpwMarkPosition']/options)[1]");
+        By ddlPositionBottomInTempDetails => By.XPath("(//select[@id='drpwMarkPosition']/options)[2]");
+        By ddlPositionLeftInTempDetails => By.XPath("(//select[@id='drpwMarkPosition']/options)[3]");
+        By ddlPositionRightInTempDetails => By.XPath("(//select[@id='drpwMarkPosition']/options)[4]");
+        By ddlPositionDiagonalInTempDetails => By.XPath("(//select[@id='drpwMarkPosition']/options)[5]");
+        By ddlPositionCenterInTempDetails => By.XPath("(//select[@id='drpwMarkPosition']/options)[6]");
+        By inp_Opaqueness => By.XPath("//input[@id='txtOpaqueness']");
 
         #endregion
 
@@ -3586,10 +3595,42 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
                 }
             }
             seleniumActions.SendKeys(txtTemplateName,"QATesting");
-            seleniumActions.Click(chkIncludeWatermark);
             seleniumActions.Click(chkIncludeHeader);
             seleniumActions.Click(chkIncludeFooter);
             seleniumActions.Click(chkIncludeCoverPage);
+
+            //EwQIMS - 48801: Position dropdown field
+            Assert.IsTrue(seleniumActions.IsElementPresent(drpPositionInTempDetails));
+            seleniumActions.Click(drpPositionInTempDetails);
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddlPositionTopInTempDetails));
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddlPositionBottomInTempDetails));
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddlPositionLeftInTempDetails));
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddlPositionRightInTempDetails));
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddlPositionDiagonalInTempDetails));
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddlPositionCenterInTempDetails));
+
+            //EwQIMS - 48812: Dropdown field in Watermark details
+            seleniumActions.Click(ddlPositionBottomInTempDetails);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(drpPositionInTempDetails);
+            seleniumActions.Click(ddlPositionLeftInTempDetails);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(drpPositionInTempDetails);
+            seleniumActions.Click(ddlPositionRightInTempDetails);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(drpPositionInTempDetails);
+            seleniumActions.Click(ddlPositionDiagonalInTempDetails);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(drpPositionInTempDetails);
+            seleniumActions.Click(ddlPositionCenterInTempDetails);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(drpPositionInTempDetails);
+            seleniumActions.Click(ddlPositionTopInTempDetails);
+            seleniumActions.Wait(2);
+
+            // EwQIMS-48813: Opaqueness field in Watermark details
+            seleniumActions.SendKeys(inp_Opaqueness,"1");
+            seleniumActions.Click(chkIncludeWatermark);
             seleniumActions.Click(btn_Continue);
             _driver.SwitchTo().Window(originalWindow);
             seleniumActions.SwitchToDefaultContent();
