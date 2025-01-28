@@ -74,10 +74,12 @@ Scenario: EwQIMS-22153_22154 Validate Refresh from pdf preference
 	Then I validate the Levels page
 	Then Delete the Level
 
-@TC-22150
+#PDF Template - Test cases covered
+@TC-22150,17924,17925,17927,17930,17931
 Scenario: EwQIMS-22150 Validate Refresh from pdf preference
 	Given Login to the application with 'admin' user
 	When I Navigate to PDF Templates in system Page
+	Then I create a new template in Pdf template page without saving and verify it is not created
 	Then I create a new template in Pdf template page
 	Then I refresh the page
 	When Navigate to Levels in suite setup Page
@@ -96,5 +98,4 @@ Scenario: EwQIMS-22150 Validate Refresh from pdf preference
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page
 	Then Delete the Level
-
 

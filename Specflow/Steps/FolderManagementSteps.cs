@@ -814,6 +814,16 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** level PDF preference - end of TC 22150 ************ //
 
+        // *********** PDF Template - start of TC 17931 ************ //
+
+        [Then(@"I create a new template in Pdf template page without saving and verify it is not created")]
+        public void ThenICreateANewTemplateInPdfTemplatePageWithoutSavingAndVerifyItIsNotCreated()
+        {
+            docProModule.CreateANewTemplateInPdfTemplatePageWithoutSavingAndVerifyItIsNotCreated();
+        }
+
+        // *********** PDF Template - end of TC 17931 ************ //
+
         #endregion
 
     }

@@ -42,7 +42,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By lblSetup => By.XPath("//div[contains(text(),'Setup')]");
         By lblSuiteSetup => By.XPath("//div[@class='sub-menu']//span[contains(text(),'Suite Setup')]");
         By lblLevelsPage => By.XPath("(//a[@class='submenu_list_link has-arrow']//following-sibling::ul[@class='inner_submenu']//span[contains(text(),'Levels')])[2]");
-        By txtSuiteLevelHeader => By.XPath("//h5[text()='Suite  Levels']");
+        By txtSuiteLevelHeader => By.XPath("(//h5[text()='New Level'])[1]");
         By inpLevelNumber => By.XPath("//input[@id='txtLevelNum']");
         By popUp_Yes => By.XPath("//button[@id='popup_ok']");
         By inp_Levelname => By.XPath("//input[@id='txtLevelName']");
@@ -366,7 +366,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         {
             if (seleniumActions.IsElementPresent(sideMenuContainer))
             {
-                seleniumActions.Wait(5);
+                seleniumActions.Wait(3);
                 seleniumActions.Click(lblSetup);
                 seleniumActions.Click(lblSuiteSetup);
                 seleniumActions.Wait(3);
@@ -380,8 +380,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// </summary>
         public void validateLevelsPage()
         {
-            seleniumActions.SwitchToFrame(iframe_DetailView);
-            Assert.IsTrue(seleniumActions.VerifyElementIsDisplayed(txtSuiteLevelHeader));
+            seleniumActions.Wait(3);
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            Assert.IsTrue(seleniumActions.IsElementPresent(txtSuiteLevelHeader,5));
             seleniumActions.SwitchToParentFrame();
         }
 
@@ -3640,6 +3641,60 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // *********** level PDF preference - End of TC 22150 ************ //
+
+        // *********** PDF Template - start of TC 17931 ************ //
+
+        /// <summary>
+        /// creates new template in pdf template page without saving and verify it is not created
+        /// </summary>
+        public void CreateANewTemplateInPdfTemplatePageWithoutSavingAndVerifyItIsNotCreated()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Click(btnAdd_PdfTemplate);
+
+            // Store the current window handle
+            string originalWindow = _driver.CurrentWindowHandle;
+            // Get all window handles
+            IReadOnlyCollection<string> allWindows = _driver.WindowHandles;
+
+            // Switch to the new window
+            foreach (string windowHandle in allWindows)
+            {
+                if (windowHandle != originalWindow)
+                {
+                    _driver.SwitchTo().Window(windowHandle);
+                    break;
+                }
+            }
+            seleniumActions.Click(btn_Continue);
+            Assert.IsTrue(seleniumActions.GetText(lbl_FrequencyAlert).Contains("Template name cannot be empty"));
+            seleniumActions.SendKeys(txtTemplateName, "QATesting");
+            seleniumActions.Click(chkIncludeWatermark);
+            seleniumActions.Click(chkIncludeHeader);
+            seleniumActions.Click(chkIncludeFooter);
+            seleniumActions.Click(chkIncludeCoverPage);
+            _driver.Close();
+            _driver.SwitchTo().Window(originalWindow);
+            seleniumActions.SwitchToDefaultContent();
+
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch, 5));
+            seleniumActions.Click(btnMultiSearch);
+            seleniumActions.Wait(4);
+            Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch, 5));
+            seleniumActions.Click(drpColumn_MultiSearch);
+            seleniumActions.Click(ddlTempName_MultiSearch);
+            seleniumActions.Click(drpCondition_MultiSearch);
+            seleniumActions.Click(ddlContains_MultiSearch);
+            seleniumActions.Click(inp_MultiSearch);
+            seleniumActions.SendKeys(inp_MultiSearch, "QATesting");
+            seleniumActions.Click(btnAdvancedSearch_MultiSearch);
+            seleniumActions.Wait(3);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lbl_NoRecordsToDisplay, 5), "(There are no records to display) text is present");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** PDF Template - start of TC 17931 ************ //
 
         #endregion
     }
