@@ -339,13 +339,15 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By ddlQATesting_LevelPDFPreference => By.XPath("//label[contains(text(),'Template')]//following::select[@class='custom-select']//option[contains(text(),'QATesting')]");
         By chk_FirstRowInActive => By.XPath("//tbody//tr[@role='row' and @class='odd']//input[@type='checkbox']");
         By drpPositionInTempDetails => By.XPath("//select[@id='drpwMarkPosition']");
-        By ddlPositionTopInTempDetails => By.XPath("(//select[@id='drpwMarkPosition']/options)[1]");
-        By ddlPositionBottomInTempDetails => By.XPath("(//select[@id='drpwMarkPosition']/options)[2]");
-        By ddlPositionLeftInTempDetails => By.XPath("(//select[@id='drpwMarkPosition']/options)[3]");
-        By ddlPositionRightInTempDetails => By.XPath("(//select[@id='drpwMarkPosition']/options)[4]");
-        By ddlPositionDiagonalInTempDetails => By.XPath("(//select[@id='drpwMarkPosition']/options)[5]");
-        By ddlPositionCenterInTempDetails => By.XPath("(//select[@id='drpwMarkPosition']/options)[6]");
+        By ddlPositionTopInTempDetails => By.XPath("(//select[@id='drpwMarkPosition']/option)[1]");
+        By ddlPositionBottomInTempDetails => By.XPath("(//select[@id='drpwMarkPosition']/option)[2]");
+        By ddlPositionLeftInTempDetails => By.XPath("(//select[@id='drpwMarkPosition']/option)[3]");
+        By ddlPositionRightInTempDetails => By.XPath("(//select[@id='drpwMarkPosition']/option)[4]");
+        By ddlPositionDiagonalInTempDetails => By.XPath("(//select[@id='drpwMarkPosition']/option)[5]");
+        By ddlPositionCenterInTempDetails => By.XPath("(//select[@id='drpwMarkPosition']/option)[6]");
         By inp_Opaqueness => By.XPath("//input[@id='txtOpaqueness']");
+        By lblTempNameInPdfTempPage => By.XPath("(//td[@class='sorting_1']/a)[1]");
+        By btn_YesApplyToAllDoc => By.XPath("//button[@title='Yes Apply to All Documents']");
 
         #endregion
 
@@ -406,13 +408,15 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
                 levelName = "Automation-" + utility.CurrentTime();
             }
 
-            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            //seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            seleniumActions.SwitchToFrame(iframe_Tree);
             seleniumActions.Click(inpLevelNumber);
             seleniumActions.Click(popUp_Yes);
             seleniumActions.SendKeys(inpLevelNumber, utility.CurrentTime());
             seleniumActions.SendKeys(inp_Levelname, levelName);
             seleniumActions.Click(btn_save);
-            seleniumActions.VerifyElementIsDisplayed(By.XPath("//h5[contains(text(),'Level - " + levelName + "')]"));
+            seleniumActions.Wait(2);
+            seleniumActions.IsElementPresent(By.XPath("//h5[contains(text(),'Level - " + levelName + "')]"));
             seleniumActions.SwitchToDefaultContent();
             return levelName;
         }
@@ -483,7 +487,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         public void SelectSiteSubLevelCreationCheckbox()
         {
-            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            //seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.SwitchToFrame(iframe_Tree);
             seleniumActions.Click(chk_SiteSubLevel);
             seleniumActions.Click(btn_save);
             seleniumActions.SwitchToDefaultContent();
@@ -528,7 +533,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// <param name="LevelName"></param>
         public void DeleteLevelByHovering(String LevelName)
         {
-            seleniumActions.SwitchToIframes(iframe_DetailView);
+            //seleniumActions.SwitchToFrame(iframe_DetailView);
             seleniumActions.Click(btn_refreshLevel);
             seleniumActions.MoveToElement(By.XPath("//table[@class='Tbltitle']//ul[@id='TOCDoclvl']//a[contains(@title,'" + LevelName + "')]"));
             seleniumActions.Click(By.XPath("(//table[@class='Tbltitle']//ul[@id='TOCDoclvl']//a[contains(@title,'" + LevelName + "')]//following::*[local-name()='svg' and contains(@class,'trash')])[1]"));
@@ -3736,6 +3741,56 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         // *********** PDF Template - start of TC 17931 ************ //
+
+        // *********** PDF Template - start of TC 18034 ************ //
+
+        /// <summary>
+        /// edit the existing template and verify the template name is changed in pdf templates page
+        /// </summary>
+        public void EditAndVerifyExistingPDFTemplate()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch, 5));
+            seleniumActions.Click(btnMultiSearch);
+            seleniumActions.Wait(4);
+            Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch, 5));
+            seleniumActions.Click(drpColumn_MultiSearch);
+            seleniumActions.Click(ddlTempName_MultiSearch);
+            seleniumActions.Click(drpCondition_MultiSearch);
+            seleniumActions.Click(ddlContains_MultiSearch);
+            seleniumActions.Click(inp_MultiSearch);
+            seleniumActions.SendKeys(inp_MultiSearch, "QATesting");
+            seleniumActions.Click(btnAdvancedSearch_MultiSearch);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(lblTempNameInPdfTempPage);
+
+            // Store the current window handle
+            string originalWindow = _driver.CurrentWindowHandle;
+            // Get all window handles
+            IReadOnlyCollection<string> allWindows = _driver.WindowHandles;
+
+            // Switch to the new window
+            foreach (string windowHandle in allWindows)
+            {
+                if (windowHandle != originalWindow)
+                {
+                    _driver.SwitchTo().Window(windowHandle);
+                    break;
+                }
+            }
+            seleniumActions.SendKeys(txtTemplateName, "Updated QATesting");
+            seleniumActions.Click(btn_Continue);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btn_YesApplyToAllDoc,5));
+            seleniumActions.Click(btn_YesApplyToAllDoc);
+            _driver.SwitchTo().Window(originalWindow);
+            seleniumActions.SwitchToDefaultContent();
+
+            seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.GetText(lblTempNameInPdfTempPage).Equals("Updated QATesting");
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** PDF Template - end of TC 18034 ************ //
 
         #endregion
     }

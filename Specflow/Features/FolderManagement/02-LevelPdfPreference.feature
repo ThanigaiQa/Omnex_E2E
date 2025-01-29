@@ -20,7 +20,7 @@ Scenario: EwQIMS_22999_Validate Display of Level PDF preferences
 	Then Delete the Level
 
 @TC-22144
-Scenario: EwQIMS_22144:_Validate to select the template from drop down in level pdf preference.
+Scenario: EwQIMS_22144_Validate to select the template from drop down in level pdf preference.
 	Given Login to the application with 'admin' user
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page
@@ -40,7 +40,7 @@ Scenario: EwQIMS_22144:_Validate to select the template from drop down in level 
 	Then Delete the Level
 
 @TC-22149
-Scenario: EwQIMS-22149 Check box unselecting
+Scenario: EwQIMS_22149_Check box unselecting
 	Given Login to the application with 'admin' user
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page
@@ -57,7 +57,7 @@ Scenario: EwQIMS-22149 Check box unselecting
 	Then Delete the Level
  
 @TC-22153_22154
-Scenario: EwQIMS-22153_22154 Validate Refresh from pdf preference
+Scenario: EwQIMS_22153_22154_Validate Refresh from pdf preference
 	Given Login to the application with 'admin' user
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page
@@ -76,7 +76,7 @@ Scenario: EwQIMS-22153_22154 Validate Refresh from pdf preference
 
 #PDF Template - Test cases covered
 @TC-22150,17924,17925,17927,17930,17931,18035,48801,48812,48813
-Scenario: EwQIMS-22150 Validate Refresh from pdf preference
+Scenario: EwQIMS_22150_Validate Refresh from pdf preference
 	Given Login to the application with 'admin' user
 	When I Navigate to PDF Templates in system Page
 	Then I create a new template in Pdf template page without saving and verify it is not created
@@ -98,4 +98,13 @@ Scenario: EwQIMS-22150 Validate Refresh from pdf preference
 	When Navigate to Levels in suite setup Page
 	Then I validate the Levels page
 	Then Delete the Level
+
+@TC-18034
+Scenario: EwQIMS_18034_Edit the Template in PDF Template
+	Given Login to the application with 'admin' user
+	When I Navigate to PDF Templates in system Page
+	Then I create a new template in Pdf template page
+	Then I edit the existing template and verify template in Pdf template page
+	Then I delete the newly created template in Pdf template page
+	
 

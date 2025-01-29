@@ -824,6 +824,16 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** PDF Template - end of TC 17931 ************ //
 
+        // *********** PDF Template - start of TC 18034 ************ //
+
+        [Then(@"I edit the existing template and verify template in Pdf template page")]
+        public void ThenIEditTheExistingTemplateAndVerifyTemplateInPdfTemplatePage()
+        {
+            docProModule.EditAndVerifyExistingPDFTemplate();
+        }
+
+        // *********** PDF Template - end of TC 18034 ************ //
+
         #endregion
 
     }

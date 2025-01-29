@@ -497,6 +497,7 @@ namespace OMNEX.AUTOMATION.Helpers
             foreach (var iframe in iframeLocators)
             {
                 IWebElement iframeElement = _driver.FindElement(iframe);
+                Thread.Sleep(2000);
                 _driver.SwitchTo().Frame(iframeElement);
             }
         }
