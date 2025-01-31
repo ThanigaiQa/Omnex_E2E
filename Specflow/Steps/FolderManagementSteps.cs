@@ -834,6 +834,27 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** PDF Template - end of TC 18034 ************ //
 
+        // *********** PDF Template - start of TC-17938,TC-17939,TC-17941 ************ //
+
+        [Then(@"I navigate to create PDF Template window and verify the user can set review date,next review date in data field")]
+        public void ThenINavigateToCreatePDFTemplateWindowAndVerifyTheUserCanSetReviewDateNextReviewDateInDataField()
+        {
+            docProModule.NavigateToPDFTempCreationWindowAndVerifyDataFields();
+        }
+
+        // *********** PDF Template - end of TC-17938,TC-17939,TC-17941 ************ //
+
+        // *********** PDF Template - start of TC-18039-18041 ************ //
+
+        [Then(@"I verify the header , footer and include cover page details on pdf template screen")]
+        public void ThenIVerifyTheHeaderFooterAndIncludeCoverPageDetailsOnPdfTemplateScreen()
+        {
+            docProModule.EnterValuesInHeaderFooterAndIncludeCoverPageSection();
+            docProModule.VerifyValuesInHeaderFooterAndIncludeCoverPageSection();
+        }
+
+        // *********** PDF Template - end of TC-18039-18041 ************ //
+
         #endregion
 
     }

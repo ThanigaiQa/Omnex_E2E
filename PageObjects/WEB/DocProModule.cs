@@ -14,6 +14,8 @@ using Amazon.DynamoDBv2.Model;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Interactions;
 using Amazon.DynamoDBv2.DocumentModel;
+using OpenQA.Selenium.DevTools.V85.Runtime;
+using Newtonsoft.Json;
 
 namespace OMNEX.AUTOMATION.PageObjects.WEB
 {
@@ -348,6 +350,12 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By inp_Opaqueness => By.XPath("//input[@id='txtOpaqueness']");
         By lblTempNameInPdfTempPage => By.XPath("(//td[@class='sorting_1']/a)[1]");
         By btn_YesApplyToAllDoc => By.XPath("//button[@title='Yes Apply to All Documents']");
+        By drp_DataFields => By.XPath("(//a[@title='DataFields'])[1]");
+        By lblHeaderDetails => By.XPath("//div[@id='trHeaderHeading']/h6");
+        By lblFooterDetails => By.XPath("//div[@id='trFooterHeading']/h6");
+        By coverPageTab => By.XPath("//a[@id='tabpdfcpage']");
+        By lblPosition => By.XPath("//div[@id='trCPageHeader']//h5");
+        By txtHeaderDetails => By.XPath("(//html[@dir='ltr']//body[@contenteditable='true']/p)[1]");
 
         #endregion
 
@@ -365,6 +373,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         static By iframe_ResetAction => By.XPath("//iframe[contains(@class,'cke_reset')]");
         static By iframe_SelectTags => By.XPath("//iframe[@id='ifrselecttags']");
         static By iframe_water => By.XPath("//iframe[@id='iframewater']");
+        static By iframe_ckeEditor_Header => By.XPath("(//iframe[contains(@class,'wysiwyg')])[2]");
+        static By iframe_ckeEditor_Footer => By.XPath("(//iframe[contains(@class,'wysiwyg')])[3]");
+        static By iframe_ckeEditor_CoverPage => By.XPath("(//iframe[contains(@class,'wysiwyg')])[4]");
 
         #endregion
 
@@ -3792,6 +3803,193 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         // *********** PDF Template - end of TC 18034 ************ //
 
-        #endregion
-    }
+        // *********** PDF Template - start of TC-17938,TC-17939,TC-17941 ************ //
+
+        /// <summary>
+        /// navigate to PDF temp creation window and verify data fields under page details
+        /// </summary>
+        public void NavigateToPDFTempCreationWindowAndVerifyDataFields()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Click(btnAdd_PdfTemplate);
+
+            // Store the current window handle
+            string originalWindow = _driver.CurrentWindowHandle;
+            // Get all window handles
+            IReadOnlyCollection<string> allWindows = _driver.WindowHandles;
+
+            // Switch to the new window
+            foreach (string windowHandle in allWindows)
+            {
+                if (windowHandle != originalWindow)
+                {
+                    _driver.SwitchTo().Window(windowHandle);
+                    break;
+                }
+            }
+            seleniumActions.Click(chkIncludeHeader);
+            seleniumActions.Click(chkIncludeFooter);
+            seleniumActions.Click(chkIncludeCoverPage);
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor)_driver;
+            string json = (string)js.ExecuteScript("return JSON.stringify(datafields);");
+            var parsedData = JsonConvert.DeserializeObject<List<List<dynamic>>>(json);
+
+            // Example: Access first item's "Text" property
+            string firstText = parsedData[0][0]["Text"];
+            string selectedValue1 = firstText;
+            seleniumActions.Click(drp_DataFields);
+            IWebElement option = _driver.FindElement(By.XPath($"(//*[contains(text(),'{selectedValue1}')])[1]"));
+            option.Click();
+
+            _driver.Close();
+            _driver.SwitchTo().Window(originalWindow);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        // *********** PDF Template - end of TC-17938,TC-17939,TC-17941 ************ //
+
+        // *********** PDF Template - start of TC-18039-18041 ************ //
+
+        /// <summary>
+        /// enters values in header , footer and cover page details
+        /// </summary>
+        public void EnterValuesInHeaderFooterAndIncludeCoverPageSection()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch, 5));
+            seleniumActions.Click(btnMultiSearch);
+            seleniumActions.Wait(4);
+            Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch, 5));
+            seleniumActions.Click(drpColumn_MultiSearch);
+            seleniumActions.Click(ddlTempName_MultiSearch);
+            seleniumActions.Click(drpCondition_MultiSearch);
+            seleniumActions.Click(ddlContains_MultiSearch);
+            seleniumActions.Click(inp_MultiSearch);
+            seleniumActions.SendKeys(inp_MultiSearch, "QATesting");
+            seleniumActions.Click(btnAdvancedSearch_MultiSearch);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(lblTempNameInPdfTempPage);
+
+            // Store the current window handle
+            string originalWindow = _driver.CurrentWindowHandle;
+            // Get all window handles
+            IReadOnlyCollection<string> allWindows = _driver.WindowHandles;
+
+            // Switch to the new window
+            foreach (string windowHandle in allWindows)
+            {
+                if (windowHandle != originalWindow)
+                {
+                    _driver.SwitchTo().Window(windowHandle);
+                    break;
+                }
+            }
+            seleniumActions.Click(chkIncludeHeader);
+            seleniumActions.Click(chkIncludeFooter);
+            seleniumActions.Click(chkIncludeCoverPage);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblHeaderDetails));
+
+            seleniumActions.Wait(4);
+            seleniumActions.SwitchToIframes(iframe_ckeEditor_Header);
+            Assert.IsTrue(seleniumActions.IsElementPresent(txtHeaderDetails));
+            seleniumActions.SendKeys(txtHeaderDetails, "Test header");
+            seleniumActions.SwitchToDefaultContent();
+
+            seleniumActions.Wait(4);
+            seleniumActions.SwitchToIframes(iframe_ckeEditor_Footer);
+            Assert.IsTrue(seleniumActions.IsElementPresent(txtHeaderDetails));
+            seleniumActions.ScrollToElement(txtHeaderDetails);
+            seleniumActions.SendKeys(txtHeaderDetails, "Test footer");
+            seleniumActions.SwitchToDefaultContent();
+
+            seleniumActions.ScrollToElement(coverPageTab);
+            seleniumActions.Click(coverPageTab);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblPosition));
+
+            seleniumActions.Wait(4);
+            seleniumActions.SwitchToIframes(iframe_ckeEditor_CoverPage);
+            Assert.IsTrue(seleniumActions.IsElementPresent(txtHeaderDetails));
+            seleniumActions.ScrollToElement(txtHeaderDetails);
+            seleniumActions.SendKeys(txtHeaderDetails, "Test cover page");
+            seleniumActions.SwitchToDefaultContent();
+
+            seleniumActions.Click(btn_Continue);
+            seleniumActions.Click(btn_YesApplyToAllDoc);
+           
+            _driver.SwitchTo().Window(originalWindow);
+            seleniumActions.SwitchToDefaultContent();
+
+        }
+
+        /// <summary>
+        /// Verifies whether the user can enter values in header , footer and cover page details
+        /// </summary>
+        public void VerifyValuesInHeaderFooterAndIncludeCoverPageSection()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch, 5));
+            seleniumActions.Click(btnMultiSearch);
+            seleniumActions.Wait(4);
+            Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch, 5));
+            seleniumActions.Click(drpColumn_MultiSearch);
+            seleniumActions.Click(ddlTempName_MultiSearch);
+            seleniumActions.Click(drpCondition_MultiSearch);
+            seleniumActions.Click(ddlContains_MultiSearch);
+            seleniumActions.Click(inp_MultiSearch);
+            seleniumActions.SendKeys(inp_MultiSearch, "QATesting");
+            seleniumActions.Click(btnAdvancedSearch_MultiSearch);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(lblTempNameInPdfTempPage);
+
+            // Store the current window handle
+            string originalWindow = _driver.CurrentWindowHandle;
+            // Get all window handles
+            IReadOnlyCollection<string> allWindows = _driver.WindowHandles;
+
+            // Switch to the new window
+            foreach (string windowHandle in allWindows)
+            {
+                if (windowHandle != originalWindow)
+                {
+                    _driver.SwitchTo().Window(windowHandle);
+                    break;
+                }
+            }
+
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblHeaderDetails));
+
+            seleniumActions.Wait(4);
+            seleniumActions.SwitchToIframes(iframe_ckeEditor_Header);
+            Assert.IsTrue(seleniumActions.IsElementPresent(txtHeaderDetails));
+            seleniumActions.GetText(txtHeaderDetails).Equals("Test header");
+            seleniumActions.SwitchToDefaultContent();
+
+            seleniumActions.Wait(4);
+            seleniumActions.SwitchToIframes(iframe_ckeEditor_Footer);
+            Assert.IsTrue(seleniumActions.IsElementPresent(txtHeaderDetails));
+            seleniumActions.ScrollToElement(txtHeaderDetails);
+            seleniumActions.GetText(txtHeaderDetails).Equals("Test footer");
+            seleniumActions.SwitchToDefaultContent();
+
+            seleniumActions.ScrollToElement(coverPageTab);
+            seleniumActions.Click(coverPageTab);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblPosition));
+
+            seleniumActions.Wait(4);
+            seleniumActions.SwitchToIframes(iframe_ckeEditor_CoverPage);
+            Assert.IsTrue(seleniumActions.IsElementPresent(txtHeaderDetails));
+            seleniumActions.ScrollToElement(txtHeaderDetails);
+            seleniumActions.GetText(txtHeaderDetails).Equals("Test cover page");
+            seleniumActions.SwitchToDefaultContent();
+
+            _driver.Close();
+            _driver.SwitchTo().Window(originalWindow);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+            // *********** PDF Template - end of TC-18039-18041 ************ //
+
+            #endregion
+        }
 }

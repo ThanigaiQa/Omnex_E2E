@@ -106,5 +106,21 @@ Scenario: EwQIMS_18034_Edit the Template in PDF Template
 	Then I create a new template in Pdf template page
 	Then I edit the existing template and verify template in Pdf template page
 	Then I delete the newly created template in Pdf template page
+
+@TC-17938,TC-17939,TC-17941
+Scenario: EwQIMS_17938_Admin to set the Data field in PDF Template
+	Given Login to the application with 'admin' user
+	When I Navigate to PDF Templates in system Page
+	Then I navigate to create PDF Template window and verify the user can set review date,next review date in data field
+
+@TC-18039To18041
+Scenario: EwQIMS_18039_To_18041_Save the Header details
+	Given Login to the application with 'admin' user
+	When I Navigate to PDF Templates in system Page
+	Then I create a new template in Pdf template page
+	Then I verify the header , footer and include cover page details on pdf template screen
+	Then I delete the newly created template in Pdf template page
+	
+
 	
 
