@@ -3653,6 +3653,63 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         /// <summary>
+        /// Verify Checkboxes From Template Name 
+        /// </summary>
+        /// 
+        public void VerifyCheckboxesFromTemplateName()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Click(btnAdd_PdfTemplate);
+            // Store the current window handle
+            string originalWindow = _driver.CurrentWindowHandle;
+            // Get all window handles
+            IReadOnlyCollection<string> allWindows = _driver.WindowHandles;
+
+            // Switch to the new window
+            foreach (string windowHandle in allWindows)
+            {
+                if (windowHandle != originalWindow)
+                {
+                    _driver.SwitchTo().Window(windowHandle);
+                    break;
+                }
+            }
+            var checkIncludeWatermark = new WebDriverWait(_driver, TimeSpan.FromSeconds(10))
+            .Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.XPath("//label[@for='chkIncludeWMark']")));
+            if (checkIncludeWatermark.Displayed && checkIncludeWatermark.Enabled)
+            {
+                checkIncludeWatermark.Click();
+            }
+            var ChkIncludeHeader = new WebDriverWait(_driver, TimeSpan.FromSeconds(10))
+            .Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.XPath("//label[@for='chkIncludeHeader']")));
+            if (ChkIncludeHeader.Displayed && ChkIncludeHeader.Enabled)
+            {
+                ChkIncludeHeader.Click();
+            }
+
+            var ChkIncludeFooter = new WebDriverWait(_driver, TimeSpan.FromSeconds(10))
+            .Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.XPath("//label[@for='chkIncludeFooter']")));
+            if (ChkIncludeFooter.Displayed && ChkIncludeFooter.Enabled)
+            {
+                ChkIncludeFooter.Click();
+            }
+
+            var ChkIncludeCoverPage = new WebDriverWait(_driver, TimeSpan.FromSeconds(10))
+            .Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.XPath("//label[@for='chkIncludeCPage']")));
+            if (ChkIncludeCoverPage.Displayed && ChkIncludeCoverPage.Enabled)
+            {
+                ChkIncludeCoverPage.Click();
+            }
+            seleniumActions.Wait(3);
+            Assert.IsTrue(seleniumActions.IsElementPresent(chkIncludeWatermark));
+            Assert.IsTrue(seleniumActions.IsElementPresent(chkIncludeHeader));
+            Assert.IsTrue(seleniumActions.IsElementPresent(chkIncludeFooter));
+            Assert.IsTrue(seleniumActions.IsElementPresent(chkIncludeCoverPage));
+            seleniumActions.SwitchToDefaultContent();
+
+        }
+
+        /// <summary>
         /// verifies new template is visible from template dropdown
         /// </summary>
         public void VerifyNewTemplateIsVisibleFromTemplateDropdown()
@@ -3671,6 +3728,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.IsElementPresent(ddlQATesting_LevelPDFPreference));
             seleniumActions.SwitchToDefaultContent();
         }
+
+
 
         /// <summary>
         /// deletes newly created template in pdf template

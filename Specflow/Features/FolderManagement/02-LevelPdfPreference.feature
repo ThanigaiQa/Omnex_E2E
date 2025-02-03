@@ -99,6 +99,14 @@ Scenario: EwQIMS_22150_Validate Refresh from pdf preference
 	Then I validate the Levels page
 	Then Delete the Level
 
+	@TC-18038
+Scenario: EwQIMS_18039 Save the Watermaark details
+	Given Login to the application with 'admin' user
+	When I Navigate to PDF Templates in system Page
+	Then I create a new template in Pdf template page
+	Then I verify the header , footer and include cover page details on pdf template screen
+	Then I delete the newly created template in Pdf template page
+
 @TC-18034
 Scenario: EwQIMS_18034_Edit the Template in PDF Template
 	Given Login to the application with 'admin' user
@@ -120,6 +128,13 @@ Scenario: EwQIMS_18039_To_18041_Save the Header details
 	Then I create a new template in Pdf template page
 	Then I verify the header , footer and include cover page details on pdf template screen
 	Then I delete the newly created template in Pdf template page
+
+
+	@TC-18024
+Scenario:EwQIMS_18024_Checkboxes in PDF Template 
+	Given Login to the application with 'admin' user
+	When I Navigate to PDF Templates in system Page
+	Then I validate User  can Check the checkboxes in Include Water Mark, Include header, footer, Cover page
 	
 
 	

@@ -855,6 +855,15 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** PDF Template - end of TC-18039-18041 ************ //
 
+        // *********** PDF Template - start of TC-18024 ************ //
+
+        [Then(@"I validate User  can Check the checkboxes in Include Water Mark, Include header, footer, Cover page")]
+        public void ThenIValidateUserCanCheckTheCheckboxesInIncludeWaterMarkIncludeHeaderFooterCoverPage()
+        {
+            docProModule.VerifyCheckboxesFromTemplateName();
+        }
+        // *********** PDF Template - end of TC-18024  ************ //
+
         #endregion
 
     }
