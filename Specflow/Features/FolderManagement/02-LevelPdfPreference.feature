@@ -129,8 +129,7 @@ Scenario: EwQIMS_18039_To_18041_Save the Header details
 	Then I verify the header , footer and include cover page details on pdf template screen
 	Then I delete the newly created template in Pdf template page
 
-
-	@TC-18024
+@TC-18024
 Scenario:EwQIMS_18024_Checkboxes in PDF Template 
 	Given Login to the application with 'admin' user
 	When I Navigate to PDF Templates in system Page

@@ -350,12 +350,14 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By inp_Opaqueness => By.XPath("//input[@id='txtOpaqueness']");
         By lblTempNameInPdfTempPage => By.XPath("(//td[@class='sorting_1']/a)[1]");
         By btn_YesApplyToAllDoc => By.XPath("//button[@title='Yes Apply to All Documents']");
-        By drp_DataFields => By.XPath("(//a[@title='DataFields'])[1]");
+        By drp_DataFields_Watermark => By.XPath("(//a[@title='DataFields'])[1]");
+        By drp_DataFields_CoverPage => By.XPath("(//a[@title='DataFields'])[4]");
         By lblHeaderDetails => By.XPath("//div[@id='trHeaderHeading']/h6");
         By lblFooterDetails => By.XPath("//div[@id='trFooterHeading']/h6");
         By coverPageTab => By.XPath("//a[@id='tabpdfcpage']");
         By lblPosition => By.XPath("//div[@id='trCPageHeader']//h5");
         By txtHeaderDetails => By.XPath("(//html[@dir='ltr']//body[@contenteditable='true']/p)[1]");
+        By txtCoverPageDetails => By.XPath("(//html[@dir='ltr']//body[@contenteditable='true']/p)[4]");
 
         #endregion
 
@@ -373,6 +375,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         static By iframe_ResetAction => By.XPath("//iframe[contains(@class,'cke_reset')]");
         static By iframe_SelectTags => By.XPath("//iframe[@id='ifrselecttags']");
         static By iframe_water => By.XPath("//iframe[@id='iframewater']");
+        static By iframe_ckeEditor_Watermark => By.XPath("(//iframe[contains(@class,'wysiwyg')])[1]");
         static By iframe_ckeEditor_Header => By.XPath("(//iframe[contains(@class,'wysiwyg')])[2]");
         static By iframe_ckeEditor_Footer => By.XPath("(//iframe[contains(@class,'wysiwyg')])[3]");
         static By iframe_ckeEditor_CoverPage => By.XPath("(//iframe[contains(@class,'wysiwyg')])[4]");
@@ -404,7 +407,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         {
             seleniumActions.Wait(3);
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
-            Assert.IsTrue(seleniumActions.IsElementPresent(txtSuiteLevelHeader,5));
+            Assert.IsTrue(seleniumActions.IsElementPresent(txtSuiteLevelHeader, 5));
             seleniumActions.SwitchToParentFrame();
         }
 
@@ -3565,10 +3568,10 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Wait(3);
             seleniumActions.SwitchToIframes(iframe_Tree, iframe_water);
             seleniumActions.Wait(3);
-            Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch,5));
+            Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch, 5));
             seleniumActions.Click(btnMultiSearch);
             seleniumActions.Wait(4);
-            Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch,5));
+            Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch, 5));
             seleniumActions.Click(drpColumn_MultiSearch);
             seleniumActions.Click(ddlModules_MultiSearch);
             seleniumActions.Click(drpCondition_MultiSearch);
@@ -3580,7 +3583,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.GetText(lbl_NoRecordsToDisplay).Contains("There are no records to display"));
             seleniumActions.Click(btn_LevelPDFRestart);
             seleniumActions.Wait(3);
-            Assert.IsFalse(seleniumActions.IsElementPresent(lbl_NoRecordsToDisplay,5), "(There are no records to display) text is present");
+            Assert.IsFalse(seleniumActions.IsElementPresent(lbl_NoRecordsToDisplay, 5), "(There are no records to display) text is present");
             seleniumActions.SwitchToDefaultContent();
         }
 
@@ -3610,7 +3613,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
                     break;
                 }
             }
-            seleniumActions.SendKeys(txtTemplateName,"QATesting");
+            seleniumActions.SendKeys(txtTemplateName, "QATesting");
             seleniumActions.Click(chkIncludeHeader);
             seleniumActions.Click(chkIncludeFooter);
             seleniumActions.Click(chkIncludeCoverPage);
@@ -3645,7 +3648,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Wait(2);
 
             // EwQIMS-48813: Opaqueness field in Watermark details
-            seleniumActions.SendKeys(inp_Opaqueness,"1");
+            seleniumActions.SendKeys(inp_Opaqueness, "1");
             seleniumActions.Click(chkIncludeWatermark);
             seleniumActions.Click(btn_Continue);
             _driver.SwitchTo().Window(originalWindow);
@@ -3752,7 +3755,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(chk_FirstRowInActive);
             seleniumActions.Wait(4);
             seleniumActions.Click(btnDelete_PdfTemplate);
-            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage,5));
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblDeletedSuccessMessage, 5));
             seleniumActions.SwitchToDefaultContent();
         }
 
@@ -3850,7 +3853,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             }
             seleniumActions.SendKeys(txtTemplateName, "Updated QATesting");
             seleniumActions.Click(btn_Continue);
-            Assert.IsTrue(seleniumActions.IsElementPresent(btn_YesApplyToAllDoc,5));
+            Assert.IsTrue(seleniumActions.IsElementPresent(btn_YesApplyToAllDoc, 5));
             seleniumActions.Click(btn_YesApplyToAllDoc);
             _driver.SwitchTo().Window(originalWindow);
             seleniumActions.SwitchToDefaultContent();
@@ -3890,16 +3893,35 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(chkIncludeFooter);
             seleniumActions.Click(chkIncludeCoverPage);
 
-            IJavaScriptExecutor js = (IJavaScriptExecutor)_driver;
-            string json = (string)js.ExecuteScript("return JSON.stringify(datafields);");
-            var parsedData = JsonConvert.DeserializeObject<List<List<dynamic>>>(json);
+            seleniumActions.Click(drp_DataFields_Watermark);
+            Actions actions = new Actions(_driver);
+            actions.SendKeys(Keys.End).Perform();
+            for (int i = 0; i <= 4; i++)
+            {
+                actions.SendKeys(Keys.ArrowUp).Perform();
+            }
+            actions.SendKeys(Keys.ArrowUp).SendKeys(Keys.Enter).Perform();
+            seleniumActions.SwitchToIframes(iframe_ckeEditor_Watermark);
+            string txtWatermarkDetails = seleniumActions.GetText(txtHeaderDetails);
+            Assert.IsTrue(txtWatermarkDetails.Contains("Next Review Date"));
+            seleniumActions.SwitchToDefaultContent();
 
-            // Example: Access first item's "Text" property
-            string firstText = parsedData[0][0]["Text"];
-            string selectedValue1 = firstText;
-            seleniumActions.Click(drp_DataFields);
-            IWebElement option = _driver.FindElement(By.XPath($"(//*[contains(text(),'{selectedValue1}')])[1]"));
-            option.Click();
+            seleniumActions.Wait(3);
+            seleniumActions.Click(chkIncludeCoverPage);
+            seleniumActions.Click(coverPageTab);
+            seleniumActions.WaitForElementToExists(drp_DataFields_CoverPage);
+            seleniumActions.Click(drp_DataFields_CoverPage);
+            actions.SendKeys(Keys.End).Perform();
+            for (int i = 0; i <= 3; i++)
+            {
+                actions.SendKeys(Keys.ArrowUp).Perform();
+            }
+            actions.SendKeys(Keys.ArrowUp).SendKeys(Keys.Enter).Perform();
+           
+            seleniumActions.SwitchToFrame(iframe_ckeEditor_CoverPage);
+            //string txtCoverDetails = seleniumActions.GetText(txtCoverPageDetails);
+            //Assert.IsTrue(txtCoverDetails.Contains("Review Date"));
+            seleniumActions.SwitchToDefaultContent();
 
             _driver.Close();
             _driver.SwitchTo().Window(originalWindow);
@@ -3975,7 +3997,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
             seleniumActions.Click(btn_Continue);
             seleniumActions.Click(btn_YesApplyToAllDoc);
-           
+
             _driver.SwitchTo().Window(originalWindow);
             seleniumActions.SwitchToDefaultContent();
 
@@ -4047,8 +4069,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToDefaultContent();
         }
 
-            // *********** PDF Template - end of TC-18039-18041 ************ //
+        // *********** PDF Template - end of TC-18039-18041 ************ //
 
-            #endregion
-        }
+        #endregion
+    }
 }
