@@ -289,6 +289,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btn_LevelPDFUseSiteDefault => By.XPath("//button[@id='btnDefaultSave']");
         By btn_LevelApplyThisToAllSubLevels => By.XPath("//button[@id='btnApplyToChild']");
         By btn_LevelPDFShowSamplePDF => By.XPath("//button[@id='btnShowTemplate']");
+        By btn_PDFShowSamplePDF => By.XPath("//button[@id='btnshowpdf']");
         By drp_LevelPDFSearch => By.XPath("//select[contains(@class,'datatablefilter') and contains(@id,'gridModPDFDocTypes')]");
         By pagination_LevelPDFPagination => By.XPath("//div[@id='gridModPDFDocTypes_paginate']");
         By txt_Search => By.XPath("//span[contains(@class,'search--dropdown')]//input[@type='search']");
@@ -3862,6 +3863,75 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.GetText(lblTempNameInPdfTempPage).Equals("Updated QATesting");
             seleniumActions.SwitchToDefaultContent();
         }
+
+        // *********** PDF Template - end of TC 18034 ************ //
+
+        // *********** PDF Template - start of TC 18034 ************ //
+
+        /// <summary>
+        /// The user should be able to view the sample PDF Template with all the details entered.	
+        /// </summary>
+        public void ValidateShowTemplateScreen()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            seleniumActions.Click(btnAdd_PdfTemplate);
+
+            // Store the current window handle
+            string originalWindow = _driver.CurrentWindowHandle;
+            // Get all window handles
+            IReadOnlyCollection<string> allWindows = _driver.WindowHandles;
+
+            // Switch to the new window
+            foreach (string windowHandle in allWindows)
+            {
+                if (windowHandle != originalWindow)
+                {
+                    _driver.SwitchTo().Window(windowHandle);
+                    break;
+                }
+            }
+            seleniumActions.SendKeys(txtTemplateName, "QATesting");
+            seleniumActions.Click(chkIncludeHeader);
+            seleniumActions.Click(chkIncludeFooter);
+            seleniumActions.Click(chkIncludeCoverPage);
+
+            //EwQIMS - 48801: Position dropdown field
+            Assert.IsTrue(seleniumActions.IsElementPresent(drpPositionInTempDetails));
+            seleniumActions.Click(drpPositionInTempDetails);
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddlPositionTopInTempDetails));
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddlPositionBottomInTempDetails));
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddlPositionLeftInTempDetails));
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddlPositionRightInTempDetails));
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddlPositionDiagonalInTempDetails));
+            Assert.IsTrue(seleniumActions.IsElementPresent(ddlPositionCenterInTempDetails));
+
+            //EwQIMS - 48812: Dropdown field in Watermark details
+            seleniumActions.Click(ddlPositionBottomInTempDetails);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(drpPositionInTempDetails);
+            seleniumActions.Click(ddlPositionLeftInTempDetails);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(drpPositionInTempDetails);
+            seleniumActions.Click(ddlPositionRightInTempDetails);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(drpPositionInTempDetails);
+            seleniumActions.Click(ddlPositionDiagonalInTempDetails);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(drpPositionInTempDetails);
+            seleniumActions.Click(ddlPositionCenterInTempDetails);
+            seleniumActions.Wait(2);
+            seleniumActions.Click(drpPositionInTempDetails);
+            seleniumActions.Click(ddlPositionTopInTempDetails);
+            seleniumActions.Wait(2);
+
+            // EwQIMS-48813: Opaqueness field in Watermark details
+            seleniumActions.SendKeys(inp_Opaqueness, "1");
+            seleniumActions.Click(chkIncludeWatermark);
+            seleniumActions.Click(btn_PDFShowSamplePDF);
+            _driver.SwitchTo().Window(originalWindow);
+            seleniumActions.SwitchToDefaultContent();
+        }
+        
 
         // *********** PDF Template - end of TC 18034 ************ //
 

@@ -134,6 +134,15 @@ Scenario:EwQIMS_18024_Checkboxes in PDF Template
 	Given Login to the application with 'admin' user
 	When I Navigate to PDF Templates in system Page
 	Then I validate User  can Check the checkboxes in Include Water Mark, Include header, footer, Cover page
+
+@TC-17929
+Scenario: EwQIMS_17929 Validate user can view the sample PDF after entering the Template Details 
+	Given Login to the application with 'admin' user
+	When I Navigate to PDF Templates in system Page
+	Then I create a new template in Pdf template page
+	Then I Validate Show template screen view the sample PDF Template with all the details entered
+	Then I delete the newly created template in Pdf template page
+	
 	
 
 	
