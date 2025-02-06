@@ -4140,6 +4140,40 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         // *********** PDF Template - end of TC-18039-18041 ************ //
 
+        // *********** PDF Template - start of TC-48814 ************ //
+
+        /// <summary>
+        /// click existing template from PDF template page
+        /// </summary>
+        public void ClickExistingTemplateFromPDFTemplatePage()
+        {
+            seleniumActions.SwitchToIframes(iframe_DetailView);
+            Assert.IsTrue(seleniumActions.IsElementPresent(btnMultiSearch, 5));
+            seleniumActions.Click(btnMultiSearch);
+            seleniumActions.Wait(4);
+            Assert.IsTrue(seleniumActions.IsElementPresent(drpColumn_MultiSearch, 5));
+            seleniumActions.Click(drpColumn_MultiSearch);
+            seleniumActions.Click(ddlTempName_MultiSearch);
+            seleniumActions.Click(drpCondition_MultiSearch);
+            seleniumActions.Click(ddlContains_MultiSearch);
+            seleniumActions.Click(inp_MultiSearch);
+            seleniumActions.SendKeys(inp_MultiSearch, "Automation Template");
+            seleniumActions.Click(btnAdvancedSearch_MultiSearch);
+            seleniumActions.Wait(3);
+            seleniumActions.Click(lblTempNameInPdfTempPage);
+            seleniumActions.SwitchToDefaultContent();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void ValidateLoadPreviousButtonPage()
+        {
+
+        }
+
+        // *********** PDF Template - end of TC-48814 ************ //
+
         #endregion
     }
 }

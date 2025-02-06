@@ -99,8 +99,8 @@ Scenario: EwQIMS_22150_Validate Refresh from pdf preference
 	Then I validate the Levels page
 	Then Delete the Level
 
-	@TC-18038
-Scenario: EwQIMS_18039 Save the Watermaark details
+@TC-18038
+Scenario: EwQIMS_18038_Save the Watermark details
 	Given Login to the application with 'admin' user
 	When I Navigate to PDF Templates in system Page
 	Then I create a new template in Pdf template page
@@ -133,7 +133,7 @@ Scenario: EwQIMS_18039_To_18041_Save the Header details
 Scenario:EwQIMS_18024_Checkboxes in PDF Template 
 	Given Login to the application with 'admin' user
 	When I Navigate to PDF Templates in system Page
-	Then I validate User  can Check the checkboxes in Include Water Mark, Include header, footer, Cover page
+	Then I validate User can check the checkboxes in Include Water Mark, Include header, footer, Cover page
 
 @TC-17929
 Scenario: EwQIMS_17929 Validate user can view the sample PDF after entering the Template Details 
@@ -143,6 +143,13 @@ Scenario: EwQIMS_17929 Validate user can view the sample PDF after entering the 
 	Then I Validate Show template screen view the sample PDF Template with all the details entered
 	Then I delete the newly created template in Pdf template page
 	
+	
+@TC-48814
+Scenario:EwQIMS_48814_Validate the Load Previous version button
+	Given Login to the application with 'admin' user
+	When I Navigate to PDF Templates in system Page
+	Then I click on the already existing pdf template
+	Then I click on load previous button and validate the load previous button page
 	
 
 	

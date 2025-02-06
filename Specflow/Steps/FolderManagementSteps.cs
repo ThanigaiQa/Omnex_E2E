@@ -857,7 +857,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
 
         // *********** PDF Template - start of TC-18024 ************ //
 
-        [Then(@"I validate User  can Check the checkboxes in Include Water Mark, Include header, footer, Cover page")]
+        [Then(@"I validate User can check the checkboxes in Include Water Mark, Include header, footer, Cover page")]
         public void ThenIValidateUserCanCheckTheCheckboxesInIncludeWaterMarkIncludeHeaderFooterCoverPage()
         {
             docProModule.VerifyCheckboxesFromTemplateName();
@@ -873,6 +873,22 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         // *********** PDF Template - end of TC-17929  ************ //
+
+        // *********** PDF Template - start of TC-48814  ************ //
+
+        [Then(@"I click on the already existing pdf template")]
+        public void ThenIClickOnTheAlreadyExistingPdfTemplate()
+        {
+            docProModule.ClickExistingTemplateFromPDFTemplatePage();
+        }
+
+        [Then(@"I click on load previous button and validate the load previous button page")]
+        public void ThenIClickOnLoadPreviousButtonAndValidateTheLoadPreviousButtonPage()
+        {
+            docProModule.ValidateLoadPreviousButtonPage();
+        }
+
+        // *********** PDF Template - end of TC-48814  ************ //
 
         #endregion
 
