@@ -3866,7 +3866,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         // *********** PDF Template - end of TC 18034 ************ //
 
-        // *********** PDF Template - start of TC 18034 ************ //
+        // *********** PDF Template - start of TC 17929 ************ //
 
         /// <summary>
         /// The user should be able to view the sample PDF Template with all the details entered.	
@@ -3931,9 +3931,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             _driver.SwitchTo().Window(originalWindow);
             seleniumActions.SwitchToDefaultContent();
         }
-        
 
-        // *********** PDF Template - end of TC 18034 ************ //
+        // *********** PDF Template - end of TC 17929 ************ //
 
         // *********** PDF Template - start of TC-17938,TC-17939,TC-17941 ************ //
 

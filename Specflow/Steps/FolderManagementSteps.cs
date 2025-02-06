@@ -864,6 +864,16 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
         // *********** PDF Template - end of TC-18024  ************ //
 
+        // *********** PDF Template - start of TC-17929  ************ //
+
+        [Then(@"I Validate Show template screen view the sample PDF Template with all the details entered")]
+        public void ThenIValidateShowTemplateScreenViewTheSamplePDFTemplateWithAllTheDetailsEntered()
+        {
+            docProModule.ValidateShowTemplateScreen();
+        }
+
+        // *********** PDF Template - end of TC-17929  ************ //
+
         #endregion
 
     }
