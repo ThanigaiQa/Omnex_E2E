@@ -143,7 +143,6 @@ Scenario: EwQIMS_17929 Validate user can view the sample PDF after entering the 
 	Then I Validate Show template screen view the sample PDF Template with all the details entered
 	Then I delete the newly created template in Pdf template page
 	
-	
 @TC-48814
 Scenario:EwQIMS_48814_Validate the Load Previous version button
 	Given Login to the application with 'admin' user

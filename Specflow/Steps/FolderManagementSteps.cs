@@ -885,6 +885,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         [Then(@"I click on load previous button and validate the load previous button page")]
         public void ThenIClickOnLoadPreviousButtonAndValidateTheLoadPreviousButtonPage()
         {
+            docProModule.ClickLoadPreviousButton();
             docProModule.ValidateLoadPreviousButtonPage();
         }
 

@@ -359,6 +359,11 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By lblPosition => By.XPath("//div[@id='trCPageHeader']//h5");
         By txtHeaderDetails => By.XPath("(//html[@dir='ltr']//body[@contenteditable='true']/p)[1]");
         By txtCoverPageDetails => By.XPath("(//html[@dir='ltr']//body[@contenteditable='true']/p)[4]");
+        By btnLoadPrevious => By.XPath("//button[@id='btnldprvtemp']");
+        By lblTempName_LoadPrev => By.XPath("//tr[@class='ui-widget-header']//th");
+        By lblLoadPreviousVersion => By.XPath("//h5[contains(text(),'Load Previous Version')]");
+        By btnShowSamplePDF_LoadPrev => By.XPath("(//div[@id='TemplateLoadPreviousGrid_wrapper']//button[contains(@onclick,'ShowSamplePDF')])[1]");
+        By tblLoadPrevGrid_LoadPrev => By.XPath("//table[@id='TemplateLoadPreviousGrid']");
 
         #endregion
 
@@ -380,6 +385,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         static By iframe_ckeEditor_Header => By.XPath("(//iframe[contains(@class,'wysiwyg')])[2]");
         static By iframe_ckeEditor_Footer => By.XPath("(//iframe[contains(@class,'wysiwyg')])[3]");
         static By iframe_ckeEditor_CoverPage => By.XPath("(//iframe[contains(@class,'wysiwyg')])[4]");
+        static By iframe_tempLoadPrev => By.XPath("//iframe[@id='iframetemploadprv']");
 
         #endregion
 
@@ -4165,11 +4171,40 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         /// <summary>
-        /// 
+        /// clicks and validates the load previous button page
+        /// </summary>
+        public void ClickLoadPreviousButton()
+        {
+            string originalWindow = _driver.CurrentWindowHandle;
+            // Get all window handles
+            IReadOnlyCollection<string> allWindows = _driver.WindowHandles;
+
+            // Switch to the new window
+            foreach (string windowHandle in allWindows)
+            {
+                if (windowHandle != originalWindow)
+                {
+                    _driver.SwitchTo().Window(windowHandle);
+                    break;
+                }
+            }
+
+            seleniumActions.WaitForElementToExists(btnLoadPrevious);
+            seleniumActions.Click(btnLoadPrevious);
+        }
+
+        /// <summary>
+        /// validates the load previous button page
         /// </summary>
         public void ValidateLoadPreviousButtonPage()
         {
-
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblLoadPreviousVersion, 5));
+            seleniumActions.SwitchToIframes(iframe_tempLoadPrev);
+            Assert.IsTrue(seleniumActions.IsElementPresent(lblTempName_LoadPrev,5));
+            Assert.IsTrue(seleniumActions.IsElementPresent(btnShowSamplePDF_LoadPrev,5));
+            Assert.IsTrue(seleniumActions.IsElementPresent(tblLoadPrevGrid_LoadPrev,5));
+            seleniumActions.SwitchToDefaultContent();
+            _driver.Close();
         }
 
         // *********** PDF Template - end of TC-48814 ************ //
