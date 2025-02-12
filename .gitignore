@@ -400,3 +400,4 @@ FodyWeavers.xsd
 /Helpers/Utilities.cs
 /Helpers/ConfigHelper.cs
 /PageObjects/WEB/Dashboard.cs
+/OMNEX.AUTOMATION.csproj
