@@ -182,7 +182,7 @@ Scenario: EwQIMS-47494_To validate whether the system accepts the all special ch
 
 @TC-15
 Scenario: EwQIMS-15739_To validate whether the system accepts the user can enter alphabet (Upper and Lower) in Level Name/Prefix field
-	Given Login to the application with 'right' user
+	Given Login to the application with 'admin' user
 	When Navigate to Levels in suite setup Page
 	And I validate the Levels page
 	Then I validate the level name and prefix field should is accepting upper and lower characters characters as input
@@ -254,6 +254,7 @@ Scenario: EwQIMS-47529_Validate whether the parent level name field displays wit
 	When Navigate to Levels in suite setup Page
 	And I validate the Levels page
 	Then I validate the parent level name field is greyed out before giving input
+
 
 
 	

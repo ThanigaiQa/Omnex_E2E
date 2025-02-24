@@ -4187,7 +4187,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
                     _driver.SwitchTo().Window(windowHandle);
                     break;
                 }
-            }
+            } 
 
             seleniumActions.WaitForElementToExists(btnLoadPrevious);
             seleniumActions.Click(btnLoadPrevious);
