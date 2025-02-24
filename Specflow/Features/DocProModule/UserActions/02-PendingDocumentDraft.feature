@@ -8,7 +8,8 @@ Scenario: TC 01 : DOC_2500_20_10_80_120_180
 	Then Create random Level
 	Then I refresh the page
 	When Navigate to DocPro Setup in suite setup Page
-	Then I make the random level in use
+	Then I search and click the random level in folder management page
+	Then I make the level in use
 	Then I refresh the page
 	Then Navigate to New Document Draft in Documents Page
 	Then I validate the New Document Draft in Documents Page
@@ -48,7 +49,8 @@ Scenario: TC 02 : DOC_2500_20_200_230_250_300_330
 	Then Create random Level
 	Then I refresh the page
 	When Navigate to DocPro Setup in suite setup Page
-	Then I make the random level in use
+	Then I search and click the random level in folder management page
+	Then I make the level in use
 	Then Navigate to New Document Draft in Documents Page
 	Then I validate the New Document Draft in Documents Page
 	And I choose existing level and upload new document in pending doc draft page
@@ -94,7 +96,6 @@ Scenario: TC 02 : DOC_2500_20_200_230_250_300_330
 	Then I validate the Levels page
 	Then Delete the Level
 	
-
 @TC-03
 Scenario: TC 03 : DOC_2500_20_310
  Given Login to the application with 'right' user
@@ -103,7 +104,8 @@ Scenario: TC 03 : DOC_2500_20_310
 	Then Create random Level
 	Then I refresh the page
 	When Navigate to DocPro Setup in suite setup Page
-	Then I make the random level in use
+	Then I search and click the random level in folder management page
+	Then I make the level in use
 	Then Navigate to New Document Draft in Documents Page
 	Then I validate the New Document Draft in Documents Page
 	And I choose existing level and upload new document in pending doc draft page
@@ -140,7 +142,8 @@ Scenario: TC 04  : DOC_2500_20_340
 	Then Create random Level
 	Then I refresh the page
 	When Navigate to DocPro Setup in suite setup Page
-	Then I make the random level in use
+	Then I search and click the random level in folder management page
+	Then I make the level in use
 	Then Navigate to New Document Draft in Documents Page
 	Then I validate the New Document Draft in Documents Page
 	And I choose existing level and upload new document in pending doc draft page
@@ -169,7 +172,6 @@ Scenario: TC 04  : DOC_2500_20_340
 	Then I validate the Levels page
 	Then Delete the Level
 
-
 @TC-05
 Scenario: TC 05 : DOC_2500_20_350
 	Given Login to the application with 'thani' user
@@ -182,7 +184,8 @@ Scenario: TC 05 : DOC_2500_20_350
 	Then Create random Level
 	Then I refresh the page
 	When Navigate to DocPro Setup in suite setup Page
-	Then I make the random level in use
+	Then I search and click the random level in folder management page
+	Then I make the level in use
 	Then I refresh the page
 	Then Navigate to New Document Draft in Documents Page
 	Then I validate the New Document Draft in Documents Page
@@ -239,7 +242,8 @@ Scenario: TC 06 : DOC_2500_20_190
 	Then Create random Level
 	Then I refresh the page
 	When Navigate to DocPro Setup in suite setup Page
-	Then I make the random level in use
+	Then I search and click the random level in folder management page
+	Then I make the level in use
 	Then I refresh the page
 	Then Navigate to New Document Draft in Documents Page
 	Then I validate the New Document Draft in Documents Page
@@ -271,7 +275,8 @@ Scenario: TC 07 : DOC_2500_20_50
 	Then Create random Level
 	Then I refresh the page
 	When Navigate to DocPro Setup in suite setup Page
-	Then I make the random level in use
+	Then I search and click the random level in folder management page
+	Then I make the level in use
 	Then Navigate to New Document Draft in Documents Page
 	Then I validate the New Document Draft in Documents Page
 	And I choose existing level and upload new document in pending doc draft page

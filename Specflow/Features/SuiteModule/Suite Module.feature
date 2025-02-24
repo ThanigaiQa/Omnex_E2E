@@ -8,7 +8,7 @@ Scenario: 01 Verify remember me functionality
 
 @TC-02
 Scenario: 02 Create, Modify & Delete Tags
-	Given Login to the application with 'docpro' user
+	Given Login to the application with 'admin' user
 	When Navigate to 'Master Folder Tags' in suite setup Page
 	Then I click on the add button and Create new tag
 	Then I click the newly created tag and rename the tagname
@@ -43,7 +43,7 @@ Scenario: 05 Creation And Deletion Vendor
 
 @TC-06
 Scenario: 06 Verify Create and Delete Suplier
-	Given Login to the application with 'docpro' user
+	Given Login to the application with 'thani' user
 	When I Navigate to Supplier Information in system Page
 	Then Create Supplier
 	And I refresh the page
@@ -146,7 +146,7 @@ Scenario: 16 Verify the User preferences functionalities
 
 @TC-17
 Scenario: 17 Verify the User is able to create,Modify,delete groups and add and remove users
-	Given Login to the application with 'Thani' user
+	Given Login to the application with 'admin' user
 	When Navigate to 'Groups' in suite setup Page
 	Then I click on the add button and Create new group
 	Then I add user for the created group
@@ -160,7 +160,7 @@ Scenario: 17 Verify the User is able to create,Modify,delete groups and add and 
 
 @TC-18
 Scenario: 18 Verify The User able to Add and Remove the User for Module
-	Given Login to the application with 'docpro' user
+	Given Login to the application with 'admin' user
 	When Navigate to 'Modules' in suite setup Page
 	Then Add User for Module Page
 	And Validate the newely added user
@@ -175,7 +175,7 @@ Scenario: 19 Verify the unlock user functionality
 
 @TC-20
 Scenario: 20 creation and deletion city
-	Given Login to the application with 'thani' user
+	Given Login to the application with 'admin' user
 	When I Navigate to City in system Page
 	Then I Select country "Pondy" and add the city "Madurai"
 	When I Navigate to City in system Page
@@ -184,7 +184,7 @@ Scenario: 20 creation and deletion city
 
 @TC-21
 Scenario: 21 Update data and Validate in Organization profile
-	Given Login to the application with 'thani' user
+	Given Login to the application with 'admin' user
 	When I Navigate to Organization Profile in system Page
 	Then Update the Organization profile details
 

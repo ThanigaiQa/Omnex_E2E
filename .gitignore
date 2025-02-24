@@ -401,3 +401,4 @@ FodyWeavers.xsd
 /Helpers/ConfigHelper.cs
 /PageObjects/WEB/Dashboard.cs
 /OMNEX.AUTOMATION.csproj
+/Specflow/Features/DocProModule/SmokeCases/Smoke Cases.feature.cs

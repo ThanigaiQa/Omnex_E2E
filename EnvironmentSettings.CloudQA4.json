@@ -1,26 +1,25 @@
 {
-    "Environment": "CloudQA4",
-    "Browser": "Chrome",
-    "URL": "https://cloudqa4.ewqims.com/common/EwIMSNew/Index/Index",
-    "AppVersion": "5",
-    "ThaniUser": "Thani",
-    "Password": "test123",
-    "LogSwitch": "enabled",
-    "LogLanguage": "Json",
-    "FailLogLanguage": "Json",
-    "RightsUser": "RightScenario",
-    "DocProUser": "DocProAdmin",
-    "AdminUser": "Administrator",
-    "Adminkaalaa": "kaalaa",
-    "PasswordA1": "a1",
-    "SupplierName": "",
-    "SupplierCode": "",
-    "SupplierEmail": "",
-    "FSQA": "FSQA",
-    "KaalaaUser": "Kaalaa"
-
-
-
+  "Environment": "CloudQA4",
+  "Browser": "Chrome",
+  "URL": "https://automation-qa101.ewqims.com",
+  "AppVersion": "5",
+  "ThaniUser": "Thani",
+  "Password": "test123",
+  "AdministratorPassword": "a1",
+  "LogSwitch": "enabled",
+  "LogLanguage": "Json",
+  "FailLogLanguage": "Json",
+  "RightsUser": "RightScenario",
+  "DocProUser": "DocProAdmin",
+  "AdminUser": "Administrator",
+  "Adminkaalaa": "kaalaa",
+  "PasswordA1": "a1",
+  "SupplierName": "",
+  "SupplierCode": "",
+  "SupplierEmail": "",
+  "FSQA": "FSQA",
+  "Dummy": "dummy",
+  "Noaccess": "Noaccess"
 }
 
 

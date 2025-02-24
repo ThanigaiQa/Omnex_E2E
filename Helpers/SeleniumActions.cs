@@ -430,8 +430,9 @@ namespace OMNEX.AUTOMATION.Helpers
         /// </summary>
         /// <param name="by"></param>
         /// <returns>Boolean true or false</returns>
-        public bool VerifyElementIsDisplayed(By by)
+        public bool VerifyElementIsDisplayed(By by, int seconds = 40)
         {
+            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(seconds));
             return _driver.FindElement(by).Displayed;
         }
 
@@ -496,6 +497,7 @@ namespace OMNEX.AUTOMATION.Helpers
             foreach (var iframe in iframeLocators)
             {
                 IWebElement iframeElement = _driver.FindElement(iframe);
+                Thread.Sleep(2000);
                 _driver.SwitchTo().Frame(iframeElement);
             }
         }

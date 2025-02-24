@@ -58,6 +58,12 @@ namespace OMNEX.AUTOMATION.Helpers
         {
             return GetConfig()["Password"];
         }
+
+        public static string AdminPassword()
+        {
+            return GetConfig()["AdministratorPassword"];
+        }
+
         public static string GetAppVersion()
         {
             return GetConfig()["AppVersion"];
@@ -81,6 +87,21 @@ namespace OMNEX.AUTOMATION.Helpers
         public static string GetKaalaaUser()
         {
             return GetConfig()["KaalaaUser"];
+        }
+
+        public static string Dummy()
+        {
+            return GetConfig()["Dummy"];
+        }
+
+        public static string NoAccess()
+        {
+            return GetConfig()["Noaccess"];
+        }
+
+        public static string Administrator()
+        {
+            return GetConfig()["AdminUser"];
         }
 
     }

@@ -2,23 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OMNEX.AUTOMATION.Data.WEB;
 using OMNEX.AUTOMATION.Helpers;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
-using System.Reflection.Metadata;
-using System.Diagnostics;
-using System.Security.Cryptography.X509Certificates;
 using System.Reflection;
-using System.Diagnostics.Metrics;
-using System.Collections.Generic;
-using System.Xml.Linq;
-using System.Reactive.Subjects;
-using Amazon.DynamoDBv2.DocumentModel;
-using OpenQA.Selenium.Interactions;
-using Amazon.DynamoDBv2.Model;
-using AventStack.ExtentReports.Gherkin.Model;
-using TechTalk.SpecFlow.CommonModels;
-using Amazon.SecretsManager.Model.Internal.MarshallTransformations;
 
 namespace OMNEX.AUTOMATION.PageObjects.WEB
 {
@@ -85,11 +70,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btnClose_TeamsPage => By.XPath("//button[@title='Close']");
         By tblRow => By.XPath("//tbody/tr[@role='row']");
         By btnNew => By.XPath("//button[@title='New']");
-
         By lblSuitSetUp => By.XPath("//div[@class='sub-menu']//span[contains(text(),'Suit Setup')]");
-
-        /***************TC03 Xpaths**********************/
-
         By drpCountry => By.XPath("//span[contains(@id,'Country') or @id='select2-ddl_Site-container']");
         By txtSearchCountry => By.XPath("//*[@class='select2-search__field']");
         By btnAddState => By.XPath("//li[@id='dbtnadd']");
@@ -100,9 +81,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By chkState => By.XPath("//input[@name='Grid_StateListing_selectCheck']");
         By btnYes => By.Id("popup_ok");
         By btnDelete => By.Id("dbtndelete");
-
-        /***************TC04 Xpaths**********************/
-
         By inp_ShiftName => By.XPath("//input[@id='txtShiftName']");
         By dtp_FromTime => By.XPath("//div[@class='input-group-append']//span[contains(@onClick,'txtFromTime')]");
         By dtp_ToTime => By.XPath("//div[@class='input-group-append']//span[contains(@onClick,'txtToTime')]");
@@ -147,47 +125,27 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By ddlContains_MultiSearch => By.XPath("//div[@class='dtsb-criteria']//select//option[@value='contains']");
         By inp_MultiSearch => By.XPath("//input[@class='dtsb-value dtsb-input']");
         By btnAdvancedSearch_MultiSearch => By.XPath("//button[@title='Advanced Search']");
-
-        /*************** TC01 Xpaths**********************/
-
         By btnUserIconProfile => By.XPath("//li[@id='profiledrop']/a/img");
         By btnLogout => By.XPath("//*[@id='logout']");
         By lblRememberme => By.XPath("//label[@for='chkremup']");
         By chk_PreferredManufacturer => By.XPath("//label[@for='chkPreManuf']");
         By ddlManufacturerName_MultiSearch => By.XPath("(//div[@class='dtsb-criteria']//select//option[contains(text(),'Manufacturer Name')])[1]");
-
-        /***************TC13 Xpaths**********************/
-
         By inp_CountryName => By.XPath("//input[@id='txtCountryName']");
-
-        /***************TC05 Xpaths**********************/
-
         By inp_VendorName => By.XPath("//input[@id='txtName']");
         By inp_VendorCode => By.XPath("//input[@id='txtCode']");
         By chk_PreferredVendor => By.XPath("//label[contains(text(), 'Preferred Vendor')]");
         By ddl_VendorNameMultiSearch => By.XPath("(//div[@class='dtsb-criteria']//select//option[contains(text(),'Vendor Name')])[1]");
-
-        /***************TC21Xpaths**********************/
-
         By btn_CompanyLogoLarge => By.XPath("(//label[contains(text(),'Recommended Dimensions: 380 x 133 pixels')]//parent::div)[1]//following::button[@id='btnAttachCompanylogolarge']");
         By btn_CompanyLogomedium => By.XPath("//*[contains(@id,\"btnAttachCompanylogomedium\")]");
         By btn_ChooseFile => By.XPath("//input[@id='LocalImg']");
         By btn_DoneFile => By.XPath("//button[@id='butSave']");
         By btn_ProductLogo => By.XPath("//*[@id = 'btnAttachProductlogo'][1]");
-
-        /***************TC11 Xpaths**********************/
-
         By btn_Add => By.XPath("//button[@id='btnSave']");
         By drp_Site => By.XPath("//select[@id='selectSiteId']");
         By inp_RightSite => By.XPath("//select[@id='selectSiteId']//option[3]");
         By inp_Position => By.XPath("//input[@id='txtPosition']");
         By inp_Description => By.XPath("//div//textarea[@id='txtDescription']");
         By btn_SaveForPosition => By.XPath("(//button[@id='btnSave'])[2]");
-
-        /***************TC22 Xpaths**********************/
-
-        /***************TC20 Xpaths**********************/
-
         By txt_City => By.Id("City");
         By inp_CountrySearch => By.XPath("//input[contains(@class, 'search')]");
         By drp_PaswordFormat => By.XPath("//*[contains(@id,'ddlListPwdFormat-container')]");
@@ -234,12 +192,10 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By txt_AgendaDate => By.XPath("//input[@name='sDate']");
         By lbl_TitleAgenda => By.XPath("//div[@id='headingMeetingagenda']");
         By chk_Meeting1 => By.XPath("(//input[@name='meetinitial_selectCheck'])[1]");
-
-        // ***************TC11 Xpaths********************** //
         By txtEntityName => By.XPath("//input[@id='tblEntityName']");
         By svgAddContactPersonIcon => By.XPath("//*[local-name()='svg' and @data-icon='user-plus']");
         By tbl_GeoLocationOwers => By.XPath("(//div[@id='divMultiSelectTree'])[1]");
-        By imgPlusIcon_EntityPage => By.XPath("//img[@id='plusimg3']");
+        By imgPlusIcon_EntityPage => By.XPath("(//img[contains(@id,'plusimg')])[1]");
         By lblDeleteRightClick_EntityPage => By.XPath("//ul[@id='contextmenu']//li[@id='liDelete']");
         By ddlHighlightedCountry => By.XPath("//li[contains(@class,'option--highlighted')]");
         By btnDelete_Country => By.XPath("//button[@id='btnDeleteCountry']");
@@ -264,7 +220,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By txt_ManufactureAddress => By.Id("txtAddress");
         By ddp_SupplierCategory => By.XPath("//span[@id='select2-cmbCategory-container']");
         By ddl_SupplierCategory => By.XPath("(//span[contains(text(), 'Trader')])[2]");
-        By ddp_SupplierType => By.XPath("//span[@id='select2-cmbSupplierType-container']");
+        By ddp_SupplierType => By.XPath("(//span[@id='select2-cmbSupplierType-container']//span)[1]");
         By ddl_SupplierType => By.XPath("(//span[contains(text(), 'Legacy Vendor')])[2]");
         By txt_QMSCertificationExpirydate => By.XPath(" //input[@id='2321']");
         By txt_NaturofPropsed => By.Id("txtNaturofPropsed");
@@ -272,7 +228,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By svg_SupplierQmIcon => By.XPath("//div[@id='tdSQM']//following::span[@id='imgSelectTeamSQM']");
         By ddl_SupplierSearch => By.XPath("//select[@id='filtercolumn_SuSupplierGridViewControl']//following::option[@value='Name']");
         By ddp_SupplierSearch => By.Id("filtercolumn_SuSupplierGridViewControl");
-
         By lnkForgotPassword => By.XPath("//a[@onclick='ValidatePasswordDialog()']");
         By txtUsername_ForgotPwd => By.XPath("//input[@id='fgtUsername']");
         By txtEmpCode_ForgotPwd => By.XPath("//input[@id='fgtEmpcode']");
@@ -285,8 +240,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By btnLogin => By.XPath("(//button[@type='button'])[2]");
         By txtEmailLogin => By.XPath("//input[@id='txtUsername']");
         By txtPasswordLogin => By.XPath("//input[@id='txtPassword']");
-
-        // ***************TC17 Xpaths********************** //
         By btn_AddGroup => By.XPath("//button[@id='btn_add_hold']");
         By inp_GroupName => By.XPath("//input[@id='0_groupname']");
         By btn_SaveGroup => By.XPath("//button[@id='btnSaveDetails_SuGroupsGridViewControl']");
@@ -312,8 +265,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By imgMonthArrowDown => By.XPath("(//select[contains(@id,'CmbDateFormat')])[2]");
         By ddl_MM_DateFormat => By.XPath("(//select[contains(@id,'CmbDateFormat')])[2]//option[@value='MM']");
         By lblSavedSuccessfully => By.XPath("//div[contains(@class,'alert-success')]");
-
-        // ***************TC19 Xpaths********************** //
         By drp_UnlockUserSearch => By.XPath("//select[contains(@id,'UnlockUsersListing')]");
         By ddlUsername_UnlockUser => By.XPath("//select[contains(@id,'UnlockUsersListing')]//option[@value='username']");
         By btn_UnlockUsers => By.XPath("//button[@title='Unlock Users']");
@@ -324,19 +275,15 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         By chkChangeLoginPwdActive_Preferences => By.XPath("//input[@id='EnableLoginPW' and @checked='checked']");
         By btnSave_Preferences => By.XPath("(//button[@title='Save'])[2]");
         By lblPreferences => By.XPath("(//ul[@class='inner_submenu']//a[@title='Preferences']//span[contains(text(),'Preferences')])[2]");
-
-
-        #endregion
-
         By ewqimsLogo => By.XPath("//img[@id='mainlogolistmodules']");
         By supplierPlatformName => By.XPath("//li/a/*[@data-icon='shopping-cart']");
-
         By menuBars => By.XPath("//*[@data-icon='bars']");
         By clickDoneUser => By.XPath("//button[@title='Done']");
 
-        
+        #endregion
+
         #region Iframe
-        static  By iframe_DetailView => By.XPath("//iframe[@name='Detailview']");
+        static By iframe_DetailView => By.XPath("//iframe[@name='Detailview']");
         static By iframe_Tree => By.XPath("//iframe[@id='iframeTree']");
         static By iframe_ifrUsers => By.XPath("//iframe[@id='ifrUsers']");
         static By iframe_ifrAlbum => By.XPath("(//iframe[@id='ifrAlbum'])[1]");
@@ -357,8 +304,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         /// <summary>
         /// This method help us to navigate into teams page inside the system
-        /// </summary>
-        public void NavigateToSystemPage(String SubHead)
+        /// </summary>s
+        public void NavigateToSystemPage(string SubHead)
         {
             if (seleniumActions.IsElementPresent(sideMenuContainer))
             {
@@ -367,7 +314,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
                 seleniumActions.Click(lblSystem);
                 seleniumActions.Wait(2);
                 seleniumActions.ScrollToElement(By.XPath("(//a[@class='submenu_list_link has-arrow']//following-sibling::ul[@class='inner_submenu']//span[contains(text(),'" + SubHead + "')])[2]"));
-                seleniumActions.Click(By.XPath("(//a[@class='submenu_list_link has-arrow']//following-sibling::ul[@class='inner_submenu']//span[contains(text(),'" + SubHead + "')])[2]"));
+                seleniumActions.ClickThroughJavaScript(By.XPath("(//a[@class='submenu_list_link has-arrow']//following-sibling::ul[@class='inner_submenu']//span[contains(text(),'" + SubHead + "')])[2]"));
             }
         }
 
@@ -636,10 +583,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(drpCountry_AddAddress);
             seleniumActions.ScrollToElement(ddlIndia_AddAddress);
             seleniumActions.Click(ddlIndia_AddAddress);
-            seleniumActions.Click(drpState_AddAddress);
-            seleniumActions.Click(ddlTamilnadu_AddAddress);
-            seleniumActions.Click(drpCity_AddAddress);
-            seleniumActions.Click(ddlChennai_AddAddress);
             seleniumActions.Click(txtZipCode_AddAddress);
             seleniumActions.SendKeys(txtZipCode_AddAddress, "600012");
             seleniumActions.Click(btnSave_AddAddress);
@@ -926,7 +869,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(btn_Save);
             Assert.IsTrue(seleniumActions.IsElementPresent(msgSaveSuccessfully));
             seleniumActions.SwitchToDefaultContent();
-
         }
 
         // ***************** End of TC 21 ************ //
@@ -1041,7 +983,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
                     Assert.IsTrue(seleniumActions.IsElementPresent(lblSuccess_Message), "Success smessage not display");
                 }
             }
-
             seleniumActions.SwitchToDefaultContent();
         }
 
@@ -1146,7 +1087,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToFrame(iframe_ifrUsers);
             seleniumActions.Wait(3);
             seleniumActions.Click(phd_Name);
-            seleniumActions.SendKeys(phd_Name, "donot-Delete");
+            seleniumActions.SendKeys(phd_Name, "Thani-k");
             seleniumActions.Wait(3);
             Assert.IsTrue(seleniumActions.IsElementPresent(lblTeamLeader_SearchResult));
             seleniumActions.Click(chkTeamLeaderInactive);
@@ -1172,7 +1113,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToIframes(iframe_ifrUsers);
             seleniumActions.Wait(3);
             seleniumActions.Click(phd_Name);
-            seleniumActions.SendKeys(phd_Name, "donot-Delete");
+            seleniumActions.SendKeys(phd_Name, "Thani-k");
             seleniumActions.Wait(2);
             Assert.IsTrue(seleniumActions.IsElementPresent(lblTeamLeader_SearchResult));
             seleniumActions.Click(chkTeamLeaderInactive);
@@ -1191,8 +1132,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToFrame(iframe_DetailView);
             Assert.IsTrue(seleniumActions.IsElementPresent(imgPlusIcon_EntityPage));
             seleniumActions.Click(imgPlusIcon_EntityPage);
-            seleniumActions.Click("//ul[@id='Folder3']//a[contains(text(),'" + entityName + "')]");
-            seleniumActions.ContextClick(By.XPath("//ul[@id='Folder3']//a[contains(text(),'" + entityName + "')]"));
+            seleniumActions.Click("//ul[@id='Folder9']//a[contains(text(),'" + entityName + "')]");
+            seleniumActions.ContextClick(By.XPath("//ul[@id='Folder9']//a[contains(text(),'" + entityName + "')]"));
             seleniumActions.Click(lblDeleteRightClick_EntityPage);
             seleniumActions.Click(btnYes_Popup);
             seleniumActions.Wait(2);
@@ -1459,6 +1400,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(btn_UserDone);
 
             // ** Fills mandatory fields to create supplier ** //
+            seleniumActions.Wait(2);
             seleniumActions.Click(ddp_SupplierType);
             seleniumActions.Click(ddl_SupplierType);
             seleniumActions.Wait(3);
@@ -1985,7 +1927,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(ewqimsLogo);
             seleniumActions.Click(supplierPlatformName);
             seleniumActions.Wait(3);
-
         }
 
         /// <summary>
@@ -2008,7 +1949,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(By.XPath("//ul[@id='submenu']/li/a/span[text()='"+subMenu+"']"));           
             if (!String.Equals(innerMenu,""))
             {
-                
                 seleniumActions.Wait(2);
                 if (!seleniumActions.VerifyElementIsDisplayed(By.XPath("(//ul[@class='inner_submenu']//a[@title='" + innerMenu + "']//span[contains(text(),'" + innerMenu + "')])[2]"))) ;
                 {
@@ -2018,10 +1958,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
                 }
                 seleniumActions.MoveToElement(By.XPath("(//ul[@class='inner_submenu']//a[@title='" + innerMenu + "']//span[contains(text(),'" + innerMenu + "')])[2]"));
                 seleniumActions.ActionsClick(By.XPath("(//ul[@class='inner_submenu']//a[@title='" + innerMenu + "']//span[contains(text(),'" + innerMenu + "')])[2]"));
-
             }
-
-
         }
 
         public void SelectTheUser(String userName)
@@ -2039,7 +1976,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToDefaultContent();
             seleniumActions.SwitchToFrame(iframe_DetailView);
             seleniumActions.Click(clickDoneUser);
-
         }
 
         // ***************** End of TC 19 ************ //

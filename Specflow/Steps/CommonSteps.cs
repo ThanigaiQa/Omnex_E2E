@@ -51,12 +51,11 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
                     loginPage.LoginToApp(ConfigHelper.GetThaniUser(), ConfigHelper.GetPassword());
                     break;
                 case "admin":
-                    loginPage.LoginToApp(ConfigHelper.GetAdminUser(), ConfigHelper.GetPassword());
+                    loginPage.LoginToApp(ConfigHelper.GetAdminUser(), ConfigHelper.AdminPassword());
                     break;
-                case "kaalaa":
-                    loginPage.LoginToApp(ConfigHelper.GetKaalaaUser(), ConfigHelper.GetPassword());
+                case "dummy":
+                    loginPage.LoginToApp(ConfigHelper.Dummy(), ConfigHelper.GetPassword());
                     break;
-
             }
         }
 
@@ -67,10 +66,12 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         [Then(@"I validate the Levels page")]
+        [When(@"I validate the Levels page")]
         public void ThenIValidateTheLevelsPage()
         {
             docProModule.validateLevelsPage();
         }
+
 
         [When(@"Create (.*) Level")]
         [Then(@"Create (.*) Level")]
@@ -78,6 +79,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         {
             scenarioContext["LevelName"] = docProModule.CreateLevel(levelname);
         }
+
 
         [When(@"Edit the Level")]
         public void WhenEditTheLevel()
@@ -123,10 +125,10 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
             dashboard.NavigateToUsersPage(subHead);
         }
 
-        [Then(@"I make the (.*) level in use")]
-        public void ThenIMakeTheLevelInUse(string levelName)
+        [Then(@"I make the level in use")]
+        public void ThenIMakeTheLevelInUse()
         {
-            docProModule.MakeLevelInUse(scenarioContext["LevelName"].ToString());
+            docProModule.MakeLevelInUse();
         }
 
         [Then(@"Navigate to (.*) in Documents Page")]
@@ -138,7 +140,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         [Then(@"I validate the (.*) in Documents Page")]
         public void ThenIValidateTheInDocumentsPage(string subHead)
         {
-            switch(subHead)
+            switch (subHead)
             {
                 case "Setup":
                     break;
@@ -189,7 +191,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         [Then(@"I verify the status value of the document as (.*)")]
         public void ThenIVerifyTheStatusValueOfTheDocumentAs(string status)
         {
-            switch(status)
+            switch (status)
             {
                 case "In Process":
                     docProModule.ValidateDocumentStatus(status);
@@ -283,7 +285,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         {
             docProModule.DeleteDocumentInToc();
         }
-        
+
         [Then(@"I search for rights in document rights page")]
         public void ThenISearchForRightsInDocumentRightsPage()
         {
@@ -298,7 +300,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
         }
 
         [When(@"I click on (.*) menu")]
-        
+
         public void WhenIClickOnMenu(string menu)
         {
             switch (menu)
@@ -308,7 +310,7 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
                     break;
                 case "Draft Request Needing Viewing":
                     docProModule.ClickDraftReqNeedingViewingMenu();
-                        break;
+                    break;
                 case "Pending Requests":
                     docProModule.ClickPendingRequestsMenu();
                     break;
@@ -351,6 +353,94 @@ namespace OMNEX.AUTOMATION.Specflow.Steps
                     docProModule.DisableInterfaceAgreementButton();
                     break;
             }
+        }
+
+        [Then(@"I search and click the (.*) level in folder management page")]
+        [When(@"I search and click the (.*) level in folder management page")]
+        public void ThenISearchAndClickTheLevelInFolderManagementPage(string levelName)
+        {
+            docProModule.SearchAndClickLevelInFolderManagement(scenarioContext["LevelName"].ToString());
+        }
+
+        [Then(@"I Open the Right for Sites for the level")]
+        public void ThenIOpenTheRightForSitesForTheLevel()
+        {
+            docProModule.RightForSites(scenarioContext["LevelName"].ToString());
+        }
+
+        [Then(@"I Validate the Right click options")]
+        [When(@"I Validate the Right click options")]
+        public void ThenIValidateTheRightClickOptions()
+        {
+            docProModule.ValidateLevelRightClicksOPtion(scenarioContext["LevelName"].ToString());
+        }
+
+        [Then(@"I search and click (.*) level in the folder management page")]
+        public void ThenISearchAndClickLevelInTheFolderManagementPage(string level)
+        {
+            switch(level)
+            {
+                case "edited":
+                    docProModule.SearchAndClickEditedLevelInFolderManagement(scenarioContext["EditedLevelName"].ToString());
+                    break;
+                case "ReEdited":
+                    docProModule.SearchAndClickReEditedLevelInFolderManagement(scenarioContext["EditedLevelAfterInUse"].ToString());
+                    break;
+            }
+        }
+
+        [When(@"Edit the Level after in use")]
+        public void WhenEditTheLevelAfterInUse()
+        {
+            scenarioContext["EditedLevelAfterInUse"] = docProModule.EditLevelAfterInUse(scenarioContext["EditedLevelName"].ToString());
+        }
+
+        [Then(@"Right click the level and select the new button to create the sublevel")]
+        public void ThenRightClickTheLevelAndSelectTheNewButtonToCreateTheSublevel()
+        {
+           docProModule.RightClickNewAndCreateSubLevel(scenarioContext["LevelName"].ToString(), scenarioContext["SubfolderLevelName"].ToString());
+        }
+
+        [When(@"I Validate the Right click options new and edit enable")]
+        public void WhenIValidateTheRightClickOptionsNewAndEditEnable()
+        {
+            docProModule.ValidateEditNewOptionIsEnabledBeforeLevelInuse();
+        }
+
+        [Then(@"I Validate the New and Delete option disable in Right click options")]
+        public void ThenIValidateTheNewAndDeleteOptionDisableInRightClickOptions()
+        {
+            docProModule.ValidateNewDeleteOptionIsDisabledAfterLevelInuse();
+        }
+
+        [Then(@"Delete the Re Edited Level")]
+        public void ThenDeleteTheReEditedLevel()
+        {
+            docProModule.DeleteReEditedLevelByHovering(scenarioContext["EditedLevelAfterInUse"].ToString());
+        }
+
+        [Then(@"Validate the Reset button")]
+        public void ThenValidateTheResetButton()
+        {
+            docProModule.ValidateResetScenario();
+        }
+
+        [Then(@"Validate Review frequency must be numeric")]
+        public void ThenValidateReviewFrequencyMustBeNumeric()
+        {
+            docProModule.ValidateReviewFrequencyMustBeNumeric();
+        }
+
+        [Then(@"Validate whether the system can accept the Document reviewed after greater than (.*) Days")]
+        public void ThenValidateWhetherTheSystemCanAcceptTheDocumentReviewedAfterGreaterThanDays(int p0)
+        {
+             docProModule.ValidateDayDocumentReviewedFieldAcceptDigits();
+        }
+
+        [Then(@"I Validate the level name is already being used warning for duplicate level creation")]
+        public void ThenIValidateTheLevelNameIsAlreadyBeingUsedWarningForDuplicateLevelCreation()
+        {
+            docProModule.ValidateTheDuplicateLevelCreationAlert();
         }
 
         #endregion
