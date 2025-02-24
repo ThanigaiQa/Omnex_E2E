@@ -429,7 +429,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
                 levelName = "Automation-" + utility.CurrentTime();
             }
 
-            //seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
+            seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
             seleniumActions.SwitchToFrame(iframe_Tree);
             seleniumActions.Click(inpLevelNumber);
             seleniumActions.Click(popUp_Yes);
@@ -491,7 +491,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// <summary>
         /// Validate the Review Frequency must be numeric alert popup
         /// </summary>
-
         public void ValidateDayDocumentReviewedFieldAcceptDigits()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Tree);
@@ -505,10 +504,12 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToDefaultContent();
         }
 
-
+        /// <summary>
+        /// selects site sub level creation checkbox
+        /// </summary>
         public void SelectSiteSubLevelCreationCheckbox()
         {
-            //seleniumActions.SwitchToFrame(iframe_DetailView);
+            seleniumActions.SwitchToFrame(iframe_DetailView);
             seleniumActions.SwitchToFrame(iframe_Tree);
             seleniumActions.Click(chk_SiteSubLevel);
             seleniumActions.Click(btn_save);
@@ -926,7 +927,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.IsElementPresent(drp_RightsForGroup), "unable to find Rights for group option");
             seleniumActions.Click(drp_RightsForGroup);
             seleniumActions.SwitchToDefaultContent();
-
         }
 
         /// <summary>
@@ -1117,6 +1117,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(btn_Continue_Toc);
             seleniumActions.SwitchToDefaultContent();
         }
+
         /// <summary>
         /// Verifies the Assigm Author menu is present
         /// </summary>
@@ -1127,6 +1128,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(menu_AssignAuthor);
             seleniumActions.SwitchToDefaultContent();
         }
+
         /// <summary>
         /// Searches the Authors in actions page
         /// </summary>
@@ -1162,7 +1164,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Wait(2);
             seleniumActions.SwitchToDefaultContent();
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions, iframe_ifrUsers);
-            //seleniumActions.Wait(3);
+            seleniumActions.Wait(3);
             seleniumActions.Click(hintSearch);
             seleniumActions.SendKeys(hintSearch, "DocPro");
             seleniumActions.Wait(3);
@@ -1171,8 +1173,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.ScrollToPosition(0, 1000);
             seleniumActions.Click(btn_UserDone);
             seleniumActions.Wait(3);
-            //seleniumActions.SwitchToParentFrame();
-            //seleniumActions.Click(btn_DoneBusinessRule);
+            seleniumActions.SwitchToParentFrame();
+            seleniumActions.Click(btn_DoneBusinessRule);
             seleniumActions.Click(btn_SaveAuthor);
             seleniumActions.SwitchToDefaultContent();
         }
@@ -1187,6 +1189,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(menu_DocumentsNeedingRevision);
             seleniumActions.SwitchToDefaultContent();
         }
+
         /// <summary>
         /// this method is used to attach document
         /// </summary>
@@ -1205,6 +1208,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(btn_Continue);
             seleniumActions.SwitchToDefaultContent();
         }
+
         /// <summary>
         ///  Gives full access for new doc access and doc access
         /// </summary>
@@ -1289,7 +1293,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         /// <summary>
         /// this method helps to click the statusValue link
         /// </summary>
-        /// 
         public void ClickStatusValueLink()
         {
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_Actions);
@@ -1453,6 +1456,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         // *********** UA - 02 : Pending Doc Draft - End of TC 06 ************ //
 
+        /// <summary>
+        /// Changes the corporate to right site
+        /// </summary>
         public void ChangeTheCorporateToRightSite()
         {
             seleniumActions.Click(ddp_Corporate);
@@ -1460,7 +1466,7 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
         }
 
         /// <summary>
-        /// Change the site from "Corporate" to "Right Site"
+        /// Change the site from "Right Site" to "corporate"
         /// </summary>
         public void ChangeTheRightSiteToCorporate()
         {
@@ -1621,7 +1627,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Click(tbl_NewestComments);
             Assert.IsTrue(seleniumActions.GetText(txtbox_commentsBox).Equals(Constants.NewComment), "Comment is not present in the tab");
             seleniumActions.SwitchToDefaultContent();
-
         }
 
         /// <summary>
@@ -1762,12 +1767,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.IsElementPresent(rdo_Reject), "reject radio button is not present");
             seleniumActions.Click(rdo_Reject);
             seleniumActions.SwitchToDefaultContent();
-
         }
 
         // *********** UA - 03 : Draft Req Needing Viewing - End of TC 01 ************ //
-
-
 
         // *********** UA - 03 : Draft Req Needing Viewing - Start of TC 02 ************ //
 
@@ -1802,7 +1804,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             string badgeColor = seleniumActions.FindElement(badge_Accepted_Comment).GetCssValue("background-color");
             Assert.IsTrue(badgeColor.Equals(Constants.AcceptedBadgeColorCode));
             seleniumActions.SwitchToDefaultContent();
-
         }
 
         /// <summary>
@@ -2284,7 +2285,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
 
         // *********** FM - 04 : Create and delete levels - End of TC-21857,61,63-67,69 ************ //
 
-
         // *********** FM - 05 : Rights for level - Start of TC 21875 ************ //
 
         /// <summary>
@@ -2342,8 +2342,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.Wait(2);
             Assert.IsTrue(seleniumActions.GetText(heading_ManageSiteDocument).Equals("Manage Site Document Access - " + LevelName));
             seleniumActions.SwitchToDefaultContent();
-
         }
+
         // *********** FM - 05 : Rights for level - End of TC 21875 ************ //
 
         // *********** FM - 05 : Rights for level - Start of TC 21872 ************ //
@@ -2876,9 +2876,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.IsElementPresent(ddl_New_Enabled), "New folder drpdown is disabled");
             Assert.IsTrue(seleniumActions.IsElementPresent(ddl_Delete_Disabled), "Delete folder drpdown is enabled");
             Assert.IsTrue(seleniumActions.IsElementPresent(ddl_Edit_Enabled), "Edit folder drpdown is disabled");
-
             seleniumActions.SwitchToDefaultContent();
         }
+
         // *********** FM - 10 : Suite Levels - End of TC02 - DOC-FM-100-020 ************ //
 
         // *********** FM - 10 : Suite Levels - Start of TC 01 - DOC-FM-100-010************ //
@@ -2952,9 +2952,9 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             Assert.IsTrue(seleniumActions.IsElementPresent(ddl_New_Enabled), "New folder drpdown is Enabled");
             Assert.IsTrue(seleniumActions.IsElementPresent(ddl_Delete_Enable), "Delete folder drpdown is enabled");
             Assert.IsTrue(seleniumActions.IsElementPresent(ddl_Edit_Enabled), "Edit folder drpdown is disabled");
-
             seleniumActions.SwitchToDefaultContent();
         }
+
         // *********** FM - 10 : Suite Levels - End of TC02 - DOC-FM-100-020 ************ //
 
         // *********** FM - 10 : Suite Levels - Edit level before and after In use ************ //
@@ -3135,7 +3135,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToIframes(iframe_DetailView, iframe_MenuData, iframe_Tree);
             Assert.IsTrue(seleniumActions.IsElementPresent(lnk_TagSelect), "tag selection is not present");
             seleniumActions.SwitchToDefaultContent();
-
         }
 
         // *********** End of EwQIMS_10820_Display selected Tags in Folder Management -************ //
@@ -3739,8 +3738,6 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             seleniumActions.SwitchToDefaultContent();
         }
 
-
-
         /// <summary>
         /// deletes newly created template in pdf template
         /// </summary>
@@ -3994,8 +3991,8 @@ namespace OMNEX.AUTOMATION.PageObjects.WEB
             actions.SendKeys(Keys.ArrowUp).SendKeys(Keys.Enter).Perform();
            
             seleniumActions.SwitchToFrame(iframe_ckeEditor_CoverPage);
-            //string txtCoverDetails = seleniumActions.GetText(txtCoverPageDetails);
-            //Assert.IsTrue(txtCoverDetails.Contains("Review Date"));
+            string txtCoverDetails = seleniumActions.GetText(txtCoverPageDetails);
+            Assert.IsTrue(txtCoverDetails.Contains("Review Date"));
             seleniumActions.SwitchToDefaultContent();
 
             _driver.Close();

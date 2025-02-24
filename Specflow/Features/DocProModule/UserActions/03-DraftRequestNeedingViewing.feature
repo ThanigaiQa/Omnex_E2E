@@ -34,16 +34,16 @@ Scenario: TC 01 : DOC-2500-40-10-50
 	Then I reject the draft request in Draft Request Needing Viewing menu
 	Then I add comment in the draft
 	Then Logout from the application
-	#Then Login to the application with 'thani' user
-	#When I click on Pending Document Drafts menu
-	#Then I search the document
-	#Then I click on the hamburger menu
-	#And I verify the status value of the document as In Process
-	#Then I Terminate the document
-	#Then I click on the hamburger menu
-	#When Navigate to Levels in suite setup Page
-	#Then I validate the Levels page
-	#Then Delete the Level
+	Then Login to the application with 'thani' user
+	When I click on Pending Document Drafts menu
+	Then I search the document
+	Then I click on the hamburger menu
+	And I verify the status value of the document as In Process
+	Then I Terminate the document
+	Then I click on the hamburger menu
+	When Navigate to Levels in suite setup Page
+	Then I validate the Levels page
+	Then Delete the Level
 
 @TC-02
 Scenario: TC 02 : DOC-2500-40-60-100
